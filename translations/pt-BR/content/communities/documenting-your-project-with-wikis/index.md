@@ -1,7 +1,7 @@
 ---
-title: Documenting your project with wikis
+title: Documentar seu projeto com wikis
 shortTitle: Using wikis
-intro: 'You can use a wiki to share detailed, long-form information about your project.'
+intro: Você pode usar um wiki para compartilhar informações longas e detalhadas sobre seu projeto.
 redirect_from:
   - /categories/49/articles
   - /categories/wiki
@@ -23,5 +23,11 @@ children:
   - /viewing-a-wikis-history-of-changes
   - /changing-access-permissions-for-wikis
   - /disabling-wikis
+ms.openlocfilehash: a8d90ea14031f629ae764847c18b09f922f57365
+ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
+ms.translationtype: HT
+ms.contentlocale: pt-BR
+ms.lasthandoff: 09/05/2022
+ms.locfileid: '145084130'
 ---
 

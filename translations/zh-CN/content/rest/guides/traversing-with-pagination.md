@@ -2,7 +2,7 @@
 title: Traversing with pagination
 intro: Explore how to use pagination to manage your responses with some examples using the Search API.
 redirect_from:
-  - /guides/traversing-with-pagination/
+  - /guides/traversing-with-pagination
   - /v3/guides/traversing-with-pagination
 versions:
   fpt: '*'
@@ -109,7 +109,7 @@ pagination, so let's write a little Ruby script that does everything we've
 just described above.
 
 As always, first we'll require [GitHub's Octokit.rb][octokit.rb] Ruby library, and
-pass in our [personal access token][personal token]:
+pass in our [{% data variables.product.pat_generic %}][personal token]:
 
 ``` ruby
 require 'octokit'

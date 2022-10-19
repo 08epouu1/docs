@@ -1,6 +1,6 @@
 ---
-title: Guides
-intro: 'Learn about getting started with GraphQL, migrating from REST to GraphQL, and how to use the GitHub GraphQL API for a variety of tasks.'
+title: Guías
+intro: 'Aprende sobre como emepzar con GraphQL, migrarte desde REST hacia GraphQL, y cómo utilizar la API de GraphQL de GitHub para tareas diversas.'
 redirect_from:
   - /v4/guides
 versions:
@@ -19,5 +19,11 @@ children:
   - /managing-enterprise-accounts
   - /using-the-graphql-api-for-discussions
   - /migrating-graphql-global-node-ids
+ms.openlocfilehash: a87c50bc652766b8a23845ea1ace011c41da5131
+ms.sourcegitcommit: fb047f9450b41b24afc43d9512a5db2a2b750a2a
+ms.translationtype: HT
+ms.contentlocale: es-ES
+ms.lasthandoff: 09/11/2022
+ms.locfileid: '145069746'
 ---
 

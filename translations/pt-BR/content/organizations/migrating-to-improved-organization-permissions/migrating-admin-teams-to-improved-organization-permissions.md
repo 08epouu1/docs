@@ -1,6 +1,6 @@
 ---
-title: Migrating admin teams to improved organization permissions
-intro: 'If your organization was created after September 2015, your organization has improved organization permissions by default. Organizations created before September 2015 may need to migrate older Owners and Admin teams to the improved permissions model. Members of legacy admin teams automatically retain the ability to create repositories until those teams are migrated to the improved organization permissions model.'
+title: Migrar uma equipe de administradores para permissões de organização aprimoradas
+intro: 'Se sua organização foi criada depois de setembro de 2015, tem permissões de organização aprimoradas por padrão. Organizações criadas antes de setembro de 2015 podem precisar migrar proprietários e equipes de administradores antigos para o modelo de permissões aprimoradas. Integrantes de equipes de administradores legadas mantêm automaticamente a capacidade de criar repositórios até que as equipes sejam migradas para o modelo de permissões de organização aprimoradas.'
 redirect_from:
   - /articles/migrating-your-previous-admin-teams-to-the-improved-organization-permissions
   - /articles/migrating-admin-teams-to-improved-organization-permissions
@@ -13,36 +13,37 @@ topics:
   - Organizations
   - Teams
 shortTitle: Migrate admin team
+ms.openlocfilehash: 32a3bd684d2ed81d1ba492b4e343af3e03390364
+ms.sourcegitcommit: fcf3546b7cc208155fb8acdf68b81be28afc3d2d
+ms.translationtype: HT
+ms.contentlocale: pt-BR
+ms.lasthandoff: 09/10/2022
+ms.locfileid: '145097235'
 ---
+Por padrão, todos os integrantes da organização podem criar repositórios. Se você restringir as [permissões de criação de repositórios](/articles/restricting-repository-creation-in-your-organization) aos proprietários da organização e sua organização tiver sido criada sob a estrutura herdada de permissões da organização, os membros das equipes de administração herdadas ainda poderão criar repositórios.
 
-By default, all organization members can create repositories. If you restrict [repository creation permissions](/articles/restricting-repository-creation-in-your-organization) to organization owners, and your organization was created under the legacy organization permissions structure, members of legacy admin teams will still be able to create repositories.
+Equipes de administradores legadas são equipes que foram criadas com o nível de permissão de administrador na estrutura de permissões de organização legadas. Integrantes dessas equipes conseguiam criar repositórios para a organização, e essa capacidade foi preservada na estrutura de permissões de organização aprimoradas.
 
-Legacy admin teams are teams that were created with the admin permission level under the legacy organization permissions structure. Members of these teams were able to create repositories for the organization, and we've preserved this ability in the improved organization permissions structure.
+Você pode remover essa capacidade migrando suas equipes de administradores legadas para as permissões de organização aprimoradas.
 
-You can remove this ability by migrating your legacy admin teams to the improved organization permissions.
-
-For more information, see "[Repository roles for an organization](/organizations/managing-access-to-your-organizations-repositories/repository-roles-for-an-organization)."
+Para obter mais informações, confira "[Funções de repositório de uma organização](/organizations/managing-access-to-your-organizations-repositories/repository-roles-for-an-organization)".
 
 {% warning %}
 
-**Warning:** If your organization has disabled [repository creation permissions](/articles/restricting-repository-creation-in-your-organization) for all members, some members of legacy admin teams may lose repository creation permissions. If your organization has enabled member repository creation, migrating legacy admin teams to improved organization permissions will not affect team members' ability to create repositories.
+**Aviso:** se a sua organização tiver [desabilitado as permissões de criação de repositórios](/articles/restricting-repository-creation-in-your-organization) para todos os membros, alguns membros das equipes de administração herdadas poderão perder as permissões de criação de repositórios. Se a organização habilitou a criação de repositórios pelos integrantes, migrar as equipes de administradores legadas para permissões de organização aprimoradas não afetará a capacidade de criação de repositórios pelos integrantes de equipes.
 
 {% endwarning %}
 
-## Migrating all of your organization's legacy admin teams
+## Migrar todas as equipes de administradores legadas da organização
 
-{% data reusables.profile.access_org %}
-{% data reusables.profile.org_settings %}
-{% data reusables.organizations.teams_sidebar %}
-1. Review your organization's legacy admin teams, then click **Migrate all teams**.
-  ![Migrate all teams button](/assets/images/help/teams/migrate-all-legacy-admin-teams.png)
-1. Read the information about possible permissions changes for members of these teams, then click **Migrate all teams.**
-  ![Confirm migration button](/assets/images/help/teams/confirm-migrate-all-legacy-admin-teams.png)
+{% data reusables.profile.access_org %} {% data reusables.profile.org_settings %} {% data reusables.organizations.teams_sidebar %}
+1. Revise as equipes de administração herdadas da sua organização e clique em **Migrar todas as equipes**.
+  ![Botão Migrar todas as equipes](/assets/images/help/teams/migrate-all-legacy-admin-teams.png)
+1. Leia as informações sobre possíveis alterações de permissões para membros dessas equipes e clique em **Migrar todas as equipes.** 
+  ![Botão Confirmar migração](/assets/images/help/teams/confirm-migrate-all-legacy-admin-teams.png)
 
-## Migrating a single admin team
+## Migrar uma única equipe de administradores
 
-{% data reusables.profile.access_org %}
-{% data reusables.user_settings.access_org %}
-{% data reusables.organizations.specific_team %}
-1. In the team description box, click **Migrate team**.
-  ![Migrate team button](/assets/images/help/teams/migrate-a-legacy-admin-team.png)
+{% data reusables.profile.access_org %} {% data reusables.user-settings.access_org %} {% data reusables.organizations.specific_team %}
+1. Na caixa de descrição da equipe, clique em **Migrar equipe**.
+  ![Botão Migrar equipe](/assets/images/help/teams/migrate-a-legacy-admin-team.png)

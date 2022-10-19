@@ -1,118 +1,100 @@
 ---
-title: Searching discussions
-intro: 'You can search for discussions on {% data variables.product.product_name %} and narrow the results using search qualifiers.'
+title: Pesquisar discussões
+intro: 'Você pode pesquisar discussões em {% data variables.product.product_name %} e limitar os resultados usando os qualificadores de busca.'
 versions:
-  fpt: '*'
-  ghec: '*'
+  feature: discussions
 topics:
   - GitHub search
 redirect_from:
   - /github/searching-for-information-on-github/searching-discussions
   - /github/searching-for-information-on-github/searching-on-github/searching-discussions
+ms.openlocfilehash: 4a1224d05cd78a0b701e7bc2a9e93a1c5a837bcd
+ms.sourcegitcommit: fb047f9450b41b24afc43d9512a5db2a2b750a2a
+ms.translationtype: HT
+ms.contentlocale: pt-BR
+ms.lasthandoff: 09/10/2022
+ms.locfileid: '147410448'
 ---
+## Sobre a pesquisa de discussões
 
-## About searching for discussions
-
-You can search for discussions globally across all of {% data variables.product.product_name %}, or search for discussions within a particular organization or repository. For more information, see "[About searching on {% data variables.product.prodname_dotcom %}](/github/searching-for-information-on-github/about-searching-on-github)."
+É possível pesquisar discussões globalmente em todos os {% data variables.product.product_name %} ou pesquisar discussões dentro de uma determinada organização ou repositório. Para obter mais informações, confira "[Sobre a pesquisa no {% data variables.product.prodname_dotcom %}](/github/searching-for-information-on-github/about-searching-on-github)".
 
 {% data reusables.search.syntax_tips %}
 
-## Search by the title, body, or comments
+## Pesquisar por título, texto ou comentários
 
-With the `in` qualifier you can restrict your search for discussions to the title, body, or comments. You can also combine qualifiers to search a combination of title, body, or comments. When you omit the `in` qualifier, {% data variables.product.product_name %} searches the title, body, and comments.
+Com o qualificador `in`, você pode restringir a pesquisa de discussões ao título, ao corpo ou aos comentários. Você também pode combinar os qualificadores para pesquisar uma combinação de título, texto ou comentários. Quando você omite o qualificador `in`, o {% data variables.product.product_name %} pesquisa o título, o corpo e os comentários.
 
-| Qualifier | Example |
+| Qualificador | Exemplo |
 | :- | :- |
-| `in:title` | [**welcome in:title**](https://github.com/search?q=welcome+in%3Atitle&type=Discussions) matches discussions with "welcome" in the title. |
-| `in:body` | [**onboard in:title,body**](https://github.com/search?q=onboard+in%3Atitle%2Cbody&type=Discussions) matches discussions with "onboard" in the title or body. |
-| `in:comments` | [**thanks in:comments**](https://github.com/search?q=thanks+in%3Acomment&type=Discussions) matches discussions with "thanks" in the comments for the discussion. |
+| `in:title` | [**welcome in:title**](https://github.com/search?q=welcome+in%3Atitle&type=Discussions) corresponde às discussões com "welcome" no título. |
+| `in:body` | [**onboard in:title,body**](https://github.com/search?q=onboard+in%3Atitle%2Cbody&type=Discussions) corresponde às discussões com "onboard" no título ou no corpo. |
+| `in:comments` | [**thanks in:comments**](https://github.com/search?q=thanks+in%3Acomment&type=Discussions) corresponde às discussões com "thanks" nos comentários da discussão. |
 
-## Search within a user's or organization's repositories
+## Pesquisar nos repositórios de um usuário ou uma organização
 
-To search discussions in all repositories owned by a certain user or organization, you can use the  `user` or `org` qualifier. To search discussions in a specific repository, you can use the `repo` qualifier.
+Para pesquisar discussões  em todos os repositórios pertencentes a uma organização ou a um usuário específico, use o qualificador `user` ou `org`. Para pesquisar discussões em um repositório específico, use o qualificador `repo`.
 
-| Qualifier | Example |
+| Qualificador | Exemplo |
 | :- | :- |
-| <code>user:<em>USERNAME</em></code> | [**user:octocat feedback**](https://github.com/search?q=user%3Aoctocat+feedback&type=Discussions) matches discussions with the word "feedback" from repositories owned by @octocat. |
-| <code>org:<em>ORGNAME</em></code> | [**org:github**](https://github.com/search?q=org%3Agithub&type=Discussions&utf8=%E2%9C%93) matches discussions in repositories owned by the GitHub organization. |
-| <code>repo:<em>USERNAME/REPOSITORY</em></code> | [**repo:nodejs/node created:<2021-01-01**](https://github.com/search?q=repo%3Anodejs%2Fnode+created%3A%3C2020-01-01&type=Discussions) matches discussions from @nodejs' Node.js runtime project that were created before January 2021. |
+| <code>user:<em>USERNAME</em></code> | [**user:octocat feedback**](https://github.com/search?q=user%3Aoctocat+feedback&type=Discussions) corresponde às discussões com a palavra "feedback" de repositórios pertencentes a @octocat. |
+| <code>org:<em>ORGNAME</em></code> | [**org:github**](https://github.com/search?q=org%3Agithub&type=Discussions&utf8=%E2%9C%93) corresponde às discussões em repositórios pertencentes à organização GitHub. |
+| <code>repo:<em>USERNAME/REPOSITORY</em></code> | [**repo:nodejs/node created:<2021-01-01**](https://github.com/search?q=repo%3Anodejs%2Fnode+created%3A%3C2020-01-01&type=Discussions) corresponde às discussões do projeto de runtime Node.js de @nodejs que foram criadas antes de janeiro de 2021. |
 
-## Filter by repository visibility
+## Filtrar por visibilidade do repositório
 
-You can filter by the visibility of the repository containing the discussions using the `is` qualifier. For more information, see "[About repositories](/repositories/creating-and-managing-repositories/about-repositories#about-repository-visibility)."
+Você pode filtrar o conteúdo pela visibilidade do repositório que contém as discussões usando o qualificador `is`. Para obter mais informações, confira "[Sobre os repositórios](/repositories/creating-and-managing-repositories/about-repositories#about-repository-visibility)".
 
-| Qualifier  | Example
-| :- | :- |{% ifversion fpt or ghes or ghec %}
-| `is:public` | [**is:public**](https://github.com/search?q=is%3Apublic&type=Discussions) matches discussions in public repositories.{% endif %}{% ifversion ghec %}
-| `is:internal` | [**is:internal**](https://github.com/search?q=is%3Ainternal&type=Discussions) matches discussions in internal repositories.{% endif %}
-| `is:private` | [**is:private tiramisu**](https://github.com/search?q=is%3Aprivate+tiramisu&type=Discussions) matches discussions that contain the word "tiramisu" in private repositories you can access.
+| Qualificador | Exemplo | :- | :- | {% ifversion fpt or ghes or ghec %} | `is:public` | [**is:public**](https://github.com/search?q=is%3Apublic&type=Discussions) corresponde às discussões em repositórios públicos.{% endif %}{% ifversion ghec %} | `is:internal` | [**is:internal**](https://github.com/search?q=is%3Ainternal&type=Discussions) corresponde às discussões em repositórios internos.{% endif %} | `is:private` | [**is:private tiramisu**](https://github.com/search?q=is%3Aprivate+tiramisu&type=Discussions) corresponde às discussões que contêm a palavra "tiramisu" em repositórios privados que você pode acessar.
 
-## Search by author
+## Pesquisar por autor
 
-The `author` qualifier finds discussions created by a certain user.
+O qualificador `author` encontra as discussões criadas por um usuário específico.
 
-| Qualifier | Example |
+| Qualificador | Exemplo |
 | :- | :- |
-| <code>author:<em>USERNAME</em></code> | [**cool author:octocat**](https://github.com/search?q=cool+author%3Aoctocat&type=Discussions) matches discussions with the word "cool" that were created by @octocat. |
-| | [**bootstrap in:body author:octocat**](https://github.com/search?q=bootstrap+in%3Abody+author%3Aoctocat&type=Discussions) matches discussions created by @octocat that contain the word "bootstrap" in the body. |
+| <code>author:<em>USERNAME</em></code> | [**cool author:octocat**](https://github.com/search?q=cool+author%3Aoctocat&type=Discussions) corresponde às discussões com a palavra "cool" que foram criadas por @octocat. |
+| | [**bootstrap in:body author:octocat**](https://github.com/search?q=bootstrap+in%3Abody+author%3Aoctocat&type=Discussions) corresponde às discussões criadas por @octocat que contêm a palavra "bootstrap" no corpo. |
 
-## Search by commenter
+## Pesquisar por autor do comentário
 
-The `commenter` qualifier finds discussions that contain a comment from a certain user.
+O qualificador `commenter` encontra as discussões que contêm um comentário de um usuário específico.
 
-| Qualifier | Example |
+| Qualificador | Exemplo |
 | :- | :- |
-| <code>commenter:<em>USERNAME</em></code> | [**github commenter:becca org:github**](https://github.com/search?utf8=%E2%9C%93&q=github+commenter%3Abecca+org%3Agithub&type=Discussions) matches discussions in repositories owned by GitHub, that contain the word "github," and have a comment by @becca.
+| <code>commenter:<em>USERNAME</em></code> | [**github commenter:becca org:github**](https://github.com/search?utf8=%E2%9C%93&q=github+commenter%3Abecca+org%3Agithub&type=Discussions) corresponde às discussões em repositórios pertencentes ao GitHub que contêm a palavra "github" e que têm um comentário de @becca.
 
-## Search by a user that's involved in a discussion
+## Procurar por um usuário envolvido em uma discussão
 
-You can use the `involves` qualifier to find discussions that involve a certain user. The qualifier returns discussions that were either created by a certain user, mention the user, or contain comments by the user. The `involves` qualifier is a logical OR between the `author`, `mentions`, and `commenter` qualifiers for a single user.
+Use o qualificador `involves` para encontrar discussões que envolvam um usuário específico. O qualificador retorna discussões que ou foram criadas por um determinado usuário, menciona o usuário, ou contém comentários feitos pelo usuário. O qualificador `involves` é um OR lógico entre os qualificadores `author`, `mentions` e `commenter` para um só usuário.
 
-| Qualifier | Example |
+| Qualificador | Exemplo |
 | :- | :- |
-| <code>involves:<em>USERNAME</em></code> | **[involves:becca involves:octocat](https://github.com/search?q=involves%3Abecca+involves%3Aoctocat&type=Discussions)** matches discussions either @becca or @octocat are involved in.
-| | [**NOT beta in:body involves:becca**](https://github.com/search?q=NOT+beta+in%3Abody+involves%3Abecca&type=Discussions) matches discussions @becca is involved in that do not contain the word "beta" in the body.
+| <code>involves:<em>USERNAME</em></code> | **[involves:becca involves:octocat](https://github.com/search?q=involves%3Abecca+involves%3Aoctocat&type=Discussions)** corresponde às discussões em que @becca e @octocat estão envolvidos.
+| | [**NOT beta in:body involves:becca**](https://github.com/search?q=NOT+beta+in%3Abody+involves%3Abecca&type=Discussions) corresponde às discussões em que @becca está envolvido e que não contêm a palavra "beta" no corpo.
 
-## Search by number of comments
+## Pesquisar por número de comentários
 
-You can use the `comments` qualifier along with greater than, less than, and range qualifiers to search by the number of comments. For more information, see "[Understanding the search syntax](/github/searching-for-information-on-github/understanding-the-search-syntax)."
+Use o qualificador `comments` com os qualificadores maior que, menor que e intervalo para fazer a pesquisa pelo número de comentários. Para obter mais informações, confira "[Noções básicas sobre a sintaxe de pesquisa](/github/searching-for-information-on-github/understanding-the-search-syntax)".
 
-| Qualifier | Example |
+| Qualificador | Exemplo |
 | :- | :- |
-| <code>comments:<em>n</em></code> | [**comments:&gt;100**](https://github.com/search?q=comments%3A%3E100&type=Discussions) matches discussions with more than 100 comments.
-| | [**comments:500..1000**](https://github.com/search?q=comments%3A500..1000&type=Discussions) matches discussions with comments ranging from 500 to 1,000.
+| <code>comments:<em>n</em></code> | [**comments:&gt;100**](https://github.com/search?q=comments%3A%3E100&type=Discussions) corresponde às discussões com mais de 100 comentários.
+| | [**comments:500..1000**](https://github.com/search?q=comments%3A500..1000&type=Discussions) corresponde às discussões com comentários que variam de 500 a mil.
 
-## Search by number of interactions
+## Procurar por quando uma discussão foi criada ou quando foi atualizada por último
 
-You can filter discussions by the number of interactions with the `interactions` qualifier along with greater than, less than, and range qualifiers. The interactions count is the number of reactions and comments on a discussion. For more information, see "[Understanding the search syntax](/github/searching-for-information-on-github/understanding-the-search-syntax)."
+Você pode filtrar discussões com base no tempo de criação, ou quando a discussão foi atualizada pela última vez. Para a criação da discussão, use o qualificador `created`. Para descobrir quando uma discussão foi atualizada pela última vez, use o qualificador `updated`.
 
-| Qualifier | Example |
-| :- | :- |
-| <code>interactions:<em>n</em></code> | [** interactions:&gt;2000**](https://github.com/search?q=interactions%3A%3E2000) matches discussions with more than 2,000 interactions.
-| | [**interactions:500..1000**](https://github.com/search?q=interactions%3A500..1000) matches discussions with interactions ranging from 500 to 1,000.
-
-## Search by number of reactions
-
-You can filter discussions by the number of reactions using the `reactions` qualifier along with greater than, less than, and range qualifiers. For more information, see "[Understanding the search syntax](/github/searching-for-information-on-github/understanding-the-search-syntax)."
-
-| Qualifier | Example |
-| :- | :- |
-| <code>reactions:<em>n</em></code> | [** reactions:&gt;1000**](https://github.com/search?q=reactions%3A%3E500) matches discussions with more than 500 reactions.
-| | [**reactions:500..1000**](https://github.com/search?q=reactions%3A500..1000) matches discussions with reactions ranging from 500 to 1,000.
-
-## Search by when a discussion was created or last updated
-
-You can filter discussions based on times of creation, or when the discussion was last updated. For discussion creation, you can use the `created` qualifier; to find out when an discussion was last updated, use the `updated` qualifier.
-
-Both qualifiers take a date as a parameter. {% data reusables.time_date.date_format %} {% data reusables.time_date.time_format %}
+Ambos os qualificadores tomam uma data como parâmetro. {% data reusables.time_date.date_format %} {% data reusables.time_date.time_format %}
 
 {% data reusables.search.date_gt_lt %}
 
-| Qualifier | Example |
+| Qualificador | Exemplo |
 | :- | :- |
-| <code>created:<em>YYYY-MM-DD</em></code> | [**created:>2020-11-15**](https://github.com/search?q=created%3A%3E%3D2020-11-15&type=discussions) matches discussions that were created after November 15, 2020.
-| <code>updated:<em>YYYY-MM-DD</em></code> | [**weird in:body updated:>=2020-02-01**](https://github.com/search?q=weird+in%3Abody+updated%3A%3E%3D2020-12-01&type=Discussions) matches discussions with the word "weird" in the body that were updated after December 2020.
+| <code>created:<em>YYYY-MM-DD</em></code> | [**created:>2020-11-15**](https://github.com/search?q=created%3A%3E%3D2020-11-15&type=discussions) corresponde às discussões criadas após 15 de novembro de 2020.
+| <code>updated:<em>YYYY-MM-DD</em></code> | [**weird in:body updated:>=2020-02-01**](https://github.com/search?q=weird+in%3Abody+updated%3A%3E%3D2020-12-01&type=Discussions) corresponde às discussões com a palavra "weird" no corpo que foram atualizadas após dezembro de 2020.
 
-## Further reading
+## Leitura adicional
 
-- "[Sorting search results](/search-github/getting-started-with-searching-on-github/sorting-search-results/)"
+- "[Como classificar os resultados da pesquisa](/search-github/getting-started-with-searching-on-github/sorting-search-results/)"

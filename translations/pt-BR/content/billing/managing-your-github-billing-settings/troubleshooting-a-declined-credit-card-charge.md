@@ -1,6 +1,6 @@
 ---
-title: Troubleshooting a declined credit card charge
-intro: 'If the credit card you use to pay for {% data variables.product.product_name %} is declined, you can take several steps to ensure that your payments go through and that you are not locked out of your account.'
+title: Resolver problemas de cobrança recusada no cartão de crédito
+intro: 'Se o cartão de crédito que você usa para pagar o {% data variables.product.product_name %} for recusado, você poderá tomar várias medidas para garantir que os pagamentos sejam efetuados e que sua conta não seja bloqueada.'
 redirect_from:
   - /github/setting-up-and-managing-billing-and-payments-on-github/troubleshooting-a-declined-credit-card-charge
   - /articles/what-do-i-do-if-my-card-is-declined
@@ -13,25 +13,31 @@ type: how_to
 topics:
   - Troubleshooting
 shortTitle: Declined credit card charge
+ms.openlocfilehash: 44ed836d24e23ceb7e805cccdad6e70203381bf5
+ms.sourcegitcommit: fcf3546b7cc208155fb8acdf68b81be28afc3d2d
+ms.translationtype: HT
+ms.contentlocale: pt-BR
+ms.lasthandoff: 09/11/2022
+ms.locfileid: '147884218'
 ---
-If your card is declined, we'll send you an email about why the payment was declined. You'll have a few days to resolve the problem before we try charging you again.
+Se o seu cartão for recusado, nós enviaremos um e-mail para você informando o motivo da recusa do pagamento. Você terá alguns dias para resolver o problema antes que tentemos fazer a cobrança novamente.
 
-## Check your card's expiration date
+## Verificar a data de expiração do cartão
 
-If your card has expired, you'll need to update your account's payment information. For more information, see "[Adding or editing a payment method](/articles/adding-or-editing-a-payment-method)."
+Se o seu cartão tiver expirado, você precisará atualizar as informações de pagamento da sua conta. Para obter mais informações, confira "[Como adicionar ou editar uma forma de pagamento](/articles/adding-or-editing-a-payment-method)".
 
-## Verify your bank's policy on card restrictions
+## Verificar a política do banco sobre restrições no cartão
 
-Some international banks place restrictions on international, e-commerce, and automatically recurring transactions. If you're having trouble making a payment with your international credit card, call your bank to see if there are any restrictions on your card.
+Alguns bancos internacionais impõem restrições em transações internacionais, de comércio eletrônico ou automaticamente recorrentes. Se você estiver tendo problemas para fazer um pagamento com seu cartão de crédito internacional, ligue para o banco e confira se há alguma restrição no cartão.
 
-We also support payments through PayPal. For more information, see "[Adding or editing a payment method](/articles/adding-or-editing-a-payment-method)."
+Também aceitamos pagamentos via PayPal. Para obter mais informações, confira "[Como adicionar ou editar uma forma de pagamento](/articles/adding-or-editing-a-payment-method)".
 
-## Contact your bank for details about the transaction
+## Entrar em contato com o banco para ver detalhes da transação
 
-Your bank can provide additional information about declined payments if you specifically ask about the attempted transaction. If there are restrictions on your card and you need to call your bank, provide this information to your bank:
+O banco poderá fornecer informações adicionais sobre pagamentos recusados se você perguntar especificamente sobre a tentativa de transação. Caso haja restrições no seu cartão e você precise ligar para o banco, forneça as seguintes informações:
 
-- **The amount you're being charged.** The amount for your subscription appears on your account's receipts. For more information, see "[Viewing your payment history and receipts](/articles/viewing-your-payment-history-and-receipts)."
-- **The date when {% data variables.product.product_name %} bills you.** Your account's billing date appears on your receipts.
-- **The transaction ID number.** Your account's transaction ID appears on your receipts.
-- **The merchant name.** The merchant name is {% data variables.product.prodname_dotcom %}.
-- **The error message your bank sent with the declined charge.** You can find your bank's error message on the email we send you when a charge is declined.
+- **O valor que você está sendo cobrado.** O valor da sua assinatura é exibido nos recibos da sua conta. Para obter mais informações, confira "[Como ver seu histórico de pagamentos e recibos](/articles/viewing-your-payment-history-and-receipts)".
+- **A data em que o {% data variables.product.product_name %} emite a cobrança para você.** A data de cobrança da sua conta é exibida nos seus recibos.
+- **O número da ID da transação.** A ID de transação da sua conta é exibida nos seus recibos.
+- **O nome do comerciante.** O nome do comerciante é {% data variables.product.prodname_dotcom %}.
+- **Mensagem de erro enviada pelo banco com a cobrança recusada.** Encontre a mensagem de erro do banco no email que enviamos quando uma cobrança é recusada.

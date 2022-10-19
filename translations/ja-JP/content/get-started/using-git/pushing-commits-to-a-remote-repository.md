@@ -1,6 +1,6 @@
 ---
-title: Pushing commits to a remote repository
-intro: Use `git push` to push commits made on your local branch to a remote repository.
+title: コミットをリモートリポジトリにプッシュする
+intro: ローカル ブランチで実行されたコミットをリモート リポジトリにプッシュするには、`git push` を使用します。
 redirect_from:
   - /articles/pushing-to-a-remote
   - /articles/pushing-commits-to-a-remote-repository
@@ -13,86 +13,81 @@ versions:
   ghae: '*'
   ghec: '*'
 shortTitle: Push commits to a remote
+ms.openlocfilehash: 61a3eb3e0b0147810b561b59b58879688dd4ba36
+ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
+ms.translationtype: HT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 09/05/2022
+ms.locfileid: '145125789'
 ---
-## About `git push`
-The `git push` command takes two arguments:
+## `git push` のバージョン情報
+`git push` コマンドは 2 つの引数を取ります。
 
-* A remote name, for example, `origin`
-* A branch name, for example, `main`
+* リモート名 (例: `origin`)
+* ブランチ名 (例: `main`)
 
-For example:
+次に例を示します。
 
 ```shell
 git push <em> &lt;REMOTENAME> &lt;BRANCHNAME> </em>
 ```
 
-As an example, you usually run `git push origin main` to push your local changes
-to your online repository.
+たとえば、通常、ローカルの変更をオンライン リポジトリにプッシュするために `git push origin main` を実行します。
 
-## Renaming branches
+## ブランチの名前を変更する
 
-To rename a branch, you'd use the same `git push` command, but you would add
-one more argument: the name of the new branch. For example:
+ブランチの名前を変更する場合も、同じ `git push` コマンドを使いますが、新しいブランチの名前という引数をもう 1 つ追加します。 次に例を示します。
 
 ```shell
 git push <em> &lt;REMOTENAME> &lt;LOCALBRANCHNAME></em>:<em>&lt;REMOTEBRANCHNAME> </em>
 ```
 
-This pushes the `LOCALBRANCHNAME` to your `REMOTENAME`, but it is renamed to `REMOTEBRANCHNAME`.
+これは `LOCALBRANCHNAME` を `REMOTENAME` にプッシュしますが、名前は `REMOTEBRANCHNAME` に変更されます。
 
-## Dealing with "non-fast-forward" errors
+## "non-fast-forward" エラーに対処する
 
-If your local copy of a repository is out of sync with, or "behind," the upstream
-repository you're pushing to, you'll get a message saying `non-fast-forward updates were rejected`.
-This means that you must retrieve, or "fetch," the upstream changes, before
-you are able to push your local changes.
+リポジトリのローカル コピーが同期されていない、つまりプッシュ先である上流リポジトリより古くなっている場合は、`non-fast-forward updates were rejected` というメッセージが表示されます。
+これは、ローカルの変更をプッシュする前に上流の変更を取得、つまり "フェッチ" する必要があるという意味です。
 
-For more information on this error, see "[Dealing with non-fast-forward errors](/github/getting-started-with-github/dealing-with-non-fast-forward-errors)."
+このエラーの詳細については、「[non-fast-forward エラーの扱い](/github/getting-started-with-github/dealing-with-non-fast-forward-errors)」を参照してください。
 
-## Pushing tags
+## タグをプッシュする
 
-By default, and without additional parameters, `git push` sends all matching branches
-that have the same names as remote branches.
+デフォルトで、追加のパラメータを使わない場合、`git push` はリモート ブランチと名前が一致するすべてのブランチを送信します。
 
-To push a single tag, you can issue the same command as pushing a branch:
+1 つのタグをプッシュする場合は、ブランチをプッシュするときと同じコマンドを発行できます。
 
 ```shell
 git push <em> &lt;REMOTENAME> &lt;TAGNAME> </em>
 ```
 
-To push all your tags, you can type the command:
+すべてのタグをプッシュする場合は、次のコマンドを使用できます:
 
 ```shell
 git push <em> &lt;REMOTENAME></em> --tags
 ```
 
-## Deleting a remote branch or tag
+## リモートブランチまたはタグを削除する
 
-The syntax to delete a branch is a bit arcane at first glance:
+ブランチを削除する構文は、1 回見ただけでは少し難解です:
 
 ```shell
 git push <em> &lt;REMOTENAME></em> :<em>&lt;BRANCHNAME> </em>
 ```
 
-Note that there is a space before the colon. The command resembles the same steps
-you'd take to rename a branch. However, here, you're telling Git to push _nothing_
-into `BRANCHNAME` on `REMOTENAME`. Because of this, `git push` deletes the branch
-on the remote repository.
+コロンの前にスペースがあることに注意してください。 このコマンドは、ブランチの名前を変更するときの手順と似ています。 ただし、ここでは Git に `REMOTENAME` の `BRANCHNAME` に _何も_ プッシュしないように指示しています。 このため、`git push` はリモート リポジトリ上のブランチを削除してしまいます。
 
-## Remotes and forks
+## リモートとフォーク
 
-You might already know that [you can "fork" repositories](https://guides.github.com/overviews/forking/) on GitHub.
+GitHub では[リポジトリを "フォーク" できる](https://guides.github.com/overviews/forking/)ことを既にご存じかもしれません。
 
-When you clone a repository you own, you provide it with a remote URL that tells
-Git where to fetch and push updates. If you want to collaborate with the original
-repository, you'd add a new remote URL, typically called `upstream`, to
-your local Git clone:
+自分が所有するリポジトリをクローンするときには、更新をフェッチしたりプッシュしたりする対象を Git にリモート URL で指定します。 元のリポジトリとのコラボレーションが必要な場合は、ローカルの Git クローンに新しいリモート URL を追加するといいでしょう。その名前は通例、`upstream` です。
 
 ```shell
 git remote add upstream <em> &lt;THEIR_REMOTE_URL> </em>
 ```
 
-Now, you can fetch updates and branches from *their* fork:
+これで、更新とブランチを *その* フォークからフェッチできるようになります。
 
 ```shell
 git fetch upstream
@@ -105,15 +100,14 @@ git fetch upstream
 >  * [new branch]      main     -> upstream/main
 ```
 
-When you're done making local changes, you can push your local branch to GitHub
-and [initiate a pull request](/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests).
+ローカルでの変更が終わったら、ローカル ブランチを GitHub にプッシュし、[pull request を開始](/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests)できます。
 
-For more information on working with forks, see "[Syncing a fork](/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork)".
+フォークの操作の詳細については、[フォークの同期](/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork)に関する記事を参照してください。
 
-## Further reading
+## 参考資料
 
-- [The "Remotes" chapter from the "Pro Git" book](https://git-scm.com/book/ch5-2.html)
-- [`git remote` main page](https://git-scm.com/docs/git-remote.html)
-- "[Git cheatsheet](/articles/git-cheatsheet)"
-- "[Git workflows](/github/getting-started-with-github/git-workflows)"
-- "[Git Handbook](https://guides.github.com/introduction/git-handbook/)"
+- [「Pro Git」ブックの「リモート」チャプター](https://git-scm.com/book/ch5-2.html)
+- [`git remote` メイン ページ](https://git-scm.com/docs/git-remote.html)
+- 「[Git チートシート](/articles/git-cheatsheet)」
+- 「[Git ワークフロー](/github/getting-started-with-github/git-workflows)」
+- 「[Git ハンドブック](https://guides.github.com/introduction/git-handbook/)」

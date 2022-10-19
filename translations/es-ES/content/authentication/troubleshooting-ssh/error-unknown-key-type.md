@@ -1,9 +1,9 @@
 ---
 title: 'Error: Unknown key type'
-intro: 'This error means that the SSH key type you used was unrecognized or is unsupported by your SSH client. '
+intro: 'Este error significa que el tipo de llave SSH que utilizaste no se reconoció o no es compatible con tu cliente SSH. '
 versions:
   fpt: '*'
-  ghes: '>=3.2'
+  ghes: '*'
   ghae: '*'
   ghec: '*'
 topics:
@@ -11,28 +11,34 @@ topics:
 redirect_from:
   - /github/authenticating-to-github/error-unknown-key-type
   - /github/authenticating-to-github/troubleshooting-ssh/error-unknown-key-type
+ms.openlocfilehash: 83bf8714255a4d8f028beb73fd5c8fbcdbb0ef52
+ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
+ms.translationtype: HT
+ms.contentlocale: es-ES
+ms.lasthandoff: 09/05/2022
+ms.locfileid: '147065905'
 ---
-## About the `unknown key type` error
+## Acerca del error `unknown key type`
 
-When you generate a new SSH key, you may receive an `unknown key type` error if your SSH client does not support the key type that you specify.{% mac %}To solve this issue on macOS, you can update your SSH client or install a new SSH client.
+Cuando generas una llave SSH nueva, es posible que recibas un error de `unknown key type` si tu cliente SSH no es compatible con el tipo de llave que especificaste.{% mac %}Para resolver esta incidencia en macOS, puedes actualizar tu cliente SSH o instalar un cliente SSH nuevo.
 
-## Prerequisites
+## Prerrequisitos
 
-You must have Homebrew installed. For more information, see the [installation guide](https://docs.brew.sh/Installation) in the Homebrew documentation.
+Debes tener Homebrew instalado. Para obtener más información, consulta la [guía de instalación](https://docs.brew.sh/Installation) en la documentación de Homebrew.
 
-## Solving the issue
+## Resolver el problema
 
 {% warning %}
 
-**Warning:** If you install OpenSSH, your computer will not be able to retrieve passphrases that are stored in the Apple keychain. You will need to enter your passphrase or interact with your hardware security key every time you authenticate with SSH to {% data variables.product.prodname_dotcom %} or another web service.
+**Advertencia:** Si instalas OpenSSH, tu equipo no podrá recuperar las frases de contraseña que estén almacenadas en la cadena de claves de Apple. Necesitarás ingresar tu contraseña o interactuar con tu llave de seguridad de hardware cada vez que te autentiques con SSH en {% data variables.product.prodname_dotcom %} u otro servicio web.
 
-If you remove OpenSSH, the passphrases that are stored in your keychain will once again be retrievable. You can remove OpenSSH by entering the command `brew uninstall openssh` in Terminal.
+Si eliminas a OpenSSh, las paráfrasis que se almacenan en tu keychain se podrán recuperar nuevamente. Para quitar OpenSSH, escribe el comando `brew uninstall openssh` en el Terminal.
 
 {% endwarning %}
 
-1. Open Terminal.
-2. Enter the command `brew install openssh`.
-3. Quit and relaunch Terminal.
-4. Try the procedure for generating a new SSH key again. For more information, see "[Generating a new SSH key and adding it to the ssh-agent](/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent#generating-a-new-ssh-key-for-a-hardware-security-key)."
+1. Abre Terminal.
+2. Escriba el comando `brew install openssh`.
+3. Sal y vuelve a abrir la terminal.
+4. Intenta llevar a cabo el procedimiento para generar una llave SSH nuevamente. Para obtener más información, consulta "[Generación de una nueva clave SSH y adición a ssh-agent](/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent#generating-a-new-ssh-key-for-a-hardware-security-key)".
 
-{% endmac %}{% linux %}To solve this issue on Linux, use the package manager for your Linux distribution to install a new version of OpenSSH, or compile a new version from source. If you install a different version of OpenSSH, the ability of other applications to authenticate via SSH may be affected. For more information, review the documentation for your distribution.{% endlinux %}
+{% endmac %}{% linux %}Para resolver este problema en Linux, utiliza el administrador de paquetes para tu distribución de Linux para instalar una versión nueva de OpenSSH o compila una versión nueva desde el orígen. Si instalas una versión diferente de OpenSSH, la capacidad de otras aplicaciones para autenticarse por SSH puede verse afectada. Para obtener más información, revisa los documentos para tu distribución.{% endlinux %}

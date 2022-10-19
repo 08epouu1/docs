@@ -1,6 +1,6 @@
 ---
-title: Moving a team in your organization’s hierarchy
-intro: 'Team maintainers and organization owners can nest a team under a parent team, or change or remove a nested team''s parent.'
+title: Mover uma equipe na hierarquia da organização
+intro: 'Mantenedores de equipes e proprietários de organizações podem encaixar uma equipe abaixo de uma equipe principal, ou ainda, alterar ou remover uma principal da equipe aninhada.'
 redirect_from:
   - /articles/changing-a-team-s-parent
   - /articles/moving-a-team-in-your-organization-s-hierarchy
@@ -15,33 +15,35 @@ topics:
   - Organizations
   - Teams
 shortTitle: Move a team
+ms.openlocfilehash: 205ab40d04d613c54b498b9712e5f199e1433558
+ms.sourcegitcommit: fcf3546b7cc208155fb8acdf68b81be28afc3d2d
+ms.translationtype: HT
+ms.contentlocale: pt-BR
+ms.lasthandoff: 09/10/2022
+ms.locfileid: '145097214'
 ---
-
-Organization owners can change the parent of any team. Team maintainers can change a team's parent if they are maintainers in both the child team and the parent team. Team maintainers without maintainer permissions in the child team can request to add a parent or child team. For more information, see "[Requesting to add or change a parent team](/articles/requesting-to-add-or-change-a-parent-team)" and "[Requesting to add a child team](/articles/requesting-to-add-a-child-team)."
+Proprietários de organizações podem mudar a principal de qualquer equipe. Mantenedores de equipes podem alterar a principal de uma equipe se forem mantenedores da equipe secundária e da equipe principal. Mantenedores de equipe sem permissões de mantenedor na equipe secundária podem solicitar para adicionar uma equipe principal ou secundária. Para obter mais informações, confira "[Como solicitar a adição ou a alteração de uma equipe pai](/articles/requesting-to-add-or-change-a-parent-team)" e "[Como solicitar a adição de uma equipe filho](/articles/requesting-to-add-a-child-team)".
 
 {% data reusables.organizations.child-team-inherits-permissions %}
 
 {% tip %}
 
-**Tips:**
-- You cannot change a team's parent to a secret team. For more information, see "[About teams](/articles/about-teams)."
-- You cannot nest a parent team beneath one of its child teams.
+**Dicas:**
+- Você não pode alterar uma equipe principal para equipe secreta. Para obter mais informações, confira "[Sobre as equipes](/articles/about-teams)".
+- Você não pode encaixar uma equipe principal sob uma de suas equipes secundárias.
 
 {% endtip %}
 
-{% data reusables.profile.access_org %}
-{% data reusables.user_settings.access_org %}
-{% data reusables.organizations.teams %}
-4. In the list of teams, click the name of the team whose parent you'd like to change.
-  ![List of the organization's teams](/assets/images/help/teams/click-team-name.png)
-{% data reusables.organizations.team_settings %}
-6. Use the drop-down menu to choose a parent team, or to remove an existing parent, select **Clear selected value**.
-  ![Drop-down menu listing the organization's teams](/assets/images/help/teams/choose-parent-team.png)
-7. Click **Update**.
+{% data reusables.profile.access_org %} {% data reusables.user-settings.access_org %} {% data reusables.organizations.teams %}
+4. Na lista de equipes, clique no nome da equipe cuja principal você deseja alterar.
+  ![Lista de equipes da organização](/assets/images/help/teams/click-team-name.png) {% data reusables.organizations.team_settings %}
+6. Use o menu suspenso para escolher uma equipe pai ou para remover um pai existente e selecione **Limpar valor selecionado**.
+  ![Menu suspenso que lista as equipes da organização](/assets/images/help/teams/choose-parent-team.png)
+7. Clique em **Atualizar**.
 {% data reusables.repositories.changed-repository-access-permissions %}
-9. Click **Confirm new parent team**.
-  ![Modal box with information about the changes in repository access permissions](/assets/images/help/teams/confirm-new-parent-team.png)
+9. Clique em **Confirmar nova equipe pai**.
+  ![Caixa de diálogo modal com informações sobre as alterações nas permissões de acesso ao repositório](/assets/images/help/teams/confirm-new-parent-team.png)
 
-## Further reading
+## Leitura adicional
 
-- "[About teams](/articles/about-teams)"
+- "[Sobre as equipes](/articles/about-teams)"

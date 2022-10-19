@@ -1,6 +1,6 @@
 ---
-title: Discounted subscriptions for GitHub accounts
-intro: '{% data variables.product.product_name %} provides discounts to students, educators, educational institutions, nonprofits, and libraries.'
+title: GitHub アカウントの割引プラン
+intro: '{% data variables.product.product_name %}は、学生、教師、教育機関、非営利団体、図書館などに割引を提供しています。'
 redirect_from:
   - /github/setting-up-and-managing-billing-and-payments-on-github/discounted-subscriptions-for-github-accounts
   - /articles/discounted-personal-accounts
@@ -19,27 +19,33 @@ topics:
   - Nonprofits
   - User account
 shortTitle: Discounted subscriptions
+ms.openlocfilehash: ba3dc51e5619bc8ef660e3743bd866cfa83337c3
+ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
+ms.translationtype: HT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 09/05/2022
+ms.locfileid: '147573725'
 ---
 {% tip %}
 
-**Tip**: Discounts for {% data variables.product.prodname_dotcom %} do not apply to subscriptions for other paid products and features.
+**ヒント**: {% data variables.product.prodname_dotcom %} の割引は、他の有料製品や有料機能のサブスクリプションには適用されません。
 
 {% endtip %}
 
-## Discounts for personal accounts
+## 個人アカウントへの割引
 
-In addition to the unlimited public and private repositories for students and faculty with {% data variables.product.prodname_free_user %}, verified students can apply for the {% data variables.product.prodname_student_pack %} to receive additional benefits from {% data variables.product.prodname_dotcom %} partners. For more information, see "[Apply for a student developer pack](/free-pro-team@latest/education/explore-the-benefits-of-teaching-and-learning-with-github-education/apply-for-a-student-developer-pack)."
+{% data variables.product.prodname_free_user %} で学生と教員が無制限のパブリックリポジトリとプライベートリポジトリを使用できることに加えて、検証済みの学生は {% data variables.product.prodname_student_pack %} に申請し、{% data variables.product.prodname_dotcom %} パートナーからのさらなるメリットを受けていただけます。 詳しくは、「[学生として {% data variables.product.prodname_global_campus %} に応募する](/free-pro-team@latest/education/explore-the-benefits-of-teaching-and-learning-with-github-education/github-global-campus-for-students/apply-to-github-global-campus-as-a-student)」を参照してください。
 
-## Discounts for schools and universities
+## 学校・大学向け割引
 
-Verified academic faculty can apply for {% data variables.product.prodname_team %} for teaching or academic research. For more information, see "[Use {% data variables.product.prodname_dotcom %} in your classroom and research](/free-pro-team@latest/education/explore-the-benefits-of-teaching-and-learning-with-github-education/use-github-in-your-classroom-and-research)." You can also request educational materials goodies for your students. For more information, visit [{% data variables.product.prodname_education %}](https://education.github.com/).
+検証済みの教職員は教育や学術研究の目的で {% data variables.product.prodname_team %} に申し込むことができます。 詳しくは、「[教師向け {% data variables.product.prodname_global_campus %}](/free-pro-team@latest/education/explore-the-benefits-of-teaching-and-learning-with-github-education/github-global-campus-for-teachers)」を参照してください。 また、学生のために教材をお求めいただくこともできます。 詳細については、「[{% data variables.product.prodname_education %}](https://education.github.com/)」を参照してください。
 
-## Discounts for nonprofits and libraries
+## 非営利目的や図書館への割引
 
-{% data variables.product.product_name %} provides free {% data variables.product.prodname_team %} for organizations with unlimited private repositories, unlimited collaborators, and a full feature set to qualifying 501(c)3 (or equivalent) organizations and libraries. You can request a discount for your organization on [our nonprofit page](https://github.com/nonprofit).
+{% data variables.product.product_name %} は、無制限のプライベートリポジトリ、無制限のコラボレータ、無制限の機能付きの Organization 向け {% data variables.product.prodname_team %} を、501(c)3 (または同等) の資格を持つ Organization および図書館に無料で提供しています。 自分の Organization への割引は、[非営利団体向けのページ](https://github.com/nonprofit)からリクエストできます。
 
-If your organization already has a paid subscription, your organization's last transaction will be refunded once your nonprofit discount has been applied.
+すでに有料プランに契約されている Organization の場合、非営利目的の割引が適用され次第、Organization の最後の取引が返金されます。
 
-## Further reading
+## 参考資料
 
-- "[About billing on {% data variables.product.prodname_dotcom %}](/articles/about-billing-on-github)"
+- 「[{% data variables.product.prodname_dotcom %} の支払いについて](/articles/about-billing-on-github)」

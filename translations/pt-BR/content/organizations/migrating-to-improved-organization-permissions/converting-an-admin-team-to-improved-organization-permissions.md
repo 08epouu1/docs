@@ -1,6 +1,6 @@
 ---
-title: Converting an admin team to improved organization permissions
-intro: 'If your organization was created after September 2015, your organization has improved organization permissions by default. Organizations created before September 2015 may need to migrate older Owners and Admin teams to the improved permissions model. Members of legacy admin teams automatically retain the ability to create repositories until those teams are migrated to the improved organization permissions model.'
+title: Migrar uma equipe de administradores para permissões de organização aprimoradas
+intro: 'Se sua organização foi criada depois de setembro de 2015, tem permissões de organização aprimoradas por padrão. Organizações criadas antes de setembro de 2015 podem precisar migrar proprietários e equipes de administradores antigos para o modelo de permissões aprimoradas. Integrantes de equipes de administradores legadas mantêm automaticamente a capacidade de criar repositórios até que as equipes sejam migradas para o modelo de permissões de organização aprimoradas.'
 redirect_from:
   - /articles/converting-your-previous-admin-team-to-the-improved-organization-permissions
   - /articles/converting-an-admin-team-to-improved-organization-permissions
@@ -13,22 +13,27 @@ topics:
   - Organizations
   - Teams
 shortTitle: Convert admin team
+ms.openlocfilehash: 183ccd5d1252265ed6ac94924703ceb75ed8adad
+ms.sourcegitcommit: fcf3546b7cc208155fb8acdf68b81be28afc3d2d
+ms.translationtype: HT
+ms.contentlocale: pt-BR
+ms.lasthandoff: 09/10/2022
+ms.locfileid: '145097238'
 ---
+Você pode impedir os integrantes das equipes de administradores legadas de criar repositórios criando uma equipe para esses integrantes, garantindo que a equipe tenha acesso necessário aos repositórios da organização e, em seguida, excluindo a equipe de administradores legada.
 
-You can remove the ability for members of legacy admin teams to create repositories by creating a new team for these members, ensuring that the team has necessary access to the organization's repositories, then deleting the legacy admin team.
-
-For more information, see "[Repository roles for an organization](/organizations/managing-access-to-your-organizations-repositories/repository-roles-for-an-organization)."
+Para obter mais informações, confira "[Funções de repositório de uma organização](/organizations/managing-access-to-your-organizations-repositories/repository-roles-for-an-organization)".
 
 {% warning %}
 
-**Warnings:**
-- If there are members of your legacy Admin team who are not members of other teams, deleting the team will remove those members from the organization. Before deleting the team, ensure members are already direct members of the organization, or have collaborator access to necessary repositories.
-- To prevent the loss of private forks made by members of the legacy Admin team, you must follow steps 1-3 below before deleting the legacy Admin team.
-- Because "admin" is a term for organization members with specific [access to certain repositories](/articles/repository-permission-levels-for-an-organization) in the organization, we recommend you avoid that term in any team name you decide on.
+**Avisos:**
+- Se houver integrantes da equipe de administradores legada que não sejam integrantes de outras equipes, excluir a equipe removerá esses integrantes da organização. Antes de excluir a equipe, certifique-se de que os integrantes já sejam integrantes diretos da organização ou que tenham acesso de colaborador aos repositórios necessários.
+- Para evitar a perda de bifurcações privadas feitas pelos integrantes da equipe de administradores legada, você deve seguir as etapas de 1 a 3 abaixo antes de excluir a equipe de administradores legada.
+- Como "administrador" é um termo para membros da organização com [acesso específico em determinados repositórios](/articles/repository-permission-levels-for-an-organization) na organização, recomendamos evitar esse termo em qualquer nome de equipe escolhido.
 
 {% endwarning %}
 
-1. [Create a new team](/articles/creating-a-team).
-2. [Add each of the members](/articles/adding-organization-members-to-a-team) of your legacy admin team to the new team.
-3. [Give the new team equivalent access](/articles/managing-team-access-to-an-organization-repository) to each of the repositories the legacy team could access.
-4. [Delete the legacy admin team](/articles/deleting-a-team).
+1. [Crie uma equipe](/articles/creating-a-team).
+2. [Adicione cada um dos membros](/articles/adding-organization-members-to-a-team) da sua equipe de administração herdada à nova equipe.
+3. [Dê à nova equipe acesso equivalente](/articles/managing-team-access-to-an-organization-repository) a cada um dos repositórios que a equipe herdada podia acessar.
+4. [Exclua a equipe de administração herdada](/articles/deleting-a-team).

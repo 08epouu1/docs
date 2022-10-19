@@ -1,35 +1,39 @@
 ---
-title: Closing a project board
-intro: 'If you''ve completed all the tasks in a project board or no longer need to use a project board, you can close the project board.'
+title: 'Fechar um {% data variables.product.prodname_project_v1 %}'
+intro: 'Se você tiver concluído todas as tarefas em um {% data variables.projects.projects_v1_board %} ou não precisar mais usar um {% data variables.projects.projects_v1_board %}, poderá fechar o {% data variables.projects.projects_v1_board %}.'
 redirect_from:
   - /github/managing-your-work-on-github/managing-project-boards/closing-a-project-board
   - /articles/closing-a-project
   - /articles/closing-a-project-board
   - /github/managing-your-work-on-github/closing-a-project-board
 versions:
-  fpt: '*'
-  ghes: '*'
-  ghae: '*'
-  ghec: '*'
+  feature: projects-v1
 topics:
   - Pull requests
+allowTitleToDifferFromFilename: true
+ms.openlocfilehash: fb62345b404e94ddd5a6a22995b9481c9855914d
+ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
+ms.translationtype: HT
+ms.contentlocale: pt-BR
+ms.lasthandoff: 09/05/2022
+ms.locfileid: '147422705'
 ---
 {% data reusables.projects.project_boards_old %}
 
-When you close a project board, any configured workflow automation will pause by default.
+Quando você fecha um {% data variables.projects.projects_v1_board %}, qualquer automação de fluxo de trabalho configurada será pausada por padrão.
 
-If you reopen a project board, you have the option to *sync* automation, which updates the position of the cards on the board according to the automation settings configured for the board. For more information, see "[Reopening a closed project board](/articles/reopening-a-closed-project-board)" or "[About automation for project boards](/articles/about-automation-for-project-boards)."
+Se você reabrir um {% data variables.projects.projects_v1_board %}, terá a opção de *sincronizar* a automação, que atualiza a posição dos cartões no quadro de acordo com as configurações de automação configuradas para o quadro. Para obter mais informações, confira "[Reabrir um {% data variables.product.prodname_project_v1 %} fechado](/articles/reopening-a-closed-project-board)" ou "[Sobre automação para {% data variables.product.prodname_projects_v1 %}](/articles/about-automation-for-project-boards)".
 
-1. Navigate to list of project boards in your repository or organization, or owned by your user account.
-2. In the projects list, next to the project board you want to close, click {% octicon "chevron-down" aria-label="The chevron icon" %}.
-![Chevron icon to the right of the project board's name](/assets/images/help/projects/project-list-action-chevron.png)
-3. Click **Close**.
-![Close item in the project board's drop-down menu](/assets/images/help/projects/close-project.png)
+1. Navegue até a lista de {% data variables.projects.projects_v1_boards %} no seu repositório ou na sua organização ou que pertençam à sua conta pessoal.
+2. Na lista de projetos, ao lado do {% data variables.projects.projects_v1_board %} que você deseja fechar, clique em {% octicon "chevron-down" aria-label="The chevron icon" %}.
+![Ícone de divisa à direita do nome do quadro de projetos](/assets/images/help/projects/project-list-action-chevron.png)
+3. Clique em **fechar**
+![Fechar item no menu suspenso do quadro de projetos](/assets/images/help/projects/close-project.png)
 
-## Further reading
+## Leitura adicional
 
-- "[About project boards](/articles/about-project-boards)"
-- "[Deleting a project board](/articles/deleting-a-project-board)"
-- "[Disabling project boards in a repository](/articles/disabling-project-boards-in-a-repository)"
-- "[Disabling project boards in your organization](/articles/disabling-project-boards-in-your-organization)"
-- "[Project board permissions for an organization](/articles/project-board-permissions-for-an-organization)"
+- "[Sobre {% data variables.product.prodname_projects_v1 %}](/articles/about-project-boards)"
+- "[Excluir um {% data variables.product.prodname_project_v1 %}](/articles/deleting-a-project-board)"
+- "[Desabilitar {% data variables.product.prodname_projects_v1 %} em um repositório](/articles/disabling-project-boards-in-a-repository)"
+- "[Desabilitar {% data variables.product.prodname_projects_v1 %} em sua organização](/articles/disabling-project-boards-in-your-organization)"
+- "[Permissões de {% data variables.product.prodname_project_v1_caps %} para uma organização](/articles/project-board-permissions-for-an-organization)"

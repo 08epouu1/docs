@@ -1,6 +1,6 @@
 ---
-title: Building and testing Java with Ant
-intro: You can create a continuous integration (CI) workflow in GitHub Actions to build and test your Java project with Ant.
+title: Construir y probar Java con Ant
+intro: Puedes crear un flujo de trabajo de integración continua (CI) en Acciones de GitHub para construir y probar tu proyecto Java con Ant.
 redirect_from:
   - /actions/language-and-framework-guides/building-and-testing-java-with-ant
   - /actions/guides/building-and-testing-java-with-ant
@@ -15,40 +15,40 @@ topics:
   - Java
   - Ant
 shortTitle: Build & test Java & Ant
+ms.openlocfilehash: d1e73fdce7bf23bf1b86ec3eb4d0f8acd9b6d292
+ms.sourcegitcommit: fcf3546b7cc208155fb8acdf68b81be28afc3d2d
+ms.translationtype: HT
+ms.contentlocale: es-ES
+ms.lasthandoff: 09/10/2022
+ms.locfileid: '145091897'
 ---
+{% data reusables.actions.enterprise-beta %} {% data reusables.actions.enterprise-github-hosted-runners %}
 
-{% data reusables.actions.enterprise-beta %}
-{% data reusables.actions.enterprise-github-hosted-runners %}
+## Introducción
 
-## Introduction
+Esta guía te muestra cómo crear un flujo de trabajo que realiza integración continua (CI) para tu proyecto de Java por medio del sistema de construcción Ant. El flujo de trabajo que creas te permitirá ver cuándo las confirmaciones de una solicitud de extracción causan la construcción o las fallas de prueba en tu rama por defecto; este enfoque puede ayudar a garantizar que tu código siempre sea correcto. Puedes ampliar tu flujo de trabajo de CI para cargar artefactos desde una ejecución de flujo de trabajo.
 
-This guide shows you how to create a workflow that performs continuous integration (CI) for your Java project using the Ant build system. The workflow you create will allow you to see when commits to a pull request cause build or test failures against your default branch; this approach can help ensure that your code is always healthy. You can extend your CI workflow to upload artifacts from a workflow run.
-
-{% ifversion ghae %}
-{% data reusables.actions.self-hosted-runners-software %}
-{% else %}
-{% data variables.product.prodname_dotcom %}-hosted runners have a tools cache with pre-installed software, which includes Java Development Kits (JDKs) and Ant. For a list of software and the pre-installed versions for JDK and Ant, see "[Specifications for {% data variables.product.prodname_dotcom %}-hosted runners](/actions/reference/specifications-for-github-hosted-runners/#supported-software)".
+Los ejecutores alojados en {% ifversion ghae %} {% data reusables.actions.self-hosted-runners-software %} {% else %} {% data variables.product.prodname_dotcom %} tienen una memoria caché de herramientas con software preinstalado, que incluye kits de desarrollo de Java (JDK) y Ant. A fin de obtener una lista de software y las versiones preinstaladas para JDK y Ant, vea "[Especificaciones de ejecutores alojados en {% data variables.product.prodname_dotcom %}](/actions/reference/specifications-for-github-hosted-runners/#supported-software)".
 {% endif %}
 
-## Prerequisites
+## Requisitos previos
 
-You should be familiar with YAML and the syntax for {% data variables.product.prodname_actions %}. For more information, see:
-- "[Workflow syntax for {% data variables.product.prodname_actions %}](/actions/automating-your-workflow-with-github-actions/workflow-syntax-for-github-actions)"
-- "[Learn {% data variables.product.prodname_actions %}](/actions/learn-github-actions)"
+Deberías estar familiarizado con YAML y la sintaxis para las {% data variables.product.prodname_actions %}. Para más información, consulte:
+- "[Sintaxis de flujos de trabajo para {% data variables.product.prodname_actions %}](/actions/automating-your-workflow-with-github-actions/workflow-syntax-for-github-actions)"
+- "[Más información sobre {% data variables.product.prodname_actions %}](/actions/learn-github-actions)"
 
-We recommend that you have a basic understanding of Java and the Ant framework. For more information, see the [Apache Ant Manual](https://ant.apache.org/manual/).
+Recomendamos que tengas un conocimiento básico de Java y de la estructura de Ant. Para obtener más información, vea el [Manual de Apache Ant](https://ant.apache.org/manual/).
 
 {% data reusables.actions.enterprise-setup-prereq %}
 
-## Starting with an Ant workflow template
+## Utilizar el flujo de trabajo inicial de Ant
 
-{% data variables.product.prodname_dotcom %} provides an Ant workflow template that will work for most Ant-based Java projects. For more information, see the [Ant workflow template](https://github.com/actions/starter-workflows/blob/main/ci/ant.yml).
+{% data variables.product.prodname_dotcom %} proporciona un flujo de trabajo inicial de Ant que funcionará para la mayoría de los proyectos de Java basados en Ant. Para obtener más información, vea el [flujo de trabajo de inicio de Ant](https://github.com/actions/starter-workflows/blob/main/ci/ant.yml).
 
-To get started quickly, you can choose the preconfigured Ant template when you create a new workflow. For more information, see the "[{% data variables.product.prodname_actions %} quickstart](/actions/quickstart)."
+Para comenzar rápidamente, puedes elegir el flujo de trabajo inicial de Ant preconfigurado cuando crees un nuevo flujo de trabajo. Para obtener más información, vea el "[Inicio rápido de {% data variables.product.prodname_actions %}](/actions/quickstart)".
 
-You can also add this workflow manually by creating a new file in the `.github/workflows` directory of your repository.
+También puede agregar este flujo de trabajo manualmente si crea un archivo en el directorio `.github/workflows` del repositorio.
 
-{% raw %}
 ```yaml{:copy}
 name: Java CI
 
@@ -59,69 +59,64 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: {% data reusables.actions.action-checkout %}
       - name: Set up JDK 11
-        uses: actions/setup-java@v2
+        uses: {% data reusables.actions.action-setup-java %}
         with:
           java-version: '11'
           distribution: 'adopt'
       - name: Build with Ant
         run: ant -noinput -buildfile build.xml
 ```
-{% endraw %}
 
-This workflow performs the following steps:
+Este flujo de trabajo realiza los siguientes pasos:
 
-1. The `checkout` step downloads a copy of your repository on the runner.
-2. The `setup-java` step configures the Java 11 JDK by Adoptium.
-3. The "Build with Ant" step runs the default target in your `build.xml` in non-interactive mode.
+1. El paso `checkout` descarga una copia del repositorio en el ejecutor.
+2. El paso `setup-java` configura el JDK de Java 11 mediante Adoptium.
+3. El paso "Compilar con Ant" ejecuta el destino predeterminado en `build.xml` en el modo no interactivo.
 
-The default workflow templates are excellent starting points when creating your build and test workflow, and you can customize the template to suit your project’s needs.
+Los flujos de trabajo iniciales predeterminados son un punto de partida excelente para crear tu flujo de trabajo de prueba y de compilación y puedes personalizarlos de acuerdo con las necesidades de tu proyecto.
 
-{% data reusables.github-actions.example-github-runner %}
+{% data reusables.actions.example-github-runner %}
 
-{% data reusables.github-actions.java-jvm-architecture %}
+{% data reusables.actions.java-jvm-architecture %}
 
-## Building and testing your code
+## Construir y probar tu código
 
-You can use the same commands that you use locally to build and test your code.
+Puedes usar los mismos comandos que usas de forma local para construir y probar tu código.
 
-The starter workflow will run the default target specified in your _build.xml_ file.  Your default target will commonly be set to build classes, run tests and package classes into their distributable format, for example, a JAR file.
+El flujo de trabajo de inicio ejecutará el destino predeterminado especificado en el archivo _build.xml_.  Normalmente, tu objetivo predeterminado se configurará para crear clases, ejecutar pruebas y empaquetar clases en su formato distribuible, por ejemplo, un archivo JAR.
 
-If you use different commands to build your project, or you want to run a different target, you can specify those. For example, you may want to run the `jar` target that's configured in your _build-ci.xml_ file.
+Si usas diferentes comandos para construir tu proyecto, o si deseas ejecutar un objetivo diferente, puedes especificarlos. Por ejemplo, puede que quiera ejecutar el destino `jar` configurado en el archivo `_build-ci.xml_`.
 
-{% raw %}
 ```yaml{:copy}
 steps:
-  - uses: actions/checkout@v2
-  - uses: actions/setup-java@v2
+  - uses: {% data reusables.actions.action-checkout %}
+  - uses: {% data reusables.actions.action-setup-java %}
     with:
       java-version: '11'
       distribution: 'adopt'
   - name: Run the Ant jar target
     run: ant -noinput -buildfile build-ci.xml jar
 ```
-{% endraw %}
 
-## Packaging workflow data as artifacts
+## Empaquetar datos de flujo de trabajo como artefactos
 
-After your build has succeeded and your tests have passed, you may want to upload the resulting Java packages as a build artifact. This will store the built packages as part of the workflow run, and allow you to download them. Artifacts can help you test and debug pull requests in your local environment before they're merged. For more information, see "[Persisting workflow data using artifacts](/actions/automating-your-workflow-with-github-actions/persisting-workflow-data-using-artifacts)."
+Una vez que tu compilación haya tenido éxito y tus pruebas hayan pasado, es posible que desees cargar los paquetes Java resultantes como un artefacto de construcción. Esto almacenará los paquetes compilados como parte de la ejecución del flujo de trabajo y te permitirá descargarlos. Los artefactos pueden ayudarte a probar y depurar solicitudes de extracción en tu entorno local antes de que se fusionen. Para más información, vea "[Conservación de datos de flujo de trabajo mediante artefactos](/actions/automating-your-workflow-with-github-actions/persisting-workflow-data-using-artifacts)".
 
-Ant will usually create output files like JARs, EARs, or WARs in the `build/jar` directory. You can upload the contents of that directory using the `upload-artifact` action.
+Ant normalmente creará archivos de salida como JAR, EAR o WAR en el directorio `build/jar`. Puede cargar el contenido de ese directorio mediante la acción `upload-artifact`.
 
-{% raw %}
 ```yaml{:copy}
 steps:
-  - uses: actions/checkout@v2
-  - uses: actions/setup-java@v2
+  - uses: {% data reusables.actions.action-checkout %}
+  - uses: {% data reusables.actions.action-setup-java %}
     with:
       java-version: '11'
       distribution: 'adopt'
   
   - run: ant -noinput -buildfile build.xml
-  - uses: actions/upload-artifact@v2
+  - uses: {% data reusables.actions.action-upload-artifact %}
     with:
       name: Package
       path: build/jar
 ```
-{% endraw %}

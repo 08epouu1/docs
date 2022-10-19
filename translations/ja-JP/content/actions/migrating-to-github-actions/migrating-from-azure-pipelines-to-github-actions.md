@@ -1,6 +1,6 @@
 ---
-title: Migrating from Azure Pipelines to GitHub Actions
-intro: '{% data variables.product.prodname_actions %} and Azure Pipelines share several configuration similarities, which makes migrating to {% data variables.product.prodname_actions %} relatively straightforward.'
+title: Azure PipelinesからGitHub Actionsへの移行
+intro: '{% data variables.product.prodname_actions %}とAzure Pipelinesは、いくつかの点で設定が似ており、そのため{% data variables.product.prodname_actions %}への移行は比較的単純です。'
 redirect_from:
   - /actions/learn-github-actions/migrating-from-azure-pipelines-to-github-actions
 versions:
@@ -15,46 +15,50 @@ topics:
   - CI
   - CD
 shortTitle: Migrate from Azure Pipelines
+ms.openlocfilehash: 5890afb4c0f0e8eae6b5981a39e68f272bff7440
+ms.sourcegitcommit: fcf3546b7cc208155fb8acdf68b81be28afc3d2d
+ms.translationtype: HT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 09/10/2022
+ms.locfileid: '145121309'
 ---
+{% data reusables.actions.enterprise-beta %} {% data reusables.actions.enterprise-github-hosted-runners %}
 
-{% data reusables.actions.enterprise-beta %}
-{% data reusables.actions.enterprise-github-hosted-runners %}
+## はじめに
 
-## Introduction
+Azure Pipelinesと{% data variables.product.prodname_actions %}は、どちらも自動的にコードのビルド、テスト、公開、リリース、デプロイを行うワークフローを作成できます。 Azure Pipelinesと{% data variables.product.prodname_actions %}は、ワークフローの設定において似ているところがあります。
 
-Azure Pipelines and {% data variables.product.prodname_actions %} both allow you to create workflows that automatically build, test, publish, release, and deploy code. Azure Pipelines and {% data variables.product.prodname_actions %} share some similarities in workflow configuration:
+- ワークフローの設定ファイルはYAMLで書かれ、コードのリポジトリに保存されます。
+- ワークフローには1つ以上のジョブが含まれます。
+- ジョブには1つ以上のステップもしくは個別のコマンドが含まれます。
+- ステップもしくはタスクは、再利用とコミュニティとの共有が可能です。
 
-- Workflow configuration files are written in YAML and are stored in the code's repository.
-- Workflows include one or more jobs.
-- Jobs include one or more steps or individual commands.
-- Steps or tasks can be reused and shared with the community.
+詳しくは、[{% data variables.product.prodname_actions %} のコア概念](/actions/getting-started-with-github-actions/core-concepts-for-github-actions)に関するページをご覧ください。
 
-For more information, see "[Core concepts for {% data variables.product.prodname_actions %}](/actions/getting-started-with-github-actions/core-concepts-for-github-actions)."
+## 主要な相違点
 
-## Key differences
+Azure Pipelinesから移行する際には、以下の差異を考慮してください。
 
-When migrating from Azure Pipelines, consider the following differences:
+- Azure Pipeline はレガシーの _クラシック エディター_ をサポートしています。これは CI の設定を、YAML ファイルでパイプラインの定義を作成する代わりに、GUI のエディタで定義できるようにするものです。 {% data variables.product.prodname_actions %}はワークフローの定義にYAMLファイルを使い、グラフィカルなエディタはサポートしていません。
+- Azure Pipelinesでは、ジョブの定義中の一部の構造を省略できます。 たとえば、ジョブが1つだけしかないなら、ジョブを定義する必要はなく、ステップだけを定義すれば済みます。 {% data variables.product.prodname_actions %}は明示的な設定が必要であり、YAMLの構造は省略できません。
+- Azure Pipelines は YAML ファイル中で定義される _ステージ_ をサポートしています。ステージは、デプロイのワークフローの作成に利用できます。 {% data variables.product.prodname_actions %}では、ステージは個別のYAMLワークフローファイルに分割しなければなりません。
+- オンプレミスのAzure Pipelinesビルドエージェントは、機能で選択できます。 {% data variables.product.prodname_actions %}のセルフホストランナーは、ラベルで選択できます。
 
-- Azure Pipelines supports a legacy _classic editor_, which lets you define your CI configuration in a GUI editor instead of creating the pipeline definition in a YAML file. {% data variables.product.prodname_actions %} uses YAML files to define workflows and does not support a graphical editor.
-- Azure Pipelines allows you to omit some structure in job definitions. For example, if you only have a single job, you don't need to define the job and only need to define its steps. {% data variables.product.prodname_actions %} requires explicit configuration, and YAML structure cannot be omitted.
-- Azure Pipelines supports _stages_ defined in the YAML file, which can be used to create deployment workflows. {% data variables.product.prodname_actions %} requires you to separate stages into separate YAML workflow files.
-- On-premises Azure Pipelines build agents can be selected with capabilities. {% data variables.product.prodname_actions %} self-hosted runners can be selected with labels.
+## ジョブとステップの移行
 
-## Migrating jobs and steps
+Azure Pipelinesのジョブとステップは、{% data variables.product.prodname_actions %}のジョブとステップによく似ています。 どちらのシステムでも、ジョブは以下の特徴を持ちます。
 
-Jobs and steps in Azure Pipelines are very similar to jobs and steps in {% data variables.product.prodname_actions %}. In both systems, jobs have the following characteristics:
+* ジョブは、順番に実行される一連のステップを持ちます。
+* ジョブは、個別の仮想マシンまたは個別のコンテナで実行されます。
+* ジョブは、デフォルトでは並列に実行されますが、順次実行するように設定することもできます。
 
-* Jobs contain a series of steps that run sequentially.
-* Jobs run on separate virtual machines or in separate containers.
-* Jobs run in parallel by default, but can be configured to run sequentially.
+## スクリプトのステップの移行
 
-## Migrating script steps
+スクリプトやシェルのコマンドを、ワークフロー中のステップとして実行できます。 Azure Pipelines で、スクリプトの手順を `script` キーを使用して指定するか、`bash` キーか、`powershell` キーか、`pwsh` キーで指定できます。 スクリプトは [Bash タスク](https://docs.microsoft.com/azure/devops/pipelines/tasks/utility/bash?view=azure-devops)または [PowerShell タスク](https://docs.microsoft.com/azure/devops/pipelines/tasks/utility/powershell?view=azure-devops)への入力として指定することもできます。
 
-You can run a script or a shell command as a step in a workflow. In Azure Pipelines, script steps can be specified using the `script` key, or with the `bash`, `powershell`, or `pwsh` keys. Scripts can also be specified as an input to the [Bash task](https://docs.microsoft.com/azure/devops/pipelines/tasks/utility/bash?view=azure-devops) or the [PowerShell task](https://docs.microsoft.com/azure/devops/pipelines/tasks/utility/powershell?view=azure-devops).
+{% data variables.product.prodname_actions %} では、すべてのスクリプトは `run` キーを使って指定されます。 特定のシェルを選択するには、スクリプトを提供する際に `shell` キーを指定します。 詳細については、[{% data variables.product.prodname_actions %} のワークフロー構文](/actions/reference/workflow-syntax-for-github-actions#jobsjob_idstepsrun)に関するページを参照してください。
 
-In {% data variables.product.prodname_actions %}, all scripts are specified using the `run` key. To select a particular shell, you can specify the `shell` key when providing the script. For more information, see "[Workflow syntax for {% data variables.product.prodname_actions %}](/actions/reference/workflow-syntax-for-github-actions#jobsjob_idstepsrun)."
-
-Below is an example of the syntax for each system:
+以下が、それぞれのシステムの構文の例です。
 
 <table class="d-block">
 <tr>
@@ -103,19 +107,19 @@ jobs:
 </tr>
 </table>
 
-## Differences in script error handling
+## スクリプトのエラー処理の差異
 
-In Azure Pipelines, scripts can be configured to error if any output is sent to `stderr`. {% data variables.product.prodname_actions %} does not support this configuration.
+Azure Pipelines では、`stderr` への出力があればスクリプトがエラーとなるように設定できます。 {% data variables.product.prodname_actions %}はこの設定をサポートしていません。
 
-{% data variables.product.prodname_actions %} configures shells to "fail fast" whenever possible, which stops the script immediately if one of the commands in a script exits with an error code. In contrast, Azure Pipelines requires explicit configuration to exit immediately on an error. For more information, see "[Workflow syntax for {% data variables.product.prodname_actions %}](/actions/reference/workflow-syntax-for-github-actions#exit-codes-and-error-action-preference)."
+{% data variables.product.prodname_actions %}は、可能な場合にはシェルを"fail fast"に設定します。これは、スクリプト中のコマンドの1つがエラーコードで終了した場合に即座にスクリプトを停止させるものです。 これに対し、Azure Pipelinesではエラーの際に即座に終了させるためには、明示的に設定しなければなりません。 詳細については、[{% data variables.product.prodname_actions %} のワークフロー構文](/actions/reference/workflow-syntax-for-github-actions#exit-codes-and-error-action-preference)に関するページを参照してください。
 
-## Differences in the default shell on Windows
+## Windows上でのデフォルトシェルの差異
 
-In Azure Pipelines, the default shell for scripts on Windows platforms is the Command shell (_cmd.exe_). In {% data variables.product.prodname_actions %}, the default shell for scripts on Windows platforms is PowerShell. PowerShell has several differences in built-in commands, variable expansion, and flow control.
+Azure Pipelines では、Windows プラットフォーム上のスクリプトのための既定シェルはコマンドシェル (_cmd.exe_) です。 {% data variables.product.prodname_actions %}では、Windowsプラットフォーム上のスクリプトのためのデフォルトシェルはPowerShellです。 PowerShellは、組み込みコマンド、変数の展開、フロー制御で多少の差異があります。
 
-If you're running a simple command, you might be able to run a Command shell script in PowerShell without any changes. But in most cases, you will either need to update your script with PowerShell syntax or instruct {% data variables.product.prodname_actions %} to run the script with the Command shell instead of PowerShell. You can do this by specifying `shell` as `cmd`.
+シンプルなコマンドを実行するなら、コマンドシェルのスクリプトを変更なしにPowerShellで実行できるかもしれません。 しかしほとんどの場合は、PowerShellの構文でスクリプトをアップデートするか、{% data variables.product.prodname_actions %}に対してスクリプトをPowerShellではなくコマンドシェルで実行するように指定することになります。 `shell` を `cmd` として指定することでこれを実行できます。
 
-Below is an example of the syntax for each system:
+以下が、それぞれのシステムの構文の例です。
 
 <table class="d-block">
 <tr>
@@ -155,15 +159,15 @@ jobs:
 </tr>
 </table>
 
-For more information, see "[Workflow syntax for {% data variables.product.prodname_actions %}](/actions/reference/workflow-syntax-for-github-actions#using-a-specific-shell)."
+詳細については、[{% data variables.product.prodname_actions %} のワークフロー構文](/actions/reference/workflow-syntax-for-github-actions#using-a-specific-shell)に関するページを参照してください。
 
-## Migrating conditionals and expression syntax
+## 条件と式の構文の移行
 
-Azure Pipelines and {% data variables.product.prodname_actions %} can both run steps conditionally. In Azure Pipelines, conditional expressions are specified using the `condition` key. In {% data variables.product.prodname_actions %}, conditional expressions are specified using the `if` key.
+Azure Pipelinesと{% data variables.product.prodname_actions %}は、どちらもステップを条件付きで実行できます。 Azure Pipelines では、条件式は `condition` キーを使って指定します。 {% data variables.product.prodname_actions %}では、条件式は `if` キーを使って指定します。
 
-Azure Pipelines uses functions within expressions to execute steps conditionally. In contrast, {% data variables.product.prodname_actions %} uses an infix notation. For example, you must replace the `eq` function in Azure Pipelines with the `==` operator in {% data variables.product.prodname_actions %}.
+Azure Pipelinesは、ステップを条件付きで実行するために、式の中で関数を使います。 それに対し、{% data variables.product.prodname_actions %}はinfix表記を使います。 たとえば、Azure Pipelines における `eq` 関数は、{% data variables.product.prodname_actions %} では `==` 演算子に置き換えなければなりません。
 
-Below is an example of the syntax for each system:
+以下が、それぞれのシステムの構文の例です。
 
 <table class="d-block">
 <tr>
@@ -203,13 +207,13 @@ jobs:
 </tr>
 </table>
 
-For more information, see "[Expressions](/actions/learn-github-actions/expressions)."
+詳細については、「[式](/actions/learn-github-actions/expressions)」を参照してください。
 
-## Dependencies between jobs
+## ジョブ間の依存関係
 
-Both Azure Pipelines and {% data variables.product.prodname_actions %} allow you to set dependencies for a job. In both systems, jobs run in parallel by default, but job dependencies can be specified explicitly. In Azure Pipelines, this is done with the `dependsOn` key. In {% data variables.product.prodname_actions %}, this is done with the `needs` key.
+Azure Pipelinesと{% data variables.product.prodname_actions %}は、どちらもジョブの依存関係を設定できます。 どちらのシステムでも、デフォルトではジョブは並行に実行されますが、ジョブの依存関係を明示的に指定できます。 Azure Pipelines では、これは `dependsOn` キーで行われます。 {% data variables.product.prodname_actions %} では、`needs` キーを使って行います。
 
-Below is an example of the syntax for each system. The workflows start a first job named `initial`, and when that job completes, two jobs named `fanout1` and `fanout2` will run. Finally, when those jobs complete, the job `fanin` will run.
+以下は、それぞれのシステムにおける構文の例です。 ワークフローは `initial` という名前の最初のジョブを開始し、そのジョブが完了すると `fanout1` と `fanout2` という名前の 2 つのジョブが実行されます。 最後に、これらのジョブが完了すると、ジョブ `fanin` が実行されます。
 
 <table class="d-block">
 <tr>
@@ -280,13 +284,13 @@ jobs:
 </tr>
 </table>
 
-For more information, see "[Workflow syntax for {% data variables.product.prodname_actions %}](/actions/reference/workflow-syntax-for-github-actions#jobsjob_idneeds)."
+詳細については、[{% data variables.product.prodname_actions %} のワークフロー構文](/actions/reference/workflow-syntax-for-github-actions#jobsjob_idneeds)に関するページを参照してください。
 
-## Migrating tasks to actions
+## タスクのアクションへの移行
 
-Azure Pipelines uses _tasks_, which are application components that can be re-used in multiple workflows. {% data variables.product.prodname_actions %} uses _actions_, which can be used to perform tasks and customize your workflow. In both systems, you can specify the name of the task or action to run, along with any required inputs as key/value pairs.
+Azure Pipelines は _タスク_ を使います。これは、複数のワークフローで再利用できるアプリケーションのコンポーネントです。 {% data variables.product.prodname_actions %} は _アクション_ を使います。これは、タスクの実行とワークフローのカスタマイズに利用できます。 どちらのシステムでも、実行するタスクやアクションの名前を、必要な入力のキー/値のペアとともに指定できます。
 
-Below is an example of the syntax for each system:
+以下が、それぞれのシステムの構文の例です。
 
 <table>
 <tr>
@@ -315,21 +319,21 @@ jobs:
 {% endraw %}
 </td>
 <td class="d-table-cell v-align-top">
-{% raw %}
+
 ```yaml
 jobs:
   run_python:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/setup-python@v2
+      - uses: {% data reusables.actions.action-setup-python %}
         with:
           python-version: '3.7'
           architecture: 'x64'
       - run: python script.py
 ```
-{% endraw %}
+
 </td>
 </tr>
 </table>
 
-You can find actions that you can use in your workflow in [{% data variables.product.prodname_marketplace %}](https://github.com/marketplace?type=actions), or you can create your own actions. For more information, see "[Creating actions](/actions/creating-actions)."
+ワークフローで使用できるアクションは [、{% data variables.product.prodname_marketplace %}](https://github.com/marketplace?type=actions) にあります。または、独自のアクションを作成することもできます。 詳細については、「[アクションを作成する](/actions/creating-actions)」を参照してください。

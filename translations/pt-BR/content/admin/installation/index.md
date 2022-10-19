@@ -1,7 +1,7 @@
 ---
-title: 'Installing {% data variables.product.prodname_enterprise %}'
+title: 'Como instalar o {% data variables.product.prodname_enterprise %}'
 shortTitle: Installing
-intro: 'System administrators and operations and security specialists can install {% data variables.product.prodname_ghe_server %}.'
+intro: 'Os administradores do sistema e os especialistas em operações e segurança podem instalar o {% data variables.product.prodname_ghe_server %}.'
 redirect_from:
   - /enterprise/admin-guide
   - /enterprise/admin/guides/installation
@@ -18,9 +18,15 @@ topics:
   - Set up
 children:
   - /setting-up-a-github-enterprise-server-instance
+ms.openlocfilehash: 3c68586dada3fc76733611ad7a05d4119102736e
+ms.sourcegitcommit: fb047f9450b41b24afc43d9512a5db2a2b750a2a
+ms.translationtype: HT
+ms.contentlocale: pt-BR
+ms.lasthandoff: 09/11/2022
+ms.locfileid: '145093948'
 ---
-For more information, or to purchase {% data variables.product.prodname_enterprise %}, see [{% data variables.product.prodname_enterprise %}](https://github.com/enterprise).
+Para obter mais informações ou para comprar o {% data variables.product.prodname_enterprise %}, confira [{% data variables.product.prodname_enterprise %}](https://github.com/enterprise).
 
 {% data reusables.enterprise_installation.request-a-trial %}
 
-If you have questions about the installation process, see "[Working with {% data variables.product.prodname_enterprise %} Support](/enterprise/admin/guides/enterprise-support/)."
+Caso tenha dúvidas sobre o processo de instalação, confira "[Como trabalhar com o Suporte do {% data variables.product.prodname_enterprise %}](/enterprise/admin/guides/enterprise-support/)".

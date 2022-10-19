@@ -1,6 +1,6 @@
 ---
-title: Creating a GitHub App from a manifest
-intro: 'A GitHub App Manifest is a preconfigured GitHub App you can share with anyone who wants to use your app in their personal repositories. The manifest flow allows someone to quickly create, install, and start extending a GitHub App without needing to register the app or connect the registration to the hosted app code.'
+title: Crear una GitHub App a partir de un manifiesto
+intro: 'Un Manifiesto de una GitHub App es una GitHub App preconfigurada que puedes compartir con cualquiera que desée utilizar tu app en sus repositorios personales. El flujo del manifiesto les permite a los usuarios crear, instalar y comenzar a extender una GitHub App rápidamente sin necesidad de registrarla o de conectar el registro al código hospedado de la app.'
 redirect_from:
   - /apps/building-github-apps/creating-github-apps-from-a-manifest
   - /developers/apps/creating-a-github-app-from-a-manifest
@@ -12,78 +12,83 @@ versions:
 topics:
   - GitHub Apps
 shortTitle: App creation manifest flow
+ms.openlocfilehash: 8dd917a5b08605b995a7ecf8321b5cd61c50a681
+ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
+ms.translationtype: HT
+ms.contentlocale: es-ES
+ms.lasthandoff: 09/05/2022
+ms.locfileid: '145117265'
 ---
-## About GitHub App Manifests
+## Acerca de los Manifiestos de las GitHub Apps
 
-When someone creates a GitHub App from a manifest, they only need to follow a URL and name the app. The manifest includes the permissions, events, and webhook URL needed to automatically register the app. The manifest flow creates the GitHub App registration and retrieves the app's webhook secret, private key (PEM file), and GitHub App ID. The person who creates the app from the manifest will own the app and can choose to [edit the app's configuration settings](/apps/managing-github-apps/modifying-a-github-app/), delete it, or transfer it to another person on GitHub.
+Cuando alguien crea una GitHub App desde un manifiesto, únicamente necesitan seguir una URL y nombrar a la app. El manifiesto incluye los permisos, eventos, y URL de los webhooks que se necesiten para registrar la app automáticamente. El flujo del manifiesto crea el registro de la GitHub App y recupera el secreto del webhook, llave privada (archivo PEM), e ID de la GitHub App. La persona que crea la aplicación a partir del manifiesto será propietaria de la aplicación y puede elegir [editar la configuración de la aplicación](/apps/managing-github-apps/modifying-a-github-app/), eliminarla o transferirla a otra persona en GitHub.
 
-You can use [Probot](https://probot.github.io/) to get started with GitHub App Manifests or see an example implementation. See "[Using Probot to implement the GitHub App Manifest flow](#using-probot-to-implement-the-github-app-manifest-flow)" to learn more.
+Puedes usar [Probot](https://probot.github.io/) para empezar a trabajar con manifiestos de aplicación de GitHub o ver una implementación de ejemplo. Consulta "[Uso de Probot para implementar el flujo de manifiesto de aplicación de GitHub](#using-probot-to-implement-the-github-app-manifest-flow)" para más información.
 
-Here are some scenarios where you might use GitHub App Manifests to create preconfigured apps:
+Aquí te mostramos algunos escenarios en donde podrías utilizar los Manifiestos de las GitHub Apps para crear apps preconfiguradas:
 
-* Help new team members come up-to-speed quickly when developing GitHub Apps.
-* Allow others to extend a GitHub App using the GitHub APIs without requiring them to configure an app.
-* Create GitHub App reference designs to share with the GitHub community.
-* Ensure you deploy GitHub Apps to development and production environments using the same configuration.
-* Track revisions to a GitHub App configuration.
+* Para ayudar a los miembros nuevos del equipo a que se familiaricen rápidamente con el desarrollo de las GitHub Apps.
+* Para permitir que otros extiendan una GitHub App utilizando las API de GitHub sin que necesiten configurar dicha app.
+* Para crear diseños de referencia de GitHub Apps y compartirlos con la comunidad de GitHub.
+* Para garantizar que despliegas GitHub Apps en los ambientes de desarrollo y de producción utilizando la misma configuración.
+* Para rastrear las revisiones hechas en la configuración de una GitHub App.
 
-## Implementing the GitHub App Manifest flow
+## Implementar el flujo del Manifiesto de una GitHub App
 
-The GitHub App Manifest flow uses a handshaking process similar to the [OAuth flow](/apps/building-oauth-apps/authorizing-oauth-apps/). The flow uses a manifest to [register a GitHub App](/apps/building-github-apps/creating-a-github-app/) and receives a temporary `code` used to retrieve the app's private key, webhook secret, and ID.
+El flujo de manifiesto de aplicación de GitHub usa un proceso de protocolo de enlace similar al [flujo de OAuth](/apps/building-oauth-apps/authorizing-oauth-apps/). El flujo usa un manifiesto para [registrar una aplicación de GitHub](/apps/building-github-apps/creating-a-github-app/) y recibe un valor temporal `code` que se usa para recuperar la clave privada de la aplicación, el secreto de webhook y el identificador.
 
 {% note %}
 
-**Note:** You must complete all three steps in the GitHub App Manifest flow within one hour.
+**Nota:** Debes completar los tres pasos del flujo de manifiesto de aplicación de GitHub en un plazo de una hora.
 
 {% endnote %}
 
-Follow these steps to implement the GitHub App Manifest flow:
+Sigue estos pasos par aimplementar el flujo del Manifiesto de la GitHub App:
 
-1. You redirect people to GitHub to create a new GitHub App.
-1. GitHub redirects people back to your site.
-1. You exchange the temporary code to retrieve the app configuration.
+1. Redireccionas a las personas a GitHub para crear una GitHub App Nueva.
+1. GitHub redirige a las personas de vuelta a tu sitio.
+1. Intercambias el código temporal para recuperar la configuración de la app.
 
-### 1. You redirect people to GitHub to create a new GitHub App
+### 1. Los usuarios se redirigen a GitHub para crear una nueva aplicación de GitHub.
 
-To redirect people to create a new GitHub App, [provide a link](#examples) for them to click that sends a `POST` request to `https://github.com/settings/apps/new` for a user account or `https://github.com/organizations/ORGANIZATION/settings/apps/new` for an organization account, replacing `ORGANIZATION` with the name of the organization account where the app will be created.
+Para redirigir a los usuarios a la creación de una nueva aplicación de GitHub, [proporciona un vínculo](#examples) para que hagan clic en él y envíen una solicitud `POST` a `https://github.com/settings/apps/new` en el caso de una cuenta personal o a `https://github.com/organizations/ORGANIZATION/settings/apps/new` si se trata de una cuenta de la organización, reemplazando `ORGANIZATION` por el nombre de la cuenta de la organización donde se creará la aplicación.
 
-You must include the [GitHub App Manifest parameters](#github-app-manifest-parameters) as a JSON-encoded string in a parameter called `manifest`. You can also include a `state` [parameter](#parameters) for additional security.
+Debes incluir los [parámetros del manifiesto de aplicación de GitHub](#github-app-manifest-parameters) como una cadena codificada en JSON en un parámetro denominado `manifest`. También puedes incluir un [parámetro `state`](#parameters) para mayor seguridad.
 
-The person creating the app will be redirected to a GitHub page with an input field where they can edit the name of the app you included in the `manifest` parameter. If you do not include a `name` in the `manifest`, they can set their own name for the app in this field.
+A la persona que crea la aplicación se le redirigirá a una página de GitHub con un campo de entrada donde puede editar el nombre de la aplicación que incluyó en el parámetro `manifest`. Si no incluyes un valor `name` en el elemento `manifest`, la persona puede establecer su propio nombre para la aplicación en este campo.
 
-![Create a GitHub App Manifest](/assets/images/github-apps/create-github-app-manifest.png)
+![Crear un Manifiesto de una GitHub App](/assets/images/github-apps/create-github-app-manifest.png)
 
-#### GitHub App Manifest parameters
+#### Parámetros del Manifiesto de la GitHub App
 
- Name | Type | Description
+ Nombre | Tipo | Descripción
 -----|------|-------------
-`name` | `string` | The name of the GitHub App.
-`url` | `string` | **Required.** The homepage of your GitHub App.
-`hook_attributes` | `object` | The configuration of the GitHub App's webhook.
-`redirect_url` | `string` | The full URL to redirect to after a user initiates the creation of a GitHub App from a manifest.{% ifversion fpt or ghae or ghes > 3.0 or ghec %}
-`callback_urls` | `array of strings` | A full URL to redirect to after someone authorizes an installation. You can provide up to 10 callback URLs.{% else %}
-`callback_url` | `string` |  A full URL to redirect to after someone authorizes an installation.{% endif %}
-`description` | `string` | A description of the GitHub App.
-`public` | `boolean` | Set to `true` when your GitHub App is available to the public or `false` when it is only accessible to the owner of the app.
-`default_events` | `array` | The list of [events](/webhooks/event-payloads) the GitHub App subscribes to.
-`default_permissions` | `object` | The set of [permissions](/rest/reference/permissions-required-for-github-apps) needed by the GitHub App. The format of the object uses the permission name for the key (for example, `issues`) and the access type for the value (for example, `write`).
+`name` | `string` | El nombre dela GitHub App.
+`url` | `string` | **Obligatorio.** Página principal de la aplicación de GitHub.
+`hook_attributes` | `object` | La configuración del webhook de la GitHub App.
+`redirect_url` | `string` | La URL completa a la cual redireccionar después de que un usuario inicie la creación de una GitHub App desde un manifiesto.
+`callback_urls` | `array of strings` | Una URL completa a la cual redirigir cuando alguien autorice una instalación. Puedes proporcionar hasta 10 URL de rellamado.
+`description` | `string` | Una descripción de la GitHub App.
+`public` | `boolean` | Establécela en `true` cuando la aplicación de GitHub esté disponible para el público o en `false` cuando solo sea accesible para el propietario de la aplicación.
+`default_events` | `array` | Lista de [eventos](/webhooks/event-payloads) a los que se suscribe la aplicación de GitHub.
+`default_permissions` | `object` | Conjunto de [permisos](/rest/reference/permissions-required-for-github-apps) necesarios para la aplicación de GitHub. El formato del objeto usa el nombre de permiso para la clave (por ejemplo, `issues`) y el tipo de acceso para el valor (por ejemplo, `write`).
 
-The `hook_attributes` object has the following key:
+El objeto `hook_attributes` tiene la clave siguiente:
 
-Name | Type | Description
+Nombre | Tipo | Descripción
 -----|------|-------------
-`url` | `string` | **Required.** The URL of the server that will receive the webhook `POST` requests.
-`active` | `boolean` | Deliver event details when this hook is triggered, defaults to true.
+`url` | `string` | **Obligatorio.** La dirección URL del servidor que va a recibir las solicitudes `POST` del webhook.
+`active` | `boolean` | Entrega detalles del evento cuando se activa este gancho y su valor predeterminado es "true".
 
-#### Parameters
+#### Parámetros
 
- Name | Type | Description
+ Nombre | Tipo | Descripción
 -----|------|-------------
 `state`| `string` | {% data reusables.apps.state_description %}
 
-#### Examples
+#### Ejemplos
 
-This example uses a form on a web page with a button that triggers the `POST` request for a user account:
+En este ejemplo se usa un formulario de una página web con un botón que desencadena la solicitud `POST` para una cuenta personal:
 
 ```html
 <form action="https://github.com/settings/apps/new?state=abc123" method="post">
@@ -100,9 +105,9 @@ This example uses a form on a web page with a button that triggers the `POST` re
      "url": "https://example.com/github/events",
    },
    "redirect_url": "https://example.com/redirect",
-   {% ifversion fpt or ghae or ghes > 3.0 or ghec %}"callback_urls": [
+   "callback_urls": [
      "https://example.com/callback"
-   ],{% else %}"callback_url": "https://example.com/callback",{% endif %}
+   ],
    "public": true,
    "default_permissions": {
      "issues": "write",
@@ -118,7 +123,7 @@ This example uses a form on a web page with a button that triggers the `POST` re
 </script>
 ```
 
-This example uses a form on a web page with a button that triggers the `POST` request for an organization account. Replace `ORGANIZATION` with the name of the organization account where you want to create the app.
+En este ejemplo se usa un formulario de una página web con un botón que desencadena la solicitud `POST` de una cuenta de organización. Reemplaza `ORGANIZATION` por el nombre de la cuenta de organización donde quieres crear la aplicación.
 
 ```html
 <form action="https://github.com/organizations/ORGANIZATION/settings/apps/new?state=abc123" method="post">
@@ -135,9 +140,9 @@ This example uses a form on a web page with a button that triggers the `POST` re
      "url": "https://example.com/github/events",
    },
    "redirect_url": "https://example.com/redirect",
-   {% ifversion fpt or ghae or ghes > 3.0 or ghec %}"callback_urls": [
+   "callback_urls": [
      "https://example.com/callback"
-   ],{% else %}"callback_url": "https://example.com/callback",{% endif %}
+   ],
    "public": true,
    "default_permissions": {
      "issues": "write",
@@ -153,49 +158,49 @@ This example uses a form on a web page with a button that triggers the `POST` re
 </script>
 ```
 
-### 2. GitHub redirects people back to your site
+### 2. GitHub redirige a las personas de nuevo a tu sitio.
 
-When the person clicks **Create GitHub App**, GitHub redirects back to the `redirect_url` with a temporary `code` in a code parameter. For example:
+Cuando la persona hace clic en **Crear aplicación de GitHub**, GitHub la redirige de nuevo a `redirect_url` con un elemento temporal `code` en un parámetro de código. Por ejemplo:
 
     https://example.com/redirect?code=a180b1a3d263c81bc6441d7b990bae27d4c10679
 
-If you provided a `state` parameter, you will also see that parameter in the `redirect_url`. For example:
+Si proporcionaste un parámetro `state`, también verás ese parámetro en `redirect_url`. Por ejemplo:
 
     https://example.com/redirect?code=a180b1a3d263c81bc6441d7b990bae27d4c10679&state=abc123
 
-### 3. You exchange the temporary code to retrieve the app configuration
+### 3. Se intercambia el código temporal para recuperar la configuración de la aplicación.
 
-To complete the handshake, send the temporary `code` in a `POST` request to the [Create a GitHub App from a manifest](/rest/reference/apps#create-a-github-app-from-a-manifest) endpoint. The response will include the `id` (GitHub App ID), `pem` (private key), and `webhook_secret`. GitHub creates a webhook secret for the app automatically. You can store these values in environment variables on the app's server. For example, if your app uses [dotenv](https://github.com/bkeepers/dotenv) to store environment variables, you would store the variables in your app's `.env` file.
+Para completar el protocolo de enlace, envía el elemento temporal `code` de una solicitud `POST` al punto de conexión. Consulta [Creación de una aplicación de GitHub desde un manifiesto](/rest/reference/apps#create-a-github-app-from-a-manifest). La respuesta incluirá los valores de `id` (identificador de aplicación de GitHub), `pem` (clave privada) y `webhook_secret`. GitHub crea un secreto de webhook para la app de forma automática. Puedes almacenar estos valores en variables de ambiente dentro del servidor de la app. Por ejemplo, si la aplicación usa [dotenv](https://github.com/bkeepers/dotenv) para almacenar variables de entorno, almacenarías las variables en el archivo `.env` de la aplicación.
 
-You must complete this step of the GitHub App Manifest flow within one hour.
+Tienes solo una hora para completar este paso en el flujo del Manifiesto de la GitHub App.
 
 {% note %}
 
-**Note:** This endpoint is rate limited. See [Rate limits](/rest/reference/rate-limit) to learn how to get your current rate limit status.
+**Nota:** Este punto de conexión es de velocidad limitada. Consulta [Límites de velocidad](/rest/reference/rate-limit) para información sobre cómo obtener el estado del límite de velocidad actual.
 
 {% endnote %}
 
     POST /app-manifests/{code}/conversions
 
-For more information about the endpoint's response, see [Create a GitHub App from a manifest](/rest/reference/apps#create-a-github-app-from-a-manifest).
+Para más información sobre la respuesta del punto de conexión, consulta [Creación de una aplicación de GitHub a partir de un manifiesto](/rest/reference/apps#create-a-github-app-from-a-manifest).
 
-When the final step in the manifest flow is completed, the person creating the app from the flow will be an owner of a registered GitHub App that they can install on any of their personal repositories. They can choose to extend the app using the GitHub APIs, transfer ownership to someone else, or delete it at any time.
+Cuando se complete el último paso del flujo del manifiesto, la persona que cree la app desde el flujo será el propietario de una GitHub App registrada que podrá instalar en cualquiera de sus repositorios personales. En cualquier momento podrán elegir extender la app utilizando las API de GitHub, transferir la propiedad a alguien más, o borrarla.
 
-## Using Probot to implement the GitHub App Manifest flow
+## Utilizar el Probot par aimplementar el flujo del Manifiesto de la GitHub App
 
-[Probot](https://probot.github.io/) is a framework built with [Node.js](https://nodejs.org/) that performs many of the tasks needed by all GitHub Apps, like validating webhooks and performing authentication. Probot implements the [GitHub App manifest flow](#implementing-the-github-app-manifest-flow), making it easy to create and share GitHub App reference designs with the GitHub community.
+[Probot](https://probot.github.io/) es un marco creado con [Node.js](https://nodejs.org/) que realiza muchas de las tareas que necesitan todas las aplicaciones de GitHub, como validar webhooks y realizar la autenticación. Probot implementa el [flujo de manifiesto de aplicación de GitHub](#implementing-the-github-app-manifest-flow), lo que facilita la creación y el uso compartido de diseños de referencia de aplicaciones de GitHub con la comunidad de GitHub.
 
-To create a Probot App that you can share, follow these steps:
+Para crear una App de Probot que puedas compartir, sigue estos pasos:
 
-1. [Generate a new GitHub App](https://probot.github.io/docs/development/#generating-a-new-app).
-1. Open the project you created, and customize the settings in the `app.yml` file. Probot uses the settings in `app.yml` as the [GitHub App Manifest parameters](#github-app-manifest-parameters).
-1. Add your application's custom code.
-1. [Run the GitHub App locally](https://probot.github.io/docs/development/#running-the-app-locally) or [host it anywhere you'd like](#hosting-your-app-with-glitch). When you navigate to the hosted app's URL, you'll find a web page with a **Register GitHub App** button that people can click to create a preconfigured app. The web page below is Probot's implementation of [step 1](#1-you-redirect-people-to-github-to-create-a-new-github-app) in the GitHub App Manifest flow:
+1. [Genere una nueva aplicación de GitHub](https://probot.github.io/docs/development/#generating-a-new-app).
+1. Abra el proyecto que ha creado y personalice la configuración en el archivo `app.yml`. Probot usa la configuración de `app.yml` como [parámetros de manifiesto de aplicación de GitHub](#github-app-manifest-parameters).
+1. Agrega el código personalizado de tu aplicación.
+1. [Ejecuta la aplicación de GitHub localmente](https://probot.github.io/docs/development/#running-the-app-locally) o bien [hospédala en el lugar que prefieras](#hosting-your-app-with-glitch). Al desplazarte a la dirección URL de la aplicación hospedada, encontrarás una página web con un botón **Registrar aplicación de GitHub** en el que los usuarios pueden hacer clic para crear una aplicación preconfigurada. La página web siguiente es la implementación del [paso 1](#1-you-redirect-people-to-github-to-create-a-new-github-app) de Probot en el flujo de manifiesto de aplicación de GitHub:
 
-![Register a Probot GitHub App](/assets/images/github-apps/github_apps_probot-registration.png)
+![Registrar una GitHub App de Probot](/assets/images/github-apps/github_apps_probot-registration.png)
 
-Using [dotenv](https://github.com/bkeepers/dotenv), Probot creates a `.env` file and sets the `APP_ID`, `PRIVATE_KEY`, and `WEBHOOK_SECRET` environment variables with the values [retrieved from the app configuration](#3-you-exchange-the-temporary-code-to-retrieve-the-app-configuration).
+Con [dotenv](https://github.com/bkeepers/dotenv), Probot crea un archivo `.env` y establece las variables de entorno `APP_ID`, `PRIVATE_KEY` y `WEBHOOK_SECRET` con los valores [recuperados de la configuración de la aplicación](#3-you-exchange-the-temporary-code-to-retrieve-the-app-configuration).
 
-### Hosting your app with Glitch
+### Hospedar tu app con Glitch
 
-You can see an [example Probot app](https://glitch.com/~auspicious-aardwolf) that uses [Glitch](https://glitch.com/) to host and share the app. The example uses the [Checks API](/rest/reference/checks) and selects the necessary Checks API events and permissions in the `app.yml` file. Glitch is a tool that allows you to "Remix your own" apps. Remixing an app creates a copy of the app that Glitch hosts and deploys. See "[About Glitch](https://glitch.com/about/)" to learn about remixing Glitch apps.
+Puedes ver una [aplicación Probot de ejemplo](https://glitch.com/~auspicious-aardwolf) que usa [Glitch](https://glitch.com/) para hospedar y compartir la aplicación. En el ejemplo se usa [Checks API](/rest/reference/checks) y se seleccionan los eventos y permisos necesarios de Checks API en el archivo `app.yml`. Glitch es una herramienta que te permite "Remezclar tus propias apps". El remezclar una app crea una copia de la app que Glitch hospeda y despliega. Consulta "[Acerca de Glitch](https://glitch.com/about/)" para información sobre la remezcla de aplicaciones Glitch.

@@ -1,6 +1,6 @@
 ---
-title: About issues
-intro: 'Use {% data variables.product.prodname_github_issues %} to track ideas, feedback, tasks, or bugs for work on {% data variables.product.company_short %}.'
+title: Sobre problemas
+intro: 'Use {% data variables.product.prodname_github_issues %} para rastrear ideias, comentários, tarefas ou erros para trabalho em {% data variables.product.company_short %}.'
 redirect_from:
   - /github/managing-your-work-on-github/managing-your-work-with-issues-and-pull-requests/about-issues
   - /articles/creating-issues
@@ -16,39 +16,47 @@ topics:
   - Pull requests
   - Issues
   - Project management
+ms.openlocfilehash: e3352dbbc88da85680885b728dcb393d5ae3579f
+ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
+ms.translationtype: HT
+ms.contentlocale: pt-BR
+ms.lasthandoff: 09/05/2022
+ms.locfileid: '147422729'
 ---
-## Integrated with GitHub
+## Integrado ao GitHub
 
-Issues let you track your work on {% data variables.product.company_short %}, where development happens. When you mention an issue in another issue or pull request, the issue's timeline reflects the cross-reference so that you can keep track of related work. To indicate that work is in progress, you can link an issue to a pull request. When the pull request merges, the linked issue automatically closes.
+Os problemas permitem que você acompanhe seu trabalho em {% data variables.product.company_short %}, onde o desenvolvimento acontece. Ao mencionar um problema em outro problema ou pull request, a linha do tempo do problema reflete a referência cruzada para que você possa acompanhar o trabalho relacionado. Para indicar que o trabalho está em andamento, você pode vincular um problema a um pull request. Quando o pull request faz merge, o problema vinculado é fechado automaticamente.
 
-## Quickly create issues
+Para obter mais informações sobre palavras-chave, confira "[Como vincular uma solicitação de pull a um problema](/issues/tracking-your-work-with-issues/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword)".
 
-Issues can be created in a variety of ways, so you can choose the most convenient method for your workflow. For example, you can create an issue from a repository,{% ifversion fpt or ghec %} an item in a task list,{% endif %} a note in a project, a comment in an issue or pull request, a specific line of code, or a URL query. You can also create an issue from your platform of choice: through the web UI, {% data variables.product.prodname_desktop %}, {% data variables.product.prodname_cli %}, GraphQL and REST APIs, or {% data variables.product.prodname_mobile %}. For more information, see "[Creating an issue](/issues/tracking-your-work-with-issues/creating-issues/creating-an-issue)."
+## Crie problemas rapidamente
 
-## Track work
+Os problemas podem ser criados de várias maneiras. Portanto, você pode escolher o método mais conveniente para seu fluxo de trabalho. Por exemplo, você pode criar um problema por meio de um repositório,{% ifversion fpt or ghec %} um item em uma lista de tarefas,{% endif %} uma observação em um projeto, um comentário em uma solicitação de pull ou em um problema, uma linha de código específica ou uma consulta de URL. Você também pode criar um problema a partir da sua plataforma de escolha: por meio da interface do usuário web {% data variables.product.prodname_desktop %}, {% data variables.product.prodname_cli %}, GraphQL e APIs REST ou {% data variables.product.prodname_mobile %}. Para obter mais informações, confira "[Como criar um problema](/issues/tracking-your-work-with-issues/creating-issues/creating-an-issue)".
 
-You can organize and prioritize issues with projects. {% ifversion fpt or ghec %}To track issues as part of a larger issue, you can use task lists.{% endif %} To categorize related issues, you can use labels and milestones.
+## Monitorar trabalho
 
-For more information about projects, see {% ifversion fpt or ghec %}"[About projects (beta)](/issues/trying-out-the-new-projects-experience/about-projects)" and {% endif %}"[Organizing your work with project boards](/issues/organizing-your-work-with-project-boards)." {% ifversion fpt or ghec %}For more information about task lists, see "[About task lists](/issues/tracking-your-work-with-issues/creating-issues/about-task-lists)." {% endif %}For more information about labels and milestones, see "[Using labels and milestones to track work](/issues/using-labels-and-milestones-to-track-work)."
+Você pode organizar e priorizar problemas com projetos. {% ifversion fpt or ghec %}Para acompanhar problemas como parte de um problema maior, você pode usar listas de tarefas.{% endif %} Para categorizar problemas relacionados, você pode usar rótulos e marcos.
 
-## Stay up to date
+Para obter mais informações sobre projetos, confira {% ifversion projects-v2 %}"[Sobre projetos](/issues/planning-and-tracking-with-projects/learning-about-projects/about-projects)." {% else %}"[Como organizar seu trabalho com placas de projeto](/issues/organizing-your-work-with-project-boards)."{% endif %} {% ifversion fpt or ghec %}Para obter mais informações sobre listas de tarefas, confira "[Sobre listas de tarefas](/issues/tracking-your-work-with-issues/creating-issues/about-task-lists)." {% endif %} Para obter mais informações sobre rótulos e marcos, confira "[Como usar rótulos e marcos para acompanhar o trabalho](/issues/using-labels-and-milestones-to-track-work)".
 
-To stay updated on the most recent comments in an issue, you can subscribe to an issue to receive notifications about the latest comments. To quickly find links to recently updated issues you're subscribed to, visit your dashboard. For more information, see {% ifversion fpt or ghes or ghae or ghec %}"[About notifications](/github/managing-subscriptions-and-notifications-on-github/about-notifications){% else %}"[About notifications](/github/receiving-notifications-about-activity-on-github/about-notifications){% endif %}" and "[About your personal dashboard](/articles/about-your-personal-dashboard)."
+## Fique atualizado
 
-## Community management
+Para manter-se atualizado sobre os comentários mais recentes em um problema, você pode assinar um problema para receber notificações sobre os comentários mais recentes. Para encontrar links para problemas atualizados recentemente nos quais você está inscrito, visite seu painel. Para obter mais informações, confira "[Sobre notificações](/github/managing-subscriptions-and-notifications-on-github/about-notifications)" e "[Sobre seu painel pessoal](/articles/about-your-personal-dashboard)".
 
-To help contributors open meaningful issues that provide the information that you need, you can use {% ifversion fpt or ghec %}issue forms and {% endif %}issue templates. For more information, see "[Using templates to encourage useful issues and pull requests](/communities/using-templates-to-encourage-useful-issues-and-pull-requests)."
+## Gerenciamento da comunidade
 
-{% ifversion fpt or ghec %}To maintain a healthy community, you can report comments that violate {% data variables.product.prodname_dotcom %}'s [Community Guidelines](/free-pro-team@latest/github/site-policy/github-community-guidelines). For more information, see "[Reporting abuse or spam](/communities/maintaining-your-safety-on-github/reporting-abuse-or-spam)."{% endif %}
+Para ajudar os colaboradores a abrir problemas significativos que fornecem as informações necessárias, use {% ifversion fpt or ghec %}formulários de problemas e {% endif %}modelos de problemas. Para obter mais informações, confira "[Como usar modelos para incentivar problemas e solicitações de pull úteis](/communities/using-templates-to-encourage-useful-issues-and-pull-requests)".
 
-## Efficient communication
+{% ifversion fpt or ghec %}Para manter uma comunidade benéfica, denuncie os comentários que violam as [Diretrizes da Comunidade](/free-pro-team@latest/github/site-policy/github-community-guidelines) do {% data variables.product.prodname_dotcom %}. Para obter mais informações, confira "[Como denunciar abuso ou spam](/communities/maintaining-your-safety-on-github/reporting-abuse-or-spam)".{% endif %}
 
-You can @mention collaborators who have access to your repository in an issue to draw their attention to a comment. To link related issues in the same repository, you can type `#` followed by part of the issue title and then clicking the issue that you want to link. To communicate responsibility, you can assign issues. If you find yourself frequently typing the same comment, you can use saved replies.
-{% ifversion fpt or ghec %} For more information, see "[Basic writing and formatting syntax](/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)" and "[Assigning issues and pull requests to other GitHub users](/issues/tracking-your-work-with-issues/assigning-issues-and-pull-requests-to-other-github-users)."
+## Comunicação eficiente
 
-## Comparing issues and discussions
+Você pode @mention colaboradores que têm acesso ao seu repositório em um problema para chamar a atenção deles para um comentário. Para vincular problemas relacionados no mesmo repositório, digite `#` seguido de uma parte do título do problema e clique no problema que deseja vincular. Para comunicar responsabilidade, você pode atribuir problemas. Se você se encontrar, frequentemente, digitando o mesmo comentário, você poderá usar as respostas salvas.
+{% ifversion fpt or ghec %} Para obter mais informações, confira "[Sintaxe básica de escrita e formatação](/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)" e "[Como atribuir problemas e solicitações de pull a outros usuários do GitHub](/issues/tracking-your-work-with-issues/assigning-issues-and-pull-requests-to-other-github-users)".
+{% endif %} {% ifversion discussions %}
+## Comparando problemas e discussões
 
-Some conversations are more suitable for {% data variables.product.prodname_discussions %}. {% data reusables.discussions.you-can-use-discussions %} For guidance on when to use an issue or a discussion, see "[Communicating on GitHub](/github/getting-started-with-github/quickstart/communicating-on-github)."
+Algumas conversas são mais adequadas para {% data variables.product.prodname_discussions %}. {% data reusables.discussions.you-can-use-discussions %} Para obter diretrizes sobre quando usar um problema ou uma discussão, confira "[Comunicação no GitHub](/github/getting-started-with-github/quickstart/communicating-on-github)".
 
-When a conversation in an issue is better suited for a discussion, you can convert the issue to a discussion.
+Quando uma conversa em um problema é mais adequada para uma discussão, você pode converter a questão em uma discussão.
 {% endif %}

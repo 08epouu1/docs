@@ -38,11 +38,7 @@ export type ProductLandingContextT = {
   intro: string
   beta_product: boolean
   product: Product
-  introLinks: {
-    quickstart?: string
-    reference?: string
-    overview?: string
-  } | null
+  introLinks: Record<string, string> | null
   product_video?: string
   featuredLinks: Record<string, Array<FeaturedLink>>
   productCodeExamples: Array<CodeExample>
@@ -51,13 +47,14 @@ export type ProductLandingContextT = {
   featuredArticles: Array<{
     label: string // Guides
     viewAllHref?: string // If provided, adds a "View All ->" to the header
+    viewAllTitleText?: string // Adds 'title' attribute text for the "View All" href
     articles: Array<FeaturedLink>
   }>
   changelogUrl?: string
   whatsNewChangelog?: Array<{ href: string; title: string; date: string }>
   tocItems: Array<TocItem>
   hasGuidesPage: boolean
-  releases: Array<{
+  ghesReleases: Array<{
     version: string
     firstPreviousRelease: string
     secondPreviousRelease: string
@@ -118,7 +115,7 @@ export const getProductLandingContextFromRequest = (req: any): ProductLandingCon
     changelogUrl: req.context.changelogUrl || [],
     productCodeExamples: req.context.productCodeExamples || [],
     productCommunityExamples: req.context.productCommunityExamples || [],
-    releases: req.context.releases || [],
+    ghesReleases: req.context.ghesReleases || [],
 
     productUserExamples: (req.context.productUserExamples || []).map(
       ({ user, description }: any) => ({
@@ -127,13 +124,7 @@ export const getProductLandingContextFromRequest = (req: any): ProductLandingCon
       })
     ),
 
-    introLinks: page.introLinks
-      ? {
-          quickstart: page.introLinks.quickstart,
-          reference: page.introLinks.reference,
-          overview: page.introLinks.overview,
-        }
-      : null,
+    introLinks: page.introLinks || null,
 
     featuredLinks: getFeaturedLinksFromReq(req),
 

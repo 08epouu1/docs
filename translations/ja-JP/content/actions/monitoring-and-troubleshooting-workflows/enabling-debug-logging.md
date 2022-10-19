@@ -1,6 +1,6 @@
 ---
-title: Enabling debug logging
-intro: 'If the workflow logs do not provide enough detail to diagnose why a workflow, job, or step is not working as expected, you can enable additional debug logging.'
+title: デバッグ ログを有効にする
+intro: ワークフロージョブあるいはステップが期待どおりに動作しない理由を診断する上で、十分な詳細がワークフローのログになかった場合、追加のデバッグロギングを有効化できます。
 redirect_from:
   - /actions/managing-workflow-runs/enabling-debug-logging
 versions:
@@ -8,37 +8,45 @@ versions:
   ghes: '*'
   ghae: '*'
   ghec: '*'
+ms.openlocfilehash: a2a7f6ff009782c636fd7b9e453bba869d6c799d
+ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
+ms.translationtype: HT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 09/05/2022
+ms.locfileid: '146179384'
 ---
+{% data reusables.actions.enterprise-beta %} {% data reusables.actions.enterprise-github-hosted-runners %}
 
-{% data reusables.actions.enterprise-beta %}
-{% data reusables.actions.enterprise-github-hosted-runners %}
+これらの追加ログは、ワークフローを含むリポジトリにシークレットを設定することで有効になるため、同じ権限要件が適用されます。
 
-These extra logs are enabled by setting secrets in the repository containing the workflow, so the same permissions requirements will apply:
+- {% data reusables.actions.permissions-statement-secrets-repository %}
+- {% data reusables.actions.permissions-statement-secrets-environment %}
+- {% data reusables.actions.permissions-statement-secrets-organization %}
+- {% data reusables.actions.permissions-statement-secrets-api %}
 
-- {% data reusables.github-actions.permissions-statement-secrets-repository %}
-{% ifversion fpt or ghes > 3.0 or ghae or ghec %}
-- {% data reusables.github-actions.permissions-statement-secrets-environment %}
-{% endif %}
-- {% data reusables.github-actions.permissions-statement-secrets-organization %}
-- {% data reusables.github-actions.permissions-statement-secrets-api %}
+シークレットの設定について詳しくは、「[暗号化されたシークレットの作成と利用](/actions/automating-your-workflow-with-github-actions/creating-and-using-encrypted-secrets)」をご覧ください。
 
-For more information on setting secrets, see "[Creating and using encrypted secrets](/actions/automating-your-workflow-with-github-actions/creating-and-using-encrypted-secrets)."
+{% ifversion debug-reruns %}
 
-## Enabling runner diagnostic logging
+さらに、ワークフローを実行するアクセス権を持つすべてのユーザーが、ランナー診断ログとステップ デバッグ ログを有効にして、ワークフローを再実行できます。 詳しくは、「[ワークフローとジョブの再実行](/actions/managing-workflow-runs/re-running-workflows-and-jobs)」をご覧ください。
 
-Runner diagnostic logging provides additional log files that contain information about how a runner is executing a job. Two extra log files are added to the log archive:
+ {% endif %}
 
-* The runner process log, which includes information about coordinating and setting up runners to execute jobs.
-* The worker process log, which logs the execution of a job.
+## ランナーの診断ロギングの有効化
 
-1. To enable runner diagnostic logging, set the following secret in the repository that contains the workflow: `ACTIONS_RUNNER_DEBUG` to `true`.
+ランナーの診断ログは、ランナーによるジョブの実行の様子に関する情報を含む追加のログファイルを提供します。 ログアーカイブには、2つのログファイルが追加されます。
 
-1. To download runner diagnostic logs, download the log archive of the workflow run. The runner diagnostic logs are contained in the `runner-diagnostic-logs` folder. For more information on downloading logs, see "[Downloading logs](/actions/managing-workflow-runs/using-workflow-run-logs/#downloading-logs)."
+* ランナープロセスログにはジョブの実行のためのランナーの調整とセットアップに関する情報が含まれます。
+* ワーカープロセスログには、ジョブの実行が記録されます。
 
-## Enabling step debug logging
+1. ランナー診断ログを有効にするには、ワークフローを含むリポジトリでシークレット `ACTIONS_RUNNER_DEBUG` を `true` に設定します。
 
-Step debug logging increases the verbosity of a job's logs during and after a job's execution.
+1. ランナーの診断ログをダウンロードするには、ワークフローの実行のログアーカイブをダウンロードしてください。 ランナーの診断ログは `runner-diagnostic-logs` フォルダーにあります。 ログのダウンロードについて詳しくは、「[ログのダウンロード](/actions/managing-workflow-runs/using-workflow-run-logs/#downloading-logs)」をご覧ください。
 
-1. To enable step debug logging, you must set the following secret in the repository that contains the workflow: `ACTIONS_STEP_DEBUG` to `true`.
+## ステップのデバッグロギングの有効化
 
-1. After setting the secret, more debug events are shown in the step logs. For more information, see ["Viewing logs to diagnose failures"](/actions/managing-workflow-runs/using-workflow-run-logs/#viewing-logs-to-diagnose-failures).
+ステップデバッグロギングは、ジョブの実行の間と実行後のジョブのログの詳細度を高めます。
+
+1. ステップ デバッグ ログを有効化するには、ワークフローを含むリポジトリでシークレット `ACTIONS_STEP_DEBUG` を `true` に設定する必要があります。
+
+1. このシークレットを設定すると、ステップログにより多くのデバッグイベントが示されるようになります。 詳しくは、「[ログを表示してエラーを診断する](/actions/managing-workflow-runs/using-workflow-run-logs/#viewing-logs-to-diagnose-failures)」をご覧ください。

@@ -1,5 +1,5 @@
 ---
-title: Migrating from GitHub Enterprise 11.10.x to 2.1.23
+title: Migrar do GitHub Enterprise 11.10.x para o 2.1.23
 redirect_from:
   - /enterprise/admin/installation/migrating-from-github-enterprise-1110x-to-2123
   - /enterprise/admin-guide/migrating
@@ -10,7 +10,7 @@ redirect_from:
   - /enterprise/admin/guides/installation/migrating-from-github-enterprise-11-10-x-to-2-1-23
   - /enterprise/admin/enterprise-management/migrating-from-github-enterprise-1110x-to-2123
   - /admin/enterprise-management/migrating-from-github-enterprise-1110x-to-2123
-intro: 'To migrate from {% data variables.product.prodname_enterprise %} 11.10.x to 2.1.23, you''ll need to set up a new appliance instance and migrate data from the previous instance.'
+intro: 'Para migrar do {% data variables.product.prodname_enterprise %} 11.10.x para o 2.1.23, você precisará configurar uma nova instância do appliance e migrar os dados da instância anterior.'
 versions:
   ghes: '*'
 type: how_to
@@ -19,53 +19,59 @@ topics:
   - Migration
   - Upgrades
 shortTitle: Migrate from 11.10.x to 2.1.23
+ms.openlocfilehash: 4dcd93b41d8edc75388d34785c4c149d6627cc5e
+ms.sourcegitcommit: 76b840f45ba85fb79a7f0c1eb43bc663b3eadf2b
+ms.translationtype: HT
+ms.contentlocale: pt-BR
+ms.lasthandoff: 09/12/2022
+ms.locfileid: '146332597'
 ---
-Migrations from {% data variables.product.prodname_enterprise %} 11.10.348 and later are supported. Migrating from {% data variables.product.prodname_enterprise %} 11.10.348 and earlier is not supported. You must first upgrade to 11.10.348 in several upgrades. For more information, see the 11.10.348 upgrading procedure, "[Upgrading to the latest release](/enterprise/11.10.340/admin/articles/upgrading-to-the-latest-release/)."
+Há suporte para migrações do {% data variables.product.prodname_enterprise %} 11.10.348 e mais recentes. Não há suporte para migrações do {% data variables.product.prodname_enterprise %} 11.10.348 e versões anteriores. Você deve atualizar o 11.10.348 em várias etapas de atualização. Para obter mais informações, confira o procedimento de upgrade para a 11.10.348, "[Como fazer upgrade para a última versão](/enterprise/11.10.340/admin/articles/upgrading-to-the-latest-release/)".
 
-To upgrade to the latest version of {% data variables.product.prodname_enterprise %}, you must first migrate to {% data variables.product.prodname_ghe_server %} 2.1, then you can follow the normal upgrade process. For more information, see "[Upgrading {% data variables.product.prodname_enterprise %}](/enterprise/admin/guides/installation/upgrading-github-enterprise-server/)".
+Para atualizar para a versão mais recente do {% data variables.product.prodname_enterprise %}, você deve migrar para a versão {% data variables.product.prodname_ghe_server %} 2.1 e só então poderá seguir o processo regular. Para obter mais informações, confira "[Como fazer upgrade do {% data variables.product.prodname_enterprise %}](/enterprise/admin/guides/installation/upgrading-github-enterprise-server/)".
 
-## Prepare for the migration
+## Preparar a migração
 
-1. Review the Provisioning and Installation guide and check that all prerequisites needed to provision and configure {% data variables.product.prodname_enterprise %} 2.1.23 in your environment are met. For more information, see "[Provisioning and Installation](/enterprise/2.1/admin/guides/installation/provisioning-and-installation/)."
-2. Verify that the current instance is running a supported upgrade version.
-3. Set up the latest version of the {% data variables.product.prodname_enterprise_backup_utilities %}. For more information, see [{% data variables.product.prodname_enterprise_backup_utilities %}](https://github.com/github/backup-utils).
-    - If you have already configured scheduled backups using {% data variables.product.prodname_enterprise_backup_utilities %}, make sure you have updated to the latest version.
-    - If you are not currently running scheduled backups, set up {% data variables.product.prodname_enterprise_backup_utilities %}.
-4. Take an initial full backup snapshot of the current instance using the `ghe-backup` command. If you have already configured scheduled backups for your current instance, you don't need to take a snapshot of your instance.
+1. Revise o guia de provisionamento e instalação e verifique se foram atendidos todos os pré-requisitos necessários para provisionar e configurar o {% data variables.product.prodname_enterprise %} 2.1.23 no seu ambiente. Para obter mais informações, confira "[Provisionamento e instalação](/enterprise/2.1/admin/guides/installation/provisioning-and-installation/)".
+2. Verifique se a instância atual está sendo executada em uma versão de atualização compatível.
+3. Configure a versão mais recente do {% data variables.product.prodname_enterprise_backup_utilities %}. Para obter mais informações, confira [{% data variables.product.prodname_enterprise_backup_utilities %}](https://github.com/github/backup-utils).
+    - Se você já configurou backups programados usando o {% data variables.product.prodname_enterprise_backup_utilities %}, certifique-se de atualizar para a versão mais recente.
+    - Se você não estiver executando backups programados no momento, configure o {% data variables.product.prodname_enterprise_backup_utilities %}.
+4. Faça um instantâneo de backup completo inicial da instância atual usando o comando `ghe-backup`. Se você já configurou backups programados na instância atual, não será necessário obter o instantâneo.
 
    {% tip %}
 
-   **Tip:** You can leave the instance online and in active use during the snapshot. You'll take another snapshot during the maintenance portion of the migration. Since backups are incremental, this initial snapshot reduces the amount of data transferred in the final snapshot, which may shorten the maintenance window.
+   **Dica:** mantenha a instância online e em uso ativo durante o instantâneo. Você fará outro instantâneo durante a parte de manutenção da migração. Como os backups são incrementais, o instantâneo inicial reduz a quantidade de dados transferidos no instantâneo final, o que pode reduzir o período de manutenção.
 
    {% endtip %}
 
-5. Determine the method for switching user network traffic to the new instance. After you've migrated, all HTTP and Git network traffic directs to the new instance.
-    - **DNS** - We recommend this method for all environments, as it's simple and works well even when migrating from one datacenter to another. Before starting migration, reduce the existing DNS record's TTL to five minutes or less and allow the change to propagate. Once the migration is complete, update the DNS record(s) to point to the IP address of the new instance.
-    - **IP address assignment** - This method is only available on VMware to VMware migration and is not recommended unless the DNS method is unavailable. Before starting the migration, you'll need to shut down the old instance and assign its IP address to the new instance.
-6. Schedule a maintenance window. The maintenance window should include enough time to transfer data from the backup host to the new instance and will vary based on the size of the backup snapshot and available network bandwidth. During this time your current instance will be unavailable and in maintenance mode while you migrate to the new instance.
+5. Determine o método para alternar o tráfego de rede do usuário para a nova instância. Após a migração, todo o tráfego de rede HTTP e Git será direcionado para a nova instância.
+    - **DNS** – Recomendamos esse método para todos os ambientes, pois ele é simples e funciona bem mesmo na migração de um datacenter para outro. Antes de iniciar a migração, reduza o TTL do registro DNS para cinco minutos ou menos e permita a propagação da alteração. Quando a migração for concluída, atualize o(s) registro(s) DNS de modo a apontar para o endereço IP da nova instância.
+    - **Atribuição de endereço IP** – Esse método só está disponível na migração do VMware para o VMware e não é recomendado, a menos que o método DNS não esteja disponível. Antes de iniciar a migração, você terá que desligar a instância antiga e atribuir seu endereço IP à nova instância.
+6. Programe um período de manutenção. O período de manutenção deve abranger tempo suficiente para transferir os dados do host de backup para a nova instância. Esse período varia com base no tamanho do instantâneo de backup e na largura de banda de rede disponível. Durante esse período, sua instância atual ficará indisponível e em modo de manutenção enquanto você migra para a nova instância.
 
-## Perform the migration
+## Realizar a migração
 
-1. Provision a new {% data variables.product.prodname_enterprise %} 2.1 instance. For more information, see the "[Provisioning and Installation](/enterprise/2.1/admin/guides/installation/provisioning-and-installation/)" guide for your target platform.
-2. In a browser, navigate to the new replica appliance's IP address and upload your {% data variables.product.prodname_enterprise %} license.
-3. Set an admin password.
-5. Click **Migrate**.
-![Choosing install type](/assets/images/enterprise/migration/migration-choose-install-type.png)
-6. Paste your backup host access SSH key into "Add new SSH key".
-![Authorizing backup](/assets/images/enterprise/migration/migration-authorize-backup-host.png)
-7. Click **Add key** and then click **Continue**.
-8. Copy the `ghe-restore` command that you'll run on the backup host to migrate data to the new instance.
-![Starting a migration](/assets/images/enterprise/migration/migration-restore-start.png)
-9. Enable maintenance mode on the old instance and wait for all active processes to complete. For more information, see "[Enabling and scheduling maintenance mode](/enterprise/{{ currentVersion }}/admin/guides/installation/enabling-and-scheduling-maintenance-mode)."
+1. Provisione uma nova instância do {% data variables.product.prodname_enterprise %} 2.1. Para obter mais informações, confira o guia "[Provisionamento e instalação](/enterprise/2.1/admin/guides/installation/provisioning-and-installation/)" da plataforma de destino.
+2. Em um navegador, vá até o novo endereço IP do appliance réplica e faça o upload da sua licença do {% data variables.product.prodname_enterprise %}.
+3. Defina uma senha de administrador.
+5. Clique em **Migrar**.
+![Escolha do tipo de instalação](/assets/images/enterprise/migration/migration-choose-install-type.png)
+6. Cole a chave SSH de acesso ao host de backup em "Add new SSH key" (Adicionar nova chave SSH).
+![Autorização do backup](/assets/images/enterprise/migration/migration-authorize-backup-host.png)
+7. Clique em **Adicionar chave** e em **Continuar**.
+8. Copie o comando `ghe-restore` que você executará no host de backup para migrar os dados para a nova instância.
+![Início da migração](/assets/images/enterprise/migration/migration-restore-start.png)
+9. Habilite o modo de manutenção na instância antiga e aguarde a conclusão de todos os processos ativos. Para obter mais informações, confira "[Como habilitar e agendar o modo de manutenção](/enterprise/admin/guides/installation/enabling-and-scheduling-maintenance-mode)".
 
   {% note %}
 
-  **Note:** The instance will be unavailable for normal use from this point forward.
+  **Observação:** a instância não estará disponível para uso normal deste ponto em diante.
 
   {% endnote %}
 
-10. On the backup host, run the `ghe-backup` command to take a final backup snapshot. This ensures that all data from the old instance is captured.
-11. On the backup host, run the `ghe-restore` command you copied on the new instance's restore status screen to restore the latest snapshot.
+10. No host de backup, execute o comando `ghe-backup` para criar um instantâneo de backup final. Essa ação garante a obtenção de todos os dados da instância antiga.
+11. No host de backup, execute o comando `ghe-restore` copiado na tela de status de restauração da nova instância para restaurar o instantâneo mais recente.
   ```shell
   $ ghe-restore 169.254.1.1
   The authenticity of host '169.254.1.1:122' can't be established.
@@ -86,17 +92,17 @@ To upgrade to the latest version of {% data variables.product.prodname_enterpris
   Visit https://169.254.1.1/setup/settings to review appliance configuration.
   ```
 
-12. Return to the new instance's restore status screen to see that the restore completed.
-![Restore complete screen](/assets/images/enterprise/migration/migration-status-complete.png)
-13. Click **Continue to settings** to review and adjust the configuration information and settings that were imported from the previous instance.
-![Review imported settings](/assets/images/enterprise/migration/migration-status-complete.png)
-14. Click **Save settings**.
+12. Volte à tela de status de restauração da nova instância para confirmar a conclusão da restauração.
+![Tela de Restauração concluída](/assets/images/enterprise/migration/migration-status-complete.png)
+13. Clique em **Prosseguir para as configurações** para revisar e ajustar as informações de configuração e as configurações que foram importadas da instância anterior.
+![Revisão das configurações importadas](/assets/images/enterprise/migration/migration-status-complete.png)
+14. Clique em **Salvar alterações**.
 
   {% note %}
 
-  **Note:** You can use the new instance after you've applied configuration settings and restarted the server.
+  **Observação:** você poderá usar a nova instância depois de aplicar as configurações e reiniciar o servidor.
 
   {% endnote %}
 
-15. Switch user network traffic from the old instance to the new instance using either DNS or IP address assignment.
-16. Upgrade to the latest patch release of {{ currentVersion }}. For more information, see "[Upgrading {% data variables.product.prodname_ghe_server %}](/enterprise/admin/guides/installation/upgrading-github-enterprise-server/)."
+15. Alterne o tráfego de rede do usuário da instância antiga para a nova instância usando a atribuição de endereço DNS ou IP.
+16. Atualize para a última versão de patch do {% data variables.product.prodname_ghe_server %}. Para obter mais informações, confira "[Como atualizar o {% data variables.product.prodname_ghe_server %}](/enterprise/admin/guides/installation/upgrading-github-enterprise-server/)".

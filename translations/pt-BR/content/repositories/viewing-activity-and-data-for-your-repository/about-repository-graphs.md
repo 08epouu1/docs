@@ -1,6 +1,6 @@
 ---
-title: About repository graphs
-intro: Repository graphs help you view and analyze data for your repository.
+title: Sobre gráficos do repositório
+intro: Os gráficos do repositório ajudam a exibir e analisar dados do repositório.
 redirect_from:
   - /articles/using-graphs
   - /articles/about-repository-graphs
@@ -13,19 +13,25 @@ versions:
   ghec: '*'
 topics:
   - Repositories
+ms.openlocfilehash: a8e2b228e4729e0c86d0234aadc7f0eebab7d2d5
+ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
+ms.translationtype: HT
+ms.contentlocale: pt-BR
+ms.lasthandoff: 09/05/2022
+ms.locfileid: '145127000'
 ---
-A repository's graphs give you information on {% ifversion fpt or ghec %} traffic, projects that depend on the repository,{% endif %} contributors and commits to the repository, and a repository's forks and network. If you maintain a repository, you can use this data to get a better understanding of who's using your repository and why they're using it.
+Os grafos de um repositório fornecem informações sobre {% ifversion fpt or ghec %} o tráfego, os projetos que dependem do repositório,{% endif %} os colaboradores e os commits do repositório, além dos forks e da rede de um repositório. Se você mantém um repositório, é possível usar esses dados para entender melhor quem está usando o repositório e por que está usando.
 
 {% ifversion fpt or ghec %}
 
-Some repository graphs are available only in public repositories with {% data variables.product.prodname_free_user %}:
-- Pulse
-- Contributors
-- Traffic
-- Commits
-- Code frequency
-- Network
+Alguns gráficos do repositório estão disponíveis somente em repositórios públicos com o {% data variables.product.prodname_free_user %}:
+- Pulso
+- Colaboradores
+- Tráfego
+- Confirmações
+- Frequência de código
+- Rede
 
-All other repository graphs are available in all repositories. Every repository graph is available in public and private repositories with {% data variables.product.prodname_pro %}, {% data variables.product.prodname_team %}, and {% data variables.product.prodname_ghe_cloud %}. {% data reusables.gated-features.more-info %}
+Todos os outros gráficos do repositório estão disponíveis em todos os repositórios. Cada gráfico do repositório está disponível em repositórios públicos e privados com o {% data variables.product.prodname_pro %}, {% data variables.product.prodname_team %} e {% data variables.product.prodname_ghe_cloud %}. {% data reusables.gated-features.more-info %}
 
 {% endif %}

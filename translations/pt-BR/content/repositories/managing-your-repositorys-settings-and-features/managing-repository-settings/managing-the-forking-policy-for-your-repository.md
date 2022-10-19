@@ -1,6 +1,6 @@
 ---
-title: Managing the forking policy for your repository
-intro: 'You can allow or prevent the forking of a specific private{% ifversion ghae or ghes or ghec %} or internal{% endif %} repository owned by an organization.'
+title: Gerenciando a política de bifurcação para seu repositório
+intro: 'Você pode permitir ou impedir a criação de fork de um repositório particular{% ifversion ghae or ghes or ghec %} ou interno{% endif %} pertencente a uma organização.'
 redirect_from:
   - /articles/allowing-people-to-fork-a-private-repository-owned-by-your-organization
   - /github/administering-a-repository/allowing-people-to-fork-a-private-repository-owned-by-your-organization
@@ -15,15 +15,20 @@ versions:
 topics:
   - Repositories
 shortTitle: Manage the forking policy
+ms.openlocfilehash: 18355227ad40567de3824f3cc286763cd081e153
+ms.sourcegitcommit: 5f9527483381cfb1e41f2322f67c80554750a47d
+ms.translationtype: HT
+ms.contentlocale: pt-BR
+ms.lasthandoff: 09/11/2022
+ms.locfileid: '145127022'
 ---
-An organization owner must allow forks of private{% ifversion ghae or ghes or ghec %} and internal{% endif %} repositories on the organization level before you can allow or disallow forks for a specific repository. For more information, see "[Managing the forking policy for your organization](/organizations/managing-organization-settings/managing-the-forking-policy-for-your-organization)."
+Um proprietário da organização precisa permitir forks de repositórios privados{% ifversion ghae or ghes or ghec %} e internos{% endif %} no nível da organização antes de permitir ou desabilitar os forks para um repositório específico. Para obter mais informações, confira "[Como gerenciar a política de criação de forks para sua organização](/organizations/managing-organization-settings/managing-the-forking-policy-for-your-organization)".
 
-{% data reusables.repositories.navigate-to-repo %}
-{% data reusables.repositories.sidebar-settings %}
-3. Under "Features", select **Allow forking**.
-  ![Checkbox to allow or disallow forking of a private repository](/assets/images/help/repository/allow-forking-specific-org-repo.png)
+{% data reusables.repositories.navigate-to-repo %} {% data reusables.repositories.sidebar-settings %}
+3. Em "Recursos", selecione **Permitir a criação de forks**.
+  ![Caixa de seleção usada para permitir ou não permitir a criação de forks de um repositório privado](/assets/images/help/repository/allow-forking-specific-org-repo.png)
 
-## Further reading
+## Leitura adicional
 
-- "[About forks](/pull-requests/collaborating-with-pull-requests/working-with-forks/about-forks)"
-- "[Repository roles for an organization](/organizations/managing-access-to-your-organizations-repositories/repository-roles-for-an-organization)"
+- "[Sobre os forks](/pull-requests/collaborating-with-pull-requests/working-with-forks/about-forks)"
+- "[Funções de repositório para uma organização](/organizations/managing-access-to-your-organizations-repositories/repository-roles-for-an-organization)"

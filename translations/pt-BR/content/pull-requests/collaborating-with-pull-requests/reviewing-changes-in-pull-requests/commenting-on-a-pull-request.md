@@ -1,5 +1,5 @@
 ---
-title: Commenting on a pull request
+title: Fazer comentários em uma pull request
 redirect_from:
   - /github/collaborating-with-issues-and-pull-requests/reviewing-changes-in-pull-requests/commenting-on-a-pull-request
   - /articles/adding-commit-comments
@@ -8,7 +8,7 @@ redirect_from:
   - /articles/commenting-on-a-pull-request
   - /github/collaborating-with-issues-and-pull-requests/commenting-on-a-pull-request
   - /github/collaborating-with-pull-requests/reviewing-changes-in-pull-requests/commenting-on-a-pull-request
-intro: 'After you open a pull request in a repository, collaborators or team members can comment on the comparison of files between the two specified branches, or leave general comments on the project as a whole.'
+intro: 'Depois de abrir uma pull request em um repositório, os colaboradores ou integrantes da equipe podem comentar na comparação dos arquivos entre os dois branches especificados ou deixar os comentários gerais no projeto como um todo.'
 versions:
   fpt: '*'
   ghes: '*'
@@ -17,50 +17,51 @@ versions:
 topics:
   - Pull requests
 shortTitle: Comment on a PR
+ms.openlocfilehash: eb1b80fa6088bc083f0b2006a2c894a820cd6c10
+ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
+ms.translationtype: HT
+ms.contentlocale: pt-BR
+ms.lasthandoff: 09/05/2022
+ms.locfileid: '147578953'
 ---
-## About pull request comments
+## Sobre comentários da pull request
 
-You can comment on a pull request's **Conversation** tab to leave general comments, questions, or props. You can also suggest changes that the author of the pull request can apply directly from your comment.
+Você pode adicionar um comentário na guia **Conversa** de uma solicitação de pull para deixar comentários gerais, perguntas ou objetos. Você também pode sugerir alterações que o autor da pull request pode aplicar diretamente a partir do seu comentário.
 
-![Pull Request conversation](/assets/images/help/pull_requests/conversation.png)
+![Conversa da pull request](/assets/images/help/pull_requests/conversation.png)
 
-You can also comment on specific sections of a file on a pull request's **Files changed** tab in the form of individual line comments or as part of a [pull request review](/pull-requests/collaborating-with-pull-requests/reviewing-changes-in-pull-requests/about-pull-request-reviews). Adding line comments is a great way to discuss questions about implementation or provide feedback to the author.
+Você também pode adicionar um comentário a seções específicas de um arquivo na guia **Arquivos alterados** de uma solicitação de pull na forma de comentários de linha individuais ou como parte de uma [revisão de solicitação de pull](/pull-requests/collaborating-with-pull-requests/reviewing-changes-in-pull-requests/about-pull-request-reviews). Adicionar comentários em linha é uma excelente maneira de discutir questões sobre implementação ou fornecer feedback ao autor.
 
-For more information on adding line comments to a pull request review, see ["Reviewing proposed changes in a pull request."](/pull-requests/collaborating-with-pull-requests/reviewing-changes-in-pull-requests/reviewing-proposed-changes-in-a-pull-request)
+Para obter mais informações sobre como adicionar comentários de linha a uma revisão de solicitação de pull, confira "[Como revisar as alterações propostas em uma solicitação de pull](/pull-requests/collaborating-with-pull-requests/reviewing-changes-in-pull-requests/reviewing-proposed-changes-in-a-pull-request)".
 
 {% note %}
 
-**Note:** If you reply to a pull request via email, your comment will be added on the **Conversation** tab and will not be part of a pull request review.
+**Observação:** se você responder a uma solicitação de pull por email, seu comentário será adicionado na guia **Conversa** e não fará parte de uma revisão de solicitação de pull.
 
 {% endnote %}
 
-To reply to an existing line comment, you'll need to navigate to the comment on either the **Conversation** tab or **Files changed** tab and add an additional line comment below it.
+Para responder a um comentário de linha existente, você precisará procurar o comentário na guia **Conversa** ou **Arquivos alterados** e adicionar um comentário de linha abaixo dele.
 
 {% tip %}
 
-**Tips:**
-- Pull request comments support the same [formatting](/categories/writing-on-github) as regular comments on {% data variables.product.product_name %}, such as @mentions, emoji, and references.
-- You can add reactions to comments in pull requests in the **Files changed** tab.
+**Dicas:**
+- Os comentários de solicitação de pull dão suporte à mesma [formatação](/categories/writing-on-github) que os comentários comuns do {% data variables.product.product_name %}, como @mentions, emojis e referências.
+- Você pode adicionar reações aos comentários em solicitações de pull na guia **Arquivos alterados**.
 
 {% endtip %}
 
-## Adding line comments to a pull request
+## Adicionar comentários em linha a uma pull request
 
 {% data reusables.repositories.sidebar-pr %}
-2. In the list of pull requests, click the pull request where you'd like to leave line comments.
-{% data reusables.repositories.changed-files %}
-{% data reusables.repositories.start-line-comment %}
-{% data reusables.repositories.type-line-comment %}
-{% data reusables.repositories.suggest-changes %}
-5. When you're done, click **Add single comment**.
-  ![Inline comment window](/assets/images/help/commits/inline-comment.png)
+2. Na lista de pull requests, clique na pull request onde deseja deixar comentários em linha.
+{% data reusables.repositories.changed-files %} {% data reusables.repositories.start-line-comment %} {% data reusables.repositories.type-line-comment %} {% data reusables.repositories.suggest-changes %}
+5. Quando terminar, clique em **Adicionar comentário individual**.
+  ![Janela de comentários em linha](/assets/images/help/commits/inline-comment.png)
 
-Anyone watching the pull request or repository will receive a notification of your comment.
+Qualquer pessoa que inspeciona a pull request ou o repositório receberá uma notificação de seu comentário.
 
 {% data reusables.pull_requests.resolving-conversations %}
 
-## Further reading
+## Leitura adicional
 
-- "[Writing on GitHub](/github/writing-on-github)"
-{% ifversion fpt or ghec %}- "[Reporting abuse or spam](/communities/maintaining-your-safety-on-github/reporting-abuse-or-spam)"
-{% endif %}
+- "[Escrita no GitHub](/github/writing-on-github)" {% ifversion fpt or ghec %}– "[Como denunciar abuso ou spam](/communities/maintaining-your-safety-on-github/reporting-abuse-or-spam)" {% endif %}

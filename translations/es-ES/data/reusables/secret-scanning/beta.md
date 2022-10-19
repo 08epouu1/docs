@@ -1,20 +1,20 @@
-{% ifversion ghes = 3.0 or ghae %}
+---
+ms.openlocfilehash: 6651596e9f4ee39f1263196731ff03079c33598c
+ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
+ms.translationtype: HT
+ms.contentlocale: es-ES
+ms.lasthandoff: 09/05/2022
+ms.locfileid: "145134473"
+---
+{% ifversion ghae %}
+
+<!-- Remove this reusable and all references for GA release -->
+
+{% elsif ghae %}
+
 {% note %}
 
-**Nota:** Las {% data variables.product.prodname_secret_scanning_caps %} para los repositorios que pertenecen a organizaciones se encuentra actualmente en beta y está sujeta a cambios.
-
-Si estás utilizando una versión anterior de {% data variables.product.prodname_ghe_server %}, tendrás que mejorarla para utilizar el {% data variables.product.prodname_secret_scanning %}. Para obtener más información sobre cómo actualizar tu instancia de {% data variables.product.prodname_ghe_server %}, consulta la sección "[Acerca de las mejoras a los lanzamientos nuevos](/admin/overview/about-upgrades-to-new-releases)" y refiérete al [{% data variables.enterprise.upgrade_assistant %}](https://support.github.com/enterprise/server-upgrade) para encontrar la ruta de mejora desde tu versión de lanzamiento actual.
-
-
-{% endnote %}
-
-{% endif %}
-{% ifversion ghes > 3.0 %}
-
-{% note %}
-
-**Nota:** El {% data variables.product.prodname_secret_scanning_caps %} estaba en beta en {% data variables.product.prodname_ghe_server %} 3.0. Para encontrar el lanzamiento del {% data variables.product.prodname_secret_scanning %} que está generalmente disponible, mejora al último lanzamiento de {% data variables.product.prodname_ghe_server %}. Para obtener más información sobre cómo actualizar tu instancia de {% data variables.product.prodname_ghe_server %}, consulta la sección "[Acerca de las mejoras a los lanzamientos nuevos](/admin/overview/about-upgrades-to-new-releases)" y refiérete al [{% data variables.enterprise.upgrade_assistant %}](https://support.github.com/enterprise/server-upgrade) para encontrar la ruta de mejora desde tu versión de lanzamiento actual.
-
+**Nota:** {% data variables.product.prodname_secret_scanning_caps %} para los repositorios que pertenecen a organizaciones se encuentra actualmente en versión beta y está sujeta a cambios.
 
 {% endnote %}
 

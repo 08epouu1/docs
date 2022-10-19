@@ -1,6 +1,6 @@
 ---
-title: Pinning items to your profile
-intro: You can pin gists and repositories to your profile so other people can quickly see your best work.
+title: Anclar elementos a tu perfil
+intro: Puedes fijar gists y repositorios en tu perfil para que otras personas puedan ver tus mejores trabajos rápidamente.
 redirect_from:
   - /articles/pinning-repositories-to-your-profile
   - /articles/pinning-items-to-your-profile
@@ -13,27 +13,33 @@ versions:
 topics:
   - Profiles
 shortTitle: Pin items
+ms.openlocfilehash: 131bdb1ed57383e0b420308a96742a573dd9aa14
+ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
+ms.translationtype: HT
+ms.contentlocale: es-ES
+ms.lasthandoff: 09/05/2022
+ms.locfileid: '145070074'
 ---
-You can pin a public repository if you own the repository or you've made contributions to the repository. Commits to forks don't count as contributions, so you can't pin a fork that you don't own. For more information, see "[Why are my contributions not showing up on my profile?](/articles/why-are-my-contributions-not-showing-up-on-my-profile)"
+Puedes anclar un repositorio público si eres propietario del repositorio o has realizado contribuciones al repositorio. Las confirmaciones de las bifurcaciones no cuentan como contribuciones, por ello no puedes anclar una bifurcación de la que no eres propietario. Para más información, vea "¿[Por qué mis contribuciones no aparecen en mi perfil?](/articles/why-are-my-contributions-not-showing-up-on-my-profile)".
 
-You can pin any public gist you own.
+Puedes fijar cualquier gist público que te pertenezca.
 
-Pinned items include important information about the item, like the number of stars a repository has received or the first few lines of a gist. Once you pin items to your profile, the "Pinned" section replaces the "Popular repositories" section on your profile.
+Los elementos fijados incluyen información importante sobre ellos, como el número de estrellas que ha recibido el repositorio, o algunas de las primeras líneas de un gist. Una vez que hayas anclado elementos a tu perfil, la sección "Pinned" (Anclados) reemplaza a la sección "Popular repositories" (Repositorios populares) en tu perfil.
 
-You can reorder the items in the "Pinned" section. In the upper-right corner of a pin, click {% octicon "grabber" aria-label="The grabber symbol" %}  and drag the pin to a new location.
+Puedes reordenar los elementos en la sección "Anclados". En la esquina superior derecha de un elemento anclado, haga clic en {% octicon "grabber" aria-label="The grabber symbol" %} y arrastre el elemento anclado a una nueva ubicación.
 
 {% data reusables.profile.access_profile %}
-2. In the "Popular repositories" or "Pinned" section, click **Customize your pins**.
-	![Customize your pins button](/assets/images/help/profile/customize-pinned-repositories.png)
-3. To display a searchable list of items to pin, select "Repositories", "Gists", or both.
-	![Checkboxes to select the types of items to display](/assets/images/help/profile/pinned-repo-picker.png)
-4. Optionally, to make it easier to find a specific item, in the filter field, type the name of a user, organization, repository, or gist.
-	![Filter items](/assets/images/help/profile/pinned-repo-search.png)
-5. Select a combination of up to six repositories and/or gists to display.
-	![Select items](/assets/images/help/profile/select-items-to-pin.png)
-6. Click **Save pins**.
-	![Save pins button](/assets/images/help/profile/save-pinned-repositories.png)
+2. En la sección "Popular repositories" o "Pinned", haga clic en **Customize your pins**.
+    ![Botón para personalizar los elementos anclados](/assets/images/help/profile/customize-pinned-repositories.png)
+3. Para mostrar una lista de búsqueda de elementos por anclar, selecciona "Repositories" (Repositorios), "Gists" o ambos.
+    ![Casillas para seleccionar los tipos de elementos que se van a mostrar](/assets/images/help/profile/pinned-repo-picker.png)
+4. Como opción, para que sea más sencillo encontrar un elemento específico, en el campo de filtro, escribe el nombre de un usuario, una organización, un repositorio o un gist.
+    ![Filtro de elementos](/assets/images/help/profile/pinned-repo-search.png)
+5. Selecciona una combinación de hasta seis repositorios o gists para mostrar.
+    ![Selección de elementos](/assets/images/help/profile/select-items-to-pin.png)
+6. Haga clic en **Save pins**.
+    ![Botón para guardar los elementos anclados](/assets/images/help/profile/save-pinned-repositories.png)
 
-## Further reading
+## Información adicional
 
-- "[About your profile](/articles/about-your-profile)"
+- "[Acerca del perfil](/articles/about-your-profile)"

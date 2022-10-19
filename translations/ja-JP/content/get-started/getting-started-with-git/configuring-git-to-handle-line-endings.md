@@ -1,6 +1,6 @@
 ---
-title: Configuring Git to handle line endings
-intro: 'To avoid problems in your diffs, you can configure Git to properly handle line endings.'
+title: 行終端を処理するようGitを設定する
+intro: diff における問題を回避するため、行終端を正しく処理できるよう Git を設定できます。
 redirect_from:
   - /dealing-with-lineendings
   - /line-endings
@@ -15,21 +15,27 @@ versions:
   ghae: '*'
   ghec: '*'
 shortTitle: Handle line endings
+ms.openlocfilehash: 4aa89f244e45da6905d6d5348c84faf8d5e6418c
+ms.sourcegitcommit: fcf3546b7cc208155fb8acdf68b81be28afc3d2d
+ms.translationtype: HT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 09/11/2022
+ms.locfileid: '147884206'
 ---
-## About line endings
-Every time you press <kbd>return</kbd> on your keyboard you insert an invisible character called a line ending. Different operating systems handle line endings differently.
+## 行末について
+キーボードで <kbd>return</kbd> を押すたびに、行末と呼ばれる目に見えない文字が挿入されています。 行終端の処理は、オペレーティングシステムによって異なります。
 
-When you're collaborating on projects with Git and {% data variables.product.product_name %}, Git might produce unexpected results if, for example, you're working on a Windows machine, and your collaborator has made a change in macOS.
+Git と {% data variables.product.product_name %} でコラボレートしているときに、あなたが Windows マシンで作業をしていて、コラボレーターが macOS で変更を加えた場合、Git により予想外の結果が生じることがあります。
 
-You can configure Git to handle line endings automatically so you can collaborate effectively with people who use different operating systems.
+異なるオペレーティングシステムを使用しているユーザとも効果的にコラボレーションができるように、自動的に行終端を処理するよう Git を設定することができます。
 
-## Global settings for line endings
+## 行終端のグローバル設定
 
-The `git config core.autocrlf` command is used to change how Git handles line endings. It takes a single argument.
+`git config core.autocrlf` コマンドは、Git での行末の処理方法を変更するために使用されます。 必要な引数は 1 つです。
 
 {% mac %}
 
-On macOS, you simply pass `input` to the configuration. For example:
+macOS では、構成に `input` を渡すだけです。 次に例を示します。
 
 ```shell
 $ git config --global core.autocrlf input
@@ -40,7 +46,7 @@ $ git config --global core.autocrlf input
 
 {% windows %}
 
-On Windows, you simply pass `true` to the configuration. For example:
+Windows では、構成に `true` を渡すだけです。 次に例を示します。
 
 ```shell
 $ git config --global core.autocrlf true
@@ -52,7 +58,7 @@ $ git config --global core.autocrlf true
 
 {% linux %}
 
-On Linux, you simply pass `input` to the configuration. For example:
+Linux では、構成に `input` を渡すだけです。 次に例を示します。
 
 ```shell
 $ git config --global core.autocrlf input
@@ -61,20 +67,20 @@ $ git config --global core.autocrlf input
 
 {% endlinux %}
 
-## Per-repository settings
+## リポジトリ単位での設定
 
-Optionally, you can configure a *.gitattributes* file to manage how Git reads line endings in a specific repository. When you commit this file to a repository, it overrides the `core.autocrlf` setting for all repository contributors. This ensures consistent behavior for all users, regardless of their Git settings and environment.
+オプションで *.gitattributes* ファイルを設定すれば、特定のリポジトリで Git が行末をどう読み込むかを構成することもできます。 このファイルをリポジトリにコミットすると、すべてのリポジトリ共同作成者の `core.autocrlf` 設定がオーバーライドされます。 そのため、Git 設定と環境にかかわらずすべてのユーザで一貫した動作を確保できます。
 
-The *.gitattributes* file must be created in the root of the repository and committed like any other file.
+*.gitattributes* ファイルは、リポジトリのルートに作成し、他のファイルと同様にコミットする必要があります。
 
-A *.gitattributes* file looks like a table with two columns:
+*.gitattributes* ファイルは 2 列で構成される表のようなものです:
 
-* On the left is the file name for Git to match.
-* On the right is the line ending configuration that Git should use for those files.
+* 左側は Git が一致させるファイル名です。
+* 右側はそのようなファイルに対して Git が使用すべき行終端の設定です。
 
-### Example
+### 例
 
-Here's an example *.gitattributes* file. You can use it as a template for your repositories:
+*.gitattributes* ファイルの例を次に示します。 リポジトリのテンプレートとして使用できます。
 
 ```
 # Set the default behavior, in case people don't have core.autocrlf set.
@@ -93,43 +99,43 @@ Here's an example *.gitattributes* file. You can use it as a template for your r
 *.jpg binary
 ```
 
-You'll notice that files are matched—`*.c`, `*.sln`, `*.png`—, separated by a space, then given a setting—`text`, `text eol=crlf`, `binary`. We'll go over some possible settings below.
+`*.c`、`*.sln`、`*.png` とファイルが一致していることがわかります。スペースで区切られた後、設定 (`text`、`text eol=crlf`、`binary`) が指定されています。 以下、利用可能な設定を見てみましょう。
 
-- `text=auto` Git will handle the files in whatever way it thinks is best. This is a good default option.
+- `text=auto` Git により、最適と判断された方法でファイルが処理されます。 これは便利なデフォルトのオプションです。
 
-- `text eol=crlf` Git will always convert line endings to `CRLF` on checkout. You should use this for files that must keep `CRLF` endings, even on OSX or Linux.
+- `text eol=crlf` Git により、チェックアウト時に常に行末が `CRLF` に変換されます。 OS X または Linux であったとしても、`CRLF` の行末を維持しなければならないファイルにはこれを使用する必要があります。
 
-- `text eol=lf` Git will always convert line endings to `LF` on checkout. You should use this for files that must keep LF endings, even on Windows.
+- `text eol=lf` Git により、チェックアウト時に常に行末が `LF` に変換されます。 Windows であったとしても、終端が LF でなければならないファイルにはこれを使用する必要があります。
 
-- `binary` Git will understand that the files specified are not text, and it should not try to change them. The `binary` setting is also an alias for `-text -diff`.
+- `binary` 指定されているファイルがテキストではなく、変更を試みるべきではないことが Git で認識されます。 この `binary` 設定は、`-text -diff` の別名でもあります。
 
-## Refreshing a repository after changing line endings
+## 行終端を変更した後でリポジトリを更新
 
-When you set the `core.autocrlf` option or commit a *.gitattributes* file, you may find that Git reports changes to files that you have not modified. Git has changed line endings to match your new configuration.
+`core.autocrlf` オプションを設定するか、 *.gitattributes* ファイルをコミットすると、変更していないファイルに対する変更が Git によって報告される場合があります。 これは、新しい設定に合致するように Git が行終端を変更したということです。
 
-To ensure that all the line endings in your repository match your new configuration, backup your files with Git, delete all files in your repository (except the `.git` directory), then restore the files all at once.
+リポジトリのすべての行末が新しい構成と一致するようにするには、Git でファイルをバックアップし、リポジトリ (`.git` ディレクトリを除く) のすべてのファイルを削除してから、ファイルをすべて一度に復元します。
 
-1. Save your current files in Git, so that none of your work is lost.
+1. 作業結果を失うことのないよう、Git で現在のファイルを保存します。
   ```shell
   $ git add . -u
   $ git commit -m "Saving files before refreshing line endings"
   ```
-2. Add all your changed files back and normalize the line endings.
+2. 変更したファイルをすべて再度追加し、行終端を正規化します。
   ```shell
   $ git add --renormalize .
   ```
-3. Show the rewritten, normalized files.
+3. 書き直し、正規化したファイルを表示します。
   ```shell
   $ git status
   ```
-4. Commit the changes to your repository.
+4. 変更をリポジトリにコミットします。
   ```shell
   $ git commit -m "Normalize all the line endings"
   ```
 
-## Further reading
+## 参考資料
 
-- [Customizing Git - Git Attributes](https://git-scm.com/book/en/Customizing-Git-Git-Attributes) in the Pro Git book
-- [git-config](https://git-scm.com/docs/git-config) in the man pages for Git
-- [Getting Started - First-Time Git Setup](https://git-scm.com/book/en/Getting-Started-First-Time-Git-Setup) in the Pro Git book
-- [Mind the End of Your Line](http://adaptivepatchwork.com/2012/03/01/mind-the-end-of-your-line/) by [Tim Clem](https://github.com/tclem)
+- Pro Git ブックの「[Git のカスタマイズ - Git の属性](https://git-scm.com/book/en/Customizing-Git-Git-Attributes)」
+- Git の man ページ内の [git-config](https://git-scm.com/docs/git-config)
+- Pro Git ブックの「[概要 - はじめての Git セットアップ](https://git-scm.com/book/en/Getting-Started-First-Time-Git-Setup)」
+- 「[Mind the End of Your Line](http://adaptivepatchwork.com/2012/03/01/mind-the-end-of-your-line/)」(行の終わりに注意する) [Tim Clem](https://github.com/tclem)

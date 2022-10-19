@@ -1,7 +1,7 @@
 ---
-title: Running CodeQL code scanning in a container
+title: コンテナで CodeQL Code scanningを実行する
 shortTitle: '{% data variables.product.prodname_code_scanning_capc %} in a container'
-intro: 'You can run {% data variables.product.prodname_code_scanning %} in a container by ensuring that all processes run in the same container.'
+intro: 'すべてのプロセスが同じコンテナで動作するようにすることで、{% data variables.product.prodname_code_scanning %} を実行できます。'
 product: '{% data reusables.gated-features.code-scanning %}'
 redirect_from:
   - /github/finding-security-vulnerabilities-and-errors-in-your-code/running-codeql-code-scanning-in-a-container
@@ -21,33 +21,44 @@ topics:
   - Repositories
   - Containers
   - Java
+ms.openlocfilehash: 9f4fb3cd54dda2f31ec6086419078345dad51e8d
+ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
+ms.translationtype: HT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 09/05/2022
+ms.locfileid: '147682677'
 ---
-<!--For this article in earlier GHES versions, see /content/github/finding-security-vulnerabilities-and-errors-in-your-code-->
-
 {% data reusables.code-scanning.beta %}
-{% data reusables.code-scanning.deprecation-codeql-runner %}
 
-## About {% data variables.product.prodname_code_scanning %} with a containerized build
+## コンテナ化されたビルドで {% data variables.product.prodname_code_scanning %} を使用することについて
 
-If you're setting up {% data variables.product.prodname_code_scanning %} for a compiled language, and you're building the code in a containerized environment, the analysis may fail with the error message "No source code was seen during the build." This indicates that {% data variables.product.prodname_codeql %} was unable to monitor your code as it was compiled.
+コンパイル言語用に {% data variables.product.prodname_code_scanning %} をセットアップし、コンテナ化された環境でコードをビルドしようとすると、解析が失敗し、"No source code was seen during the build." というエラーメッセージが出る場合があります。 これは、コードがコンパイルされているので {% data variables.product.prodname_codeql %} がコードをモニターできなかったことを示しています。
 
-{% ifversion fpt or ghes > 3.0 or ghae or ghec %}
-You must run {% data variables.product.prodname_codeql %} inside the container in which you build your code. This applies whether you are using the {% data variables.product.prodname_codeql_cli %}, the {% data variables.product.prodname_codeql_runner %}, or {% data variables.product.prodname_actions %}. For the {% data variables.product.prodname_codeql_cli %} or the {% data variables.product.prodname_codeql_runner %}, see "[Installing {% data variables.product.prodname_codeql_cli %} in your CI system](/code-security/secure-coding/using-codeql-code-scanning-with-your-existing-ci-system/installing-codeql-cli-in-your-ci-system)" or "[Running {% data variables.product.prodname_codeql_runner %} in your CI system](/code-security/secure-coding/running-codeql-runner-in-your-ci-system)" for more information. If you're using {% data variables.product.prodname_actions %}, configure your workflow to run all the actions in the same container. For more information, see "[Example workflow](#example-workflow)."
-{% else %}
-You must run {% data variables.product.prodname_codeql %} inside the container in which you build your code. This applies whether you are using the {% data variables.product.prodname_codeql_runner %} or {% data variables.product.prodname_actions %}. For the {% data variables.product.prodname_codeql_runner %}, see "[Running {% data variables.product.prodname_codeql_runner %} in your CI system](/code-security/secure-coding/running-codeql-runner-in-your-ci-system)" for more information. If you're using {% data variables.product.prodname_actions %}, configure your workflow to run all the actions in the same container. For more information, see "[Example workflow](#example-workflow)."
-{% endif %}
+{% data variables.product.prodname_codeql %}は、コードをビルドするコンテナ内で実行しなければなりません。 これは、{% data variables.product.prodname_codeql_cli %}{% ifversion codeql-runner-supported %}、{% data variables.product.prodname_codeql_runner %}、{% endif %}または {% data variables.product.prodname_actions %} のいずれを使っていても当てはまります。 {% data variables.product.prodname_codeql_cli %} {% ifversion codeql-runner-supported %}または {% data variables.product.prodname_codeql_runner %} {% endif %}の場合、詳しくは、「[CI システムに {% data variables.product.prodname_codeql_cli %} をインストールする](/code-security/secure-coding/using-codeql-code-scanning-with-your-existing-ci-system/installing-codeql-cli-in-your-ci-system)」{% ifversion codeql-runner-supported %}または「[CI システムで {% data variables.product.prodname_codeql_runner %} を実行する](/code-security/secure-coding/running-codeql-runner-in-your-ci-system)」{% endif %}をご覧ください。 {% data variables.product.prodname_actions %} を使用している場合は、同じコンテナですべてのアクションを実行するようワークフローを設定します。 詳しくは、「[ワークフローの例](#example-workflow)」をご覧ください。
 
-## Dependencies
+{% note %}
 
-You may have difficulty running {% data variables.product.prodname_code_scanning %} if the container you're using is missing certain dependencies (for example, Git must be installed and added to the PATH variable). If you encounter dependency issues, review the list of software typically included on {% data variables.product.prodname_dotcom %}'s virtual environments. For more information, see the version-specific `readme` files in these locations:
+**メモ:** {% data reusables.code-scanning.non-glibc-linux-support %}
 
-* Linux: https://github.com/actions/virtual-environments/tree/main/images/linux
-* macOS: https://github.com/actions/virtual-environments/tree/main/images/macos
-* Windows: https://github.com/actions/virtual-environments/tree/main/images/win
+{% endnote %}
 
-## Example workflow
+## 依存関係
 
-This sample workflow uses {% data variables.product.prodname_actions %} to run {% data variables.product.prodname_codeql %} analysis in a containerized environment. The value of `container.image` identifies the container to use. In this example the image is named `codeql-container`, with a tag of `f0f91db`. For more information, see "[Workflow syntax for {% data variables.product.prodname_actions %}](/actions/reference/workflow-syntax-for-github-actions#jobsjob_idcontainer)."
+使用しているコンテナで特定の依存関係がない場合 (たとえば、Git は PATH 変数にインストールされ、追加されている必要がある)、{% data variables.product.prodname_code_scanning %} を実行する上で困難が生じる場合があります。 依存関係の問題が生じた場合は、{% data variables.product.prodname_dotcom %} のランナー イメージに通常含まれているソフトウェアのリストを確認してください。 詳しくは、次の場所にある特定のバージョンの `readme` ファイルをご覧ください。
+
+* Linux: https://github.com/actions/runner-images/tree/main/images/linux
+* macOS: https://github.com/actions/runner-images/tree/main/images/macos
+* Windows: https://github.com/actions/runner-images/tree/main/images/win
+
+## ワークフローの例
+
+{% ifversion ghes or ghae %} {% note %}
+
+**メモ:** この記事では、このバージョンの {% data variables.product.product_name %} の初期リリースに含まれる CodeQL アクションのバージョンおよび関連する CodeQL CLI バンドルで使用できる機能について説明します。 企業で CodeQL アクションのより新しいバージョンを使っている場合、最新機能について詳しくは、[{% data variables.product.prodname_ghe_cloud %} に関する記事](/enterprise-cloud@latest/code-security/code-scanning/automatically-scanning-your-code-for-vulnerabilities-and-errors/running-codeql-code-scanning-in-a-container)をご覧ください。{% ifversion not ghae %}最新バージョンの使用については、「[アプライアンスのコード スキャンの構成](/admin/advanced-security/configuring-code-scanning-for-your-appliance#configuring-codeql-analysis-on-a-server-without-internet-access)」をご覧ください。{% endif %}
+
+{% endnote %} {% endif %}
+
+このサンプルワークフローでは、{% data variables.product.prodname_actions %} を使用して、コンテナ化された環境において {% data variables.product.prodname_codeql %} 解析を実行します。 使用するコンテナーを識別する `container.image` の値。 この例では、イメージは、`f0f91db` のタグを持つ、`codeql-container` という名前です。 詳細については、[{% data variables.product.prodname_actions %} のワークフロー構文](/actions/reference/workflow-syntax-for-github-actions#jobsjob_idcontainer)に関するページを参照してください。
 
 ``` yaml
 name: "{% data variables.product.prodname_codeql %}"
@@ -63,10 +74,10 @@ on:
 jobs:
   analyze:
     name: Analyze
-    runs-on: ubuntu-latest{% ifversion fpt or ghes > 3.1 or ghae or ghec %}
+    runs-on: ubuntu-latest
     permissions:
       security-events: write
-      actions: read{% endif %}
+      actions: read
 
     strategy:
       fail-fast: false
@@ -79,9 +90,9 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: {% data reusables.actions.action-checkout %}
       - name: Initialize {% data variables.product.prodname_codeql %}
-        uses: github/codeql-action/init@v1
+        uses: {% data reusables.actions.action-codeql-action-init %}
         with:
           languages: {% raw %}${{ matrix.language }}{% endraw %}
       - name: Build
@@ -89,5 +100,5 @@ jobs:
           ./configure
           make
       - name: Perform {% data variables.product.prodname_codeql %} Analysis
-        uses: github/codeql-action/analyze@v1
+        uses: {% data reusables.actions.action-codeql-action-analyze %}
 ```

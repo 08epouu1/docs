@@ -1,6 +1,6 @@
 ---
-title: Closing inactive issues
-intro: 'You can use {% data variables.product.prodname_actions %} to comment on or close issues that have been inactive for a certain period of time.'
+title: Cerrar las propuestas inactivas
+intro: 'Puedes utilizar las {% data variables.product.prodname_actions %} para comentar o cerrar las propuestas que han estado inactivas por algún tiempo.'
 redirect_from:
   - /actions/guides/closing-inactive-issues
 versions:
@@ -12,22 +12,26 @@ type: tutorial
 topics:
   - Workflows
   - Project management
+ms.openlocfilehash: 7d0cab4c1ef7ac5fda67a0487b50817adfb5dfd8
+ms.sourcegitcommit: fbc89bcee79c2cda1d3d6e99d5571873ca3b2686
+ms.translationtype: HT
+ms.contentlocale: es-ES
+ms.lasthandoff: 08/31/2022
+ms.locfileid: '147063614'
 ---
+{% data reusables.actions.enterprise-beta %} {% data reusables.actions.enterprise-github-hosted-runners %}
 
-{% data reusables.actions.enterprise-beta %}
-{% data reusables.actions.enterprise-github-hosted-runners %}
+## Introducción
 
-## Introduction
+En este tutorial se muestra cómo usar la [acción `actions/stale`](https://github.com/marketplace/actions/close-stale-issues) para comentar y cerrar incidencias que han estado inactivas durante un determinado período de tiempo. Por ejemplo, puedes comentar si una propúesta ha estado inactiva durante 30 días para pedir a los participantes que tomen alguna acción. Posteriormente, si no hay ningún tipo de actividad en los siguientes 14 días, puedes cerrar la propuesta.
 
-This tutorial demonstrates how to use the [`actions/stale` action](https://github.com/marketplace/actions/close-stale-issues) to comment on and close issues that have been inactive for a certain period of time. For example, you can comment if an issue has been inactive for 30 days to prompt participants to take action. Then, if no additional activity occurs after 14 days, you can close the issue.
+En el tutorial, primero creará un archivo de flujo de trabajo en el que se usa la [acción `actions/stale`](https://github.com/marketplace/actions/close-stale-issues). Después, personalizarás el flujo de trabajo de acuerdo con tus necesidades.
 
-In the tutorial, you will first make a workflow file that uses the [`actions/stale` action](https://github.com/marketplace/actions/close-stale-issues). Then, you will customize the workflow to suit your needs.
-
-## Creating the workflow
+## Crear un flujo de trabajo
 
 1. {% data reusables.actions.choose-repo %}
 2. {% data reusables.actions.make-workflow-file %}
-3. Copy the following YAML contents into your workflow file.
+3. Copia el siguiente contenido de YAML en tu archivo de flujo de trabajo.
 
     ```yaml{:copy}
     name: Close inactive issues
@@ -37,12 +41,12 @@ In the tutorial, you will first make a workflow file that uses the [`actions/sta
 
     jobs:
       close-issues:
-        runs-on: ubuntu-latest{% ifversion fpt or ghes > 3.1 or ghae or ghec %}
+        runs-on: ubuntu-latest
         permissions:
           issues: write
-          pull-requests: write{% endif %}
+          pull-requests: write
         steps:
-          - uses: actions/stale@v3
+          - uses: {% data reusables.actions.action-stale %}
             with:
               days-before-issue-stale: 30
               days-before-issue-close: 14
@@ -54,26 +58,26 @@ In the tutorial, you will first make a workflow file that uses the [`actions/sta
               repo-token: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
     ```
 
-4. Customize the parameters in your workflow file:
-   - Change the value for `on.schedule` to dictate when you want this workflow to run. In the example above, the workflow will run every day at 1:30 UTC. For more information about scheduled workflows, see "[Scheduled events](/actions/reference/events-that-trigger-workflows#scheduled-events)."
-   - Change the value for `days-before-issue-stale` to the number of days without activity before the `actions/stale` action labels an issue. If you never want this action to label issues, set this value to `-1`.
-   - Change the value for `days-before-issue-close` to the number of days without activity before the `actions/stale` action closes an issue. If you never want this action to close issues, set this value to `-1`.
-   - Change the value for `stale-issue-label` to the label that you want to apply to issues that have been inactive for the amount of time specified by `days-before-issue-stale`.
-   - Change the value for `stale-issue-message` to the comment that you want to add to issues that are labeled by the `actions/stale` action.
-   - Change the value for `close-issue-message` to the comment that you want to add to issues that are closed by the `actions/stale` action.
+4. Personaliza los parámetros en tu archivo de flujo de trabajo:
+   - Cambie el valor de `on.schedule` para determinar cuándo quiere que se ejecute este flujo de trabajo. En el ejemplo anterior, el flujo de trabajo se ejecutará diario a la 1:30 UTC. Para obtener más información sobre los flujos de trabajo programados, consulte "[Eventos programados](/actions/reference/events-that-trigger-workflows#scheduled-events)".
+   - Cambie el valor de `days-before-issue-stale` por el número de días sin actividad antes de que la acción `actions/stale` etiquete una incidencia. Si quiere que esta acción no etiquete nunca las incidencias, establezca este valor en `-1`.
+   - Cambie el valor de `days-before-issue-close` por el número de días sin actividad antes de que la acción `actions/stale` cierre una incidencia. Si quiere que esta acción no cierre nunca las incidencias, establezca este valor en `-1`.
+   - Cambie el valor de `stale-issue-label` por la etiqueta que quiere aplicar a las incidencias que han estado inactivas durante el período de tiempo especificado por `days-before-issue-stale`.
+   - Cambie el valor de `stale-issue-message` por el comentario que quiere agregar a la incidencias etiquetadas por la acción `actions/stale`.
+   - Cambie el valor de `close-issue-message` por el comentario que quiere agregar a la incidencias cerradas por la acción `actions/stale`.
 5. {% data reusables.actions.commit-workflow %}
 
-## Expected results
+## Resultados esperados
 
-Based on the `schedule` parameter (for example, every day at 1:30 UTC), your workflow will find issues that have been inactive for the specified period of time and will add the specified comment and label. Additionally, your workflow will close any previously labeled issues if no additional activity has occurred for the specified period of time.
+En función del parámetro `schedule` (por ejemplo, todos los días a la 1:30 UTC), el flujo de trabajo encontrará incidencias que han estado inactivas durante el período de tiempo especificado y les agregará el comentario y etiqueta que ha indicado. Adicionalmente, tu flujo de trabajo cerrará cualquier propuesta que se haya etiquetado previamente si no ha habido ningún tipo de actividad adicional en el periodo de tiempo que especificaste.
 
 {% data reusables.actions.schedule-delay %}
 
-You can view the history of your workflow runs to see this workflow run periodically. For more information, see "[Viewing workflow run history](/actions/managing-workflow-runs/viewing-workflow-run-history)."
+Puedes ver el historial de tus ejecuciones de flujo de trabajo para ver que este flujo de trabajo se ejecute regularmente. Para más información, vea "[Visualización del historial de ejecución de flujos de trabajo](/actions/managing-workflow-runs/viewing-workflow-run-history)".
 
-This workflow will only label and/or close 30 issues at a time in order to avoid exceeding a rate limit. You can configure this with the `operations-per-run` setting. For more information, see the [`actions/stale` action documentation](https://github.com/marketplace/actions/close-stale-issues).
+Este flujo de trabajo solo etiquetará o cerrará 30 propuestas a la vez para evitar exceder el límite de tasa. Puede configurarlo con el valor `operations-per-run`. Para más información, vea la [documentación de la acción `actions/stale`](https://github.com/marketplace/actions/close-stale-issues).
 
-## Next steps
+## Pasos siguientes
 
-- To learn more about additional things you can do with the `actions/stale` action, like closing inactive pull requests, ignoring issues with certain labels or milestones, or only checking issues with certain labels, see the [`actions/stale` action documentation](https://github.com/marketplace/actions/close-stale-issues).
-- [Search GitHub](https://github.com/search?q=%22uses%3A+actions%2Fstale%22&type=code) for examples of workflows using this action.
+- Para obtener más información sobre otras cosas que puede hacer con la acción `actions/stale` (como cerrar solicitudes de incorporación de cambios inactivas, omitir incidencias con determinadas etiquetas o hitos o solo comprobar las incidencias con determinadas etiquetas), consulte la [documentación de la acción `actions/stale`](https://github.com/marketplace/actions/close-stale-issues).
+- [Busque en GitHub](https://github.com/search?q=%22uses%3A+actions%2Fstale%22&type=code) ejemplos de flujos de trabajo mediante esta acción.

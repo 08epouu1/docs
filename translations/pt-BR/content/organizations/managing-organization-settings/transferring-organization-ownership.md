@@ -1,6 +1,6 @@
 ---
-title: Transferring organization ownership
-intro: 'To make someone else the owner of an organization account, you must add a new owner{% ifversion fpt or ghec %}, ensure that the billing information is updated,{% endif %} and then remove yourself from the account.'
+title: Transferir a propriedade da organização
+intro: 'Para tornar outra pessoa o proprietário de uma conta da organização, você deverá adicionar um novo proprietário{% ifversion fpt or ghec %}, garantir que as informações de cobrança estejam atualizadas{% endif %} e, em seguida, remover-se da conta.'
 redirect_from:
   - /articles/needs-polish-how-do-i-give-ownership-to-an-organization-to-someone-else
   - /articles/transferring-organization-ownership
@@ -14,24 +14,29 @@ topics:
   - Organizations
   - Teams
 shortTitle: Transfer ownership
+ms.openlocfilehash: 2605af47d008eff7ee786d80f64142a267676ee1
+ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
+ms.translationtype: HT
+ms.contentlocale: pt-BR
+ms.lasthandoff: 09/05/2022
+ms.locfileid: '145065456'
 ---
-{% ifversion fpt or ghec %}
-{% note %}
+{% ifversion ghec %} {% note %}
 
-**Note:** {% data reusables.enterprise-accounts.invite-organization %}
+**Observação:** {% data reusables.enterprise-accounts.invite-organization %}
 
 {% endnote %}{% endif %}
 
-1. If you're the only member with *owner* privileges, give another organization member the owner role. For more information, see "[Appointing an organization owner](/organizations/managing-peoples-access-to-your-organization-with-roles/maintaining-ownership-continuity-for-your-organization#appointing-an-organization-owner)."
-2. Contact the new owner and make sure he or she is able to [access the organization's settings](/articles/accessing-your-organization-s-settings).
+1. Se você for o único membro com privilégios de *proprietário*, dê a outro membro da organização a função de proprietário. Para obter mais informações, confira "[Como nomear um proprietário da organização](/organizations/managing-peoples-access-to-your-organization-with-roles/maintaining-ownership-continuity-for-your-organization#appointing-an-organization-owner)".
+2. Entre em contato com o novo proprietário e verifique se ele pode [acessar as configurações da organização](/articles/accessing-your-organization-s-settings).
 {% ifversion fpt or ghec %}
-3. If you are currently responsible for paying for GitHub in your organization, you'll also need to have the new owner or a [billing manager](/articles/adding-a-billing-manager-to-your-organization/) update the organization's payment information. For more information, see "[Adding or editing a payment method](/articles/adding-or-editing-a-payment-method)."
+3. Se, atualmente, você for responsável por pagar pelo GitHub na sua organização, também precisará solicitar ao novo proprietário ou a um [gerente de cobrança](/articles/adding-a-billing-manager-to-your-organization/) que atualize as informações de pagamento da organização. Para obter mais informações, confira "[Como adicionar ou editar uma forma de pagamento](/articles/adding-or-editing-a-payment-method)".
 
   {% warning %}
 
-  **Warning**: Removing yourself from the organization **does not** update the billing information on file for the organization account. The new owner or a billing manager must update the billing information on file to remove your credit card or PayPal information.
+  **Aviso**: se você se remover da organização, isso **não** atualizará as informações de cobrança registradas para a conta da organização. O novo proprietário ou um gerente de cobrança deve atualizar as informações de cobrança no arquivo para apagar suas informações de cartão de crédito ou PayPal.
 
   {% endwarning %}
 
 {% endif %}
-4. [Remove yourself](/articles/removing-yourself-from-an-organization) from the organization.
+4. [Remova-se](/articles/removing-yourself-from-an-organization) da organização.

@@ -1,7 +1,7 @@
 ---
-title: Creating PostgreSQL service containers
+title: Crear contenedores de servicios PostgreSQL
 shortTitle: PostgreSQL service containers
-intro: You can create a PostgreSQL service container to use in your workflow. This guide shows examples of creating a PostgreSQL service for jobs that run in containers or directly on the runner machine.
+intro: 'Puedes crear un contenedor de servicios PostgreSQL para usar en tu flujo de trabajo. En esta guía se muestran ejemplos de cómo crear un servicio PostgreSQL para trabajos que se ejecutan en contenedores o, directamente, en la máquina del ejecutor.'
 redirect_from:
   - /actions/automating-your-workflow-with-github-actions/creating-postgresql-service-containers
   - /actions/configuring-and-managing-workflows/creating-postgresql-service-containers
@@ -15,33 +15,36 @@ type: tutorial
 topics:
   - Containers
   - Docker
+ms.openlocfilehash: 9d5ad3e32e5df22101b61aa7ba134e7fe69333e5
+ms.sourcegitcommit: fb047f9450b41b24afc43d9512a5db2a2b750a2a
+ms.translationtype: HT
+ms.contentlocale: es-ES
+ms.lasthandoff: 09/10/2022
+ms.locfileid: '145121114'
 ---
+{% data reusables.actions.enterprise-beta %} {% data reusables.actions.enterprise-github-hosted-runners %}
 
-{% data reusables.actions.enterprise-beta %}
-{% data reusables.actions.enterprise-github-hosted-runners %}
+## Introducción
 
-## Introduction
+En esta guía se muestran ejemplos de flujo de trabajo que configuran un contenedor de servicios mediante la imagen `postgres` de Docker Hub. El flujo de trabajo ejecuta un script que se conecta con el servicio de PostgreSQL, crea una tabla y luego la llena de datos. Para probar que el flujo de trabajo crea y puebla la tabla de PostgreSQL, el script imprimie los datos de esta en la consola.
 
-This guide shows you workflow examples that configure a service container using the Docker Hub `postgres` image. The workflow runs a script that connects to the PostgreSQL service, creates a table, and then populates it with data. To test that the workflow creates and populates the PostgreSQL table, the script prints the data from the table to the console.
+{% data reusables.actions.docker-container-os-support %}
 
-{% data reusables.github-actions.docker-container-os-support %}
+## Prerrequisitos
 
-## Prerequisites
+{% data reusables.actions.service-container-prereqs %}
 
-{% data reusables.github-actions.service-container-prereqs %}
+También puede ser útil tener un conocimiento básico de YAML, la sintaxis para las {% data variables.product.prodname_actions %}, y de PostgreSQL. Para más información, consulte:
 
-You may also find it helpful to have a basic understanding of YAML, the syntax for {% data variables.product.prodname_actions %}, and PostgreSQL. For more information, see:
+- "[Más información sobre {% data variables.product.prodname_actions %}](/actions/learn-github-actions)"
+- "[Tutorial de PostgreSQL](https://www.postgresqltutorial.com/)" en la documentación de PostgreSQL
 
-- "[Learn {% data variables.product.prodname_actions %}](/actions/learn-github-actions)"
-- "[PostgreSQL tutorial](https://www.postgresqltutorial.com/)" in the PostgreSQL documentation
+## Ejecutar trabajos en contenedores
 
-## Running jobs in containers
+{% data reusables.actions.container-jobs-intro %}
 
-{% data reusables.github-actions.container-jobs-intro %}
+{% data reusables.actions.copy-workflow-file %}
 
-{% data reusables.github-actions.copy-workflow-file %}
-
-{% raw %}
 ```yaml{:copy}
 name: PostgreSQL service example
 on: push
@@ -73,7 +76,7 @@ jobs:
     steps:
       # Downloads a copy of the code in your repository before running CI tests
       - name: Check out repository code
-        uses: actions/checkout@v2
+        uses: {% data reusables.actions.action-checkout %}
 
       # Performs a clean installation of all dependencies in the `package.json` file
       # For more information, see https://docs.npmjs.com/cli/ci.html
@@ -91,13 +94,12 @@ jobs:
           # The default PostgreSQL port
           POSTGRES_PORT: 5432
 ```
-{% endraw %}
 
-### Configuring the runner job
+### Configurar el trabajo del ejecutor
 
-{% data reusables.github-actions.service-container-host %}
+{% data reusables.actions.service-container-host %}
 
-{% data reusables.github-actions.postgres-label-description %}
+{% data reusables.actions.postgres-label-description %}
 
 ```yaml{:copy}
 jobs:
@@ -125,15 +127,15 @@ jobs:
           --health-retries 5
 ```
 
-### Configuring the steps
+### Configurar los pasos
 
-{% data reusables.github-actions.service-template-steps %}
+{% data reusables.actions.service-template-steps %}
 
 ```yaml{:copy}
 steps:
   # Downloads a copy of the code in your repository before running CI tests
   - name: Check out repository code
-    uses: actions/checkout@v2
+    uses: {% data reusables.actions.action-checkout %}
 
   # Performs a clean installation of all dependencies in the `package.json` file
   # For more information, see https://docs.npmjs.com/cli/ci.html
@@ -153,17 +155,16 @@ steps:
       POSTGRES_PORT: 5432
 ```
 
-{% data reusables.github-actions.postgres-environment-variables %}
+{% data reusables.actions.postgres-environment-variables %}
 
-The hostname of the PostgreSQL service is the label you configured in your workflow, in this case, `postgres`. Because Docker containers on the same user-defined bridge network open all ports by default, you'll be able to access the service container on the default PostgreSQL port 5432.
+El nombre de host del servicio PostgreSQL es la etiqueta que configuró en su flujo de trabajo, en este caso, `postgres`. Dado que los contenedores de Docker de la misma red de puentes definida por el usuario abren todos los puertos por defecto, podrás acceder al contenedor de servicios en el puerto 5432 PostgreSQL predeterminado.
 
-## Running jobs directly on the runner machine
+## Ejecutar trabajos directamente en la máquina del ejecutor
 
-When you run a job directly on the runner machine, you'll need to map the ports on the service container to ports on the Docker host. You can access service containers from the Docker host using `localhost` and the Docker host port number.
+Cuando ejecutes un trabajo directamente en la máquina del ejecutor, deberás asignar los puertos del contenedor de servicios a los puertos del host de Docker. Puede acceder a los contenedores de servicios desde el host de Docker mediante `localhost` y el número de puerto del host de Docker.
 
-{% data reusables.github-actions.copy-workflow-file %}
+{% data reusables.actions.copy-workflow-file %}
 
-{% raw %}
 ```yaml{:copy}
 name: PostgreSQL Service Example
 on: push
@@ -196,7 +197,7 @@ jobs:
     steps:
       # Downloads a copy of the code in your repository before running CI tests
       - name: Check out repository code
-        uses: actions/checkout@v2
+        uses: {% data reusables.actions.action-checkout %}
 
       # Performs a clean installation of all dependencies in the `package.json` file
       # For more information, see https://docs.npmjs.com/cli/ci.html
@@ -215,15 +216,14 @@ jobs:
           # The default PostgreSQL port
           POSTGRES_PORT: 5432
 ```
-{% endraw %}
 
-### Configuring the runner job
+### Configurar el trabajo del ejecutor
 
-{% data reusables.github-actions.service-container-host-runner %}
+{% data reusables.actions.service-container-host-runner %}
 
-{% data reusables.github-actions.postgres-label-description %}
+{% data reusables.actions.postgres-label-description %}
 
-The workflow maps port 5432 on the PostgreSQL service container to the Docker host. For more information about the `ports` keyword, see "[About service containers](/actions/automating-your-workflow-with-github-actions/about-service-containers#mapping-docker-host-and-service-container-ports)."
+El flujo de trabajo asigna el puerto 5432 del contenedor de servicios PostgreSQL al host de Docker. Para obtener más información sobre la palabra clave `ports`, consulte "[Acerca de los contenedores de servicios](/actions/automating-your-workflow-with-github-actions/about-service-containers#mapping-docker-host-and-service-container-ports)".
 
 ```yaml{:copy}
 jobs:
@@ -252,15 +252,15 @@ jobs:
           - 5432:5432
 ```
 
-### Configuring the steps
+### Configurar los pasos
 
-{% data reusables.github-actions.service-template-steps %}
+{% data reusables.actions.service-template-steps %}
 
 ```yaml{:copy}
 steps:
   # Downloads a copy of the code in your repository before running CI tests
   - name: Check out repository code
-    uses: actions/checkout@v2
+    uses: {% data reusables.actions.action-checkout %}
 
   # Performs a clean installation of all dependencies in the `package.json` file
   # For more information, see https://docs.npmjs.com/cli/ci.html
@@ -280,17 +280,17 @@ steps:
       POSTGRES_PORT: 5432
 ```
 
-{% data reusables.github-actions.postgres-environment-variables %}
+{% data reusables.actions.postgres-environment-variables %}
 
-{% data reusables.github-actions.service-container-localhost %}
+{% data reusables.actions.service-container-localhost %}
 
-## Testing the PostgreSQL service container
+## Probar el contenedor de servicios de PostgreSQL
 
-You can test your workflow using the following script, which connects to the PostgreSQL service and adds a new table with some placeholder data. The script then prints the values stored in the PostgreSQL table to the terminal. Your script can use any language you'd like, but this example uses Node.js and the `pg` npm module. For more information, see the [npm pg module](https://www.npmjs.com/package/pg).
+Puedes probar tu flujo de trabajo utilizando el siguiente script, el cual se conecta con el servicio de PostgreSQL y agrega una tabla nueva con algunos datos de marcador de posición. Entonces, el script imprime los valores almacenados en la tabla de PostgreSQL en la terminal. Su script puede usar el lenguaje que quiera, pero en este ejemplo se usa Node.js y el módulo npm `pg`. Para obtener más información, consulte el [módulo npm pg](https://www.npmjs.com/package/pg).
 
-You can modify *client.js* to include any PostgreSQL operations needed by your workflow. In this example, the script connects to the PostgreSQL service, adds a table to the `postgres` database, inserts some placeholder data, and then retrieves the data.
+Puede modificar *client.js* para incluir las operaciones de PostgreSQL necesarias para el flujo de trabajo. En este ejemplo, el script se conecta al servicio PostgreSQL, agrega la tabla a la base de datos de `postgres`, inserta algunos datos de marcador de posición y recupera los datos.
 
-{% data reusables.github-actions.service-container-add-script %}
+{% data reusables.actions.service-container-add-script %}
 
 ```javascript{:copy}
 const { Client } = require('pg');
@@ -324,11 +324,11 @@ pgclient.query('SELECT * FROM student', (err, res) => {
 });
 ```
 
-The script creates a new connection to the PostgreSQL service, and uses the `POSTGRES_HOST` and `POSTGRES_PORT` environment variables to specify the PostgreSQL service IP address and port. If `host` and `port` are not defined, the default host is `localhost` and the default port is 5432.
+El script crea una nueva conexión con el servicio PostgreSQL y usa las variables de entorno `POSTGRES_HOST` y `POSTGRES_PORT` para especificar la dirección IP y el puerto del servicio PostgreSQL. Si `host` y `port` no están definidos, el host predeterminado es `localhost` y el puerto predeterminado es 5432.
 
-The script creates a table and populates it with placeholder data. To test that the `postgres` database contains the data, the script prints the contents of the table to the console log.
+El script crea una tabla y la rellena con datos de marcador de posición. Para probar que la base de datos de `postgres` contiene los datos, el script imprime el contenido de la tabla en el registro de la consola.
 
-When you run this workflow, you should see the following output in the "Connect to PostgreSQL" step, which confirms that you successfully created the PostgreSQL table and added data:
+Cuando ejecutas este flujo de trabajo, debes ver la siguiente salida en el paso de "Connect to PostgreSQL", la cual te confirma que creaste exitosamente la tabla de PostgreSQL y agregaste los datos:
 
 ```
 null [ { id: 1,

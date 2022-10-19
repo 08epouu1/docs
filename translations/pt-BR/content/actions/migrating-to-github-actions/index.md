@@ -1,7 +1,7 @@
 ---
-title: Migrating to GitHub Actions
+title: Migrar para o GitHub Actions
 shortTitle: Migrating to GitHub Actions
-intro: 'Learn how to migrate your existing CI/CD workflows to {% data variables.product.prodname_actions %}.'
+intro: 'Aprenda como fazer a migração dos seus fluxos de trabalho de CI/CD existentes para {% data variables.product.prodname_actions %}.'
 versions:
   fpt: '*'
   ghes: '*'
@@ -16,5 +16,11 @@ children:
   - /migrating-from-gitlab-cicd-to-github-actions
   - /migrating-from-jenkins-to-github-actions
   - /migrating-from-travis-ci-to-github-actions
+ms.openlocfilehash: 52a72e144da3ccd9f87f366deb2e9181e7474507
+ms.sourcegitcommit: fcf3546b7cc208155fb8acdf68b81be28afc3d2d
+ms.translationtype: HT
+ms.contentlocale: pt-BR
+ms.lasthandoff: 09/10/2022
+ms.locfileid: '147880634'
 ---
 

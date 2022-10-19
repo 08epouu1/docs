@@ -1,6 +1,6 @@
 ---
-title: Deleting and restoring branches in a pull request
-intro: 'If you have write access in a repository, you can delete branches that are associated with closed or merged pull requests. You cannot delete branches that are associated with open pull requests.'
+title: Eliminar y restaurar ramas en una solicitud de extracción
+intro: 'Si tienes acceso de escritura en un repositorio, puedes eliminar las ramas asociadas con solicitudes de extracción cerradas o fusionadas. No puedes eliminar las ramas asociadas con solicitudes de extracción abiertas.'
 redirect_from:
   - /articles/tidying-up-pull-requests
   - /articles/restoring-branches-in-a-pull-request
@@ -16,32 +16,34 @@ versions:
 topics:
   - Repositories
 shortTitle: Delete & restore branches
+ms.openlocfilehash: 48007869ae43d39553e0f8948f90e89b7fb73af0
+ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
+ms.translationtype: HT
+ms.contentlocale: es-ES
+ms.lasthandoff: 09/05/2022
+ms.locfileid: '145136945'
 ---
-## Deleting a branch used for a pull request
+## Borrar la rama utilizada para una solicitud de extracción
 
-You can delete a branch that is associated with a pull request if the pull request has been merged or closed and there are no other open pull requests referencing the branch. For information on closing branches that are not associated with pull requests, see "[Creating and deleting branches within your repository](/github/collaborating-with-issues-and-pull-requests/creating-and-deleting-branches-within-your-repository#deleting-a-branch)."
+Puedes borrar la rama que se asocia con una solicitud de extracción si la han fusionado o cerrado y no hay ninguna otra solicitud de extracción abierta que haga referencia a dicha rama. Para obtener información sobre el cierre de ramas que no están asociadas a solicitudes de incorporación de cambios, vea "[Creación y eliminación de ramas dentro del repositorio](/github/collaborating-with-issues-and-pull-requests/creating-and-deleting-branches-within-your-repository#deleting-a-branch)".
 
-{% data reusables.repositories.navigate-to-repo %}
-{% data reusables.repositories.sidebar-pr %}
-{% data reusables.repositories.list-closed-pull-requests %}
-4. In the list of pull requests, click the pull request that's associated with the branch that you want to delete.
-5. Near the bottom of the pull request, click **Delete branch**.
-   ![Delete branch button](/assets/images/help/pull_requests/delete_branch_button.png)
+{% data reusables.repositories.navigate-to-repo %} {% data reusables.repositories.sidebar-pr %} {% data reusables.repositories.list-closed-pull-requests %}
+4. En la lista de solicitudes de extracción, haz clic en la solicitud de extracción que se asocie con la rama que deseas eliminar.
+5. Junto a la parte inferior de la solicitud de incorporación de cambios, haga clic en **Eliminar rama**.
+   ![Botón Eliminar rama](/assets/images/help/pull_requests/delete_branch_button.png)
 
-   This button isn't displayed if there's currently an open pull request for this branch.
+   Este botón no se muestra si hay alguna solicitud de extracción abierta para esta rama actualmente.
 
-## Restoring a deleted branch
+## Restaurar una rama eliminada
 
-You can restore the head branch of a closed pull request.
+Puedes restaurar la rama de encabezado de una solicitud de extracción cerrada.
 
-{% data reusables.repositories.navigate-to-repo %}
-{% data reusables.repositories.sidebar-pr %}
-{% data reusables.repositories.list-closed-pull-requests %}
-4. In the list of pull requests, click the pull request that's associated with the branch that you want to restore.
-5. Near the bottom of the pull request, click **Restore branch**.
-   ![Restore deleted branch button](/assets/images/help/branches/branches-restore-deleted.png)
+{% data reusables.repositories.navigate-to-repo %} {% data reusables.repositories.sidebar-pr %} {% data reusables.repositories.list-closed-pull-requests %}
+4. En la lista de solicitudes de extracción, haz clic en la solicitud de extracción que se asocie con la rama que deseas restaurar.
+5. Junto a la parte inferior de la solicitud de incorporación de cambios, haga clic en **Restaurar rama**.
+   ![Botón para restaurar la rama eliminada](/assets/images/help/branches/branches-restore-deleted.png)
 
-## Further reading
+## Información adicional
 
-- "[Creating and deleting branches within your repository](/github/collaborating-with-issues-and-pull-requests/creating-and-deleting-branches-within-your-repository)"
-- "[Managing the automatic deletion of branches](/github/administering-a-repository/managing-the-automatic-deletion-of-branches)"
+- "[Creación y eliminación de ramas en el repositorio](/github/collaborating-with-issues-and-pull-requests/creating-and-deleting-branches-within-your-repository)"
+- "[Administración de la eliminación automática de ramas](/github/administering-a-repository/managing-the-automatic-deletion-of-branches)"

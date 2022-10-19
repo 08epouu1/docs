@@ -1,11 +1,12 @@
 ---
-title: Adding a theme to your GitHub Pages site using Jekyll
-intro: You can personalize your Jekyll site by adding and customizing a theme.
+title: 使用 Jekyll 向 GitHub Pages 站点添加主题
+intro: 您可以通过添加和自定义主题来个性化 Jekyll 站点。
 redirect_from:
   - /articles/customizing-css-and-html-in-your-jekyll-theme
   - /articles/adding-a-jekyll-theme-to-your-github-pages-site
   - /articles/adding-a-theme-to-your-github-pages-site-using-jekyll
   - /github/working-with-github-pages/adding-a-theme-to-your-github-pages-site-using-jekyll
+  - /pages/getting-started-with-github-pages/adding-a-theme-to-your-github-pages-site-with-the-theme-chooser
 product: '{% data reusables.gated-features.pages %}'
 versions:
   fpt: '*'
@@ -15,61 +16,59 @@ versions:
 topics:
   - Pages
 shortTitle: Add theme to Pages site
+ms.openlocfilehash: 33969695e96aa0629b2811e2742ca3093e58139a
+ms.sourcegitcommit: 478f2931167988096ae6478a257f492ecaa11794
+ms.translationtype: HT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 09/09/2022
+ms.locfileid: '147644793'
 ---
-
-People with write permissions for a repository can add a theme to a {% data variables.product.prodname_pages %} site using Jekyll.
+拥有仓库写入权限的人员可以使用 Jekyll 将主题添加到 {% data variables.product.prodname_pages %} 网站。
 
 {% data reusables.pages.test-locally %}
 
-## Adding a theme
+## 添加主题
 
-{% data reusables.pages.navigate-site-repo %}
-{% data reusables.pages.navigate-publishing-source %}
-2. Navigate to *_config.yml*.
+{% data reusables.pages.navigate-site-repo %} {% data reusables.pages.navigate-publishing-source %}
+2. 导航到“_config.yml”。
 {% data reusables.repositories.edit-file %}
-4. Add a new line to the file for the theme name.
-   - To use a supported theme, type `theme: THEME-NAME`, replacing _THEME-NAME_ with the name of the theme as shown in the README of the theme's repository. For a list of supported themes, see "[Supported themes](https://pages.github.com/themes/)" on the {% data variables.product.prodname_pages %} site.
-   ![Supported theme in config file](/assets/images/help/pages/add-theme-to-config-file.png)
-   - To use any other Jekyll theme hosted on {% data variables.product.prodname_dotcom %}, type `remote_theme: THEME-NAME`, replacing THEME-NAME with the name of the theme as shown in the README of the theme's repository.
-   ![Unsupported theme in config file](/assets/images/help/pages/add-remote-theme-to-config-file.png)
-{% data reusables.files.write_commit_message %}
-{% data reusables.files.choose-commit-email %}
-{% data reusables.files.choose_commit_branch %}
-{% data reusables.files.propose_file_change %}
+4. 为主题名称添加新行。
+   - 若要使用支持的主题，请键入 `theme: THEME-NAME`，将 THEME-NAME 替换为主题存储库的 README 中显示的主题名称。 有关支持主题的列表，请参阅 {% data variables.product.prodname_pages %} 站点上的“[支持主题](https://pages.github.com/themes/)”。
+   ![配置文件中支持的主题](/assets/images/help/pages/add-theme-to-config-file.png)
+   - 若要使用在 {% data variables.product.prodname_dotcom %} 上托管的任何其他 Jekyll 主题，请键入 `remote_theme: THEME-NAME`，将 THEME-NAME 替换为主题存储库的 README 中显示的主题名称。
+   ![配置文件中不支持的主题](/assets/images/help/pages/add-remote-theme-to-config-file.png) {% data reusables.files.write_commit_message %} {% data reusables.files.choose-commit-email %} {% data reusables.files.choose_commit_branch %} {% data reusables.files.propose_file_change %}
 
-## Customizing your theme's CSS
+## 自定义主题的 CSS
 
 {% data reusables.pages.best-with-supported-themes %}
 
 {% data reusables.pages.theme-customization-help %}
 
-{% data reusables.pages.navigate-site-repo %}
-{% data reusables.pages.navigate-publishing-source %}
-1. Create a new file called _/assets/css/style.scss_.
-2. Add the following content to the top of the file:
+{% data reusables.pages.navigate-site-repo %} {% data reusables.pages.navigate-publishing-source %}
+1. 新建一个名为 /assets/css/style.scss 的文件。
+2. 在文件顶部添加以下内容：
   ```scss
   ---
   ---
 
-  @import "{{ site.theme }}";
+  @import "{% raw %}{{ site.theme }}{% endraw %}";
   ```
-3. Add any custom CSS or Sass (including imports) you'd like immediately after the `@import` line.
+3. 在 `@import` 行的后面直接添加所需的任何自定义 CSS 或 Sass（包括导入）。
 
-## Customizing your theme's HTML layout
+## 自定义主题的 HTML 布局
 
 {% data reusables.pages.best-with-supported-themes %}
 
 {% data reusables.pages.theme-customization-help %}
 
-1. On {% data variables.product.prodname_dotcom %}, navigate to your theme's source repository. For example, the source repository for Minima is https://github.com/jekyll/minima.
-2. In the *_layouts* folder, navigate to your theme's _default.html_ file.
-3. Copy the contents of the file.
-{% data reusables.pages.navigate-site-repo %}
-{% data reusables.pages.navigate-publishing-source %}
-6. Create a file called *_layouts/default.html*.
-7. Paste the default layout content you copied earlier.
-8. Customize the layout as you'd like.
+1. 在 {% data variables.product.prodname_dotcom %} 上，导航到主题的源仓库。 例如，Minima 的源存储库为 https://github.com/jekyll/minima 。
+2. 在 _layouts 文件夹中，导航到主题的 default.html 文件。
+3. 复制该文件的内容。
+{% data reusables.pages.navigate-site-repo %} {% data reusables.pages.navigate-publishing-source %}
+6. 创建一个名为 _layouts/default.html 的文件。
+7. 粘贴之前复制的默认布局内容。
+8. 根据需要自定义布局。
 
-## Further reading
+## 延伸阅读
 
-- "[Creating new files](/articles/creating-new-files)"
+- [创建新文件](/articles/creating-new-files)

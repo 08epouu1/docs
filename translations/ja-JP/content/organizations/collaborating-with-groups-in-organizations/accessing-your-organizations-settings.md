@@ -1,5 +1,5 @@
 ---
-title: Accessing your organization's settings
+title: Organization の設定へのアクセス
 redirect_from:
   - /articles/who-can-access-organization-billing-information-and-account-settings
   - /articles/managing-the-organization-s-settings
@@ -9,7 +9,7 @@ redirect_from:
   - /articles/accessing-your-organization-s-settings
   - /articles/accessing-your-organizations-settings
   - /github/setting-up-and-managing-organizations-and-teams/accessing-your-organizations-settings
-intro: 'The organization account settings page provides several ways to manage the account, such as billing, team membership, and repository settings.'
+intro: Organization アカウントの設定ページには、支払い、Team のメンバーシップ、リポジトリ設定など、アカウントを管理するいくつかの方法があります。
 versions:
   fpt: '*'
   ghes: '*'
@@ -19,16 +19,21 @@ topics:
   - Organizations
   - Teams
 shortTitle: Access organization settings
+ms.openlocfilehash: 952b4c7d911c131fa7913b9f8ce9f6da67e34cd5
+ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
+ms.translationtype: HT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 09/05/2022
+ms.locfileid: '145130891'
 ---
 {% ifversion fpt or ghec %}
 
 {% tip %}
 
-**Tip:** Only organization owners and billing managers can see and change the billing information and account settings for an organization. {% data reusables.organizations.new-org-permissions-more-info %}
+**ヒント:** Organization の課金情報とアカウント設定の完全なセットを表示および変更できるのは、Organization の所有者と課金マネージャーのみです。 Organization のモデレーターにはモデレーション設定のみが表示されます。 {% data reusables.organizations.new-org-permissions-more-info %}
 
 {% endtip %}
 
 {% endif %}
 
-{% data reusables.profile.access_org %}
-{% data reusables.profile.org_settings %}
+{% data reusables.profile.access_org %} {% data reusables.profile.org_settings %}

@@ -1,7 +1,7 @@
 ---
-title: Setting up your project for healthy contributions
+title: Configurar projeto para contribuições úteis
 shortTitle: Healthy contributions
-intro: 'Repository maintainers can set contributing guidelines to help collaborators make meaningful, useful contributions to a project.'
+intro: Os mantenedores de repositório podem definir diretrizes de contribuição para ajudar os colaboradores a fazer contribuições relevantes e úteis a um projeto.
 redirect_from:
   - /articles/helping-people-contribute-to-your-project
   - /articles/setting-up-your-project-for-healthy-contributions
@@ -23,5 +23,11 @@ children:
   - /adding-support-resources-to-your-project
   - /creating-a-default-community-health-file
   - /encouraging-helpful-contributions-to-your-project-with-labels
+ms.openlocfilehash: ca5d1ab07721b17a77e6af6e1a1d84d33e65c984
+ms.sourcegitcommit: fb047f9450b41b24afc43d9512a5db2a2b750a2a
+ms.translationtype: HT
+ms.contentlocale: pt-BR
+ms.lasthandoff: 09/11/2022
+ms.locfileid: '145095206'
 ---
 

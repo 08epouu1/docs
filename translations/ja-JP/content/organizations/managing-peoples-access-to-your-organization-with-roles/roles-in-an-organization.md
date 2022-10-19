@@ -1,6 +1,6 @@
 ---
-title: Roles in an organization
-intro: Organization owners can assign roles to individuals and teams giving them different sets of permissions in the organization.
+title: Organizationのロール
+intro: Organizationのオーナーは、個人やTeamにロールを割り当て、Organizationにおける様々な権限セットを与えることができます。
 redirect_from:
   - /articles/permission-levels-for-an-organization-early-access-program
   - /articles/permission-levels-for-an-organization
@@ -15,209 +15,223 @@ topics:
   - Organizations
   - Teams
 shortTitle: Roles in an organization
+ms.openlocfilehash: d8d07ff40026de0d12fce2e11479c424b781680a
+ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
+ms.translationtype: HT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 09/05/2022
+ms.locfileid: '147061739'
 ---
-## About roles
+## ロールについて
 {% data reusables.organizations.about-roles %}
 
-Repository-level roles give organization members, outside collaborators and teams of people varying levels of access to repositories. For more information, see "[Repository roles for an organization](/organizations/managing-access-to-your-organizations-repositories/repository-roles-for-an-organization)."
+リポジトリレベルのロールは、Organizationのメンバー、外部のコラボレータ、Teamのメンバーに対し、リポジトリへの様々なレベルのアクセスを付与します。 詳細については、「[Organization のリポジトリ ロール](/organizations/managing-access-to-your-organizations-repositories/repository-roles-for-an-organization)」を参照してください。
 
-Team-level roles are roles that give permissions to manage a team. You can give any individual member of a team the team maintainer role, which gives the member a number of administrative permissions over a team. For more information, see "[Assigning the team maintainer role to a team member](/organizations/organizing-members-into-teams/assigning-the-team-maintainer-role-to-a-team-member)."
+Teamレベルのロールは、Teamを管理する権限を付与するロールです。 Teamの個々のメンバーにチームメンテナロールを付与できます。これは、Teamに対する多くの管理権限をメンバーに付与するものです。 詳細については、「[Team メンバーへのチーム メンテナ ロールの割り当て](/organizations/organizing-members-into-teams/assigning-the-team-maintainer-role-to-a-team-member)」を参照してください。
 
-Organization-level roles are sets of permissions that can be assigned to individuals or teams to manage an organization and the organization's repositories, teams, and settings. For more information about all the roles available at the organization level, see "[About organization roles](#about-organization-roles)."
+Organizationレベルのロールは、OrganizationやOrganizationのリポジトリ、Team、設定を管理してもらうために個人もしくはTeamに付与する権限のセットです。 Organization レベルで使用できるすべてのロールの詳細については、「[Organization ロールについて](#about-organization-roles)」を参照してください。
 
-## About organization roles
+## Organizationロールについて
 
-You can assign individuals or teams to a variety of organization-level roles to control your members' access to your organization and its resources. For more details about the individual permissions included in each role, see "[Permissions for organization roles](#permissions-for-organization-roles)."
+個人やTeamに対して様々なOrganizationレベルのロールを付与して、Organization及びそのリソースに対するメンバーのアクセスを制御してもらうことができます。 各ロールに含まれる個々の権限の詳細については、「[Organization ロールの権限](#permissions-for-organization-roles)」を参照してください。
 
-### Organization owners
-Organization owners have complete administrative access to your organization. This role should be limited, but to no less than two people, in your organization. For more information, see "[Maintaining ownership continuity for your organization](/organizations/managing-peoples-access-to-your-organization-with-roles/maintaining-ownership-continuity-for-your-organization)."
+{% ifversion enterprise-owner-join-org %}Organization が Enterprise アカウントによって所有されている場合、Enterprise の所有者は任意のロールで Organization を参加させることができます。 詳細については、「[Enterprise の Organization を管理する](/admin/user-management/managing-organizations-in-your-enterprise/managing-your-role-in-an-organization-owned-by-your-enterprise)」を参照してください。
+{% endif %}
 
-### Organization members
-The default, non-administrative role for people in an organization is the organization member. By default, organization members have a number of permissions, including the ability to create repositories and project boards.
+### 組織所有者
+Organizationオーナーは、Organizationに対する完全な管理アクセスを持ちます。 このロールは制限する必要がありますが、Organization で少なくとも 2 人は指定する必要があります。 詳細については、「[Organization の所有権の継続性を管理する](/organizations/managing-peoples-access-to-your-organization-with-roles/maintaining-ownership-continuity-for-your-organization)」を参照してください。
+
+### Organizationメンバー
+デフォルトの、Organizationのメンバーの非管理ロールはOrganizationメンバーです。 デフォルトでは、Oraganizationのメンバーはリポジトリやプロジェクトボードの作成を含むいくつもの権限を持ちます。
 
 {% ifversion fpt or ghec %}
-### Billing managers
-Billing managers are users who can manage the billing settings for your organization, such as payment information. This is a useful option if members of your organization don't usually have access to billing resources. For more information, see "[Adding a billing manager to your organization](/organizations/managing-peoples-access-to-your-organization-with-roles/adding-a-billing-manager-to-your-organization)."
+### Organization のモデレーター
+モデレーターは、メンバーとしての権限に加えて、メンバー以外のコントリビューターのブロックとブロック解除、操作の制限の設定、Organization が所有するパブリック リポジトリでのコメントの非表示を許可される Organization メンバーです。 詳細については、「[Organization のモデレーターの管理](/organizations/managing-peoples-access-to-your-organization-with-roles/managing-moderators-in-your-organization)」を参照してください。
+
+### 支払いマネージャー
+支払いマネージャーは、支払い情報など、Organizationの支払い設定を管理できるユーザです。 これは、通常Organizationのメンバーが支払いのリソースにアクセスできない場合、有益な選択肢です。 詳細については、「[Organization への支払いマネージャーの追加](/organizations/managing-peoples-access-to-your-organization-with-roles/adding-a-billing-manager-to-your-organization)」を参照してください。
 
 {% endif %}
 
-{% if security-managers %}
-### Security managers
+{% ifversion security-managers %}
+### セキュリティマネージャー
 
 {% data reusables.organizations.security-manager-beta-note %}
 
 {% data reusables.organizations.about-security-managers %}
 
-If your organization has a security team, you can use the security manager role to give members of the team the least access they need to the organization. For more information, see "[Managing security managers in your organization](/organizations/managing-peoples-access-to-your-organization-with-roles/managing-security-managers-in-your-organization)."
+Organizationがセキュリティチームを持っているなら、そのTeamのメンバーにOrganizationへの最小限のアクセスを付与するためにセキュリティマネージャーのロールを使うことができます。 詳細については、「[Organization でのセキュリティ マネージャーの管理](/organizations/managing-peoples-access-to-your-organization-with-roles/managing-security-managers-in-your-organization)」を参照してください。
 {% endif %}
-### {% data variables.product.prodname_github_app %} managers
-By default, only organization owners can manage the settings of {% data variables.product.prodname_github_apps %} owned by an organization. To allow additional users to manage {% data variables.product.prodname_github_apps %} owned by an organization, an owner can grant them {% data variables.product.prodname_github_app %} manager permissions.
+### {% data variables.product.prodname_github_app %} マネージャー
+デフォルトでは、OrganizationのオーナーだけがOrganizationの所有する{% data variables.product.prodname_github_apps %}の設定を管理できます。 Organizationが所有する{% data variables.product.prodname_github_apps %}を管理するユーザを追加するために、オーナーはユーザに{% data variables.product.prodname_github_app %}マネージャーの権限を付与できます。
 
-When you designate a user as a {% data variables.product.prodname_github_app %} manager in your organization, you can grant them access to manage the settings of some or all {% data variables.product.prodname_github_apps %} owned by the organization. For more information, see:
+Organizationでの{% data variables.product.prodname_github_app %}マネージャーにユーザを指定すると、Organizationが所有する一部あるいはすべての{% data variables.product.prodname_github_apps %}の設定を管理するアクセスを付与することになります。 詳細については、次を参照してください。
 
-- "[Adding GitHub App managers in your organization](/articles/adding-github-app-managers-in-your-organization)"
-- "[Removing GitHub App managers from your organization](/articles/removing-github-app-managers-from-your-organization)"
+- 「[GitHub App マネージャーを Organization に追加する](/articles/adding-github-app-managers-in-your-organization)」
+- 「[GitHub App マネージャーを Organization から削除する](/articles/removing-github-app-managers-from-your-organization)」
 
-### Outside collaborators
-To keep your organization's data secure while allowing access to repositories, you can add *outside collaborators*. {% data reusables.organizations.outside_collaborators_description %}
+### 外部コラボレーター
+リポジトリへのアクセスを許可している間、Organization のデータを安全に保つために、"*外部コラボレーター*" を追加することができます。 {% data reusables.organizations.outside_collaborators_description %}
 
-## Permissions for organization roles
+## Organizatonロールの権限
 
-{% ifversion fpt %}
-Some of the features listed below are limited to organizations using {% data variables.product.prodname_ghe_cloud %}. {% data reusables.enterprise.link-to-ghec-trial %}
-{% endif %}
+{% ifversion fpt %} 以下にリストされた機能の中には、{% data variables.product.prodname_ghe_cloud %} を使う Organization 限定のものもあります。 {% data reusables.enterprise.link-to-ghec-trial %} {% endif %}
 
 {% ifversion fpt or ghec %}
-<!--Dotcom and cloud version has extra column for Billing managers-->
+<!-- Free/Pro/Team and GHEC versions have extra columns for Moderators and Billing managers-->
 
-| Organization permission | Owners | Members | Billing managers | Security managers |
-|:--------------------|:------:|:-------:|:----------------:|:----------------:|
-| Create repositories (see "[Restricting repository creation in your organization](/articles/restricting-repository-creation-in-your-organization)" for details) | **X** | **X** |  | **X**  |
-| View and edit billing information | **X** |  | **X** |  |
-| Invite people to join the organization | **X** |  |  |  |
-| Edit and cancel invitations to join the organization | **X** |  |  |  |
-| Remove members from the organization | **X** | | |  |
-| Reinstate former members to the organization | **X** | | |  |
-| Add and remove people from **all teams** | **X** |  |  |  |
-| Promote organization members to *team maintainer* | **X** |  |  |  |
-| Configure code review assignments (see "[Managing code review assignment for your team](/organizations/organizing-members-into-teams/managing-code-review-assignment-for-your-team)") | **X** |  |  |  |
-| Set scheduled reminders (see "[Managing scheduled reminders for pull requests](/github/setting-up-and-managing-organizations-and-teams/managing-scheduled-reminders-for-pull-requests)") | **X** |  |  |  |
-| Add collaborators to **all repositories** | **X** |  |  |  |
-| Access the organization audit log | **X** |  |  |  |
-| Edit the organization's profile page (see "[About your organization's profile](/github/setting-up-and-managing-your-github-profile/customizing-your-profile/about-your-organizations-profile)" for details) | **X** |  |  |  |
-| Verify the organization's domains (see "[Verifying your organization's domain](/articles/verifying-your-organization-s-domain)" for details) | **X** |  |  |  |
-| Restrict email notifications to verified or approved domains (see "[Restricting email notifications for your organization](/organizations/keeping-your-organization-secure/restricting-email-notifications-for-your-organization)" for details) | **X** |  |  |  |
-| Delete **all teams** | **X** |  |  |  |
-| Delete the organization account, including all repositories | **X** |  |  |  |
-| Create teams (see "[Setting team creation permissions in your organization](/articles/setting-team-creation-permissions-in-your-organization)" for details) | **X** | **X** |  | **X**  |
-| [Move teams in an organization's hierarchy](/articles/moving-a-team-in-your-organization-s-hierarchy) | **X** | | |  |
-| Create project boards (see "[Project board permissions for an organization](/articles/project-board-permissions-for-an-organization)" for details) | **X** | **X** | | **X**  |
-| See all organization members and teams | **X** | **X** |  | **X**  |
-| @mention any visible team | **X** | **X** |  | **X**  |
-| Can be made a *team maintainer* | **X** | **X** |  | **X** |
-| View organization insights (see "[Viewing insights for your organization](/articles/viewing-insights-for-your-organization)" for details) | **X** | **X** |  | **X**  |
-| View and post public team discussions to **all teams** (see "[About team discussions](/organizations/collaborating-with-your-team/about-team-discussions)" for details) | **X** | **X** |  | **X**  |
-| View and post private team discussions to **all teams** (see "[About team discussions](/organizations/collaborating-with-your-team/about-team-discussions)" for details) | **X** |  |  |  |
-| Edit and delete team discussions in **all teams** (see "[Managing disruptive comments](/communities/moderating-comments-and-conversations/managing-disruptive-comments)" for details) | **X** |  |  |  |
-| Hide comments on commits, pull requests, and issues (see "[Managing disruptive comments](/communities/moderating-comments-and-conversations/managing-disruptive-comments/#hiding-a-comment)" for details) | **X** | **X** | | **X** |
-| Disable team discussions for an organization (see "[Disabling team discussions for your organization](/articles/disabling-team-discussions-for-your-organization)" for details) | **X** |  |  |  |
-| Manage viewing of organization dependency insights (see "[Changing the visibility of your organization's dependency insights](/articles/changing-the-visibility-of-your-organizations-dependency-insights)" for details) | **X** |  |  |  |
-| Set a team profile picture in **all teams** (see "[Setting your team's profile picture](/articles/setting-your-team-s-profile-picture)" for details) | **X** |  |  |  |
-| Sponsor accounts and manage the organization's sponsorships (see "[Sponsoring open-source contributors](/sponsors/sponsoring-open-source-contributors)" for details) | **X** |  | **X** | **X**  |
-| Manage email updates from sponsored accounts (see "[Managing updates from accounts your organization's sponsors](/organizations/managing-organization-settings/managing-updates-from-accounts-your-organization-sponsors)" for details) | **X** | | |  |
-| Attribute your sponsorships to another organization (see "[Attributing sponsorships to your organization](/sponsors/sponsoring-open-source-contributors/attributing-sponsorships-to-your-organization)" for details ) | **X** | | |  |
-| Manage the publication of {% data variables.product.prodname_pages %} sites from repositories in the organization (see "[Managing the publication of {% data variables.product.prodname_pages %} sites for your organization](/organizations/managing-organization-settings/managing-the-publication-of-github-pages-sites-for-your-organization)" for details) | **X** | | |  |
-| Manage security and analysis settings (see "[Managing security and analysis settings for your organization](/organizations/keeping-your-organization-secure/managing-security-and-analysis-settings-for-your-organization)" for details) | **X** | | | **X** |
-| View the security overview for the organization (see "[About the security overview](/code-security/security-overview/about-the-security-overview)" for details) | **X** | | | **X** |{% ifversion ghec %}
-| Enable and enforce [SAML single sign-on](/articles/about-identity-and-access-management-with-saml-single-sign-on) | **X** |  |  |  |
-| [Manage a user's SAML access to your organization](/organizations/granting-access-to-your-organization-with-saml-single-sign-on/viewing-and-managing-a-members-saml-access-to-your-organization) | **X** |  |  |  |
-| Manage an organization's SSH certificate authorities (see "[Managing your organization's SSH certificate authorities](/articles/managing-your-organizations-ssh-certificate-authorities)" for details) | **X** |  |  |  |{% endif %}
-| Transfer repositories | **X** | |    |  |
-| Purchase, install, manage billing for, and cancel {% data variables.product.prodname_marketplace %} apps | **X** | | |  |
-| List apps in {% data variables.product.prodname_marketplace %} | **X** | | |  |
-| Receive [{% data variables.product.prodname_dependabot_alerts %} about vulnerable dependencies](/github/managing-security-vulnerabilities/about-alerts-for-vulnerable-dependencies) for all of an organization's repositories | **X** |  |  | **X** |
-| Manage {% data variables.product.prodname_dependabot_security_updates %} (see "[About {% data variables.product.prodname_dependabot_security_updates %}](/github/managing-security-vulnerabilities/about-dependabot-security-updates)") | **X** | | | **X** |
-| [Manage the forking policy](/organizations/managing-organization-settings/managing-the-forking-policy-for-your-organization) | **X** |  |  |
-| [Limit activity in public repositories in an organization](/communities/moderating-comments-and-conversations/limiting-interactions-in-your-organization) | **X** | | |  |
-| Pull (read) *all repositories* in the organization | **X** | | | **X** |
-| Push (write) and clone (copy) *all repositories* in the organization | **X** | | |  |
-| Convert organization members to [outside collaborators](#outside-collaborators) | **X** | | |  |
-| [View people with access to an organization repository](/articles/viewing-people-with-access-to-your-repository) | **X** | | |  |
-| [Export a list of people with access to an organization repository](/articles/viewing-people-with-access-to-your-repository/#exporting-a-list-of-people-with-access-to-your-repository) | **X** | | |  |
-| Manage the default branch name (see "[Managing the default branch name for repositories in your organization](/organizations/managing-organization-settings/managing-the-default-branch-name-for-repositories-in-your-organization)") | **X** | | |  |
-| Manage default labels (see "[Managing default labels for repositories in your organization](/articles/managing-default-labels-for-repositories-in-your-organization)") | **X** | | |  |{% ifversion ghec %}
-| Enable team synchronization (see "[Managing team synchronization for your organization](/organizations/managing-saml-single-sign-on-for-your-organization/managing-team-synchronization-for-your-organization)" for details) | **X** |  | |  |{% endif %}
+| Organizationの権限 | 所有者 | メンバー | モデレーター | 支払いマネージャー | セキュリティマネージャー |
+|:------------------------|:------:|:-------:|:----------:|:----------------:|:-----------------:|
+| リポジトリを作成する (「[Organization 内でリポジトリの作成を制限する](/articles/restricting-repository-creation-in-your-organization)」を参照) | **X** | **X** | **X** |  | **X**  |
+| 支払い情報を表示および編集する | **X** |  |  | **X** |  |
+| Organization に参加するようユーザを招待する | **X** |  |  |  |  |
+| Organization に参加する招待を編集およびキャンセルする | **X** |  |  |  |  |
+| Organization からメンバーを削除する | **X** |  |  |  |  |
+| 以前のメンバーを Oraganization に復帰させる | **X** |  |  |  |  |
+| **すべての Team** のユーザーを追加および削除する | **X** |  |  |  |  |
+| Organization メンバーを "*チーム メンテナ*" に昇格させる | **X** |  |  |  |  |
+| コード レビューの割り当てを構成する (「[Team のコード レビュー割り当ての管理](/organizations/organizing-members-into-teams/managing-code-review-assignment-for-your-team)」を参照) | **X** |  |  |  |  |
+| スケジュール済みのアラームを設定する ([Pull Request に対するスケジュール済みのアラームの管理](/github/setting-up-and-managing-organizations-and-teams/managing-scheduled-reminders-for-pull-requests)に関するページを参照) | **X** |  |  |  |  |
+| **すべてのリポジトリ** にコラボレーターを追加する | **X** |  |  |  |  |
+| Organization 参加ログにアクセスする | **X** |  |  |  |  |
+| Organization のプロファイル ページを編集する (「[Organization のプロフィールについて](/github/setting-up-and-managing-your-github-profile/customizing-your-profile/about-your-organizations-profile)」を参照) | **X** |  |  |  |  |{% ifversion ghec %}
+| Organization のドメインを確認する ([Organization のドメインの確認](/articles/verifying-your-organization-s-domain)に関するページを参照) | **X** |  |  |  |  |
+| メール通知を確認済みドメインまたは承認済みドメインに制限する (「[Organization のメール通知の制限](/organizations/keeping-your-organization-secure/restricting-email-notifications-for-your-organization)」を参照) | **X** |  |  |  |  |{% endif %}
+| **すべての用語** を削除する | **X** |  |  |  |  |
+| すべてのリポジトリを含めて Organization のアカウントを削除する | **X** |  |  |  |  |
+| Team を作成する (「[Organization のチーム作成権限を設定する](/articles/setting-team-creation-permissions-in-your-organization)」を参照) | **X** | **X** | **X** |  | **X**  |
+| [Organization の階層で Team を移動する](/articles/moving-a-team-in-your-organization-s-hierarchy) | **X** |  |  |  |  |
+| プロジェクト ボードを作成する (「[Organization のプロジェクト ボード権限](/articles/project-board-permissions-for-an-organization)」を参照) | **X** | **X** | **X** |  | **X**  |
+| Organization の全メンバーおよび Team の表示 | **X** | **X** | **X** |  | **X**  |
+| 表示されている Team を @mention する | **X** | **X** | **X** |  | **X**  |
+| "*チーム メンテナ*" に指定できる | **X** | **X** | **X** |  | **X** |{% ifversion ghec %}
+| Organization のインサイトを表示する (「[Organization のインサイトを表示する](/articles/viewing-insights-for-your-organization)」を参照) | **X** | **X** | **X** |  | **X**  |{% endif %}
+| パブリック Team ディスカッションを表示して **すべての Team** に投稿する (「[Team ディスカッションについて](/organizations/collaborating-with-your-team/about-team-discussions)」を参照) | **X** | **X** | **X** |  | **X**  |
+| プライベート Team ディスカッションを表示して **すべての Team** に投稿する (「[Team ディスカッションについて](/organizations/collaborating-with-your-team/about-team-discussions)」を参照) | **X** |  |  |  |  |
+| **すべての Team** で Team ディスカッションを編集および削除する (「[混乱を生むコメントを管理する](/communities/moderating-comments-and-conversations/managing-disruptive-comments)」を参照) | **X** |  |  |  |  |
+| Organization の Team ディスカッションを無効にする (「[ Organization の Team ディスカッションを無効にする](/articles/disabling-team-discussions-for-your-organization)」を参照) | **X** |  |  |  |  |
+| 書き込み可能なコミット、Pull Request、および Issue に関するコメントを非表示にする (「[混乱を生むコメントを管理する](/communities/moderating-comments-and-conversations/managing-disruptive-comments/#hiding-a-comment)」を参照) | **X** | **X** | **X** |  | **X** |
+| "_すべての_" コミット、Pull Request、および Issue に関するコメントを非表示にする (「[混乱を生むコメントを管理する](/communities/moderating-comments-and-conversations/managing-disruptive-comments/#hiding-a-comment)」を参照) | **X** |  | **X** |  | **X** |
+| メンバー以外のコントリビューターをブロックおよびブロック解除する (「[Organization からのユーザーのブロック](/communities/maintaining-your-safety-on-github/blocking-a-user-from-your-organization)」を参照) | **X** |  | **X** |  |  |
+| パブリック リポジトリでの特定のユーザーの操作を制限する (「[Organization での操作を制限する](/communities/moderating-comments-and-conversations/limiting-interactions-in-your-organization)」を参照) | **X** |  | **X** |  |  |{% ifversion ghec %}
+| Organization dependency insights の表示を管理する (「[ Organization dependency insights の可視性を変更する](/articles/changing-the-visibility-of-your-organizations-dependency-insights)」を参照) | **X** |  |  |  |  |{% endif %}
+| **すべての Team** で Team のプロフィール画像を設定する (「[Team のプロフィール画像を設定する](/articles/setting-your-team-s-profile-picture)」を参照) | **X** |  |  |  |  |
+| アカウントをスポンサーし、Organization のスポンサーシップを管理する (「[オープンソース コントリビューターをスポンサーする](/sponsors/sponsoring-open-source-contributors)」を参照) | **X** |  |  | **X** | **X**  |
+| スポンサー アカウントからのメールの更新を管理する (「[Organization のスポンサー アカウントからの更新を管理する](/organizations/managing-organization-settings/managing-updates-from-accounts-your-organization-sponsors)」を参照) | **X** |  |  |  |  |
+| スポンサー プランを別の Organization に関連付ける (詳細については、「[Organization へのスポンサーシップの関連付け](/sponsors/sponsoring-open-source-contributors/attributing-sponsorships-to-your-organization)」を参照) | **X** |  |  |  |  |
+| Organization 内のリポジトリから {% data variables.product.prodname_pages %} サイトの公開を管理する (「[Organization の {% data variables.product.prodname_pages %} サイトの公開を管理する](/organizations/managing-organization-settings/managing-the-publication-of-github-pages-sites-for-your-organization)」を参照) | **X** |  |  |  |  |
+| セキュリティと分析の設定を管理する (「[Organization のセキュリティと分析設定を管理する](/organizations/keeping-your-organization-secure/managing-security-and-analysis-settings-for-your-organization)」を参照) | **X** |  |  |  | **X** |
+| Organization のセキュリティの概要を表示する (「[セキュリティの概要について](/code-security/security-overview/about-the-security-overview)」を参照) | **X** |  |  |  | **X** |{% ifversion ghec %}
+| [SAML シングル サインオン](/articles/about-identity-and-access-management-with-saml-single-sign-on)を有効にして適用する | **X** |  |  |  |  |
+| [Organization へのユーザーの SAML アクセスを管理する](/organizations/granting-access-to-your-organization-with-saml-single-sign-on/viewing-and-managing-a-members-saml-access-to-your-organization) | **X** |  |  |  |  |
+| Organization の SSH 認証局を管理する (「[Organization の SSH 認証局を管理する](/articles/managing-your-organizations-ssh-certificate-authorities)」を参照) | **X** |  |  |  |  |{% endif %}
+| リポジトリを移譲する | **X** |  |  |   |  |
+| {% data variables.product.prodname_marketplace %} アプリケーションを購入、インストール、支払い管理、キャンセルする | **X** |  |  |  |  |
+| {% data variables.product.prodname_marketplace %} のアプリケーションをリストする | **X** |  |  |  |  |
+| Organization のすべてのリポジトリの[安全ではない依存関係に関する {% data variables.product.prodname_dependabot_alerts %}](/code-security/dependabot/dependabot-alerts/about-dependabot-alerts) を受け取る | **X** |  |  |  | **X** |
+| {% data variables.product.prodname_dependabot_security_updates %} を管理する (「[{% data variables.product.prodname_dependabot_security_updates %} について](/github/managing-security-vulnerabilities/about-dependabot-security-updates)」を参照) | **X** |  |  |  | **X** |
+| [フォークポリシーを管理する](/organizations/managing-organization-settings/managing-the-forking-policy-for-your-organization) | **X** |  |  |  |  |
+| [Organization のパブリック リポジトリでのアクティビティを制限する](/communities/moderating-comments-and-conversations/limiting-interactions-in-your-organization) | **X** |  |  |  |  |
+| Organization にある "*すべてのリポジトリ*" のプル (読み取り) を行う | **X** |  |  |  | **X** |
+| Organization にある "*すべてのリポジトリ*" のプッシュ (書き込み) とクローン作成 (コピー) を行う | **X** |  |  |  |  |
+| Organization のメンバーを[外部のコラボレーター](#outside-collaborators)に変換する | **X** |  |  |  |  |
+| [Organization リポジトリへのアクセス権がある人を表示する](/articles/viewing-people-with-access-to-your-repository) | **X** |  |  |  |  |{% ifversion ghec %}
+| [Organization リポジトリへのアクセス権がある人のリストをエクスポートする](/articles/viewing-people-with-access-to-your-repository/#exporting-a-list-of-people-with-access-to-your-repository) | **X** |  |  |  |  |{% endif %}
+| 既定のブランチ名を管理する (「[Organization のリポジトリのデフォルト ブランチ名を管理する](/organizations/managing-organization-settings/managing-the-default-branch-name-for-repositories-in-your-organization)」を参照) | **X** |  |  |  |  |
+| 既定のラベルを管理する (「[Organization 内のリポジトリのためのデフォルト ラベルを管理する](/articles/managing-default-labels-for-repositories-in-your-organization)」を参照) | **X** |  |  |  |  |{% ifversion ghec %}
+| Team 同期を有効にする (「[Organization の Team 同期を管理する](/organizations/managing-saml-single-sign-on-for-your-organization/managing-team-synchronization-for-your-organization)」を参照) | **X** |  |  |  |  |{% endif %}
+| Organization での Pull Request のレビューを管理する (「[Organization での Pull Request のレビューの管理](/organizations/managing-organization-settings/managing-pull-request-reviews-in-your-organization)」を参照) | **X** |  |  |  |  |
 
-{% elsif ghes > 3.2 or ghae-issue-4999 %}
-<!--GHES 3.3+ and eventual GHAE release don't have the extra column for Billing managers, but have security managers-->
+{% elsif ghes > 3.2 or ghae %}
+<!-- GHES 3.3+ and eventual GHAE release don't have the extra columns for Moderators and Billing managers. -->
 
-| Organization action | Owners | Members | Security managers |
+| Organization のアクション | 所有者 | メンバー | セキュリティマネージャー |
 |:--------------------|:------:|:-------:|:-------:|
-| Invite people to join the organization | **X** |  |  |
-| Edit and cancel invitations to join the organization | **X** |  |  |
-| Remove members from the organization | **X** | | |  |
-| Reinstate former members to the organization | **X** | | |  |
-| Add and remove people from **all teams** | **X** |  |  |
-| Promote organization members to *team maintainer* | **X** |  |  |
-| Configure code review assignments (see "[Managing code review assignment for your team](/organizations/organizing-members-into-teams/managing-code-review-assignment-for-your-team)") | **X** |  |  |
-| Add collaborators to **all repositories** | **X** |  |  |
-| Access the organization audit log | **X** |  |  |
-| Edit the organization's profile page (see "[About your organization's profile](/github/setting-up-and-managing-your-github-profile/customizing-your-profile/about-your-organizations-profile)" for details) | **X** |  |  |{% ifversion ghes > 3.1 %}
-| Verify the organization's domains (see "[Verifying your organization's domain](/articles/verifying-your-organization-s-domain)" for details) | **X** |  |  |
-| Restrict email notifications to verified or approved domains (see "[Restricting email notifications for your organization](/organizations/keeping-your-organization-secure/restricting-email-notifications-for-your-organization)" for details) | **X** |  |  |{% endif %}
-| Delete **all teams** | **X** |  |  |
-| Delete the organization account, including all repositories | **X** |  |  |
-| Create teams (see "[Setting team creation permissions in your organization](/articles/setting-team-creation-permissions-in-your-organization)" for details) | **X** | **X** | **X**  |
-| See all organization members and teams | **X** | **X** | **X**  |
-| @mention any visible team | **X** | **X** | **X**  |
-| Can be made a *team maintainer* | **X** | **X** | **X**  |
-| Transfer repositories | **X** | |  |
-| Manage security and analysis settings (see "[Managing security and analysis settings for your organization](/organizations/keeping-your-organization-secure/managing-security-and-analysis-settings-for-your-organization)" for details) | **X** | | **X** |{% ifversion ghes > 3.1 %}
-| View the security overview for the organization (see "[About the security overview](/code-security/security-overview/about-the-security-overview)" for details) | **X** | | **X** |{% endif %}{% ifversion ghes > 3.2 %}
-| Manage {% data variables.product.prodname_dependabot_security_updates %} (see "[About {% data variables.product.prodname_dependabot_security_updates %}](/github/managing-security-vulnerabilities/about-dependabot-security-updates)") | **X** | | **X** |{% endif %}
-| Manage an organization's SSH certificate authorities (see "[Managing your organization's SSH certificate authorities](/articles/managing-your-organizations-ssh-certificate-authorities)" for details) | **X** |  |  |
-| Create project boards (see "[Project board permissions for an organization](/articles/project-board-permissions-for-an-organization)" for details) | **X** | **X** | **X** |
-| View and post public team discussions to **all teams** (see "[About team discussions](/organizations/collaborating-with-your-team/about-team-discussions)" for details) | **X** | **X** | **X**  |
-| View and post private team discussions to **all teams** (see "[About team discussions](/organizations/collaborating-with-your-team/about-team-discussions)" for details) | **X** |  |  |
-| Edit and delete team discussions in **all teams** (for more information, see "[Managing disruptive comments](/communities/moderating-comments-and-conversations/managing-disruptive-comments)) | **X** |  |  |  |
-| Hide comments on commits, pull requests, and issues (see "[Managing disruptive comments](/communities/moderating-comments-and-conversations/managing-disruptive-comments/#hiding-a-comment)" for details) | **X** | **X** | **X**  |
-| Disable team discussions for an organization (see "[Disabling team discussions for your organization](/articles/disabling-team-discussions-for-your-organization)" for details) | **X** |  |  |
-| Set a team profile picture in **all teams** (see "[Setting your team's profile picture](/articles/setting-your-team-s-profile-picture)" for details) | **X** |  |  |{% ifversion ghes > 3.0 %}
-| Manage the publication of {% data variables.product.prodname_pages %} sites from repositories in the organization (see "[Managing the publication of {% data variables.product.prodname_pages %} sites for your organization](/organizations/managing-organization-settings/managing-the-publication-of-github-pages-sites-for-your-organization)" for details) | **X** | |  |{% endif %}
-| [Move teams in an organization's hierarchy](/articles/moving-a-team-in-your-organization-s-hierarchy) | **X** | | |
-| Pull (read) *all repositories* in the organization | **X** | | **X** |
-| Push (write) and clone (copy) *all repositories* in the organization | **X** | |  |
-| Convert organization members to [outside collaborators](#outside-collaborators) | **X** | |  |
-| [View people with access to an organization repository](/articles/viewing-people-with-access-to-your-repository) | **X** | |  |
-| [Export a list of people with access to an organization repository](/articles/viewing-people-with-access-to-your-repository/#exporting-a-list-of-people-with-access-to-your-repository) | **X** | |  |
-| Manage default labels (see "[Managing default labels for repositories in your organization](/articles/managing-default-labels-for-repositories-in-your-organization)") | **X** | |  |
-{% ifversion ghae %}| Manage IP allow lists (see "[Restricting network traffic to your enterprise](/admin/configuration/restricting-network-traffic-to-your-enterprise)") | **X** | |  |{% endif %}
-
+| Organization に参加するようユーザを招待する | **X** |  |  |
+| Organization に参加する招待を編集およびキャンセルする | **X** |  |  |
+| Organization からメンバーを削除する | **X** | | |  |
+| 以前のメンバーを Oraganization に復帰させる | **X** | | |  |
+| **すべての Team** のユーザーを追加および削除する | **X** |  |  |
+| Organization メンバーを "*チーム メンテナ*" に昇格させる | **X** |  |  |
+| コード レビューの割り当てを構成する (「[Team のコード レビュー割り当ての管理](/organizations/organizing-members-into-teams/managing-code-review-assignment-for-your-team)」を参照) | **X** |  |  |
+| **すべてのリポジトリ** にコラボレーターを追加する | **X** |  |  |
+| Organization 参加ログにアクセスする | **X** |  |  |
+| Organization のプロファイル ページを編集する (「[Organization のプロフィールについて](/github/setting-up-and-managing-your-github-profile/customizing-your-profile/about-your-organizations-profile)」を参照) | **X** |  |  |{% ifversion ghes %}
+| Organization のドメインを確認する ([Organization のドメインの確認](/articles/verifying-your-organization-s-domain)に関するページを参照) | **X** |  |  |
+| メール通知を確認済みドメインまたは承認済みドメインに制限する (「[Organization のメール通知の制限](/organizations/keeping-your-organization-secure/restricting-email-notifications-for-your-organization)」を参照) | **X** |  |  |{% endif %}
+| **すべての用語** を削除する | **X** |  |  |
+| すべてのリポジトリを含めて Organization のアカウントを削除する | **X** |  |  |
+| Team を作成する (「[Organization のチーム作成権限を設定する](/articles/setting-team-creation-permissions-in-your-organization)」を参照) | **X** | **X** | **X**  |
+| Organization の全メンバーおよび Team の表示 | **X** | **X** | **X**  |
+| 表示されている Team を @mention する | **X** | **X** | **X**  |
+| "*チーム メンテナ*" に指定できる | **X** | **X** | **X**  |
+| リポジトリを移譲する | **X** | |  |
+| セキュリティと分析の設定を管理する (「[Organization のセキュリティと分析設定を管理する](/organizations/keeping-your-organization-secure/managing-security-and-analysis-settings-for-your-organization)」を参照) | **X** | | **X** |{% ifversion ghes %}
+| Organization のセキュリティの概要を表示する (「[セキュリティの概要について](/code-security/security-overview/about-the-security-overview)」を参照) | **X** | | **X** |{% endif %}{% ifversion ghes > 3.2 %}
+| {% data variables.product.prodname_dependabot_security_updates %} を管理する (「[{% data variables.product.prodname_dependabot_security_updates %} について](/github/managing-security-vulnerabilities/about-dependabot-security-updates)」を参照) | **X** | | **X** |{% endif %}
+| Organization の SSH 認証局を管理する (「[Organization の SSH 認証局を管理する](/articles/managing-your-organizations-ssh-certificate-authorities)」を参照) | **X** |  |  |
+| プロジェクト ボードを作成する (「[Organization のプロジェクト ボード権限](/articles/project-board-permissions-for-an-organization)」を参照) | **X** | **X** | **X** |
+| パブリック Team ディスカッションを表示して **すべての Team** に投稿する (「[Team ディスカッションについて](/organizations/collaborating-with-your-team/about-team-discussions)」を参照) | **X** | **X** | **X**  |
+| プライベート Team ディスカッションを表示して **すべての Team** に投稿する (「[Team ディスカッションについて](/organizations/collaborating-with-your-team/about-team-discussions)」を参照) | **X** |  |  |
+| **すべての Team** で Team ディスカッションを編集および削除する (詳細については、「[混乱を生むコメントを管理する](/communities/moderating-comments-and-conversations/managing-disruptive-comments)」を参照) | **X** |  |  |  |
+| コミット、Pull Request、および Issue に関するコメントを非表示にする (「[混乱を生むコメントを管理する](/communities/moderating-comments-and-conversations/managing-disruptive-comments/#hiding-a-comment)」を参照) | **X** | **X** | **X**  |
+| Organization の Team ディスカッションを無効にする (「[ Organization の Team ディスカッションを無効にする](/articles/disabling-team-discussions-for-your-organization)」を参照) | **X** |  |  |
+| **すべての Team** で Team のプロフィール画像を設定する (「[Team のプロフィール画像を設定する](/articles/setting-your-team-s-profile-picture)」を参照) | **X** |  |  |{% ifversion ghes %}
+| Organization 内のリポジトリから {% data variables.product.prodname_pages %} サイトの公開を管理する (「[Organization の {% data variables.product.prodname_pages %} サイトの公開を管理する](/organizations/managing-organization-settings/managing-the-publication-of-github-pages-sites-for-your-organization)」を参照) | **X** | |  |{% endif %}
+| [Organization の階層で Team を移動する](/articles/moving-a-team-in-your-organization-s-hierarchy) | **X** | | |
+| Organization にある "*すべてのリポジトリ*" のプル (読み取り) を行う | **X** | | **X** |
+| Organization にある "*すべてのリポジトリ*" のプッシュ (書き込み) とクローン作成 (コピー) を行う | **X** | |  |
+| Organization のメンバーを[外部のコラボレーター](#outside-collaborators)に変換する | **X** | |  |
+| [Organization リポジトリへのアクセス権がある人を表示する](/articles/viewing-people-with-access-to-your-repository) | **X** | |  |
+| [Organization リポジトリへのアクセス権がある人のリストをエクスポートする](/articles/viewing-people-with-access-to-your-repository/#exporting-a-list-of-people-with-access-to-your-repository) | **X** | |  |
+| 既定のラベルを管理する (「[Organization 内のリポジトリのためのデフォルト ラベルを管理する](/articles/managing-default-labels-for-repositories-in-your-organization)」を参照) | **X** | |  |{% ifversion pull-request-approval-limit %}
+| Organization での Pull Request のレビューを管理する (「[Organization での Pull Request のレビューの管理](/organizations/managing-organization-settings/managing-pull-request-reviews-in-your-organization)」を参照) | **X** |  | |  |{% endif %}
+{% ifversion ghae %}| IP 許可リストの管理 (「[Enterprise へのネットワーク トラフィックを制限する](/admin/configuration/restricting-network-traffic-to-your-enterprise)」を参照) | **X** | |  |{% endif %}
 
 {% else %}
-<!--GHES and GHAE older versions don't have the extra column for Billing managers or Security managers-->
+<!-- GHES and GHAE older versions don't have columns for Moderators, Billing managers or Security managers. -->
 
-| Organization action | Owners | Members |
+| Organization のアクション | 所有者 | メンバー |
 |:--------------------|:------:|:-------:|
-| Invite people to join the organization | **X** |  |
-| Edit and cancel invitations to join the organization | **X** |  |
-| Remove members from the organization | **X** | | |
-| Reinstate former members to the organization | **X** | | |
-| Add and remove people from **all teams** | **X** |  |  
-| Promote organization members to *team maintainer* | **X** |  |
-| Configure code review assignments (see "[Managing code review settings for your team](/organizations/organizing-members-into-teams/managing-code-review-settings-for-your-team)")) | **X** |  |
-| Add collaborators to **all repositories** | **X** |  |
-| Access the organization audit log | **X** |  |
-| Edit the organization's profile page (see "[About your organization's profile](/github/setting-up-and-managing-your-github-profile/customizing-your-profile/about-your-organizations-profile)" for details) | **X** |  |  |{% ifversion ghes > 3.1 %}
-| Verify the organization's domains (see "[Verifying your organization's domain](/articles/verifying-your-organization-s-domain)" for details) | **X** |  |
-| Restrict email notifications to verified or approved domains (see "[Restricting email notifications for your organization](/organizations/keeping-your-organization-secure/restricting-email-notifications-for-your-organization)" for details) | **X** |  |{% endif %}
-| Delete **all teams** | **X** |  |
-| Delete the organization account, including all repositories | **X** |  |
-| Create teams (see "[Setting team creation permissions in your organization](/articles/setting-team-creation-permissions-in-your-organization)" for details) | **X** | **X** |
-| See all organization members and teams | **X** | **X** |
-| @mention any visible team | **X** | **X** |
-| Can be made a *team maintainer* | **X** | **X** |
-| Transfer repositories | **X** | |
-| Manage an organization's SSH certificate authorities (see "[Managing your organization's SSH certificate authorities](/articles/managing-your-organizations-ssh-certificate-authorities)" for details) | **X** |  |
-| Create project boards (see "[Project board permissions for an organization](/articles/project-board-permissions-for-an-organization)" for details) | **X** | **X** | |
-| View and post public team discussions to **all teams** (see "[About team discussions](/organizations/collaborating-with-your-team/about-team-discussions)" for details) | **X** | **X** |  |
-| View and post private team discussions to **all teams** (see "[About team discussions](/organizations/collaborating-with-your-team/about-team-discussions)" for details) | **X** |  |  |
-| Edit and delete team discussions in **all teams** (for more information, see "[Managing disruptive comments](/communities/moderating-comments-and-conversations/managing-disruptive-comments)) | **X** |  |  |
-| Hide comments on commits, pull requests, and issues (see "[Managing disruptive comments](/communities/moderating-comments-and-conversations/managing-disruptive-comments/#hiding-a-comment)" for details) | **X** | **X** | **X** |
-| Disable team discussions for an organization (see "[Disabling team discussions for your organization](/articles/disabling-team-discussions-for-your-organization)" for details) | **X** |  |  |
-| Set a team profile picture in **all teams** (see "[Setting your team's profile picture](/articles/setting-your-team-s-profile-picture)" for details) | **X** |  |  |{% ifversion ghes > 3.0 %}
-| Manage the publication of {% data variables.product.prodname_pages %} sites from repositories in the organization (see "[Managing the publication of {% data variables.product.prodname_pages %} sites for your organization](/organizations/managing-organization-settings/managing-the-publication-of-github-pages-sites-for-your-organization)" for details) | **X** | |{% endif %}
-| [Move teams in an organization's hierarchy](/articles/moving-a-team-in-your-organization-s-hierarchy) | **X** | | |
-| Pull (read), push (write), and clone (copy) *all repositories* in the organization | **X** | |
-| Convert organization members to [outside collaborators](#outside-collaborators) | **X** | |
-| [View people with access to an organization repository](/articles/viewing-people-with-access-to-your-repository) | **X** | |
-| [Export a list of people with access to an organization repository](/articles/viewing-people-with-access-to-your-repository/#exporting-a-list-of-people-with-access-to-your-repository) | **X** | |
-| Manage default labels (see "[Managing default labels for repositories in your organization](/articles/managing-default-labels-for-repositories-in-your-organization)") | **X** | |
-{% ifversion ghae %}| Manage IP allow lists (see "[Restricting network traffic to your enterprise](/admin/configuration/restricting-network-traffic-to-your-enterprise)") | **X** | |{% endif %}
+| Organization に参加するようユーザを招待する | **X** |  |
+| Organization に参加する招待を編集およびキャンセルする | **X** |  |
+| Organization からメンバーを削除する | **X** | | |
+| 以前のメンバーを Oraganization に復帰させる | **X** | | |
+| **すべての Team** のユーザーを追加および削除する | **X** |  |  
+| Organization メンバーを "*チーム メンテナ*" に昇格させる | **X** |  |
+| コード レビューの割り当てを構成する (「[Team のコード レビュー設定の管理](/organizations/organizing-members-into-teams/managing-code-review-settings-for-your-team)」を参照) | **X** |  |
+| **すべてのリポジトリ** にコラボレーターを追加する | **X** |  |
+| Organization 参加ログにアクセスする | **X** |  |
+| Organization のプロファイル ページを編集する (「[Organization のプロフィールについて](/github/setting-up-and-managing-your-github-profile/customizing-your-profile/about-your-organizations-profile)」を参照) | **X** |  |  |{% ifversion ghes %}
+| Organization のドメインを確認する ([Organization のドメインの確認](/articles/verifying-your-organization-s-domain)に関するページを参照) | **X** |  |
+| メール通知を確認済みドメインまたは承認済みドメインに制限する (「[Organization のメール通知の制限](/organizations/keeping-your-organization-secure/restricting-email-notifications-for-your-organization)」を参照) | **X** |  |{% endif %}
+| **すべての用語** を削除する | **X** |  |
+| すべてのリポジトリを含めて Organization のアカウントを削除する | **X** |  |
+| Team を作成する (「[Organization のチーム作成権限を設定する](/articles/setting-team-creation-permissions-in-your-organization)」を参照) | **X** | **X** |
+| Organization の全メンバーおよび Team の表示 | **X** | **X** |
+| 表示されている Team を @mention する | **X** | **X** |
+| "*チーム メンテナ*" に指定できる | **X** | **X** |
+| リポジトリを移譲する | **X** | |
+| Organization の SSH 認証局を管理する (「[Organization の SSH 認証局を管理する](/articles/managing-your-organizations-ssh-certificate-authorities)」を参照) | **X** |  |
+| プロジェクト ボードを作成する (「[Organization のプロジェクト ボード権限](/articles/project-board-permissions-for-an-organization)」を参照) | **X** | **X** | |
+| パブリック Team ディスカッションを表示して **すべての Team** に投稿する (「[Team ディスカッションについて](/organizations/collaborating-with-your-team/about-team-discussions)」を参照) | **X** | **X** |  |
+| プライベート Team ディスカッションを表示して **すべての Team** に投稿する (「[Team ディスカッションについて](/organizations/collaborating-with-your-team/about-team-discussions)」を参照) | **X** |  |  |
+| **すべての Team** で Team ディスカッションを編集および削除する (詳細については、「[混乱を生むコメントを管理する](/communities/moderating-comments-and-conversations/managing-disruptive-comments)」を参照) | **X** |  |  |
+| コミット、Pull Request、および Issue に関するコメントを非表示にする (「[混乱を生むコメントを管理する](/communities/moderating-comments-and-conversations/managing-disruptive-comments/#hiding-a-comment)」を参照) | **X** | **X** | **X** |
+| Organization の Team ディスカッションを無効にする (「[ Organization の Team ディスカッションを無効にする](/articles/disabling-team-discussions-for-your-organization)」を参照) | **X** |  |  |
+| **すべての Team** で Team のプロフィール画像を設定する (「[Team のプロフィール画像を設定する](/articles/setting-your-team-s-profile-picture)」を参照) | **X** |  |  |{% ifversion ghes %}
+| Organization 内のリポジトリから {% data variables.product.prodname_pages %} サイトの公開を管理する (「[Organization の {% data variables.product.prodname_pages %} サイトの公開を管理する](/organizations/managing-organization-settings/managing-the-publication-of-github-pages-sites-for-your-organization)」を参照) | **X** | |{% endif %}
+| [Organization の階層で Team を移動する](/articles/moving-a-team-in-your-organization-s-hierarchy) | **X** | | |
+| Organization にある "*すべてのリポジトリ*" のプル (読み取り)、プッシュ (書き込み)、クローン作成 (コピー) を行う | **X** | |
+| Organization のメンバーを[外部のコラボレーター](#outside-collaborators)に変換する | **X** | |
+| [Organization リポジトリへのアクセス権がある人を表示する](/articles/viewing-people-with-access-to-your-repository) | **X** | |
+| [Organization リポジトリへのアクセス権がある人のリストをエクスポートする](/articles/viewing-people-with-access-to-your-repository/#exporting-a-list-of-people-with-access-to-your-repository) | **X** | |
+| 既定のラベルを管理する (「[Organization 内のリポジトリのためのデフォルト ラベルを管理する](/articles/managing-default-labels-for-repositories-in-your-organization)」を参照) | **X** | |
+{% ifversion ghae %}| IP 許可リストの管理 (「[Enterprise へのネットワーク トラフィックを制限する](/admin/configuration/restricting-network-traffic-to-your-enterprise)」を参照) | **X** | |{% endif %}
 
 {% endif %}
 
-## Further reading
+## 参考資料
 
-- "[Repository roles for an organization](/organizations/managing-access-to-your-organizations-repositories/repository-roles-for-an-organization)"
-- "[Project board permissions for an organization](/organizations/managing-access-to-your-organizations-project-boards/project-board-permissions-for-an-organization)"
+- 「[Organization のリポジトリ ロール](/organizations/managing-access-to-your-organizations-repositories/repository-roles-for-an-organization)」
+- 「[Organization のプロジェクト ボード権限](/organizations/managing-access-to-your-organizations-project-boards/project-board-permissions-for-an-organization)」

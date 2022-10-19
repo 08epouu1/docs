@@ -1,6 +1,6 @@
 ---
-title: Preparing to migrate data to your enterprise
-intro: 'After generating a migration archive, you can import the data to your target {% data variables.product.prodname_ghe_server %} instance. You''ll be able to review changes for potential conflicts before permanently applying the changes to your target instance.'
+title: Enterprise へのデータ移行の準備
+intro: '移行アーカイブを作成すると、ターゲットの {% data variables.product.prodname_ghe_server %} インスタンスにデータをインポートできます。 変更を恒久的にターゲットのインスタンスに適用する前に、潜在的なコンフリクトがないか変更をレビューできます。'
 redirect_from:
   - /enterprise/admin/migrations/preparing-the-migrated-data-for-import-to-github-enterprise-server
   - /enterprise/admin/migrations/generating-a-list-of-migration-conflicts
@@ -16,10 +16,16 @@ topics:
   - Enterprise
   - Migration
 shortTitle: Prepare to migrate data
+ms.openlocfilehash: 7b552f2bc0d79eb1a70a09d61b8384983b0908fc
+ms.sourcegitcommit: fb047f9450b41b24afc43d9512a5db2a2b750a2a
+ms.translationtype: HT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 09/11/2022
+ms.locfileid: '145116197'
 ---
-## Preparing the migrated data for import to {% data variables.product.prodname_ghe_server %}
+## 移行したデータを {% data variables.product.prodname_ghe_server %} にインポートするための準備
 
-1. Using the [`scp`](https://linuxacademy.com/blog/linux/ssh-and-scp-howto-tips-tricks#scp) command, copy the migration archive generated from your source instance or organization to your {% data variables.product.prodname_ghe_server %} target:
+1. [`scp`](https://acloudguru.com/blog/engineering/ssh-and-scp-howto-tips-tricks#scp) コマンドを使用して、ソース インスタンスまたは Organization から生成された移行アーカイブを {% data variables.product.prodname_ghe_server %} ターゲットにコピーします。
 
     ```shell
     $ scp -P 122 <em>/path/to/archive/MIGRATION_GUID.tar.gz</em> admin@<em>hostname</em>:/home/admin/
@@ -27,34 +33,34 @@ shortTitle: Prepare to migrate data
 
 {% data reusables.enterprise_installation.ssh-into-target-instance %}
 
-3. Use the `ghe-migrator prepare` command to prepare the archive for import on the target instance and generate a new Migration GUID for you to use in subsequent steps:
+3. `ghe-migrator prepare` コマンドを使ってターゲット インスタンスにインポートするためのアーカイブを準備し、以降の手順で使用する新しい移行 GUID を生成します。
 
     ```shell
     ghe-migrator prepare /home/admin/<em>MIGRATION_GUID</em>.tar.gz
     ```
 
-    * To start a new import attempt, run `ghe-migrator prepare` again and get a new Migration GUID.
+    * 新しいインポートの試行を開始するには、もう一度 `ghe-migrator prepare` を実行し、新しい移行 GUID を取得します。
     * {% data reusables.enterprise_migrations.specify-staging-path %}
 
-## Generating a list of migration conflicts
+## 移行のコンフリクトのリストの生成
 
-1. Using the `ghe-migrator conflicts` command with the Migration GUID, generate a *conflicts.csv* file:
+1. 移行 GUID を指定した `ghe-migrator conflicts` コマンドを使用して、*conflicts.csv* ファイルを生成します。
     ```shell
     $ ghe-migrator conflicts -g <em>MIGRATION_GUID</em> > conflicts.csv
     ```
-    - If no conflicts are reported, you can safely import the data by following the steps in "[Migrating data to your enterprise](/enterprise/admin/guides/migrations/applying-the-imported-data-on-github-enterprise-server/)".
-2. If there are conflicts, using the [`scp`](https://linuxacademy.com/blog/linux/ssh-and-scp-howto-tips-tricks#scp) command, copy *conflicts.csv* to your local computer:
+    - 競合が報告されない場合は、「[Enterprise にデータを移行する](/enterprise/admin/guides/migrations/applying-the-imported-data-on-github-enterprise-server/)」の手順に従って、データを安全にインポートできます。
+2. 競合がある場合は、[`scp`](https://acloudguru.com/blog/engineering/ssh-and-scp-howto-tips-tricks#scp) コマンドを使用して、*conflicts.csv* をローカル コンピューターにコピーします。
   ```shell
   $ scp -P 122 admin@<em>hostname</em>:conflicts.csv ~/Desktop
   ```
-3. Continue to "[Resolving migration conflicts or setting up custom mappings](#resolving-migration-conflicts-or-setting-up-custom-mappings)".
+3. 「[移行コンフリクトの解決もしくはカスタム マッピングのセットアップ](#resolving-migration-conflicts-or-setting-up-custom-mappings)」に進みます。
 
-## Reviewing migration conflicts
+## 移行コンフリクトのレビュー
 
-1. Using a text editor or [CSV-compatible spreadsheet software](https://en.wikipedia.org/wiki/Comma-separated_values#Application_support), open *conflicts.csv*.
-2. With guidance from the examples and reference tables below, review the *conflicts.csv* file to ensure that the proper actions will be taken upon import.
+1. テキスト エディターまたは [CSV 互換のスプレッドシート ソフトウェア](https://en.wikipedia.org/wiki/Comma-separated_values#Application_support)を使用して、*conflicts.csv* を開きます。
+2. 以下の例と参照表のガイダンスを使用して、*conflicts.csv* ファイルを確認し、確実にインポート時に適切なアクションが実行されるようにします。
 
-The *conflicts.csv* file contains a *migration map* of conflicts and recommended actions. A migration map lists out both what data is being migrated from the source, and how the data will be applied to the target.
+*conflicts.csv* ファイルには、競合の ''*移行マップ*'' と推奨アクションが含まれています。 移行マップは、ソースから移行されるデータと、そのデータがどのようにターゲットに適用されるかのリストです。
 
 | `model_name`   | `source_url`   | `target_url` | `recommended_action` |
 |--------------|--------------|------------|--------------------|
@@ -63,86 +69,86 @@ The *conflicts.csv* file contains a *migration map* of conflicts and recommended
 | `repository`   | `https://example-gh.source/octo-org/widgets` | `https://example-gh.target/octo-org/widgets` | `rename` |
 | `team`         | `https://example-gh.source/orgs/octo-org/teams/admins` | `https://example-gh.target/orgs/octo-org/teams/admins` | `merge` |
 
-Each row in *conflicts.csv* provides the following information:
+*conflicts.csv* の各行には次の情報が示されます。
 
-|    Name      | Description   |
+|    名前      | 説明   |
 |--------------|---------------|
-| `model_name` | The type of data being changed. |
-| `source_url` | The source URL of the data. |
-| `target_url` | The expected target URL of the data.  |
-| `recommended_action` | The preferred action `ghe-migrator` will take when importing the data.  |
+| `model_name` | 変更されるデータの種類。 |
+| `source_url` | データのソースURL。 |
+| `target_url` | 期待されるデータのターゲットURL。  |
+| `recommended_action` | データのインポート時に推奨されるアクション `ghe-migrator` が実行されます。  |
 
-### Possible mappings for each record type
+### 各レコードタイプで可能なマッピング
 
-There are several different mapping actions that `ghe-migrator` can take when transferring data:
+データの転送時に `ghe-migrator` で実行できるいくつかの異なるマッピング アクションがあります。
 
-| `action`      | Description | Applicable models |
+| `action`      | 説明 | 適用可能なモデル |
 |------------------------|-------------|-------------------|
-| `import`      | (default) Data from the source is imported to the target. | All record types
-| `map`         | Data from the source is replaced by existing data on the target. | Users, organizations, repositories
-| `rename`      | Data from the source is renamed, then copied over to the target. | Users, organizations, repositories
-| `map_or_rename` | If the target exists, map to that target. Otherwise, rename the imported model. | Users
-| `merge`       | Data from the source is combined with existing data on the target. | Teams
+| `import`      | （デフォルト）ソースからのデータがターゲットにインポートされます。 | すべてのレコードタイプ
+| `map`         | ソースからのデータがターゲット上の既存のデータで置き換えられます。 | Users、organizations、repositories
+| `rename`      | ソースからのデータは名前が変更されてターゲットにコピーされます。 | Users、organizations、repositories
+| `map_or_rename` | ターゲットが存在する場合、そのターゲットにマップします。 そうでない場合はインポートされたモデルの名前を変更します。 | ユーザー
+| `merge`       | ソースからのデータはターゲット上の既存のデータと組み合わされます。 | Teams
 
-**We strongly suggest you review the *conflicts.csv* file and use [`ghe-migrator audit`](/enterprise/admin/guides/migrations/reviewing-migration-data) to ensure that the proper actions are being taken.** If everything looks good, you can continue to "[Migrating data to your enterprise](/enterprise/admin/guides/migrations/applying-the-imported-data-on-github-enterprise-server)".
+***conflicts.csv* ファイルを確認し、[`ghe-migrator audit`](/enterprise/admin/guides/migrations/reviewing-migration-data) を使用して、確実に適切なアクションが実行されるようにすることを強くお勧めします。** すべて問題ないようであれば、「[Enterprise にデータを移行する](/enterprise/admin/guides/migrations/applying-the-imported-data-on-github-enterprise-server)」に進むことができます。
 
 
-## Resolving migration conflicts or setting up custom mappings
+## 移行コンフリクトの解決もしくはカスタムマッピングのセットアップ
 
-If you believe that `ghe-migrator` will perform an incorrect change, you can make corrections by changing the data in *conflicts.csv*. You can make changes to any of the rows in *conflicts.csv*.
+`ghe-migrator` で正しくない変更が行われると思われる場合は、*conflicts.csv* 内でデータを変更することによって修正できます。 *conflicts.csv* 内の任意の行を変更できます。
 
-For example, let's say you notice that the `octocat` user from the source is being mapped to `octocat` on the target:
+たとえば、ソースの `octocat` ユーザーがターゲットの `octocat` にマップされていることに気付いたとしましょう。
 
 | `model_name`   | `source_url`   | `target_url` | `recommended_action` |
 |--------------|--------------|------------|--------------------|
 | `user`         | `https://example-gh.source/octocat` | `https://example-gh.target/octocat` | `map`
 
-You can choose to map the user to a different user on the target. Suppose you know that `octocat` should actually be `monalisa` on the target. You can change the `target_url` column in *conflicts.csv* to refer to `monalisa`:
+このユーザをターゲット上の他のユーザにマップさせることができます。 `octocat` が実際にはターゲットの `monalisa` であるべきだとわかっているとします。 `monalisa` を示すように、*conflicts.csv* の `target_url` 列を変更することができます。
 
 | `model_name`   | `source_url`   | `target_url` | `recommended_action` |
 |--------------|--------------|------------|--------------------|
 | `user`         | `https://example-gh.source/octocat` | `https://example-gh.target/monalisa` | `map`
 
-As another example, if you want to rename the `octo-org/widgets` repository to `octo-org/amazing-widgets` on the target instance, change the `target_url` to `octo-org/amazing-widgets` and the `recommend_action` to `rename`:
+別の例として、`octo-org/widgets` リポジトリの名前をターゲット インスタンスの `octo-org/amazing-widgets` に変更する場合は、`target_url` を `octo-org/amazing-widgets`、および `recommend_action` を `rename` に変更します。
 
 | `model_name`   | `source_url`   | `target_url` | `recommended_action` |
 |--------------|--------------|------------|--------------------|
 | `repository`   | `https://example-gh.source/octo-org/widgets` | `https://example-gh.target/octo-org/amazing-widgets` | `rename`   |
 
-### Adding custom mappings
+### カスタムマッピングの追加
 
-A common scenario during a migration is for migrated users to have different usernames on the target than they have on the source.
+移行における一般的なシナリオは、移行されたユーザがターゲット上ではソース上とは異なるユーザ名を持つことです。
 
-Given a list of usernames from the source and a list of usernames on the target, you can build a CSV file with custom mappings and then apply it to ensure each user's username and content is correctly attributed to them at the end of a migration.
+ソースのユーザ名のリストとターゲットのユーザー名のリストがあれば、カスタムマッピングのCSVファイルを構築し、各ユーザのユーザ名とコンテンツが移行の終了時点で正しく割り当てられているようにそのファイルを適用できます。
 
-You can quickly generate a CSV of users being migrated in the CSV format needed to apply custom mappings by using the [`ghe-migrator audit`](/enterprise/admin/guides/migrations/reviewing-migration-data) command:
+[`ghe-migrator audit`](/enterprise/admin/guides/migrations/reviewing-migration-data) コマンドを使用して、カスタム マッピングを適用するために必要な CSV 形式で、移行されるユーザーの CSV をすばやく生成できます。
 
 ```shell
 $ ghe-migrator audit -m user -g <em>MIGRATION_GUID</em> > users.csv
 ```
 
-Now, you can edit that CSV and enter the new URL for each user you would like to map or rename, and then update the fourth column to have `map` or `rename` as appropriate.
+これで、その CSV を編集し、マップまたは名前を変更する各ユーザーの新しい URL を入力してから、4 番目の列を更新し、適宜、`map` または `rename` が含まれるようにすることができます。
 
-For example, to rename the user `octocat` to `monalisa` on the target `https://example-gh.target` you would create a row with the following content:
+たとえば、ユーザー `octocat` の名前をターゲット `https://example-gh.target` の `monalisa` に変更するには、次の内容の行を作成します。
 
 | `model_name`   | `source_url`   | `target_url` | `state` |
 |--------------|--------------|------------|--------------------|
 | `user`         | `https://example-gh.source/octocat` | `https://example-gh.target/monalisa` | `rename`
 
-The same process can be used to create mappings for each record that supports custom mappings. For more information, see [our table on the possible mappings for records](/enterprise/admin/guides/migrations/reviewing-migration-conflicts#possible-mappings-for-each-record-type).
+同じプロセスは、カスタムマッピングをサポートする各レコードのマッピングを作成するために使うことができます。 詳細については、[レコードで可能なマッピングに関する表](/enterprise/admin/guides/migrations/reviewing-migration-conflicts#possible-mappings-for-each-record-type)を参照してください。
 
-### Applying modified migration data
+### 修正された移行データの適用
 
-1. After making changes, use the [`scp`](https://linuxacademy.com/blog/linux/ssh-and-scp-howto-tips-tricks#scp) command to apply your modified *conflicts.csv* (or any other mapping *.csv* file in the correct format) to the target instance:
+1. 変更を行った後、[`scp`](https://acloudguru.com/blog/engineering/ssh-and-scp-howto-tips-tricks#scp) コマンドを使用して、変更した *conflicts.csv* (または正しい形式の他のマッピング *.csv* ファイル) をターゲット インスタンスに適用します。
 
     ```shell
     $ scp -P 122 ~/Desktop/conflicts.csv admin@<em>hostname</em>:/home/admin/
     ```
 
-2. Re-map the migration data using the `ghe-migrator map` command, passing in the path to your modified *.csv* file and the Migration GUID:
+2. `ghe-migrator map` コマンドを使用して移行データを再マップし、変更した *.csv* ファイルと移行 GUID へのパスを渡します。
 
     ```shell
     $ ghe-migrator map -i conflicts.csv  -g <em>MIGRATION_GUID</em>
     ```
 
-3. If the `ghe-migrator map -i conflicts.csv  -g MIGRATION_GUID` command reports that conflicts still exist, run through the migration conflict resolution process again.
+3. `ghe-migrator map -i conflicts.csv  -g MIGRATION_GUID` コマンドで競合がまだ存在することが報告された場合は、移行の競合解決プロセスをもう一度実行します。

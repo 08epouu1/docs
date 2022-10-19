@@ -1,6 +1,6 @@
 ---
-title: Building and testing Java with Gradle
-intro: You can create a continuous integration (CI) workflow in GitHub Actions to build and test your Java project with Gradle.
+title: GradleでのJavaのビルドとテスト
+intro: GitHub Actions中で継続的インテグレーション（CI）ワークフローを作成し、GradleでJavaのプロジェクトのビルドとテストを行うことができます。
 redirect_from:
   - /actions/language-and-framework-guides/building-and-testing-java-with-gradle
   - /actions/guides/building-and-testing-java-with-gradle
@@ -15,41 +15,44 @@ topics:
   - Java
   - Gradle
 shortTitle: Build & test Java & Gradle
+ms.openlocfilehash: 00fa6888a45dda090df51260795717bc994be022
+ms.sourcegitcommit: fb047f9450b41b24afc43d9512a5db2a2b750a2a
+ms.translationtype: HT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 09/10/2022
+ms.locfileid: '147410444'
 ---
+{% data reusables.actions.enterprise-beta %} {% data reusables.actions.enterprise-github-hosted-runners %}
 
-{% data reusables.actions.enterprise-beta %}
-{% data reusables.actions.enterprise-github-hosted-runners %}
+## はじめに
 
-## Introduction
+このガイドは、Gradleビルドシステムを使ってJavaのプロジェクトのための継続的インテグレーション（CI）を実行するワークフローを作成する方法を紹介します。 作成するワークフローによって、プルリクエストに対するコミットがデフォルトブランチに対してビルドあるいはテストの失敗を引き起こしたことを見ることができるようになります。このアプローチは、コードが常に健全であることを保証するための役に立ちます。 CI ワークフローを{% ifversion actions-caching %}キャッシュ ファイルに{% endif %}拡張して、ワークフロー実行による成果物をアップロードできます。
 
-This guide shows you how to create a workflow that performs continuous integration (CI) for your Java project using the Gradle build system. The workflow you create will allow you to see when commits to a pull request cause build or test failures against your default branch; this approach can help ensure that your code is always healthy. You can extend your CI workflow to cache files and upload artifacts from a workflow run.
-
-{% ifversion ghae %}
-{% data reusables.actions.self-hosted-runners-software %}
-{% else %}
-{% data variables.product.prodname_dotcom %}-hosted runners have a tools cache with pre-installed software, which includes Java Development Kits (JDKs) and Gradle. For a list of software and the pre-installed versions for JDK and Gradle, see "[Specifications for {% data variables.product.prodname_dotcom %}-hosted runners](/actions/reference/specifications-for-github-hosted-runners/#supported-software)".
+{% ifversion ghae %}{% data reusables.actions.self-hosted-runners-software %}{% else %}{% data variables.product.prodname_dotcom %} ホステッド ランナーにはツール キャッシュとプレインストールされたソフトウェアがあり、それには Java Development Kit (JDK) と Gradle が含まれます。 JDK と Gradle に関するソフトウェアとプレインストールされたバージョンの一覧については、「[{% data variables.product.prodname_dotcom %} ホステッド ランナーの仕様](/actions/reference/specifications-for-github-hosted-runners/#supported-software)」を参照してください。
 {% endif %}
 
-## Prerequisites
+## 前提条件
 
-You should be familiar with YAML and the syntax for {% data variables.product.prodname_actions %}. For more information, see:
-- "[Workflow syntax for {% data variables.product.prodname_actions %}](/actions/automating-your-workflow-with-github-actions/workflow-syntax-for-github-actions)"
-- "[Learn {% data variables.product.prodname_actions %}](/actions/learn-github-actions)"
+YAMLと{% data variables.product.prodname_actions %}の構文に馴染んでいる必要があります。 詳細については、次を参照してください。
+- [{% data variables.product.prodname_actions %} のワークフロー構文](/actions/automating-your-workflow-with-github-actions/workflow-syntax-for-github-actions)
+- [{% data variables.product.prodname_actions %} について](/actions/learn-github-actions)
 
-We recommend that you have a basic understanding of Java and the Gradle framework. For more information, see [Getting Started](https://docs.gradle.org/current/userguide/getting_started.html) in the Gradle documentation.
+Java及びGradleフレームワークの基本的な理解をしておくことをおすすめします。 詳細については、Gradle のドキュメントの[使用開始](https://docs.gradle.org/current/userguide/getting_started.html)に関するページを参照してください。
 
 {% data reusables.actions.enterprise-setup-prereq %}
 
-## Starting with a Gradle workflow template
+## Gradle スターター ワークフローの使用
 
-{% data variables.product.prodname_dotcom %} provides a Gradle workflow template that will work for most Gradle-based Java projects. For more information, see the [Gradle workflow template](https://github.com/actions/starter-workflows/blob/main/ci/gradle.yml).
+{% data variables.product.prodname_dotcom %} には、ほとんどの Gradle ベースの Java プロジェクトで動作する Gradle スターター ワークフローが用意されています。 詳細については、「[Gradle スターター ワークフロー](https://github.com/actions/starter-workflows/blob/main/ci/gradle.yml)」を参照してください。
 
-To get started quickly, you can choose the preconfigured Gradle template when you create a new workflow. For more information, see the "[{% data variables.product.prodname_actions %} quickstart](/actions/quickstart)."
+素早く始めるには、新しいワークフローを作成するときに事前構成済みの Gradle スターター ワークフローを選択できます。 詳細については、[{% data variables.product.prodname_actions %} クイックスタート](/actions/quickstart)に関するページを参照してください。
 
-You can also add this workflow manually by creating a new file in the `.github/workflows` directory of your repository.
+リポジトリの `.github/workflows` ディレクトリに新しいファイルを作成することにより、手作業でこのワークフローを追加することもできます。
 
 ```yaml{:copy}
 {% data reusables.actions.actions-not-certified-by-github-comment %}
+
+{% data reusables.actions.actions-use-sha-pinning-comment %}
 
 name: Java CI
 
@@ -60,103 +63,87 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: {% data reusables.actions.action-checkout %}
       - name: Set up JDK 11
-        uses: actions/setup-java@v2
+        uses: {% data reusables.actions.action-setup-java %}
         with:
           java-version: '11'
           distribution: 'adopt'
       - name: Validate Gradle wrapper
         uses: gradle/wrapper-validation-action@e6e38bacfdf1a337459f332974bb2327a31aaf4b
       - name: Build with Gradle
-        run: ./gradlew build
+        uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
+        with:
+          arguments: build
 ```
 
-This workflow performs the following steps:
+このワークフローは以下のステップを実行します。
 
-1. The `checkout` step downloads a copy of your repository on the runner.
-2. The `setup-java` step configures the Java 11 JDK by Adoptium.
-3. The "Validate Gradle wrapper" step validates the checksums of Gradle Wrapper JAR files present in the source tree.
-4. The "Build with Gradle" step runs the `gradlew` wrapper script to ensure that your code builds, tests pass, and a package can be created.
+1. `checkout` ステップでは、ランナーにリポジトリのコピーがダウンロードされます。
+2. `setup-java` ステップでは、Adoptium で Java 11 JDK が構成されます。
+3. "Validate Gradle wrapper" ステップでは、ソース ツリーにある Gradle Wrapper JAR ファイルのチェックサムが検証されます。
+4. "Build with Gradle" ステップでは、Gradle 組織が {% data variables.product.prodname_dotcom %} で提供する `gradle/gradle-build-action` アクションを使用してビルドが行われます。 このアクションでは、Gradle の呼び出し、結果の収集、ジョブ間の状態のキャッシュが処理されます。 詳細については、「[`gradle/gradle-build-action`](https://github.com/gradle/gradle-build-action)」を参照してください。
 
-The default workflow templates are excellent starting points when creating your build and test workflow, and you can customize the template to suit your project’s needs.
+既定のスターター ワークフローは、ビルドとテストのワークフローを構築するときに適した出発点であり、プロジェクトの要求に合わせてこのスターター ワークフローをカスタマイズできます。
 
-{% data reusables.github-actions.example-github-runner %}
+{% data reusables.actions.example-github-runner %}
 
-{% data reusables.github-actions.java-jvm-architecture %}
+{% data reusables.actions.java-jvm-architecture %}
 
-## Building and testing your code
+## コードのビルドとテスト
 
-You can use the same commands that you use locally to build and test your code.
+ローカルで使うのと同じコマンドを、コードのビルドとテストに使えます。
 
-The starter workflow will run the `build` task by default. In the default Gradle configuration, this command will download dependencies, build classes, run tests, and package classes into their distributable format, for example, a JAR file.
+スターター ワークフローでは、既定で `build` タスクが実行されます。 デフォルトのGradleの設定では、このコマンドは依存関係をダウンロードし、クラスをビルドし、テストを実行し、たとえばJARファイルのような配布可能なフォーマットにクラスをパッケージします。
 
-If you use different commands to build your project, or you want to use a different task, you can specify those. For example, you may want to run the `package` task that's configured in your _ci.gradle_ file.
+プロジェクトのビルドに異なるコマンドを使ったり、異なるタスクを使いたいのであれば、それらを指定できます。 たとえば、_ci.gradle_ ファイルで構成されている `package` タスクを実行できます。
 
-{% raw %}
 ```yaml{:copy}
 steps:
-  - uses: actions/checkout@v2
-  - uses: actions/setup-java@v2
+  - uses: {% data reusables.actions.action-checkout %}
+  - uses: {% data reusables.actions.action-setup-java %}
     with:
       java-version: '11'
       distribution: 'adopt'
   - name: Validate Gradle wrapper
     uses: gradle/wrapper-validation-action@e6e38bacfdf1a337459f332974bb2327a31aaf4b
   - name: Run the Gradle package task
-    run: ./gradlew -b ci.gradle package
+    uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
+    with:
+      arguments: -b ci.gradle package
 ```
-{% endraw %}
 
-## Caching dependencies
+{% ifversion actions-caching %}
 
-When using {% data variables.product.prodname_dotcom %}-hosted runners, you can cache your dependencies to speed up your workflow runs. After a successful run, your local Gradle package cache will be stored on GitHub Actions infrastructure. In future workflow runs, the cache will be restored so that dependencies don't need to be downloaded from remote package repositories. You can cache dependencies simply using the [`setup-java` action](https://github.com/marketplace/actions/setup-java-jdk) or can use [`cache` action](https://github.com/actions/cache) for custom and more advanced configuration. 
+## 依存関係のキャッシング
 
-{% raw %}
+ビルドの依存関係をキャッシュして、ワークフローの実行を高速化できます。 正常に実行されると、`gradle/gradle-build-action` によって Gradle ユーザー ホーム ディレクトリの重要な部分がキャッシュされます。 以降のジョブでは、キャッシュが復元されるので、ビルド スクリプトを再コンパイルする必要がなく、依存関係をリモート パッケージ リポジトリからダウンロードする必要がなくなります。
+
+`gradle/gradle-build-action` アクションを使用しているときは、キャッシュが既定で有効になります。 詳細については、「[`gradle/gradle-build-action`](https://github.com/gradle/gradle-build-action#caching)」を参照してください。
+
+{% endif %}
+
+## 成果物としてのワークフローのデータのパッケージ化
+
+ビルドが成功し、テストがパスした後には、結果のJavaのパッケージをビルドの成果物としてアップロードすることになるかもしれません。 そうすれば、ビルドされたパッケージをワークフローの実行の一部として保存することになり、それらをダウンロードできるようになります。 成果物によって、Pull Requestをマージする前にローカルの環境でテスト及びデバッグしやすくなります。 詳細については、「[アーティファクトを使用してワークフロー データを永続化する](/actions/automating-your-workflow-with-github-actions/persisting-workflow-data-using-artifacts)」を参照してください。
+
+Gradle では、通常、JAR、EAR、WAR のような出力ファイルが `build/libs` ディレクトリに作成されます。 `upload-artifact` アクションを使用して、そのディレクトリの内容をアップロードできます。
+
 ```yaml{:copy}
 steps:
-  - uses: actions/checkout@v2
-  - name: Set up JDK 11
-    uses: actions/setup-java@v2
+  - uses: {% data reusables.actions.action-checkout %}
+  - uses: {% data reusables.actions.action-setup-java %}
     with:
       java-version: '11'
       distribution: 'adopt'
-      cache: gradle
   - name: Validate Gradle wrapper
     uses: gradle/wrapper-validation-action@e6e38bacfdf1a337459f332974bb2327a31aaf4b
   - name: Build with Gradle
-    run: ./gradlew build
-  - name: Cleanup Gradle Cache
-    # Remove some files from the Gradle cache, so they aren't cached by GitHub Actions.
-    # Restoring these files from a GitHub Actions cache might cause problems for future builds.
-    run: |
-      rm -f ~/.gradle/caches/modules-2/modules-2.lock
-      rm -f ~/.gradle/caches/modules-2/gc.properties
-```
-{% endraw %}
-
-This workflow will save the contents of your local Gradle package cache, located in the `.gradle/caches` and `.gradle/wrapper` directories of the runner's home directory. The cache key will be the hashed contents of the gradle build files (including the Gradle wrapper properties file), so any changes to them will invalidate the cache.
-
-## Packaging workflow data as artifacts
-
-After your build has succeeded and your tests have passed, you may want to upload the resulting Java packages as a build artifact. This will store the built packages as part of the workflow run, and allow you to download them. Artifacts can help you test and debug pull requests in your local environment before they're merged. For more information, see "[Persisting workflow data using artifacts](/actions/automating-your-workflow-with-github-actions/persisting-workflow-data-using-artifacts)."
-
-Gradle will usually create output files like JARs, EARs, or WARs in the `build/libs` directory. You can upload the contents of that directory using the `upload-artifact` action.
-
-{% raw %}
-```yaml{:copy}
-steps:
-  - uses: actions/checkout@v2
-  - uses: actions/setup-java@v2
+    uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
     with:
-      java-version: '11'
-      distribution: 'adopt'
-  - name: Validate Gradle wrapper
-    uses: gradle/wrapper-validation-action@e6e38bacfdf1a337459f332974bb2327a31aaf4b
-  - run: ./gradlew build
-  - uses: actions/upload-artifact@v2
+      arguments: build
+  - uses: {% data reusables.actions.action-upload-artifact %}
     with:
       name: Package
       path: build/libs
 ```
-{% endraw %}

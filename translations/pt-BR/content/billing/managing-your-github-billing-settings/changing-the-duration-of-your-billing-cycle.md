@@ -1,6 +1,6 @@
 ---
-title: Changing the duration of your billing cycle
-intro: You can pay for your account's subscription and other paid features and products on a monthly or yearly billing cycle.
+title: Alterar a duração do ciclo de cobrança
+intro: 'Você pode pagar pela assinatura da sua conta, bem como de outros recursos e produtos pagos em um ciclo de cobrança mensal ou anual.'
 redirect_from:
   - /github/setting-up-and-managing-billing-and-payments-on-github/changing-the-duration-of-your-billing-cycle
   - /articles/monthly-and-yearly-billing
@@ -17,30 +17,31 @@ topics:
   - Repositories
   - User account
 shortTitle: Billing cycle
+ms.openlocfilehash: 164b0192f1b055b95ad83fc2845e9af59058b6a7
+ms.sourcegitcommit: fb047f9450b41b24afc43d9512a5db2a2b750a2a
+ms.translationtype: HT
+ms.contentlocale: pt-BR
+ms.lasthandoff: 09/11/2022
+ms.locfileid: '145083437'
 ---
-When you change your billing cycle's duration, your {% data variables.product.prodname_dotcom %} subscription, along with any other paid features and products, will be moved to your new billing cycle on your next billing date.
+Quando você altera a duração do ciclo de cobrança, sua assinatura do {% data variables.product.prodname_dotcom %}, em conjunto com outros recursos e produtos pagos, são movidos para o novo ciclo de cobrança na próxima data de cobrança.
 
-## Changing the duration of your personal account's billing cycle
+## Alterar a duração do ciclo de cobrança da sua conta pessoal
 
-{% data reusables.user_settings.access_settings %}
-{% data reusables.user_settings.billing_plans %}
-{% data reusables.dotcom_billing.change_plan_duration %}
-{% data reusables.dotcom_billing.confirm_duration_change %}
+{% data reusables.user-settings.access_settings %} {% data reusables.user-settings.billing_plans %} {% data reusables.dotcom_billing.change_plan_duration %} {% data reusables.dotcom_billing.confirm_duration_change %}
 
-## Changing the duration of your organization's billing cycle
+## Alterar a duração do ciclo de cobrança da organização
 
 {% data reusables.dotcom_billing.org-billing-perms %}
 
-### Changing the duration of a per-user subscription
+### Alterar a duração de uma assinatura por usuário
+
+{% data reusables.organizations.billing-settings %} {% data reusables.dotcom_billing.change_plan_duration %} {% data reusables.dotcom_billing.confirm_duration_change %}
+
+### Alterar a duração de um plano herdado por repositório
 
 {% data reusables.organizations.billing-settings %}
-{% data reusables.dotcom_billing.change_plan_duration %}
-{% data reusables.dotcom_billing.confirm_duration_change %}
-
-### Changing the duration of a legacy per-repository plan
-
-{% data reusables.organizations.billing-settings %}
-4. Under "Billing overview", click **Change plan**.
-  ![Billing overview change plan button](/assets/images/help/billing/billing_overview_change_plan.png)
-5. At the top right corner, click **Switch to monthly billing** or **Switch to yearly billing**.
-  ![Billing information section](/assets/images/help/billing/settings_billing_organization_plans_switch_to_yearly.png)
+4. Em "Visão geral de cobrança", clique em **Alterar plano**.
+  ![Botão de alteração de plano em Visão geral da cobrança](/assets/images/help/billing/billing_overview_change_plan.png)
+5. No canto superior direito, clique em **Alternar para cobrança mensal** ou **Alternar para cobrança anual**.
+  ![Seção Informações de cobrança](/assets/images/help/billing/settings_billing_organization_plans_switch_to_yearly.png)

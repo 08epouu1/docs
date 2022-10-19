@@ -1,6 +1,6 @@
 ---
-title: Configuring clustering
-intro: Learn about clustering and differences with high availability.
+title: クラスタリングの設定
+intro: クラスタリングについて、そしてHigh Availabilityとの差異にについて学んでください。
 redirect_from:
   - /enterprise/admin/clustering/setting-up-the-cluster-instances
   - /enterprise/admin/clustering/managing-a-github-enterprise-server-cluster
@@ -22,5 +22,11 @@ children:
   - /evacuating-a-cluster-node
   - /configuring-high-availability-replication-for-a-cluster
   - /initiating-a-failover-to-your-replica-cluster
+ms.openlocfilehash: 53288d602951e8e271e245d20248d9bdf1a42634
+ms.sourcegitcommit: fcf3546b7cc208155fb8acdf68b81be28afc3d2d
+ms.translationtype: HT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 09/10/2022
+ms.locfileid: '145120606'
 ---
 

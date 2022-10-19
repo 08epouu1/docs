@@ -1,7 +1,7 @@
 ---
-title: Billing and payments on GitHub
+title: GitHub 上的帐单和付款
 shortTitle: Billing and payments
-intro: '{% ifversion fpt %}{% data variables.product.product_name %} offers free and paid products for every account. You can upgrade or downgrade your account''s subscription and manage your billing settings at any time.{% elsif ghec or ghes or ghae %}{% data variables.product.company_short %} bills for your enterprise members'' {% ifversion ghec or ghae %}usage of {% data variables.product.product_name %}{% elsif ghes %} licence seats for {% data variables.product.product_name %}{% ifversion ghes > 3.0 %} and any additional services that you purchase{% endif %}{% endif %}. {% endif %}{% ifversion ghec %} You can view your subscription and manage your billing settings at any time. {% endif %}{% ifversion fpt or ghec %} You can also view usage and manage spending limits for {% data variables.product.product_name %} features such as {% data variables.product.prodname_actions %}, {% data variables.product.prodname_registry %}, and {% data variables.product.prodname_codespaces %}.{% endif %}'
+intro: '{% ifversion fpt %}{% data variables.product.product_name %} 为每个帐户提供免费和付费产品。 你可以随时升级或降级帐户的订阅并管理计费设置。{% elsif ghec or ghes or ghae %}{% data variables.product.company_short %} 会针对你企业成员的{% ifversion ghec or ghae %} {% data variables.product.product_name %} 使用情况{% elsif ghes %} {% data variables.product.product_name %} 的许可席位{% ifversion ghes %}以及所购买的任何其他服务向你收取费用{% endif %}{% endif %}。 {% endif %}{% ifversion ghec %} 你可以随时查看订阅并管理计费设置。 {% endif %}{% ifversion fpt or ghec %} 你还可以查看 {% data variables.product.product_name %} 功能的使用情况并管理支出限制，例如 {% data variables.product.prodname_actions %}、{% data variables.product.prodname_registry %} 和 {% data variables.product.prodname_github_codespaces %}。{% endif %}'
 redirect_from:
   - /github/setting-up-and-managing-billing-and-payments-on-github
   - /categories/setting-up-and-managing-billing-and-payments-on-github
@@ -18,7 +18,7 @@ featuredLinks:
     - '{% ifversion ghes %}/billing/managing-your-license-for-github-enterprise/about-licenses-for-github-enterprise{% endif %}'
     - '{% ifversion ghes %}/billing/managing-your-license-for-github-enterprise/viewing-license-usage-for-github-enterprise{% endif %}'
     - '{% ifversion ghae %}/billing/managing-billing-for-your-github-account/about-billing-for-your-enterprise{% endif %}'
-  popular: 
+  popular:
     - '{% ifversion ghec %}/billing/managing-billing-for-your-github-account/viewing-the-subscription-and-usage-for-your-enterprise-account{% endif %}'
     - '{% ifversion fpt or ghec %}/billing/managing-billing-for-your-github-account/downgrading-your-github-subscription{% endif %}'
     - '{% ifversion fpt or ghec %}/billing/managing-billing-for-github-actions/about-billing-for-github-actions{% endif %}'
@@ -27,8 +27,7 @@ featuredLinks:
     - '{% ifversion ghes %}/billing/managing-billing-for-github-advanced-security/viewing-your-github-advanced-security-usage{% endif %}'
     - '{% ifversion ghes %}/billing/managing-your-license-for-github-enterprise/uploading-a-new-license-to-github-enterprise-server{% endif %}'
     - '{% ifversion ghae %}/billing/managing-billing-for-your-github-account/about-billing-for-your-enterprise{% endif %}'
-  guideCards:  
-    - /billing/managing-your-github-billing-settings/removing-a-payment-method
+  guideCards:
     - /billing/managing-billing-for-your-github-account/how-does-upgrading-or-downgrading-affect-the-billing-process
     - /billing/managing-billing-for-git-large-file-storage/upgrading-git-large-file-storage
     - '{% ifversion ghes %}/billing/managing-your-license-for-github-enterprise/downloading-your-license-for-github-enterprise{% endif %}'
@@ -44,14 +43,22 @@ topics:
 children:
   - /managing-your-github-billing-settings
   - /managing-billing-for-your-github-account
+  - /managing-your-license-for-github-enterprise
+  - /managing-licenses-for-visual-studio-subscriptions-with-github-enterprise
   - /managing-billing-for-github-actions
   - /managing-billing-for-github-codespaces
   - /managing-billing-for-github-packages
-  - /managing-your-license-for-github-enterprise
-  - /managing-licenses-for-visual-studio-subscriptions-with-github-enterprise
+  - /managing-billing-for-github-copilot
   - /managing-billing-for-github-advanced-security
   - /managing-billing-for-github-sponsors
   - /managing-billing-for-github-marketplace-apps
   - /managing-billing-for-git-large-file-storage
   - /setting-up-paid-organizations-for-procurement-companies
+ms.openlocfilehash: 816bfb699135974a180ccf350aa04bc36dfbf25a
+ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
+ms.translationtype: HT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 09/05/2022
+ms.locfileid: '147110896'
 ---
+

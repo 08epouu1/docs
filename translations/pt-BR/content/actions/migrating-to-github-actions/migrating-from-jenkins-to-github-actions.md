@@ -1,6 +1,6 @@
 ---
-title: Migrating from Jenkins to GitHub Actions
-intro: '{% data variables.product.prodname_actions %} and Jenkins share multiple similarities, which makes migration to {% data variables.product.prodname_actions %} relatively straightforward.'
+title: Migrar do Jenkins para o GitHub Actions
+intro: 'O {% data variables.product.prodname_actions %} e o Jenkins compartilham múltiplas semelhanças, o que torna a migração para {% data variables.product.prodname_actions %} relativamente simples.'
 redirect_from:
   - /actions/learn-github-actions/migrating-from-jenkins-to-github-actions
 versions:
@@ -15,76 +15,80 @@ topics:
   - CI
   - CD
 shortTitle: Migrate from Jenkins
+ms.openlocfilehash: 177ec8c5e7355b87bdd82dd7cff88d4ae89557e4
+ms.sourcegitcommit: fb047f9450b41b24afc43d9512a5db2a2b750a2a
+ms.translationtype: HT
+ms.contentlocale: pt-BR
+ms.lasthandoff: 09/11/2022
+ms.locfileid: '145096121'
 ---
+{% data reusables.actions.enterprise-beta %} {% data reusables.actions.enterprise-github-hosted-runners %}
 
-{% data reusables.actions.enterprise-beta %}
-{% data reusables.actions.enterprise-github-hosted-runners %}
+## Introdução
 
-## Introduction
+O Jenkins e o {% data variables.product.prodname_actions %} permitem criar fluxos de trabalho que criam, testam, publicam, lançam e implementam código automaticamente. O Jenkins e o {% data variables.product.prodname_actions %} compartilham algumas semelhanças em termos de configuração do fluxo de trabalho:
 
-Jenkins and {% data variables.product.prodname_actions %} both allow you to create workflows that automatically build, test, publish, release, and deploy code. Jenkins and {% data variables.product.prodname_actions %} share some similarities in workflow configuration:
+- O Jenkins cria fluxos de trabalho usando _Pipelines Declarativos_, que são semelhantes aos arquivos de fluxo de trabalho do {% data variables.product.prodname_actions %}.
+- O Jenkins usa _fases_ para executar uma coleção de etapas, enquanto o {% data variables.product.prodname_actions %} usa trabalhos para agrupar uma ou mais etapas ou comandos individuais.
+- O Jenkins e o {% data variables.product.prodname_actions %} são compatíveis com criações baseadas em contêineres. Para obter mais informações, confira "[Como criar uma ação de contêiner do Docker](/articles/creating-a-docker-container-action)".
+- É possível reutilizar e compartilhar novamente etapas ou tarefas com a comunidade.
 
-- Jenkins creates workflows using _Declarative Pipelines_, which are similar to {% data variables.product.prodname_actions %} workflow files.
-- Jenkins uses _stages_ to run a collection of steps, while {% data variables.product.prodname_actions %} uses jobs to group one or more steps or individual commands.
-- Jenkins and {% data variables.product.prodname_actions %} support container-based builds. For more information, see "[Creating a Docker container action](/articles/creating-a-docker-container-action)."
-- Steps or tasks can be reused and shared with the community.
+Para obter mais informações, confira "[Conceitos básicos do {% data variables.product.prodname_actions %}](/actions/getting-started-with-github-actions/core-concepts-for-github-actions)".
 
-For more information, see "[Core concepts for {% data variables.product.prodname_actions %}](/actions/getting-started-with-github-actions/core-concepts-for-github-actions)."
+## Principais diferenças
 
-## Key differences
+- O Jenkins tem dois tipos de sintaxe para a criação de pipelines: Declarative Pipeline e Scripted Pipeline. O {% data variables.product.prodname_actions %} usa o YAML para criar fluxos de trabalho e arquivos de configuração. Para obter mais informações, confira "[Sintaxe de fluxo de trabalho do GitHub Actions](/actions/reference/workflow-syntax-for-github-actions)".
+- As implementações do Jenkins são tipicamente auto-hospedadas, com usuários mantendo os servidores em seus próprios centros de dados. O {% data variables.product.prodname_actions %} oferece uma abordagem de nuvem híbrida, hospedando seus próprios executores que você pode usar para executar trabalhos, ao mesmo tempo em que também oferece suporte aos executores auto-hospedados. Para obter mais informações, confira [Sobre os executores auto-hospedados](/actions/hosting-your-own-runners/about-self-hosted-runners).
 
-- Jenkins has two types of syntax for creating pipelines: Declarative Pipeline and Scripted Pipeline. {% data variables.product.prodname_actions %} uses YAML to create workflows and configuration files. For more information, see "[Workflow syntax for GitHub Actions](/actions/reference/workflow-syntax-for-github-actions)."
-- Jenkins deployments are typically self-hosted, with users maintaining the servers in their own data centers. {% data variables.product.prodname_actions %} offers a hybrid cloud approach by hosting its own runners that you can use to run jobs, while also supporting self-hosted runners. For more information, see [About self-hosted runners](/actions/hosting-your-own-runners/about-self-hosted-runners).
+## Comparar recursos
 
-## Comparing capabilities
+### Distribuir suas criações
 
-### Distributing your builds
+O Jenkins permite que se envie criações para um único agente de criação, ou você pode distribuí-las entre vários agentes. Você também pode classificar esses agentes de acordo com vários atributos, como, por exemplo, tipos de sistema operacional.
 
-Jenkins lets you send builds to a single build agent, or you can distribute them across multiple agents. You can also classify these agents according to various attributes, such as operating system types.
+De modo similar, o {% data variables.product.prodname_actions %} pode enviar trabalhos para executores hospedados em {% data variables.product.prodname_dotcom %} ou executores auto-hospedados, e você pode usar as etiquetas para classificar os executores de acordo com vários atributos. Para obter mais informações, confira "[Noções básicas sobre o {% data variables.product.prodname_actions %}](/actions/learn-github-actions/understanding-github-actions#runners)" e "[Sobre os executores auto-hospedados](/actions/hosting-your-own-runners/about-self-hosted-runners)".
 
-Similarly, {% data variables.product.prodname_actions %} can send jobs to {% data variables.product.prodname_dotcom %}-hosted or self-hosted runners, and you can use labels to classify runners according to various attributes. For more information, see "[Understanding {% data variables.product.prodname_actions %}](/actions/learn-github-actions/understanding-github-actions#runners)" and "[About self-hosted runners](/actions/hosting-your-own-runners/about-self-hosted-runners)."
+### Usar seções para organizar pipelines
 
-### Using sections to organize pipelines
+O Jenkins divide seus Declarative Pipelines em múltiplas seções. De forma similar, o {% data variables.product.prodname_actions %} organiza seus fluxos de trabalho em seções separadas. A tabela abaixo compara as seções do Jenkins com o fluxo de trabalho {% data variables.product.prodname_actions %}.
 
-Jenkins splits its Declarative Pipelines into multiple sections. Similarly, {% data variables.product.prodname_actions %} organizes its workflows into separate sections. The table below compares Jenkins sections with the {% data variables.product.prodname_actions %} workflow.
-
-| Jenkins Directives | {% data variables.product.prodname_actions %} |
+| Diretivas do Jenkins | {% data variables.product.prodname_actions %} |
 | ------------- | ------------- |
 | [`agent`](https://jenkins.io/doc/book/pipeline/syntax/#agent)   | [`jobs.<job_id>.runs-on`](/actions/automating-your-workflow-with-github-actions/workflow-syntax-for-github-actions#jobsjob_idruns-on) <br> [`jobs.<job_id>.container`](/actions/automating-your-workflow-with-github-actions/workflow-syntax-for-github-actions#jobsjob_idcontainer) |
 | [`post`](https://jenkins.io/doc/book/pipeline/syntax/#post)     |  |
 | [`stages`](https://jenkins.io/doc/book/pipeline/syntax/#stages) | [`jobs`](/actions/automating-your-workflow-with-github-actions/workflow-syntax-for-github-actions#jobs) |
 | [`steps`](https://jenkins.io/doc/book/pipeline/syntax/#steps)   | [`jobs.<job_id>.steps`](/actions/automating-your-workflow-with-github-actions/workflow-syntax-for-github-actions#jobsjob_idsteps) |
 
-## Using directives
+## Uso de diretivas
 
-Jenkins uses directives to manage _Declarative Pipelines_. These directives define the characteristics of your workflow and how it will execute. The table below demonstrates how these directives map to concepts within {% data variables.product.prodname_actions %}.
+O Jenkins usa diretivas para gerenciar os _Pipelines Declarativos_. Essas diretivas definem as características do seu fluxo de trabalho e como ele será executado. A tabela abaixo demonstra como estas diretivas são mapeadas com conceitos dentro do {% data variables.product.prodname_actions %}.
 
-| Jenkins Directives | {% data variables.product.prodname_actions %} |
+| Diretivas do Jenkins | {% data variables.product.prodname_actions %} |
 | ------------- | ------------- |
 | [`environment`](https://jenkins.io/doc/book/pipeline/syntax/#environment)                  | [`jobs.<job_id>.env`](/actions/automating-your-workflow-with-github-actions/workflow-syntax-for-github-actions#env) <br> [`jobs.<job_id>.steps[*].env`](/actions/automating-your-workflow-with-github-actions/workflow-syntax-for-github-actions#jobsjob_idstepsenv) |
 | [`options`](https://jenkins.io/doc/book/pipeline/syntax/#parameters)                       | [`jobs.<job_id>.strategy`](/actions/automating-your-workflow-with-github-actions/workflow-syntax-for-github-actions#jobsjob_idstrategy) <br> [`jobs.<job_id>.strategy.fail-fast`](/actions/automating-your-workflow-with-github-actions/workflow-syntax-for-github-actions#jobsjob_idstrategyfail-fast) <br> [`jobs.<job_id>.timeout-minutes`](/actions/automating-your-workflow-with-github-actions/workflow-syntax-for-github-actions#jobsjob_idtimeout-minutes) |
-| [`parameters`](https://jenkins.io/doc/book/pipeline/syntax/#parameters)                    | [`inputs`](/actions/creating-actions/metadata-syntax-for-github-actions#inputs) <br> [`outputs`](/actions/creating-actions/metadata-syntax-for-github-actions#outputs) |
-| [`triggers`](https://jenkins.io/doc/book/pipeline/syntax/#triggers)                        | [`on`](/actions/automating-your-workflow-with-github-actions/workflow-syntax-for-github-actions#on) <br> [`on.<event_name>.types`](/actions/automating-your-workflow-with-github-actions/workflow-syntax-for-github-actions#onevent_nametypes) <br> [<code>on.<push\|pull_request>.<branches\|tags></code>](/actions/automating-your-workflow-with-github-actions/workflow-syntax-for-github-actions#onpushpull_requestbranchestags) <br> [<code>on.<push\|pull_request>.paths</code>](/actions/automating-your-workflow-with-github-actions/workflow-syntax-for-github-actions#onpushpull_requestpaths) |
+| [`parameters`](https://jenkins.io/doc/book/pipeline/syntax/#parameters)                    | [`inputs`](/actions/creating-actions/metadata-syntax-for-github-actions#inputs) <br> [`outputs`](/actions/creating-actions/metadata-syntax-for-github-actions#outputs-for-docker-container-and-javascript-actions) |
+| [`triggers`](https://jenkins.io/doc/book/pipeline/syntax/#triggers)                        | [`on`](/actions/automating-your-workflow-with-github-actions/workflow-syntax-for-github-actions#on) <br> [`on.<event_name>.types`](/actions/automating-your-workflow-with-github-actions/workflow-syntax-for-github-actions#onevent_nametypes) <br> [<code>on.<push\>.<branches\|tags></code>](/actions/automating-your-workflow-with-github-actions/workflow-syntax-for-github-actions#onpushbranchestagsbranches-ignoretags-ignore) <br> [<code>on.<pull_request\>.<branches\></code>](/actions/automating-your-workflow-with-github-actions/workflow-syntax-for-github-actions#onpull_requestpull_request_targetbranchesbranches-ignore) <br> [<code>on.<push\|pull_request>.paths</code>](/actions/automating-your-workflow-with-github-actions/workflow-syntax-for-github-actions#onpushpull_requestpull_request_targetpathspaths-ignore) |
 | [`triggers { upstreamprojects() }`](https://jenkins.io/doc/book/pipeline/syntax/#triggers) | [`jobs.<job_id>.needs`](/actions/automating-your-workflow-with-github-actions/workflow-syntax-for-github-actions#jobsjob_idneeds) |
-| [Jenkins cron syntax](https://jenkins.io/doc/book/pipeline/syntax/#cron-syntax)            | [`on.schedule`](/actions/automating-your-workflow-with-github-actions/workflow-syntax-for-github-actions#onschedule) |
+| [Sintaxe cron do Jenkins](https://jenkins.io/doc/book/pipeline/syntax/#cron-syntax)            | [`on.schedule`](/actions/automating-your-workflow-with-github-actions/workflow-syntax-for-github-actions#onschedule) |
 | [`stage`](https://jenkins.io/doc/book/pipeline/syntax/#stage)                              | [`jobs.<job_id>`](/actions/automating-your-workflow-with-github-actions/workflow-syntax-for-github-actions#jobsjob_id) <br> [`jobs.<job_id>.name`](/actions/automating-your-workflow-with-github-actions/workflow-syntax-for-github-actions#jobsjob_idname) |
-| [`tools`](https://jenkins.io/doc/book/pipeline/syntax/#tools)                              | {% ifversion ghae %}The command-line tools available in `PATH` on your self-hosted runner systems. {% data reusables.actions.self-hosted-runners-software %}{% else %}[Specifications for {% data variables.product.prodname_dotcom %}-hosted runners](/actions/reference/specifications-for-github-hosted-runners/#supported-software) |{% endif %}
+| [`tools`](https://jenkins.io/doc/book/pipeline/syntax/#tools)                              | {% ifversion ghae %}As ferramentas de linha de comando disponíveis em `PATH` nos seus sistemas de executores auto-hospedados. {% data reusables.actions.self-hosted-runners-software %}{% else %}[Especificações para os executores hospedados no {% data variables.product.prodname_dotcom %}](/actions/reference/specifications-for-github-hosted-runners/#supported-software) |{% endif %}
 | [`input`](https://jenkins.io/doc/book/pipeline/syntax/#input)                              | [`inputs`](/actions/automating-your-workflow-with-github-actions/metadata-syntax-for-github-actions#inputs) |
 | [`when`](https://jenkins.io/doc/book/pipeline/syntax/#when)                                | [`jobs.<job_id>.if`](/actions/automating-your-workflow-with-github-actions/workflow-syntax-for-github-actions#jobsjob_idif) |
 
-## Using sequential stages
+## Usar estágios sequenciais
 
-### Parallel job processing
+### Processamento paralelo do trabalho
 
-Jenkins can run the `stages` and `steps` in parallel, while {% data variables.product.prodname_actions %} currently only runs jobs in parallel.
+O Jenkins pode executar as `stages` e as `steps` em paralelo, enquanto o {% data variables.product.prodname_actions %} atualmente só executa trabalhos em paralelo.
 
-| Jenkins Parallel | {% data variables.product.prodname_actions %} |
+| Jenkins em paralelo | {% data variables.product.prodname_actions %} |
 | ------------- | ------------- |
 | [`parallel`](https://jenkins.io/doc/book/pipeline/syntax/#parallel) | [`jobs.<job_id>.strategy.max-parallel`](/actions/automating-your-workflow-with-github-actions/workflow-syntax-for-github-actions#jobsjob_idstrategymax-parallel) |
 
-### Build matrix
+### Matriz
 
-Both {% data variables.product.prodname_actions %} and Jenkins let you use a build matrix to define various system combinations.
+Tanto o {% data variables.product.prodname_actions %} quanto o Jenkins permitem que você use uma matriz para definir várias combinações de sistema.
 
 | Jenkins       | {% data variables.product.prodname_actions %} |
 | ------------- | ------------- |
@@ -92,25 +96,25 @@ Both {% data variables.product.prodname_actions %} and Jenkins let you use a bui
 | [`stages`](https://jenkins.io/doc/book/pipeline/syntax/#matrix-stages)   | [`steps-context`](/actions/reference/context-and-expression-syntax-for-github-actions#steps-context) |
 | [`excludes`](https://jenkins.io/doc/book/pipeline/syntax/#matrix-stages) |  |
 
-### Using steps to execute tasks
+### Usar passos para executar tarefas
 
-Jenkins groups `steps` together in `stages`. Each of these steps can be a script, function, or command, among others. Similarly, {% data variables.product.prodname_actions %} uses `jobs` to execute specific groups of `steps`.
+O Jenkins agrupa as `steps` em `stages`. Cada uma dessas etapas pode ser um script, função ou comando, entre outros. Da mesma forma, o {% data variables.product.prodname_actions %} usa `jobs` para executar grupos específicos de `steps`.
 
-| Jenkins steps | {% data variables.product.prodname_actions %} |
+| Etapas do Jenkins | {% data variables.product.prodname_actions %} |
 | ------------- | ------------- |
 | [`script`](https://jenkins.io/doc/book/pipeline/syntax/#script) | [`jobs.<job_id>.steps`](/actions/reference/workflow-syntax-for-github-actions#jobsjob_idsteps) |
 
-## Examples of common tasks
+## Exemplos de tarefas comuns
 
-### Scheduling a pipeline to run with `cron`
+### Como agendar um pipeline para ser executado com o `cron`
 
 <table>
 <tr>
 <th>
-Jenkins Pipeline
+Pipeline do Jenkins
 </th>
 <th>
-{% data variables.product.prodname_actions %} Workflow
+Fluxo de trabalho do {% data variables.product.prodname_actions %}
 </th>
 </tr>
 <tr>
@@ -138,15 +142,15 @@ on:
 </tr>
 </table>
 
-### Configuring environment variables in a pipeline
+### Configurar variáveis de ambiente em um pipeline
 
 <table>
 <tr>
 <th>
-Jenkins Pipeline
+Pipeline do Jenkins
 </th>
 <th>
-{% data variables.product.prodname_actions %} Workflow
+Fluxo de trabalho do {% data variables.product.prodname_actions %}
 </th>
 </tr>
 <tr>
@@ -175,15 +179,15 @@ jobs:
 </tr>
 </table>
 
-### Building from upstream projects
+### Criar projetos projetos de upstream
 
 <table>
 <tr>
 <th>
-Jenkins Pipeline
+Pipeline do Jenkins
 </th>
 <th>
-{% data variables.product.prodname_actions %} Workflow
+Fluxo de trabalho do {% data variables.product.prodname_actions %}
 </th>
 </tr>
 <tr>
@@ -216,15 +220,15 @@ jobs:
 </tr>
 </table>
 
-### Building with multiple operating systems
+### Criar com vários sistemas operacionais
 
 <table>
 <tr>
 <th>
-Jenkins Pipeline
+Pipeline do Jenkins
 </th>
 <th>
-{% data variables.product.prodname_actions %} Workflow
+Fluxo de trabalho do {% data variables.product.prodname_actions %}
 </th>
 </tr>
 <tr>
@@ -263,28 +267,26 @@ pipeline {
 </td>
 <td>
 
-{% raw %}
 ```yaml
 name: demo-workflow
 on:
   push:
 jobs:
   test:
-    runs-on: ${{ matrix.os }}
+    runs-on: {% raw %}${{ matrix.os }}{% endraw %}
     strategy:
       fail-fast: false
       matrix:
         os: [macos-latest, ubuntu-latest]
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: {% data reusables.actions.action-checkout %}
+      - uses: {% data reusables.actions.action-setup-node %}
         with:
           node-version: 12
       - run: npm install -g bats
       - run: bats tests
         working-directory: scripts/myapp
 ```
-{% endraw %}
 
 </td>
 </tr>

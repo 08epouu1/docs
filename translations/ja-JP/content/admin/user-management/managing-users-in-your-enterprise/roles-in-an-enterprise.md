@@ -1,7 +1,6 @@
 ---
-title: Roles in an enterprise
-intro: 'Everyone in an enterprise is a member of the enterprise. To control access to your enterprise''s settings and data, you can assign different roles to members of your enterprise.'
-product: '{% data reusables.gated-features.enterprise-accounts %}'
+title: Enterprise におけるロール
+intro: Enterprise 内の全員が Enterprise のメンバーです。 Enterprise の設定とデータへのアクセスを制御するために、Enterprise のメンバーにさまざまなロールを割り当てることができます。
 redirect_from:
   - /github/setting-up-and-managing-your-enterprise/managing-users-in-your-enterprise/roles-in-an-enterprise
   - /github/setting-up-and-managing-your-enterprise-account/roles-for-an-enterprise-account
@@ -14,63 +13,70 @@ versions:
   ghae: '*'
 topics:
   - Enterprise
+ms.openlocfilehash: 10787e2326f2bb3c4768c5e499d445f65cf9e57d
+ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
+ms.translationtype: HT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 09/05/2022
+ms.locfileid: '146178456'
 ---
+## Enterprise のロールについて
 
-## About roles in an enterprise
-
-Everyone in an enterprise is a member of the enterprise. You can also assign administrative roles to members of your enterprise. Each administrator role maps to business functions and provides permissions to do specific tasks within the enterprise.
+Enterprise 内の全員が Enterprise のメンバーです。 Enterprise のメンバーに管理者のロールを割り当てることもできます。 各管理者ロールはビジネス機能にマップされ、Enterprise 内の特定のタスクを行う権限を与えます。
 
 {% data reusables.enterprise-accounts.enterprise-administrators %}
 
-{% ifversion ghec %}
-If your enterprise does not use {% data variables.product.prodname_emus %}, you can invite someone to an administrative role using a user account on {% data variables.product.product_name %} that they control. For more information, see "[Inviting people to manage your enterprise](/github/setting-up-and-managing-your-enterprise/inviting-people-to-manage-your-enterprise)".
+{% ifversion ghec %} Enterprise で {% data variables.product.prodname_emus %} が使用されていない場合は、制御対象の {% data variables.product.product_name %} のユーザー アカウントを使用して、管理者ロールにユーザーを招待できます。 詳細については、「[Enterprise を管理するようユーザーを招待する](/github/setting-up-and-managing-your-enterprise/inviting-people-to-manage-your-enterprise)」を参照してください。
 
-In an enterprise using {% data variables.product.prodname_emus %}, new owners and members must be provisioned through your identity provider. Enterprise owners and organization owners cannot add new members or owners to the enterprise using {% data variables.product.prodname_dotcom %}. You can select a member's enterprise role using your IdP and it cannot be changed on {% data variables.product.prodname_dotcom %}. You can select a member's role in an organization on {% data variables.product.prodname_dotcom %}. For more information, see "[About {% data variables.product.prodname_emus %}](/enterprise-cloud@latest/admin/authentication/managing-your-enterprise-users-with-your-identity-provider/about-enterprise-managed-users)."
-{% else %}
-For more information about adding people to your enterprise, see "[Authentication](/admin/authentication)".
+{% data variables.product.prodname_emus %} を使用している Enterprise では、新しい所有者とメンバーを ID プロバイダーを通じてプロビジョニングする必要があります。 Enterprise 所有者と Organization 所有者は、{% data variables.product.prodname_dotcom %} を使用して新しいメンバーまたは所有者を Enterprise に追加することはできません。 IdP を使用してメンバーの Enterprise ロールを選択できます。{% data variables.product.prodname_dotcom %} で変更することはできません。 {% data variables.product.prodname_dotcom %} では Organization 内のメンバーのロールを選択できます。 詳細については、「[{% data variables.product.prodname_emus %} について](/enterprise-cloud@latest/admin/authentication/managing-your-enterprise-users-with-your-identity-provider/about-enterprise-managed-users)」を参照してください。
+{% else %} Enterprise へのユーザーの追加について詳しくは、「[認証](/admin/authentication)」を参照してください。
 
 {% endif %}
 
-## Enterprise owner
+## Enterprise 所有者
 
-Enterprise owners have complete control over the enterprise and can take every action, including:
-- Managing administrators
-- {% ifversion ghec %}Adding and removing {% elsif ghae or ghes %}Managing{% endif %} organizations {% ifversion ghec %}to and from {% elsif ghae or ghes %} in{% endif %} the enterprise
-- Managing enterprise settings
-- Enforcing policy across organizations
-{% ifversion ghec %}- Managing billing settings{% endif %}
+Enterprise オーナーは、Enterprise の完全な管理権限を持ち、以下を含むすべての操作を行うことができます。
+- 管理者を管理する
+- エンタープライズ{% ifversion ghec %}に対する{% elsif ghae or ghes %}での{% endif %}組織の{% ifversion ghec %}追加と削除{% elsif ghae or ghes %}管理{% endif %}{% ifversion remove-enterprise-members %}
+- Enterprise が所有するすべての Organization からの Enterprise メンバーの削除{% endif %}
+- Enterprise 設定を管理する
+- Organization 全体でのポリシーの適用 {% ifversion ghec %}- 課金設定の管理{% endif %}
 
-Enterprise owners cannot access organization settings or content unless they are made an organization owner or given direct access to an organization-owned repository. Similarly, owners of organizations in your enterprise do not have access to the enterprise itself unless you make them enterprise owners.
+{% ifversion enterprise-owner-join-org %} エンタープライズの所有者は、既定では組織の設定やコンテンツにアクセスできません。 アクセス権を取得するために、Enterprise 所有者は、Enterprise が所有する任意の Organization に参加できます。 詳細については、「[Enterprise が所有する Organization でのロールの管理](/admin/user-management/managing-organizations-in-your-enterprise/managing-your-role-in-an-organization-owned-by-your-enterprise)」を参照してください。
 
-An enterprise owner will only consume a license if they are an owner or member of at least one organization within the enterprise. {% ifversion ghec %}Enterprise owners must have a personal account on {% data variables.product.prodname_dotcom %}.{% endif %} As a best practice, we recommend making only a few people in your company enterprise owners, to reduce the risk to your business.
+Enterprise 内の Organization の所有者は、Enterprise 所有者にならない限り、Enterprise にはアクセスできません。
+{% else %} Enterprise 所有者は、Organization 所有者になるか、Organization が所有するリポジトリに直接アクセスする権限を与えられない限り、Organization の設定やコンテンツにはアクセスできません。 同様に、Enterprise の Organization のオーナーは、Enterprise のオーナーにならない限り、Enterprise にはアクセスできません。
+{% endif %}
 
-## Enterprise members
+Enterprise のオーナーは、Enterprise 内の少なくとも 1 つの Organization のオーナーまたはメンバーである場合にのみ、ライセンスを消費できます。 Enterprise 所有者が複数の Organization でロールを持っている場合でも、単一のライセンスを使用します。 {% ifversion ghec %}Enterprise 所有者は {% data variables.product.prodname_dotcom %} に個人アカウントを持っている必要があります。{% endif %}ベスト プラクティスとして、ビジネスへのリスクを軽減するために、社内のごく少数のみを Enterprise 所有者にすることをお勧めします。
 
-Members of organizations owned by your enterprise are also automatically members of the enterprise. Members can collaborate in organizations and may be organization owners, but members cannot access or configure enterprise settings{% ifversion ghec %}, including billing settings{% endif %}.
+## Enterprise メンバー
 
-People in your enterprise may have different levels of access to the various organizations owned by your enterprise and to repositories within those organizations. You can view the resources that each person has access to. For more information, see "[Viewing people in your enterprise](/admin/user-management/managing-users-in-your-enterprise/viewing-people-in-your-enterprise)."
+Enterprise が所有する Organization のメンバーも、自動的に Enterprise のメンバーになります。 メンバーは Organization で共同作業を行うことができ、Organization 所有者である場合があります。しかし、メンバーは、{% ifversion ghec %}課金設定を含む、{% endif %}Enterprise 設定に対するアクセスや構成を行うことはできません。
 
-For more information about organization-level permissions, see "[Roles in an organization](/organizations/managing-peoples-access-to-your-organization-with-roles/roles-in-an-organization)."
+Enterprise 内のユーザは、Enterprise が所有するさまざまな Organization およびそれらの Organization 内のリポジトリへのあらゆるレベルのアクセス権を持つことができます。 各個人がアクセスできるリソースを確認することができます。 詳細については、「[Enterprise の人を表示する](/admin/user-management/managing-users-in-your-enterprise/viewing-people-in-your-enterprise)」を参照してください。
 
-People with outside collaborator access to repositories owned by your organization are also listed in your enterprise's People tab, but are not enterprise members and do not have any access to the enterprise. For more information about outside collaborators, see "[Roles in an organization](/organizations/managing-peoples-access-to-your-organization-with-roles/roles-in-an-organization#outside-collaborators)."
+Organization レベルのアクセス許可について詳しくは、「[Organization のロール](/organizations/managing-peoples-access-to-your-organization-with-roles/roles-in-an-organization)」を参照してください。
+
+Organization が所有するリポジトリへの外部のコラボレータアクセス権を持つユーザも、Enterprise の [People] タブに一覧表示されますが、Enterprise メンバーではなく、Enterprise へのアクセス権はありません。 外部コラボレーターの詳細については、「[Organization のロール](/organizations/managing-peoples-access-to-your-organization-with-roles/roles-in-an-organization#outside-collaborators)」を参照してください。
 
 {% ifversion ghec %}
 
-## Billing manager
+## 支払いマネージャー
 
-Billing managers only have access to your enterprise's billing settings. Billing managers for your enterprise can:
-- View and manage user licenses, {% data variables.large_files.product_name_short %} packs and other billing settings
-- View a list of billing managers
-- Add or remove other billing managers
+支払いマネージャーは、Enterprise の支払い設定にのみアクセスできます。 Enterprise の支払いマネージャーは次の操作ができます。
+- ユーザライセンス、{% data variables.large_files.product_name_short %} パック、およびその他の支払い設定の閲覧および管理
+- 支払いマネージャーのリストを閲覧
+- 他の支払いマネージャーの追加または削除
 
-Billing managers will only consume a license if they are an owner or member of at least one organization within the enterprise. Billing managers do not have access to organizations or repositories in your enterprise, and cannot add or remove enterprise owners. Billing managers must have a personal account on {% data variables.product.prodname_dotcom %}.
+支払いマネージャーは、Enterprise 内の少なくとも 1 つの Organization のオーナーまたはメンバーである場合にのみ、ライセンスを消費できます。 支払いマネージャーは、Enterprise の Organization またはリポジトリにアクセスすることはできません。また、Enterprise のオーナーを追加または削除することもできません。 支払いマネージャーは、{% data variables.product.prodname_dotcom %} 上に個人アカウントを持っていなければなりません。
 
-## About support entitlements
+## サポート資格について
 
 {% data reusables.enterprise-accounts.support-entitlements %}
 
-## Further reading
+## 参考資料
 
-- "[About enterprise accounts](/admin/overview/about-enterprise-accounts)"
+- "[Enterprise アカウントについて](/admin/overview/about-enterprise-accounts)"
 
 {% endif %}

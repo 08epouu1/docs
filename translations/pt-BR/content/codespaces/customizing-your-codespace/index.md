@@ -1,6 +1,6 @@
 ---
-title: Customizing your codespace
-intro: '{% data variables.product.prodname_codespaces %} is a dedicated environment for you. You can configure your repositories with a dev container to define their default Codespaces environment, and personalize your development experience across all of your codespaces with dotfiles and Settings Sync.'
+title: Personalizando seu codespace
+intro: '{% data variables.product.prodname_github_codespaces %} é um ambiente dedicado a você. Você pode configurar seus repositórios com um contêiner de desenvolvimento para definir seu ambiente padrão do {% data variables.product.prodname_github_codespaces %} e personalizar sua experiência de desenvolvimento em todos os seus codespaces com dotfiles e Sincronizações de Configuração.'
 product: '{% data reusables.gated-features.codespaces %}'
 versions:
   fpt: '*'
@@ -10,11 +10,17 @@ redirect_from:
 topics:
   - Codespaces
 children:
-  - /personalizing-codespaces-for-your-account
+  - /personalizing-github-codespaces-for-your-account
   - /changing-the-machine-type-for-your-codespace
-  - /setting-your-default-editor-for-codespaces
-  - /setting-your-default-region-for-codespaces
-  - /setting-your-timeout-period-for-codespaces
-  - /prebuilding-codespaces-for-your-project
+  - /setting-your-default-editor-for-github-codespaces
+  - /setting-your-default-region-for-github-codespaces
+  - /setting-your-timeout-period-for-github-codespaces
+  - /configuring-automatic-deletion-of-your-codespaces
+ms.openlocfilehash: a986d300c7c584225cbf2505b284276f7e6511d1
+ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
+ms.translationtype: HT
+ms.contentlocale: pt-BR
+ms.lasthandoff: 09/05/2022
+ms.locfileid: '147110743'
 ---
- 
+

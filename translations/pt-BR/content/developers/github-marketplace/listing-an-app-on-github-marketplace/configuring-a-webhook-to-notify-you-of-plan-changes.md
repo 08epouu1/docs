@@ -1,6 +1,6 @@
 ---
-title: Configuring a webhook to notify you of plan changes
-intro: 'After [creating a draft {% data variables.product.prodname_marketplace %} listing](/marketplace/listing-on-github-marketplace/creating-a-draft-github-marketplace-listing/), you can configure a webhook that notifies you when changes to customer account plans occur. After you configure the webhook, you can [handle the `marketplace_purchase` event types](/marketplace/integrating-with-the-github-marketplace-api/github-marketplace-webhook-events/) in your app.'
+title: Configurar um webhook para notificá-lo de alterações de plano
+intro: 'Depois de [criar uma listagem de rascunho de {% data variables.product.prodname_marketplace %}](/marketplace/listing-on-github-marketplace/creating-a-draft-github-marketplace-listing/), você pode configurar um webhook que notifique quando ocorrerem alterações nos planos da conta do cliente. Depois de configurar o webhook, você pode [lidar com os tipos de eventos do `marketplace_purchase`](/marketplace/integrating-with-the-github-marketplace-api/github-marketplace-webhook-events/) em seu aplicativo.'
 redirect_from:
   - /apps/adding-integrations/managing-listings-on-github-marketplace/adding-webhooks-for-a-github-marketplace-listing
   - /apps/marketplace/managing-github-marketplace-listings/adding-webhooks-for-a-github-marketplace-listing
@@ -14,31 +14,37 @@ versions:
 topics:
   - Marketplace
 shortTitle: Webhooks for plan changes
+ms.openlocfilehash: 85ffaa8809860ff4b693075e416723717296f86c
+ms.sourcegitcommit: fcf3546b7cc208155fb8acdf68b81be28afc3d2d
+ms.translationtype: HT
+ms.contentlocale: pt-BR
+ms.lasthandoff: 09/10/2022
+ms.locfileid: '145083949'
 ---
-The {% data variables.product.prodname_marketplace %} event webhook can only be set up from your application's {% data variables.product.prodname_marketplace %} listing page. You can configure all other events from your [application's developer settings page](https://github.com/settings/developers). If you haven't created a {% data variables.product.prodname_marketplace %} listing, read "[Creating a draft {% data variables.product.prodname_marketplace %} listing](/marketplace/listing-on-github-marketplace/creating-a-draft-github-marketplace-listing/)" to learn how.
+O evento do webhook do {% data variables.product.prodname_marketplace %} só pode ser configurado a partir da página de listagem {% data variables.product.prodname_marketplace %} do seu aplicativo. Você pode configurar todos os outros eventos na [página de configurações do desenvolvedor do aplicativo](https://github.com/settings/developers). Se você não criou uma listagem do {% data variables.product.prodname_marketplace %}, leia "[Como criar um rascunho de listagem do {% data variables.product.prodname_marketplace %}](/marketplace/listing-on-github-marketplace/creating-a-draft-github-marketplace-listing/)" para saber como criar uma.
 
-## Creating a webhook
+## Criando um webhook
 
-To create a webhook for your {% data variables.product.prodname_marketplace %} listing, click **Webhook** in the left sidebar of your [{% data variables.product.prodname_marketplace %} listing page](https://github.com/marketplace/manage). You'll see the following webhook configuration options needed to configure your webhook:
+Para criar um webhook para sua listagem do {% data variables.product.prodname_marketplace %}, clique em **Webhook** na barra lateral esquerda da [página de listagem do {% data variables.product.prodname_marketplace %}](https://github.com/marketplace/manage). Você verá as seguintes opções de configuração de webhook necessárias para configurar seu webhook:
 
-### Payload URL
+### URL do conteúdo
 
 {% data reusables.webhooks.payload_url %}
 
-### Content type
+### Tipo de conteúdo
 
-{% data reusables.webhooks.content_type %} GitHub recommends using the `application/json` content type.
+{% data reusables.webhooks.content_type %} O GitHub recomenda usar o tipo de conteúdo `application/json`.
 
-### Secret
+### Segredo
 
 {% data reusables.webhooks.secret %}
 
-### Active
+### Ativo
 
-By default, webhook deliveries are "Active." You can choose to disable the delivery of webhook payloads during development by deselecting "Active." If you've disabled webhook deliveries, you will need to select "Active" before you submit your app for review.
+Por padrão, as entregas de webhook estão "Ativas". Você pode optar por desativar a entrega das cargas de webhook durante o desenvolvimento, desmarcando "Ativo". Se você desativou as entregas do webhook, será necessário selecionar "Ativo" antes de enviar seu aplicativo para revisão.
 
-## Viewing webhook deliveries
+## Visualizar entregas do webhook
 
-Once you've configured your {% data variables.product.prodname_marketplace %} webhook, you'll be able to inspect `POST` request payloads from the **Webhook** page of your application's [{% data variables.product.prodname_marketplace %} listing](https://github.com/marketplace/manage). GitHub doesn't resend failed delivery attempts. Ensure your app can receive all webhook payloads sent by GitHub.
+Depois de configurar o webhook do {% data variables.product.prodname_marketplace %}, você poderá inspecionar o conteúdo da solicitação `POST` na página **Webhook** da [listagem do {% data variables.product.prodname_marketplace %}](https://github.com/marketplace/manage) do aplicativo. O GitHub não reenvia tentativas de entrega com falha. Certifique-se de que seu aplicativo possa receber todas as cargas de webhook enviados pelo GitHub.
 
-![Inspect recent {% data variables.product.prodname_marketplace %} webhook deliveries](/assets/images/marketplace/marketplace_webhook_deliveries.png)
+![Inspecione as entregas recentes do webhook de {% data variables.product.prodname_marketplace %}](/assets/images/marketplace/marketplace_webhook_deliveries.png)

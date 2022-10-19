@@ -1,38 +1,36 @@
 ---
-title: Canceling a workflow
-intro: 'You can cancel a workflow run that is in progress. When you cancel a workflow run, {% data variables.product.prodname_dotcom %} cancels all jobs and steps that are a part of that workflow.'
+title: ワークフローをキャンセルする
+intro: '進行中のワークフロー実行をキャンセルできます。 ワークフロー実行をキャンセルすると、{% data variables.product.prodname_dotcom %} はそのワークフローの一部であるすべてのジョブとステップをキャンセルします。'
 versions:
   fpt: '*'
   ghes: '*'
   ghae: '*'
   ghec: '*'
+ms.openlocfilehash: f8bf0d06f5e0e37cb120b22a3bd6da39b51b78a9
+ms.sourcegitcommit: fb047f9450b41b24afc43d9512a5db2a2b750a2a
+ms.translationtype: HT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 09/10/2022
+ms.locfileid: '145088560'
 ---
-
-{% data reusables.actions.enterprise-beta %}
-{% data reusables.actions.enterprise-github-hosted-runners %}
+{% data reusables.actions.enterprise-beta %} {% data reusables.actions.enterprise-github-hosted-runners %}
 
 {% data reusables.repositories.permissions-statement-write %}
 
-## Canceling a workflow run
+## ワークフローの実行をキャンセルする
 
-{% data reusables.repositories.navigate-to-repo %}
-{% data reusables.repositories.actions-tab %}
-{% data reusables.repositories.navigate-to-workflow %}
-1. From the list of workflow runs, click the name of the `queued` or `in progress` run that you want to cancel.
-![Name of workflow run](/assets/images/help/repository/in-progress-run.png)
-1. In the upper-right corner of the workflow, click **Cancel workflow**.
-{% ifversion fpt or ghes > 3.0 or ghae or ghec %}
- ![Cancel check suite button](/assets/images/help/repository/cancel-check-suite-updated.png)
-{% else %}
- ![Cancel check suite button](/assets/images/help/repository/cancel-check-suite.png)
-{% endif %}
+{% data reusables.repositories.navigate-to-repo %} {% data reusables.repositories.actions-tab %} {% data reusables.repositories.navigate-to-workflow %}
+1. ワークフロー実行一覧から、キャンセルする `queued` または `in progress` 実行の名前をクリックします。
+![ワークフロー実行の名前](/assets/images/help/repository/in-progress-run.png)
+1. ワークフローの右上にある **[Cancel workflow]\(ワークフローのキャンセル\)** をクリックします。
+![チェック スイートのキャンセル ボタン](/assets/images/help/repository/cancel-check-suite-updated.png)
 
-## Steps {% data variables.product.prodname_dotcom %} takes to cancel a workflow run
+## ワークフロー実行をキャンセルするために {% data variables.product.prodname_dotcom %} が実行するステップ
 
-When canceling workflow run, you may be running other software that uses resources that are related to the workflow run. To help you free up resources related to the workflow run, it may help to understand the steps {% data variables.product.prodname_dotcom %} performs to cancel a workflow run.
+ワークフローの実行をキャンセルする場合、ワークフローの実行に関連するリソースを使用する他のソフトウェアを実行している可能性があります。 ワークフロー実行に関連するリソースを解放するため、{% data variables.product.prodname_dotcom %} がワークフロー実行をキャンセルする際のステップを知っておくと役立つ場合があります。
 
-1. To cancel the workflow run, the server re-evaluates `if` conditions for all currently running jobs. If the condition evaluates to `true`, the job will not get canceled. For example, the condition `if: always()` would evaluate to true and the job continues to run. When there is no condition, that is the equivalent of the condition `if: success()`, which only runs if the previous step finished successfully.
-2. For jobs that need to be canceled, the server sends a cancellation message to all the runner machines with jobs that need to be canceled.
-3. For jobs that continue to run, the server re-evaluates `if` conditions for the unfinished steps. If the condition evaluates to `true`, the step continues to run.
-4. For steps that need to be canceled, the runner machine sends `SIGINT/Ctrl-C` to the step's entry process (`node` for javascript action, `docker` for container action, and `bash/cmd/pwd` when using `run` in a step). If the process doesn't exit within 7500 ms, the runner will send `SIGTERM/Ctrl-Break` to the process, then wait for 2500 ms for the process to exit. If the process is still running, the runner kills the process tree.
-5. After the 5 minutes cancellation timeout period, the server will force terminate all jobs and steps that don't finish running or fail to complete the cancellation process.
+1. ワークフロー実行をキャンセルするために、サーバーは現在実行中のすべてのジョブに対して `if` 条件を再評価します。 条件が `true` に評価された場合、ジョブはキャンセルされません。 たとえば、`if: always()` は true に評価され、ジョブの実行は継続されます。 条件がない場合は条件 `if: success()` と同じなので、前のステップが正常に終了した場合にのみ実行されます。
+2. キャンセルする必要があるジョブについては、サーバーは、キャンセルする必要があるジョブを持つすべてのランナー マシンにキャンセル メッセージを送信します。
+3. 実行を継続するジョブの場合、サーバーは未完了のステップの `if` 条件を再評価します。 条件が `true` に評価された場合、ステップは引き続き実行されます。
+4. キャンセルする必要があるステップの場合、ランナー マシンはステップのエントリ プロセス (javascript アクションの場合は `node`、コンテナー アクションの場合は `docker`、ステップで `run` を使っている場合は `bash/cmd/pwd`) に `SIGINT/Ctrl-C` を送信します。 プロセスが 7500 ms 以内に終了しない場合、ランナーは `SIGTERM/Ctrl-Break` をプロセスに送信し、プロセスが終了するまで2500 ms 待ちます。 プロセスがそれでも実行中のままなら、ランナーはプロセスツリーを強制終了します。
+5. 5 分間のキャンセル タイムアウト期間が経過すると、サーバーは、実行を完了しないか、キャンセルプロセスを完了できなかったすべてのジョブとステップを強制的に終了します。

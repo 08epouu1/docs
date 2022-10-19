@@ -1,15 +1,15 @@
 ---
-title: Organizing members into teams
-intro: You can group organization members into teams that reflect your company or group's structure with cascading access permissions and mentions.
+title: Organizar miembros en un equipo
+intro: Puedes agrupar miembros de la organización en equipos que reflejen la estructura de tu empresa o grupo con menciones y permisos de acceso en cascada.
 redirect_from:
-  - /articles/setting-up-teams-improved-organization-permissions/
-  - /articles/setting-up-teams-for-accessing-organization-repositories/
-  - /articles/creating-teams/
-  - /articles/adding-people-to-teams-in-an-organization/
-  - /articles/removing-a-member-from-a-team-in-your-organization/
-  - /articles/setting-up-teams/
-  - /articles/maintaining-teams-improved-organization-permissions/
-  - /articles/maintaining-teams/
+  - /articles/setting-up-teams-improved-organization-permissions
+  - /articles/setting-up-teams-for-accessing-organization-repositories
+  - /articles/creating-teams
+  - /articles/adding-people-to-teams-in-an-organization
+  - /articles/removing-a-member-from-a-team-in-your-organization
+  - /articles/setting-up-teams
+  - /articles/maintaining-teams-improved-organization-permissions
+  - /articles/maintaining-teams
   - /articles/organizing-members-into-teams
   - /github/setting-up-and-managing-organizations-and-teams/organizing-members-into-teams
 versions:
@@ -38,5 +38,11 @@ children:
   - /managing-scheduled-reminders-for-your-team
   - /deleting-a-team
 shortTitle: Organize members into teams
+ms.openlocfilehash: 98bd34c41d1a57341ccd3c02636ae93dce180991
+ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
+ms.translationtype: HT
+ms.contentlocale: es-ES
+ms.lasthandoff: 09/05/2022
+ms.locfileid: '145126169'
 ---
 

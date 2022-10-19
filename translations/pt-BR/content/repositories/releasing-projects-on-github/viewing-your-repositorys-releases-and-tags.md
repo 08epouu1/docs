@@ -1,6 +1,6 @@
 ---
-title: Viewing your repository's releases and tags
-intro: You can view the chronological history of your repository by release name or tag version number.
+title: Visualizando versões e tags do seu repositório
+intro: Você pode visualizar o histórico cronológico do seu repositório pelo número da versão da versão ou da tag.
 redirect_from:
   - /articles/working-with-tags
   - /articles/viewing-your-repositorys-tags
@@ -15,28 +15,30 @@ versions:
 topics:
   - Repositories
 shortTitle: View releases & tags
+ms.openlocfilehash: c6cdad2626eb5b3260efd46a1d47dac499c73051
+ms.sourcegitcommit: fb047f9450b41b24afc43d9512a5db2a2b750a2a
+ms.translationtype: HT
+ms.contentlocale: pt-BR
+ms.lasthandoff: 09/11/2022
+ms.locfileid: '145127001'
 ---
-{% ifversion fpt or ghae or ghes or ghec %}
 {% tip %}
 
-**Tip**: You can also view a release using the {% data variables.product.prodname_cli %}. For more information, see "[`gh release view`](https://cli.github.com/manual/gh_release_view)" in the {% data variables.product.prodname_cli %} documentation.
+**Dica**: você também pode ver uma versão usando a {% data variables.product.prodname_cli %}. Para obter mais informações, confira "[`gh release view`](https://cli.github.com/manual/gh_release_view)" na documentação da {% data variables.product.prodname_cli %}.
 
 {% endtip %}
-{% endif %}
 
-## Viewing releases
+## Visualizar versões
 
-{% data reusables.repositories.navigate-to-repo %}
-{% data reusables.repositories.releases %}
-2. At the top of the Releases page, click **Releases**.
+{% data reusables.repositories.navigate-to-repo %} {% data reusables.repositories.releases %}
+2. Na parte superior da página Versões, clique em **Versões**.
 
-## Viewing tags
+## Visualizar tags
 
-{% data reusables.repositories.navigate-to-repo %}
-{% data reusables.repositories.releases %}
-2. At the top of the Releases page, click **Tags**.
-![Tags page](/assets/images/help/releases/tags-list.png)
+{% data reusables.repositories.navigate-to-repo %} {% data reusables.repositories.releases %}
+2. Na parte superior da página Versões, clique em **Tags**.
+![Página Marcas](/assets/images/help/releases/tags-list.png)
 
-## Further reading
+## Leitura adicional
 
-- "[Signing tags](/articles/signing-tags)"
+- "[Como assinar tags](/articles/signing-tags)"

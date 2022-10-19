@@ -1,6 +1,6 @@
 ---
-title: Creating a GitHub App from a manifest
-intro: 'A GitHub App Manifest is a preconfigured GitHub App you can share with anyone who wants to use your app in their personal repositories. The manifest flow allows someone to quickly create, install, and start extending a GitHub App without needing to register the app or connect the registration to the hosted app code.'
+title: マニフェストから GitHub App を作成する
+intro: GitHub App Manifest は、アプリケーションを個人のリポジトリで使いたい人と共有できる、構成済みの GitHub App です。 マニフェストフローにより、ユーザはアプリケーションを登録したり、ホストされたアプリケーションコードに登録を接続したりすることなく、GitHub App の拡張を素早く作成、インストール、開始できるようになります。
 redirect_from:
   - /apps/building-github-apps/creating-github-apps-from-a-manifest
   - /developers/apps/creating-a-github-app-from-a-manifest
@@ -12,78 +12,83 @@ versions:
 topics:
   - GitHub Apps
 shortTitle: App creation manifest flow
+ms.openlocfilehash: 8dd917a5b08605b995a7ecf8321b5cd61c50a681
+ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
+ms.translationtype: HT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 09/05/2022
+ms.locfileid: '145117262'
 ---
-## About GitHub App Manifests
+## GitHub App Manifest について
 
-When someone creates a GitHub App from a manifest, they only need to follow a URL and name the app. The manifest includes the permissions, events, and webhook URL needed to automatically register the app. The manifest flow creates the GitHub App registration and retrieves the app's webhook secret, private key (PEM file), and GitHub App ID. The person who creates the app from the manifest will own the app and can choose to [edit the app's configuration settings](/apps/managing-github-apps/modifying-a-github-app/), delete it, or transfer it to another person on GitHub.
+GitHub App をマニフェストから作成する場合、URL とアプリケーションの名前をフォローするだけで済みます。 マニフェストには、アプリケーションを自動的に登録するために必要な権限、イベント、webhook URL が含まれています。 マニフェストフローは、GitHub App の登録を作成し、アプリケーションの webhook シークレット、秘密鍵 (PEM ファイル)、および GitHub App ID を取得します。 マニフェストからアプリケーションを作成したユーザーはそのアプリを所有し、[アプリの構成設定を編集したり](/apps/managing-github-apps/modifying-a-github-app/)、削除したり、GitHub 上の別のユーザーに移譲したりできます。
 
-You can use [Probot](https://probot.github.io/) to get started with GitHub App Manifests or see an example implementation. See "[Using Probot to implement the GitHub App Manifest flow](#using-probot-to-implement-the-github-app-manifest-flow)" to learn more.
+[Probot](https://probot.github.io/) を使用して、GitHub App Manifest の作業を開始したり、実装例を確認したりできます。 詳細については、「[Probot を使用して GitHub App Manifest フローを実装する](#using-probot-to-implement-the-github-app-manifest-flow)」を参照してください。
 
-Here are some scenarios where you might use GitHub App Manifests to create preconfigured apps:
+GitHub App Manifest を使用して構成済みのアプリケーションを作成するシナリオをいくつか挙げます。
 
-* Help new team members come up-to-speed quickly when developing GitHub Apps.
-* Allow others to extend a GitHub App using the GitHub APIs without requiring them to configure an app.
-* Create GitHub App reference designs to share with the GitHub community.
-* Ensure you deploy GitHub Apps to development and production environments using the same configuration.
-* Track revisions to a GitHub App configuration.
+* GitHub App を開発時に、新しい Team メンバーが迅速に取りかかれるようにする。
+* 他のユーザーがアプリケーションを構成する必要なく、GitHub API を使用して GitHub App を拡張できるようにする。
+* GitHub コミュニティに共有するため、GitHub App リファレンスデザインを作成する。
+* 開発環境と本番環境で確実に同じ構成を使用して GitHub App をデプロイする。
+* GitHub App の構成のリビジョンを追跡する。
 
-## Implementing the GitHub App Manifest flow
+## GitHub App Manifest フローを実装する
 
-The GitHub App Manifest flow uses a handshaking process similar to the [OAuth flow](/apps/building-oauth-apps/authorizing-oauth-apps/). The flow uses a manifest to [register a GitHub App](/apps/building-github-apps/creating-a-github-app/) and receives a temporary `code` used to retrieve the app's private key, webhook secret, and ID.
+GitHub App Manifest フローでは、[OAuth フロー](/apps/building-oauth-apps/authorizing-oauth-apps/)に似たハンドシェイク プロセスが使用されます。 このフローでは、マニフェストを使用して [GitHub アプリを登録](/apps/building-github-apps/creating-a-github-app/)し、アプリの秘密キー、Webhook シークレット、ID の取得に使用される一時的な `code` を受け取ります。
 
 {% note %}
 
-**Note:** You must complete all three steps in the GitHub App Manifest flow within one hour.
+**注:** GitHub App Manifest フローの 3 つのステップすべてを 1 時間以内に完了する必要があります。
 
 {% endnote %}
 
-Follow these steps to implement the GitHub App Manifest flow:
+GitHub App Manifest フローを実装するには、以下の 3 つのステップに従います。
 
-1. You redirect people to GitHub to create a new GitHub App.
-1. GitHub redirects people back to your site.
-1. You exchange the temporary code to retrieve the app configuration.
+1. GitHub にユーザをリダイレクトして新しい GitHub App を作成する。
+1. GitHub がユーザをリダイレクトしてサイトに戻す。
+1. 一時コードをやり取りして、アプリケーションの構成を取得する。
 
-### 1. You redirect people to GitHub to create a new GitHub App
+### 1. GitHub にユーザーをリダイレクトして新しい GitHub アプリを作成する
 
-To redirect people to create a new GitHub App, [provide a link](#examples) for them to click that sends a `POST` request to `https://github.com/settings/apps/new` for a user account or `https://github.com/organizations/ORGANIZATION/settings/apps/new` for an organization account, replacing `ORGANIZATION` with the name of the organization account where the app will be created.
+ユーザーをリダイレクトして新しい GitHub アプリを作成するには、クリックすると個人アカウントの場合は `https://github.com/settings/apps/new` に、組織アカウントの場合は `https://github.com/organizations/ORGANIZATION/settings/apps/new` に対して `POST` 要求を送信する[リンクを提供](#examples)します。`ORGANIZATION` は、アプリを作成する組織アカウントの名前に置き換えます。
 
-You must include the [GitHub App Manifest parameters](#github-app-manifest-parameters) as a JSON-encoded string in a parameter called `manifest`. You can also include a `state` [parameter](#parameters) for additional security.
+[GitHub App Manifest パラメーター](#github-app-manifest-parameters)を、JSON でエンコードされた文字列として `manifest` というパラメーターに含める必要があります。 また、セキュリティを強化するために `state` [パラメーター](#parameters)を含めることもできます。
 
-The person creating the app will be redirected to a GitHub page with an input field where they can edit the name of the app you included in the `manifest` parameter. If you do not include a `name` in the `manifest`, they can set their own name for the app in this field.
+アプリを作成するユーザーは GitHub ページにリダイレクトされます。そのページには、`manifest` パラメーターに含めたアプリの名前をユーザーが編集できる入力フィールドがあります。 `manifest` に `name` を含めない場合は、ユーザーがこのフィールドでアプリの独自の名前を設定できます。
 
-![Create a GitHub App Manifest](/assets/images/github-apps/create-github-app-manifest.png)
+![GitHub App Manifest の作成](/assets/images/github-apps/create-github-app-manifest.png)
 
-#### GitHub App Manifest parameters
+#### GitHub App Manifest のパラメータ
 
- Name | Type | Description
+ 名前 | 型 | 説明
 -----|------|-------------
-`name` | `string` | The name of the GitHub App.
-`url` | `string` | **Required.** The homepage of your GitHub App.
-`hook_attributes` | `object` | The configuration of the GitHub App's webhook.
-`redirect_url` | `string` | The full URL to redirect to after a user initiates the creation of a GitHub App from a manifest.{% ifversion fpt or ghae or ghes > 3.0 or ghec %}
-`callback_urls` | `array of strings` | A full URL to redirect to after someone authorizes an installation. You can provide up to 10 callback URLs.{% else %}
-`callback_url` | `string` |  A full URL to redirect to after someone authorizes an installation.{% endif %}
-`description` | `string` | A description of the GitHub App.
-`public` | `boolean` | Set to `true` when your GitHub App is available to the public or `false` when it is only accessible to the owner of the app.
-`default_events` | `array` | The list of [events](/webhooks/event-payloads) the GitHub App subscribes to.
-`default_permissions` | `object` | The set of [permissions](/rest/reference/permissions-required-for-github-apps) needed by the GitHub App. The format of the object uses the permission name for the key (for example, `issues`) and the access type for the value (for example, `write`).
+`name` | `string` | GitHub App の名前。
+`url` | `string` | **必須。** GitHub アプリのホームページ。
+`hook_attributes` | `object` | GitHub App の webhook の構成。
+`redirect_url` | `string` | ユーザーがマニフェストから GitHub アプリの作成を開始した後にリダイレクトする完全な URL。
+`callback_urls` | `array of strings` | インストールの承認後にリダイレクトする完全な URL。 最大 10 個のコールバック URL を指定できます。
+`description` | `string` | GitHub App の説明。
+`public` | `boolean` | GitHub アプリを公開する場合は `true` に設定し、アプリの所有者のみがアクセスできるようにするには `false` に設定します。
+`default_events` | `array` | GitHub アプリがサブスクライブする[イベント](/webhooks/event-payloads)のリスト。
+`default_permissions` | `object` | GitHub アプリに必要な[アクセス許可](/rest/reference/permissions-required-for-github-apps)のセット。 このオブジェクトの形式は、キーとしてアクセス許可の名前 (たとえば `issues`) を、値としてアクセスの種類 (たとえば `write`) を使います。
 
-The `hook_attributes` object has the following key:
+`hook_attributes` オブジェクトには、次のキーがあります。
 
-Name | Type | Description
+名前 | 型 | 説明
 -----|------|-------------
-`url` | `string` | **Required.** The URL of the server that will receive the webhook `POST` requests.
-`active` | `boolean` | Deliver event details when this hook is triggered, defaults to true.
+`url` | `string` | **必須。** Webhook の `POST` 要求を受け取るサーバーの URL。
+`active` | `boolean` | フックがトリガーされた時に、イベントの内容が配信される (デフォルトはtrue)。
 
-#### Parameters
+#### パラメーター
 
- Name | Type | Description
+ 名前 | 型 | 説明
 -----|------|-------------
 `state`| `string` | {% data reusables.apps.state_description %}
 
-#### Examples
+#### 例
 
-This example uses a form on a web page with a button that triggers the `POST` request for a user account:
+次の例では、個人アカウントに対して `POST` 要求をトリガーするボタンがある Web ページ上のフォームを使用します。
 
 ```html
 <form action="https://github.com/settings/apps/new?state=abc123" method="post">
@@ -100,9 +105,9 @@ This example uses a form on a web page with a button that triggers the `POST` re
      "url": "https://example.com/github/events",
    },
    "redirect_url": "https://example.com/redirect",
-   {% ifversion fpt or ghae or ghes > 3.0 or ghec %}"callback_urls": [
+   "callback_urls": [
      "https://example.com/callback"
-   ],{% else %}"callback_url": "https://example.com/callback",{% endif %}
+   ],
    "public": true,
    "default_permissions": {
      "issues": "write",
@@ -118,7 +123,7 @@ This example uses a form on a web page with a button that triggers the `POST` re
 </script>
 ```
 
-This example uses a form on a web page with a button that triggers the `POST` request for an organization account. Replace `ORGANIZATION` with the name of the organization account where you want to create the app.
+次の例では、組織アカウントに対して `POST` 要求をトリガーするボタンがある Web ページ上のフォームを使用します。 `ORGANIZATION` は、アプリを作成したい組織アカウントの名前に置き換えてください。
 
 ```html
 <form action="https://github.com/organizations/ORGANIZATION/settings/apps/new?state=abc123" method="post">
@@ -135,9 +140,9 @@ This example uses a form on a web page with a button that triggers the `POST` re
      "url": "https://example.com/github/events",
    },
    "redirect_url": "https://example.com/redirect",
-   {% ifversion fpt or ghae or ghes > 3.0 or ghec %}"callback_urls": [
+   "callback_urls": [
      "https://example.com/callback"
-   ],{% else %}"callback_url": "https://example.com/callback",{% endif %}
+   ],
    "public": true,
    "default_permissions": {
      "issues": "write",
@@ -153,49 +158,49 @@ This example uses a form on a web page with a button that triggers the `POST` re
 </script>
 ```
 
-### 2. GitHub redirects people back to your site
+### 2. GitHub によってユーザーがサイトにリダイレクトされる
 
-When the person clicks **Create GitHub App**, GitHub redirects back to the `redirect_url` with a temporary `code` in a code parameter. For example:
+ユーザーが **[GitHub アプリの作成]** をクリックすると、GitHub によって、コード パラメーターに一時的な `code` を含む `redirect_url` にリダイレクトされます。 たとえば次のような点です。
 
     https://example.com/redirect?code=a180b1a3d263c81bc6441d7b990bae27d4c10679
 
-If you provided a `state` parameter, you will also see that parameter in the `redirect_url`. For example:
+`state` パラメーターを指定した場合は、そのパラメーターも `redirect_url` に表示されます。 たとえば次のような点です。
 
     https://example.com/redirect?code=a180b1a3d263c81bc6441d7b990bae27d4c10679&state=abc123
 
-### 3. You exchange the temporary code to retrieve the app configuration
+### 3. 一時的なコードを交換してアプリの構成を取得する
 
-To complete the handshake, send the temporary `code` in a `POST` request to the [Create a GitHub App from a manifest](/rest/reference/apps#create-a-github-app-from-a-manifest) endpoint. The response will include the `id` (GitHub App ID), `pem` (private key), and `webhook_secret`. GitHub creates a webhook secret for the app automatically. You can store these values in environment variables on the app's server. For example, if your app uses [dotenv](https://github.com/bkeepers/dotenv) to store environment variables, you would store the variables in your app's `.env` file.
+ハンドシェイクを完了するには、「[マニフェストから GitHub アプリを作成する](/rest/reference/apps#create-a-github-app-from-a-manifest)」のエンドポイントに対して `POST` 要求で一時的な `code` を送信します。 その応答には、`id` (GitHub アプリ ID)、`pem` (秘密キー)、`webhook_secret` が含まれます。 GitHub はアプリケーションに対する webhook シークレットを自動的に作成します。 これらの値は、アプリケーションのサーバーの環境変数に格納できます。 たとえば、アプリで [dotenv](https://github.com/bkeepers/dotenv) を使用して環境変数を格納する場合は、アプリの `.env` ファイルに変数を格納します。
 
-You must complete this step of the GitHub App Manifest flow within one hour.
+GitHub App Manifest フローのこのステップを、1 時間以内に完了する必要があります。
 
 {% note %}
 
-**Note:** This endpoint is rate limited. See [Rate limits](/rest/reference/rate-limit) to learn how to get your current rate limit status.
+**注:** このエンドポイントはレート制限されています。 現在のレート制限状態を確認する方法については、「[レート制限](/rest/reference/rate-limit)」を参照してください。
 
 {% endnote %}
 
     POST /app-manifests/{code}/conversions
 
-For more information about the endpoint's response, see [Create a GitHub App from a manifest](/rest/reference/apps#create-a-github-app-from-a-manifest).
+エンドポイントの応答について詳しくは、「[マニフェストから GitHub アプリを作成する](/rest/reference/apps#create-a-github-app-from-a-manifest)」を参照してください。
 
-When the final step in the manifest flow is completed, the person creating the app from the flow will be an owner of a registered GitHub App that they can install on any of their personal repositories. They can choose to extend the app using the GitHub APIs, transfer ownership to someone else, or delete it at any time.
+マニフェストフローの最後のステップをフローからアプリケーションを作成するユーザは、登録した GitHub App の所有者となり、そのユーザの任意の個人用リポジトリにその GitHub App をインストールできます。 所有者は、GitHub API を使用してアプリケーションを拡張したり、所有権を他のユーザに移譲したり、任意の時に削除したりできます。
 
-## Using Probot to implement the GitHub App Manifest flow
+## Probot を使用してGitHub App Manifest フローを実装する
 
-[Probot](https://probot.github.io/) is a framework built with [Node.js](https://nodejs.org/) that performs many of the tasks needed by all GitHub Apps, like validating webhooks and performing authentication. Probot implements the [GitHub App manifest flow](#implementing-the-github-app-manifest-flow), making it easy to create and share GitHub App reference designs with the GitHub community.
+[Probot](https://probot.github.io/) は [Node.js](https://nodejs.org/) で構築されたフレームワークです。Webhook の検証や認証の実行など、すべての GitHub アプリで必要になるタスクの多くを実行できます。 Probot によって [GitHub App Manifest フロー](#implementing-the-github-app-manifest-flow)が実装され、簡単に GitHub アプリのリファレンス デザインを作成し、GitHub コミュニティと共有できます。
 
-To create a Probot App that you can share, follow these steps:
+共有する Probot App を作成するには、次の手順に従います。
 
-1. [Generate a new GitHub App](https://probot.github.io/docs/development/#generating-a-new-app).
-1. Open the project you created, and customize the settings in the `app.yml` file. Probot uses the settings in `app.yml` as the [GitHub App Manifest parameters](#github-app-manifest-parameters).
-1. Add your application's custom code.
-1. [Run the GitHub App locally](https://probot.github.io/docs/development/#running-the-app-locally) or [host it anywhere you'd like](#hosting-your-app-with-glitch). When you navigate to the hosted app's URL, you'll find a web page with a **Register GitHub App** button that people can click to create a preconfigured app. The web page below is Probot's implementation of [step 1](#1-you-redirect-people-to-github-to-create-a-new-github-app) in the GitHub App Manifest flow:
+1. [新しい GitHub アプリを生成します](https://probot.github.io/docs/development/#generating-a-new-app)。
+1. 作成したプロジェクトを開き、`app.yml` ファイルの設定をカスタマイズします。 Probot では、`app.yml` の設定が [GitHub App Manifest パラメーター](#github-app-manifest-parameters)として使用されます。
+1. アプリケーションのカスタムコードを追加します。
+1. [GitHub アプリをローカルで実行する](https://probot.github.io/docs/development/#running-the-app-locally)か、[任意の場所でホストします](#hosting-your-app-with-glitch)。 ホストされたアプリの URL に移動すると、 **[GitHub App を登録]** ボタンがある Web ページが表示され、これをクリックすると構成済みのアプリを作成できます。 以下の Web ページは、Probot による GitHub App Manifest フローの[ステップ 1](#1-you-redirect-people-to-github-to-create-a-new-github-app) の実装です。
 
-![Register a Probot GitHub App](/assets/images/github-apps/github_apps_probot-registration.png)
+![Probot GitHub App の登録](/assets/images/github-apps/github_apps_probot-registration.png)
 
-Using [dotenv](https://github.com/bkeepers/dotenv), Probot creates a `.env` file and sets the `APP_ID`, `PRIVATE_KEY`, and `WEBHOOK_SECRET` environment variables with the values [retrieved from the app configuration](#3-you-exchange-the-temporary-code-to-retrieve-the-app-configuration).
+Probot では、[dotenv](https://github.com/bkeepers/dotenv) を使用して、`.env` ファイルを作成し、`APP_ID`、`PRIVATE_KEY`、`WEBHOOK_SECRET` 環境変数を[アプリ構成から取得した](#3-you-exchange-the-temporary-code-to-retrieve-the-app-configuration)値を使用して設定します。
 
-### Hosting your app with Glitch
+### Glitch でアプリケーションをホストする
 
-You can see an [example Probot app](https://glitch.com/~auspicious-aardwolf) that uses [Glitch](https://glitch.com/) to host and share the app. The example uses the [Checks API](/rest/reference/checks) and selects the necessary Checks API events and permissions in the `app.yml` file. Glitch is a tool that allows you to "Remix your own" apps. Remixing an app creates a copy of the app that Glitch hosts and deploys. See "[About Glitch](https://glitch.com/about/)" to learn about remixing Glitch apps.
+アプリをホストおよび共有するために [Glitch](https://glitch.com/) を使用した [Probot アプリの例](https://glitch.com/~auspicious-aardwolf)を確認できます。 この例では、[Checks API](/rest/reference/checks) を使用し、`app.yml` ファイルで必要な Checks API イベントとアクセス許可を選択します。 Glitch は、既存のアプリケーションを流用して独自のアプリケーションを作成 (リミックス) できるツールです。 アプリケーションをリミックスすると、アプリケーションのコピーが作成され、Glitch はそれをホストしてデプロイします。 Glitch アプリのリミックスについては、[Glitch の概要](https://glitch.com/about/)に関するページを参照してください。

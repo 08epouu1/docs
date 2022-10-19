@@ -1,6 +1,6 @@
 ---
-title: Pushing commits to a remote repository
-intro: Use `git push` to push commits made on your local branch to a remote repository.
+title: Fazer push de commits para um repositório remote
+intro: Use `git push` para fazer push de commits de seu branch local para um repositório remoto.
 redirect_from:
   - /articles/pushing-to-a-remote
   - /articles/pushing-commits-to-a-remote-repository
@@ -13,86 +13,81 @@ versions:
   ghae: '*'
   ghec: '*'
 shortTitle: Push commits to a remote
+ms.openlocfilehash: 61a3eb3e0b0147810b561b59b58879688dd4ba36
+ms.sourcegitcommit: fcf3546b7cc208155fb8acdf68b81be28afc3d2d
+ms.translationtype: HT
+ms.contentlocale: pt-BR
+ms.lasthandoff: 09/10/2022
+ms.locfileid: '145097285'
 ---
-## About `git push`
-The `git push` command takes two arguments:
+## Sobre o `git push`
+O comando `git push` usa dois argumentos:
 
-* A remote name, for example, `origin`
-* A branch name, for example, `main`
+* Um nome de repositório remoto, por exemplo, `origin`
+* Um nome de branch, por exemplo, `main`
 
-For example:
+Por exemplo:
 
 ```shell
 git push <em> &lt;REMOTENAME> &lt;BRANCHNAME> </em>
 ```
 
-As an example, you usually run `git push origin main` to push your local changes
-to your online repository.
+Por exemplo, em geral, `git push origin main` é executado para efetuar push das alterações locais para o repositório online.
 
-## Renaming branches
+## Renomear branches
 
-To rename a branch, you'd use the same `git push` command, but you would add
-one more argument: the name of the new branch. For example:
+Para renomear um branch, use o mesmo comando `git push`, mas adicione mais um argumento: o nome do novo branch. Por exemplo:
 
 ```shell
 git push <em> &lt;REMOTENAME> &lt;LOCALBRANCHNAME></em>:<em>&lt;REMOTEBRANCHNAME> </em>
 ```
 
-This pushes the `LOCALBRANCHNAME` to your `REMOTENAME`, but it is renamed to `REMOTEBRANCHNAME`.
+Isso efetua push do `LOCALBRANCHNAME` para o `REMOTENAME`, mas ele é renomeado como `REMOTEBRANCHNAME`.
 
-## Dealing with "non-fast-forward" errors
+## Lidar com erros "non-fast-forward"
 
-If your local copy of a repository is out of sync with, or "behind," the upstream
-repository you're pushing to, you'll get a message saying `non-fast-forward updates were rejected`.
-This means that you must retrieve, or "fetch," the upstream changes, before
-you are able to push your local changes.
+Se a cópia local de um repositório estiver fora de sincronia ou "atrasado" em relação ao repositório upstream do qual você está efetuando push, você receberá a mensagem `non-fast-forward updates were rejected`.
+Isso significa que você precisa recuperar ou "buscar" as alterações upstream antes de conseguir efetuar push das alterações locais.
 
-For more information on this error, see "[Dealing with non-fast-forward errors](/github/getting-started-with-github/dealing-with-non-fast-forward-errors)."
+Para obter mais informações sobre esse erro, confira "[Como tratar erros que não são de avanço rápido](/github/getting-started-with-github/dealing-with-non-fast-forward-errors)".
 
-## Pushing tags
+## Fazer push de tags
 
-By default, and without additional parameters, `git push` sends all matching branches
-that have the same names as remote branches.
+Por padrão, e sem parâmetros adicionais, `git push` envia todos os branches correspondentes que têm os mesmos nomes dos branches remotos.
 
-To push a single tag, you can issue the same command as pushing a branch:
+Para fazer push de uma única tag, você pode usar o mesmo comando usado para fazer push de um branch:
 
 ```shell
 git push <em> &lt;REMOTENAME> &lt;TAGNAME> </em>
 ```
 
-To push all your tags, you can type the command:
+Para fazer push de todas as suas tags, digite o comando:
 
 ```shell
 git push <em> &lt;REMOTENAME></em> --tags
 ```
 
-## Deleting a remote branch or tag
+## Excluir uma tag ou branch remote
 
-The syntax to delete a branch is a bit arcane at first glance:
+À primeira vista, a sintaxe para excluir um branch é um pouco enigmática:
 
 ```shell
 git push <em> &lt;REMOTENAME></em> :<em>&lt;BRANCHNAME> </em>
 ```
 
-Note that there is a space before the colon. The command resembles the same steps
-you'd take to rename a branch. However, here, you're telling Git to push _nothing_
-into `BRANCHNAME` on `REMOTENAME`. Because of this, `git push` deletes the branch
-on the remote repository.
+Observe que há um espaço antes dos dois pontos. O comando se parece com as mesmas etapas que você usará para renomear um branch. No entanto, aqui, você está informando o Git para não efetuar push de _nada_ para `BRANCHNAME` no `REMOTENAME`. Por isso, `git push` exclui o branch do repositório remoto.
 
-## Remotes and forks
+## Remotes e bifurcações
 
-You might already know that [you can "fork" repositories](https://guides.github.com/overviews/forking/) on GitHub.
+Talvez você já saiba que [pode "criar forks" de repositórios](https://guides.github.com/overviews/forking/) no GitHub.
 
-When you clone a repository you own, you provide it with a remote URL that tells
-Git where to fetch and push updates. If you want to collaborate with the original
-repository, you'd add a new remote URL, typically called `upstream`, to
-your local Git clone:
+Ao clonar um repositório de sua propriedade, você fornece uma URL remota que informa ao Git o local em que ele deve efetuar fetch e push das atualizações. Caso deseje colaborar com o repositório original, adicione uma nova URL remota, normalmente chamada `upstream`, ao clone do Git local:
 
 ```shell
 git remote add upstream <em> &lt;THEIR_REMOTE_URL> </em>
 ```
 
-Now, you can fetch updates and branches from *their* fork:
+Agora, você pode buscar as atualizações e os branches do fork *deles*:
 
 ```shell
 git fetch upstream
@@ -105,15 +100,14 @@ git fetch upstream
 >  * [new branch]      main     -> upstream/main
 ```
 
-When you're done making local changes, you can push your local branch to GitHub
-and [initiate a pull request](/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests).
+Quando terminar de fazer alterações locais, efetue push do branch local para o GitHub e [inicie uma solicitação de pull](/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests).
 
-For more information on working with forks, see "[Syncing a fork](/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork)".
+Para obter mais informações sobre como trabalhar com forks, confira "[Como sincronizar um fork](/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork)".
 
-## Further reading
+## Leitura adicional
 
-- [The "Remotes" chapter from the "Pro Git" book](https://git-scm.com/book/ch5-2.html)
-- [`git remote` main page](https://git-scm.com/docs/git-remote.html)
-- "[Git cheatsheet](/articles/git-cheatsheet)"
-- "[Git workflows](/github/getting-started-with-github/git-workflows)"
-- "[Git Handbook](https://guides.github.com/introduction/git-handbook/)"
+- [Capítulo "Repositórios remotos" do livro "Pro Git"](https://git-scm.com/book/ch5-2.html)
+- [Página principal de `git remote`](https://git-scm.com/docs/git-remote.html)
+- "[Folha de referências do Git](/articles/git-cheatsheet)"
+- "[Fluxos de trabalho do Git](/github/getting-started-with-github/git-workflows)"
+- "[Manual do Git](https://guides.github.com/introduction/git-handbook/)"

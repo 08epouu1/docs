@@ -1,6 +1,6 @@
 ---
-title: Auditing users across your enterprise
-intro: 'The audit log dashboard shows site administrators the actions performed by all users and organizations across your enterprise within the current month and previous six months. The audit log includes details such as who performed the action, what the action was, and when the action was performed.'
+title: 审核整个企业的用户
+intro: 审核日志仪表板向站点管理员显示企业中所有用户和组织在当前月份和前六个月内执行的操作。 审核日志包含操作执行人、操作内容和执行时间等详细信息。
 redirect_from:
   - /enterprise/admin/guides/user-management/auditing-users-across-an-organization
   - /enterprise/admin/user-management/auditing-users-across-your-instance
@@ -17,103 +17,107 @@ topics:
   - Security
   - User account
 shortTitle: Audit users
+ms.openlocfilehash: 18ea00b69f452ff496670fbd31e41bb8038cc46d
+ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
+ms.translationtype: HT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 09/05/2022
+ms.locfileid: '146331686'
 ---
-## Accessing the audit log
+## 访问审核日志
 
-The audit log dashboard gives you a visual display of audit data across your enterprise.
+审核日志仪表板让您能够直观地看到企业中的审计数据。
 
-![Instance wide audit log dashboard](/assets/images/enterprise/site-admin-settings/audit-log-dashboard-admin-center.png)
+![实例级审核日志仪表板](/assets/images/enterprise/site-admin-settings/audit-log-dashboard-admin-center.png)
 
-{% data reusables.enterprise-accounts.access-enterprise %}
-{% data reusables.enterprise-accounts.settings-tab %}
-{% data reusables.enterprise-accounts.audit-log-tab %}
+{% data reusables.enterprise-accounts.access-enterprise %} {% data reusables.enterprise-accounts.settings-tab %} {% data reusables.enterprise-accounts.audit-log-tab %}
 
-Within the map, you can pan and zoom to see events around the world. Hover over a country to see a quick count of events from that country.
+在地图中，您可以平移和缩放来查看世界范围内的事件。 将鼠标悬停在国家/地区上，可以看到该国家/地区内事件的快速盘点。
 
-## Searching for events across your enterprise
+## 在企业中搜索事件
 
-The audit log lists the following information about actions made within your enterprise:
+审核日志列出了有关企业内所执行操作的以下信息：
 
-* [The repository](#search-based-on-the-repository) an action was performed in
-* [The user](#search-based-on-the-user) who performed the action
-* [Which organization](#search-based-on-the-organization) an action pertained to
-* [The action](#search-based-on-the-action-performed) that was performed
-* [Which country](#search-based-on-the-location) the action took place in
-* [The date and time](#search-based-on-the-time-of-action) the action occurred
+* 执行操作的[存储库](#search-based-on-the-repository)
+* 执行操作的[用户](#search-based-on-the-user)
+* 操作所属的[组织](#search-based-on-the-organization)
+* 执行的[操作内容](#search-based-on-the-action-performed)
+* 发生操作的[国家/地区](#search-based-on-the-location)
+* 发生操作的[日期和时间](#search-based-on-the-time-of-action)
 
 {% warning %}
 
-**Notes:**
+**注意：**
 
-- While you can't use text to search for audit entries, you can construct search queries using a variety of filters. {% data variables.product.product_name %} supports many operators for searching across {% data variables.product.product_name %}. For more information, see "[About searching on {% data variables.product.prodname_dotcom %}](/github/searching-for-information-on-github/about-searching-on-github)."
-- Audit records are available for the current month and every day of the previous six months.
+- 您无法使用文本搜索审核条目，但您可以使用多个筛选器构建搜索查询。 {% data variables.product.product_name %} 支持在 {% data variables.product.product_name %} 中使用多种运算符进行搜索。 有关详细信息，请参阅“[关于在 {% data variables.product.prodname_dotcom %} 中搜索](/github/searching-for-information-on-github/about-searching-on-github)”。
+- 提供当月和前六个月每天的审核记录。
 
 {% endwarning %}
 
-### Search based on the repository
+### 基于仓库搜索
 
-The `repo` qualifier limits actions to a specific repository owned by your organization. For example:
+`repo` 限定符可将操作限制为你的组织拥有的特定存储库。 例如：
 
-* `repo:my-org/our-repo` finds all events that occurred for the `our-repo` repository in the `my-org` organization.
-* `repo:my-org/our-repo repo:my-org/another-repo` finds all events that occurred for both the `our-repo` and `another-repo` repositories in the `my-org` organization.
-* `-repo:my-org/not-this-repo` excludes all events that occurred for the `not-this-repo` repository in the `my-org` organization.
+* `repo:my-org/our-repo` 查找 `my-org` 组织中 `our-repo` 存储库发生的所有事件。
+* `repo:my-org/our-repo repo:my-org/another-repo` 查找 `my-org` 组织中 `our-repo` 和 `another-repo` 存储库发生的所有事件。
+* `-repo:my-org/not-this-repo` 排除 `my-org` 组织中 `not-this-repo` 存储库发生的所有事件。
 
-You must include your organization's name within the `repo` qualifier; searching for just `repo:our-repo` will not work.
+必须在 `repo` 限定符中包含组织名称；仅搜索 `repo:our-repo` 将不起作用。
 
-### Search based on the user
+### 基于用户搜索
 
-The `actor` qualifier scopes events based on the member of your organization that performed the action. For example:
+`actor` 限定符可将事件限定为执行操作的组织成员。 例如：
 
-* `actor:octocat` finds all events performed by `octocat`.
-* `actor:octocat actor:hubot` finds all events performed by both `octocat` and `hubot`.
-* `-actor:hubot` excludes all events performed by `hubot`.
+* `actor:octocat` 查找 `octocat` 执行的所有事件。
+* `actor:octocat actor:hubot` 查找 `octocat` 和 `hubot` 执行的所有事件。
+* `-actor:hubot` 排除 `hubot` 执行的所有事件。
 
-You can only use a {% data variables.product.product_name %} username, not an individual's real name.
+只能使用 {% data variables.product.product_name %} 用户名，而不是个人的真实姓名。
 
-### Search based on the organization
+### 基于组织搜索
 
-The `org` qualifier limits actions to a specific organization. For example:
+`org` 限定符可将操作限制为特定组织。 例如：
 
-* `org:my-org` finds all events that occurred for the `my-org` organization.
-* `org:my-org action:team` finds all team events performed within the `my-org` organization.
-* `-org:my-org` excludes all events that occurred for the `my-org` organization.
+* `org:my-org` 查找针对 `my-org` 组织发生的所有事件。
+* `org:my-org action:team` 查找 `my-org` 组织内执行的所有团队事件。
+* `-org:my-org` 排除针对 `my-org` 组织发生的所有事件。
 
-### Search based on the action performed
+### 基于执行的操作搜索
 
-The `action` qualifier searches for specific events, grouped within categories. For information on the events associated with these categories, see "[Audited actions](/admin/user-management/audited-actions)".
+`action` 限定符可搜索按类别分组的特定事件。 有关与这些类别相关的事件的信息，请参阅“[企业的审核日志事件](/admin/monitoring-activity-in-your-enterprise/reviewing-audit-logs-for-your-enterprise/audit-log-events-for-your-enterprise)”。
 
-| Category name | Description
+| 类别名称 | 说明
 |------------------|-------------------
-| `hook` | Contains all activities related to webhooks.
-| `org` | Contains all activities related organization membership
-| `repo` | Contains all activities related to the repositories owned by your organization.
-| `team` | Contains all activities related to teams in your organization.
+| `hook` | 包含与 web 挂钩相关的所有活动。
+| `org` | 包含与组织成员资格相关的所有活动
+| `repo` | 包含与您的组织拥有的仓库相关的所有活动。
+| `team` | 包含与您的组织中的团队相关的所有活动。
 
-You can search for specific sets of actions using these terms. For example:
+您可以使用这些词搜索特定的操作集。 例如：
 
-* `action:team` finds all events grouped within the team category.
-* `-action:billing` excludes all events in the billing category.
+* `action:team` 查找分组在团队类别中的所有事件。
+* `-action:billing` 排除计费类别中的所有事件。
 
-Each category has a set of associated events that you can filter on. For example:
+每个类别都有一组可进行过滤的关联事件。 例如：
 
-* `action:team.create` finds all events where a team was created.
-* `-action:billing.change_email` excludes all events where the billing email was changed.
+* `action:team.create` 查找创建团队的所有事件。
+* `-action:billing.change_email` 排除帐单电子邮件已更改的所有事件。
 
-### Search based on the location
+### 基于位置搜索
 
-The `country` qualifier filters actions by the originating country.
-- You can use a country's two-letter short code or its full name.
-- Countries with spaces in their name must be wrapped in quotation marks. For example:
-  * `country:de` finds all events that occurred in Germany.
-  * `country:Mexico` finds all events that occurred in Mexico.
-  * `country:"United States"` all finds events that occurred in the United States.
+`country` 限定符可根据来源国家/地区筛选操作。
+- 您可以使用国家/地区的两字母短代码或完整名称。
+- 名称中包含空格的国家/地区必须用引号引起。 例如：
+  * `country:de` 查找在德国发生的所有事件。
+  * `country:Mexico` 查找在墨西哥发生的所有事件。
+  * `country:"United States"` 查找在美国发生的所有事件。
 
-### Search based on the time of action
+### 基于操作时间搜索
 
-The `created` qualifier filters actions by the time they occurred.
-- Define dates using the format of `YYYY-MM-DD`--that's year, followed by month, followed by day.
-- Dates support [greater than, less than, and range qualifiers](/enterprise/{{ currentVersion }}/user/articles/search-syntax). For example:
-  * `created:2014-07-08` finds all events that occurred on July 8th, 2014.
-  * `created:>=2014-07-01` finds all events that occurred on or after July 8th, 2014.
-  * `created:<=2014-07-01` finds all events that occurred on or before July 8th, 2014.
-  * `created:2014-07-01..2014-07-31` finds all events that occurred in the month of July 2014.
+`created` 限定符可按操作发生的时间筛选操作。
+- 使用 `YYYY-MM-DD` 格式定义日期，即年、月、日。
+- 日期支持[大于、小于和范围限定符](/enterprise/user/articles/search-syntax)。 例如：
+  * `created:2014-07-08` 查找 2014 年 7 月 8 日发生的所有事件。
+  * `created:>=2014-07-01` 查找 2014 年 7 月 8 日当天或之后发生的所有事件。
+  * `created:<=2014-07-01` 查找 2014 年 7 月 8 日当天或之前发生的所有事件。
+  * `created:2014-07-01..2014-07-31` 查找 2014 年 7 月发生的所有事件。

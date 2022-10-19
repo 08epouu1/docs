@@ -1,7 +1,7 @@
 ---
-title: Using environments for deployment
+title: 使用环境进行部署
 shortTitle: Use environments for deployment
-intro: You can configure environments with protection rules and secrets. A workflow job that references an environment must follow any protection rules for the environment before running or accessing the environment's secrets.
+intro: 您可以使用保护规则和机密配置环境。 引用环境的工作流程作业在运行或访问环境的机密之前，必须遵循环境的任何保护规则。
 product: '{% data reusables.gated-features.environments %}'
 miniTocMaxHeadingLevel: 3
 redirect_from:
@@ -10,121 +10,121 @@ redirect_from:
   - /actions/deployment/using-environments-for-deployment
 versions:
   fpt: '*'
-  ghes: '>=3.1'
+  ghes: '*'
   ghae: '*'
   ghec: '*'
+ms.openlocfilehash: 21163a759cfd7eab3b197aeb4bb9283e1ccb90a2
+ms.sourcegitcommit: fb047f9450b41b24afc43d9512a5db2a2b750a2a
+ms.translationtype: HT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 09/10/2022
+ms.locfileid: '147572301'
 ---
+## 关于环境
 
+环境用于描述常规部署目标，例如 `production`、`staging` 或 `development`。 当 {% data variables.product.prodname_actions %} 工作流部署到某个环境时，该环境将显示在存储库的主页上。 有关如何查看环境部署的详细信息，请参阅“[查看部署历史记录](/developers/overview/viewing-deployment-history)”。
 
-## About environments
+您可以使用保护规则和机密配置环境。 当工作流程引用环境时，作业在环境的所有保护规则通过之前不会开始。 在所有环境保护规则通过之前，作业也不能访问在环境中定义的机密。
 
-Environments are used to describe a general deployment target like `production`, `staging`, or `development`. When a {% data variables.product.prodname_actions %} workflow deploys to an environment, the environment is displayed on the main page of the repository. For more information about viewing deployments to environments, see "[Viewing deployment history](/developers/overview/viewing-deployment-history)."
+{% ifversion fpt %} {% note %}
 
-You can configure environments with protection rules and secrets. When a workflow job references an environment, the job won't start until all of the environment's protection rules pass. A job also cannot access secrets that are defined in an environment until all the environment protection rules pass.
+注意：只能为公共存储库配置环境。 如果您将仓库从公开转换为私密，任何配置的保护规则或环境机密将被忽略， 并且您将无法配置任何环境。 如果将仓库转换回公共，您将有权访问以前配置的任何保护规则和环境机密。
 
-{% ifversion fpt %}
-{% note %}
+使用 {% data variables.product.prodname_team %} 的组织和使用 {% data variables.product.prodname_pro %} 的用户可以为专用存储库配置环境。 有关详细信息，请参阅“[{% data variables.product.prodname_dotcom %} 的产品](/get-started/learning-about-github/githubs-products)”。
 
-**Note:** You can only configure environments for public repositories. If you convert a repository from public to private, any configured protection rules or environment secrets will be ignored, and you will not be able to configure any environments. If you convert your repository back to public, you will have access to any previously configured protection rules and environment secrets.
+{% endnote %} {% endif %}
 
-Organizations that use {% data variables.product.prodname_ghe_cloud %} can configure environments for private repositories. For more information, see the [{% data variables.product.prodname_ghe_cloud %} documentation](/enterprise-cloud@latest/actions/deployment/targeting-different-environments/using-environments-for-deployment). {% data reusables.enterprise.link-to-ghec-trial %}
+## 环境保护规则
 
-{% endnote %}
-{% endif %}
+环境保护规则要求通过特定的条件，然后引用环境的作业才能继续。 您可以使用环境保护规则来要求人工审批、延迟工作或将环境限制于某些分支。
 
-## Environment protection rules
+### 需要的审查者
 
-Environment protection rules require specific conditions to pass before a job referencing the environment can proceed. {% ifversion fpt or ghae or ghes > 3.1 or ghec %}You can use environment protection rules to require a manual approval, delay a job, or restrict the environment to certain branches.{% else %}You can use environment protection rules to require a manual approval or delay a job.{% endif %}
+使用所需的审查者要求特定人员或团队批准引用环境的工作流程作业。 您最多可以列出六个用户或团队作为审查者。 审查者必须至少具有对仓库的读取访问权限。 只有一个必需的审查者需要批准该作业才能继续。
 
-### Required reviewers
+有关由必需审查者审查引用环境的作业的详细信息，请参阅“[审查部署](/actions/managing-workflow-runs/reviewing-deployments)”。
 
-Use required reviewers to require a specific person or team to approve workflow jobs that reference the environment. You can list up to six users or teams as reviewers. The reviewers must have at least read access to the repository. Only one of the required reviewers needs to approve the job for it to proceed.
+### 等待计时器
 
-For more information on reviewing jobs that reference an environment with required reviewers, see "[Reviewing deployments](/actions/managing-workflow-runs/reviewing-deployments)."
+在最初触发作业后，使用等待计时器将作业延迟特定时间。 时间（分钟）必须是 0 至 43,200（30天）之间的整数。
 
-### Wait timer
+### 部署分支
 
-Use a wait timer to delay a job for a specific amount of time after the job is initially triggered. The time (in minutes) must be an integer between 0 and 43,200 (30 days).
+使用部署分支来限制哪些分支可以部署到环境中。 以下是环境部署分支的选项：
 
-{% ifversion fpt or ghae or ghes > 3.1 or ghec %}
-### Deployment branches
+* **所有分支**：存储库中的所有分支都可以部署到环境。
+* **受保护的分支**：只有启用了分支保护规则的分支才能部署到环境。 如果没有为仓库中的任何分支定义分支保护规则，那么所有分支都可以部署。 有关分支保护规则的详细信息，请参阅“[关于受保护的分支](/github/administering-a-repository/about-protected-branches)”。
+* **所选分支**：只有与指定名称模式匹配的分支才能部署到环境。
 
-Use deployment branches to restrict which branches can deploy to the environment. Below are the options for deployment branches for an environment:
+  例如，如果指定 `releases/*` 为部署分支规则，则只有名称以 `releases/` 开头的分支才能部署到环境。 （通配符不匹配 `/`。 要匹配以 `release/` 开头且包含其他单斜杠的分支，请使用 `release/*/*`。）如果添加 `main` 作为部署分支规则，则名为 `main` 的分支也可以部署到环境。 有关部署分支的语法选项的详细信息，请参阅 [Ruby File.fnmatch 文档](https://ruby-doc.org/core-2.5.1/File.html#method-c-fnmatch)。
+## 环境机密
 
-* **All branches**: All branches in the repository can deploy to the environment.
-* **Protected branches**: Only branches with branch protection rules enabled can deploy to the environment. If no branch protection rules are defined for any branch in the repository, then all branches can deploy. For more information about branch protection rules, see "[About protected branches](/github/administering-a-repository/about-protected-branches)."
-* **Selected branches**: Only branches that match your specified name patterns can deploy to the environment.
-
-  For example, if you specify `releases/*` as a deployment branch rule, only branches whose name begins with `releases/` can deploy to the environment. (Wildcard characters will not match `/`. To match branches that begin with `release/` and contain an additional single slash, use `release/*/*`.) If you add `main` as a deployment branch rule, a branch named `main` can also deploy to the environment. For more information about syntax options for deployment branches, see the [Ruby File.fnmatch documentation](https://ruby-doc.org/core-2.5.1/File.html#method-c-fnmatch).
-{% endif %}
-## Environment secrets
-
-Secrets stored in an environment are only available to workflow jobs that reference the environment. If the environment requires approval, a job cannot access environment secrets until one of the required reviewers approves it. For more information about secrets, see "[Encrypted secrets](/actions/reference/encrypted-secrets)."
+存储在环境中的机密仅可用于引用环境的工作流程作业。 如果环境需要批准，作业在所需的审查者批准之前不能访问环境机密。 有关机密的详细信息，请参阅“[已加密的机密](/actions/reference/encrypted-secrets)”。
 
 {% note %}
 
-**Note:** Workflows that run on self-hosted runners are not run in an isolated container, even if they use environments. Environment secrets should be treated with the same level of security as repository and organization secrets. For more information, see "[Security hardening for GitHub Actions](/actions/learn-github-actions/security-hardening-for-github-actions#hardening-for-self-hosted-runners)."
+注意：在自托管运行器上运行的工作流不会在一个孤立的容器中运行，即使它们使用环境。 环境机密应与存储库和组织机密的安全级别相同。 有关详细信息，请参阅“[GitHub Actions 的安全强化](/actions/learn-github-actions/security-hardening-for-github-actions#hardening-for-self-hosted-runners)”。
 
 {% endnote %}
 
-## Creating an environment
+## 创建环境
 
-{% data reusables.github-actions.permissions-statement-environment %}
+{% data reusables.actions.permissions-statement-environment %}
 
-{% data reusables.repositories.navigate-to-repo %}
-{% data reusables.repositories.sidebar-settings %}
-{% data reusables.github-actions.sidebar-environment %}
-{% data reusables.github-actions.new-environment %}
-{% data reusables.github-actions.name-environment %}
-1. Optionally, specify people or teams that must approve workflow jobs that use this environment.
-   1. Select **Required reviewers**.
-   1. Enter up to 6 people or teams. Only one of the required reviewers needs to approve the job for it to proceed.
-   1. Click **Save protection rules**.
-2. Optionally, specify the amount of time to wait before allowing workflow jobs that use this environment to proceed.
-   1. Select **Wait timer**.
-   1. Enter the number of minutes to wait.
-   1. Click **Save protection rules**.
-3. Optionally, specify what branches can deploy to this environment. For more information about the possible values, see "[Deployment branches](#deployment-branches)."
-   1. Select the desired option in the **Deployment branches** dropdown.
-   1. If you chose **Selected branches**, enter the branch name patterns that you want to allow.
-4. Optionally, add environment secrets. These secrets are only available to workflow jobs that use the environment. Additionally, workflow jobs that use this environment can only access these secrets after any configured rules (for example, required reviewers) pass. For more information about secrets, see "[Encrypted secrets](/actions/reference/encrypted-secrets)."
-   1. Under **Environment secrets**, click **Add Secret**.
-   1. Enter the secret name.
-   1. Enter the secret value.
-   1. Click **Add secret**.
+{% ifversion fpt or ghec %} {% note %}
 
-{% ifversion fpt or ghae or ghes > 3.1 or ghec %}You can also create and configure environments through the REST API. For more information, see "[Environments](/rest/reference/repos#environments)" and "[Secrets](/rest/reference/actions#secrets)."{% endif %}
+注意：使用 {% data variables.product.prodname_team %} 的组织和使用 {% data variables.product.prodname_pro %} 的用户可在专用存储库中创建环境。
 
-Running a workflow that references an environment that does not exist will create an environment with the referenced name. The newly created environment will not have any protection rules or secrets configured. Anyone that can edit workflows in the repository can create environments via a workflow file, but only repository admins can configure the environment.
+{% endnote %} {% endif %}
 
-## Using an environment
+{% data reusables.repositories.navigate-to-repo %} {% data reusables.repositories.sidebar-settings %} {% data reusables.actions.sidebar-environment %} {% data reusables.actions.new-environment %} {% data reusables.actions.name-environment %}
+1. （可选）指定必须批准使用此环境的工作流程作业的人员或团队。
+   1. 选择“必需审阅者”。
+   1. 最多可输入 6 人或团队。 只有一个必需的审查者需要批准该作业才能继续。
+   1. 单击“保存保护规则”。
+2. （可选）指定在允许使用此环境的工作流程作业继续之前要等待的时长。
+   1. 选择“等待计时器”。
+   1. 输入要等待的分钟数。
+   1. 单击“保存保护规则”。
+3. （可选）指定哪些分支可以部署到此环境。 有关可能值的详细信息，请参阅“[部署分支](#deployment-branches)”。
+   1. 在“部署分支”下拉列表中选择所需的选项。
+   1. 如果选择“所选分支”，请输入要允许的分支名称模式。
+4. （可选）添加环境机密。 这些机密仅可用于使用环境的工作流程作业。 此外，使用此环境的工作流程作业只能在任何配置的规则（例如，必需的审查者）通过后才能访问这些机密。 有关机密的详细信息，请参阅“[已加密的机密](/actions/reference/encrypted-secrets)”。
+   1. 在“环境机密”下，单击“添加机密” 。
+   1. 输入机密名称。
+   1. 输入机密值。
+   1. 单击“添加机密”。
 
-Each job in a workflow can reference a single environment. Any protection rules configured for the environment must pass before a job referencing the environment is sent to a runner. The job can access the environment's secrets only after the job is sent to a runner.
+您还可以通过 REST API 创建和配置环境。 有关详细信息，请参阅“[部署环境](/rest/deployments/environments)”、“[GitHub Actions 机密](/rest/actions/secrets)”和“[部署分支策略](/rest/deployments/branch-policies)”。
 
-When a workflow references an environment, the environment will appear in the repository's deployments. For more information about viewing current and previous deployments, see "[Viewing deployment history](/developers/overview/viewing-deployment-history)."
+运行引用不存在的环境的工作流程将使用引用的名称创建环境。 新创建的环境将不配置任何保护规则或机密。 可在仓库中编辑工作流程的任何人都可以通过工作流程文件创建环境，但只有仓库管理员才能配置环境。
+
+## 使用环境
+
+工作流程中的每个作业都可以引用单个环境。 在将引用环境的作业发送到运行器之前，必须通过为环境配置的任何保护规则。 只有在将作业发送给运行器后，作业才能访问环境的机密。
+
+当工作流程引用环境时，环境将显示在仓库的部署中。 有关查看当前和以前的部署的详细信息，请参阅“[查看部署历史记录](/developers/overview/viewing-deployment-history)”。
 
 {% data reusables.actions.environment-example %}
 
-## Deleting an environment
+## 删除环境
 
-{% data reusables.github-actions.permissions-statement-environment %}
+{% data reusables.actions.permissions-statement-environment %}
 
-Deleting an environment will delete all secrets and protection rules associated with the environment. Any jobs currently waiting because of protection rules from the deleted environment will automatically fail.
+删除环境将删除与环境关联的所有机密和保护规则。 由于已删除环境的保护规则而正在等待的任何作业将自动失败。
 
-{% data reusables.repositories.navigate-to-repo %}
-{% data reusables.repositories.sidebar-settings %}
-{% data reusables.github-actions.sidebar-environment %}
-1. Next to the environment that you want to delete, click {% octicon "trash" aria-label="The trash icon" %}.
-2. Click **I understand, delete this environment**.
+{% data reusables.repositories.navigate-to-repo %} {% data reusables.repositories.sidebar-settings %} {% data reusables.actions.sidebar-environment %}
+1. 在要删除的环境旁边，单击 {% octicon "trash" aria-label="The trash icon" %}。
+2. 单击“我了解，删除此环境”。
 
-{% ifversion fpt or ghae or ghes > 3.1 or ghec %}You can also delete environments through the REST API. For more information, see "[Environments](/rest/reference/repos#environments)."{% endif %}
+您也可以通过 RESEST API 删除环境。 有关详细信息，请参阅“[环境](/rest/reference/repos#environments)”。
 
-## How environments relate to deployments
+## 环境与部署的关系
 
 {% data reusables.actions.environment-deployment-event %}
 
-You can access these objects through the REST API or GraphQL API. You can also subscribe to these webhook events. For more information, see "[Repositories](/rest/reference/repos#deployments)" (REST API), "[Objects]({% ifversion ghec %}/free-pro-team@latest{% endif %}/graphql/reference/objects#deployment)" (GraphQL API), or "[Webhook events and payloads](/developers/webhooks-and-events/webhooks/webhook-events-and-payloads#deployment)."
+您可以通过 REST API 或 GraphQL API 访问这些对象。 您还可以订阅这些 web 挂钩事件。 有关详细信息，请参阅“[存储库](/rest/reference/repos#deployments)”(REST API)、“[对象](/graphql/reference/objects#deployment)”(GraphQL API) 或“[Webhook 事件和有效负载](/developers/webhooks-and-events/webhooks/webhook-events-and-payloads#deployment)”。
 
-## Next steps
+## 后续步骤
 
-{% data variables.product.prodname_actions %} provides several features for managing your deployments. For more information, see "[Deploying with GitHub Actions](/actions/deployment/deploying-with-github-actions)."
+{% data variables.product.prodname_actions %} 具有多个用于管理部署的功能。 有关详细信息，请参阅“[使用 GitHub Actions 进行部署](/actions/deployment/deploying-with-github-actions)”。

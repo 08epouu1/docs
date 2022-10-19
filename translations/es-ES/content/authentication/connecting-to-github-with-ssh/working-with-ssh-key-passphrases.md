@@ -1,6 +1,6 @@
 ---
-title: Working with SSH key passphrases
-intro: You can secure your SSH keys and configure an authentication agent so that you won't have to reenter your passphrase every time you use your SSH keys.
+title: Trabajar con contraseñas de clave SSH
+intro: Puedes asegurar tus claves SSH y configurar un agente de autenticación para no tener que volver a ingresar tu contraseña cada vez que uses tus claves SSH.
 redirect_from:
   - /ssh-key-passphrases
   - /working-with-key-passphrases
@@ -15,12 +15,20 @@ versions:
 topics:
   - SSH
 shortTitle: SSH key passphrases
+ms.openlocfilehash: 5ddacfa052b866fe1cbd601caa8a1ff9ab6934fd
+ms.sourcegitcommit: 1309b46201604c190c63bfee47dce559003899bf
+ms.translationtype: HT
+ms.contentlocale: es-ES
+ms.lasthandoff: 09/10/2022
+ms.locfileid: '147409119'
 ---
-With SSH keys, if someone gains access to your computer, they also gain access to every system that uses that key. To add an extra layer of security, you can add a passphrase to your SSH key. You can use `ssh-agent` to securely save your passphrase so you don't have to reenter it.
+## Acerca de las frases de contraseña para claves SSH
 
-## Adding or changing a passphrase
+Con las claves SSH, si alguien obtiene acceso a tu equipo, el atacante también tiene acceso a cada sistema que usa esa clave. Para agregar una capa extra de seguridad, puedes incluir una contraseña a tu clave SSH. Para evitar escribir la frase de contraseña cada vez que te conecta, puedes guardar la frase de contraseña de forma segura en el agente SSH.
 
-You can change the passphrase for an existing private key without regenerating the keypair by typing the following command:
+## Agregar o cambiar una contraseña
+
+Puedes cambiar la contraseña por una llave privada existente sin volver a generar el par de claves al escribir el siguiente comando:
 
 ```shell
 $ ssh-keygen -p -f ~/.ssh/id_{% ifversion ghae %}rsa{% else %}ed25519{% endif %}
@@ -31,13 +39,13 @@ $ ssh-keygen -p -f ~/.ssh/id_{% ifversion ghae %}rsa{% else %}ed25519{% endif %}
 > Your identification has been saved with the new passphrase.
 ```
 
-If your key already has a passphrase, you will be prompted to enter it before you can change to a new passphrase.
+Si tu clave ya tiene una contraseña, se te pedirá que la ingreses antes de que puedas cambiar a una nueva contraseña.
 
 {% windows %}
 
-## Auto-launching `ssh-agent` on Git for Windows
+## Inicio automático `ssh-agent` en Git para Windows
 
-You can run `ssh-agent` automatically when you open bash or Git shell. Copy the following lines and paste them into your `~/.profile` or `~/.bashrc` file in Git shell:
+Puede ejecutar `ssh-agent` automáticamente al abrir bash o el shell de Git. Copie las líneas siguientes y péguelas en su archivo `~/.profile` o `~/.bashrc` en el shell de Git:
 
 ``` bash
 env=~/.ssh/agent.env
@@ -63,15 +71,15 @@ fi
 unset env
 ```
 
-If your private key is not stored in one of the default locations (like `~/.ssh/id_rsa`), you'll need to tell your SSH authentication agent where to find it. To add your key to ssh-agent, type `ssh-add ~/path/to/my_key`. For more information, see "[Generating a new SSH key and adding it to the ssh-agent](/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/)"
+Si la clave privada no está almacenada en una de las ubicaciones predeterminadas (como `~/.ssh/id_rsa`), necesitará indicarle a su agente de autenticación SSH dónde encontrarla. Para agregar la clave a ssh-agent, escriba `ssh-add ~/path/to/my_key`. Para obtener más información, consulte "[Generación de una nueva clave SSH y adición a ssh-agent](/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/)".
 
 {% tip %}
 
-**Tip:** If you want `ssh-agent` to forget your key after some time, you can configure it to do so by running `ssh-add -t <seconds>`.
+**Sugerencia:** Si desea `ssh-agent` olvidar la clave después de algún tiempo, puede configurarla para tal fin mediante la ejecución de `ssh-add -t <seconds>`.
 
 {% endtip %}
 
-Now, when you first run Git Bash, you are prompted for your passphrase:
+Ahora, cuando ejecutas Git Bash por primera vez, se te pedirá tu contraseña:
 
 ```shell
 > Initializing new SSH agent...
@@ -84,25 +92,21 @@ Now, when you first run Git Bash, you are prompted for your passphrase:
 > Run 'git help <command>' to display help for specific commands.
 ```
 
-The `ssh-agent` process will continue to run until you log out, shut down your computer, or kill the process.
+El proceso `ssh-agent` continuará funcionando hasta que cierre sesión, apague su equipo o termine el proceso.
 
 {% endwindows %}
 
 {% mac %}
 
-## Saving your passphrase in the keychain
+## Guardar tu contraseña en keychain
 
-On Mac OS X Leopard through OS X El Capitan, these default private key files are handled automatically:
+En Mac OS X Leopard y hasta OS X El Capitan, estos archivos de llave privada predeterminada se manejan automáticamente:
 
 - *.ssh/id_rsa*
 - *.ssh/identity*
 
-The first time you use your key, you will be prompted to enter your passphrase. If you choose to save the passphrase with your keychain, you won't have to enter it again.
+La primera vez que usas tu clave, se te pedirá que ingreses tu contraseña. Si eliges guardar la contraseña con tu keychain, no necesitarás ingresarla nuevamente.
 
-Otherwise, you can store your passphrase in the keychain when you add your key to the ssh-agent. For more information, see "[Adding your SSH key to the ssh-agent](/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent#adding-your-ssh-key-to-the-ssh-agent)."
+De lo contrario, puedes almacenar tu contraseña en la keychain cuando agregues tu clave a ssh-agent. Para obtener más información, consulte "[Adición de la clave SSH a ssh-agent](/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent#adding-your-ssh-key-to-the-ssh-agent)".
 
 {% endmac %}
-
-## Further reading
-
-- "[About SSH](/articles/about-ssh)"

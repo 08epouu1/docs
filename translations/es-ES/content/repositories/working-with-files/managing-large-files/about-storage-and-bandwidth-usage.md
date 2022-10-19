@@ -1,5 +1,5 @@
 ---
-title: About storage and bandwidth usage
+title: Acerca del uso de ancho de banda y del almacenamiento
 intro: '{% data reusables.large_files.free-storage-bandwidth-amount %}'
 redirect_from:
   - /articles/billing-plans-for-large-file-storage
@@ -11,39 +11,44 @@ versions:
   fpt: '*'
   ghec: '*'
 shortTitle: Storage & bandwidth
+ms.openlocfilehash: 8a6dd01c62b5b1c69afe29536e3d4ba206e988e7
+ms.sourcegitcommit: 5f9527483381cfb1e41f2322f67c80554750a47d
+ms.translationtype: HT
+ms.contentlocale: es-ES
+ms.lasthandoff: 09/11/2022
+ms.locfileid: '147883031'
 ---
-{% data variables.large_files.product_name_short %} is available for every repository on {% data variables.product.product_name %}, whether or not your account or organization has a paid subscription.
+{% data variables.large_files.product_name_short %} está disponible para cada repositorio en {% data variables.product.product_name %}, ya sea que tu cuenta u organización tenga o no una suscripción paga.
 
-## Tracking storage and bandwidth use
+## Hacer un seguimiento del uso de ancho de banda y del almacenamiento
 
-When you commit and push a change to a file tracked with {% data variables.large_files.product_name_short %}, a new version of the entire file is pushed and the total file size is counted against the repository owner's storage limit. When you download a file tracked with {% data variables.large_files.product_name_short %}, the total file size is counted against the repository owner's bandwidth limit. {% data variables.large_files.product_name_short %} uploads do not count against the bandwidth limit.
+Cuando confirmas y subes un cambio a un archivo seguido con {% data variables.large_files.product_name_short %}, se sube una nueva versión del archivo completo y el tamaño total del archivo cuenta para el límite de almacenamiento del propietario del repositorio. Cuando descargas un archivo seguido con {% data variables.large_files.product_name_short %}, el tamaño total del archivo cuenta para el límite de ancho de banda del propietario del repositorio. Las cargas de {% data variables.large_files.product_name_short %} no cuentan para el lpimite de ancho de banda.
 
-For example:
-- If you push a 500 MB file to {% data variables.large_files.product_name_short %}, you'll use 500 MB of your allotted storage and none of your bandwidth. If you make a 1 byte change and push the file again, you'll use another 500 MB of storage and no bandwidth, bringing your total usage for these two pushes to 1 GB of storage and zero bandwidth.
-- If you download a 500 MB file that's tracked with LFS, you'll use 500 MB of the repository owner's allotted bandwidth. If a collaborator pushes a change to the file and you pull the new version to your local repository, you'll use another 500 MB of bandwidth, bringing the total usage for these two downloads to 1 GB of bandwidth.
-- If {% data variables.product.prodname_actions %} downloads a 500 MB file that is tracked with LFS, it will use 500 MB of the repository owner's allotted bandwidth.
+Por ejemplo:
+- Si subes un archivo de 500 MB a {% data variables.large_files.product_name_short %}, usarás 500 MB de tu almacenamiento asignado y nada de tu ancho de banda. Si realizas un cambio de 1 byte y subes el archivo de nuevo, usarás otros 500 MB de almacenamiento y no de ancho de banda, llevando tu uso total por esas dos subidas a 1 GB de almacenamiento y cero ancho de banda.
+- Si descargas un archivo de 500 MB que es seguido con LFS, usarás 500 MB del ancho de banda asignado del propietario del repositorio. Si un colaborador sube un cambio al archivo y extraes la versión nueva a tu repositorio local, usarás otros 500 MB de ancho de banda, llevando el uso total por esas dos descargas a 1 GB de ancho de banda.
+- Si {% data variables.product.prodname_actions %} descarga un archivo de 500 MB que se rastree con LFS, este utilizará 500 MB del ancho de banda asignado al repositorio del propietario.
 
-{% ifversion fpt or ghec %}
-If {% data variables.large_files.product_name_long %} ({% data variables.large_files.product_name_short %}) objects are included in source code archives for your repository, downloads of those archives will count towards bandwidth usage for the repository. For more information, see "[Managing {% data variables.large_files.product_name_short %} objects in archives of your repository](/github/administering-a-repository/managing-git-lfs-objects-in-archives-of-your-repository)."
+{% ifversion fpt or ghec %} Si los objetos de {% data variables.large_files.product_name_long %} ({% data variables.large_files.product_name_short %}) se incluyen en los archivos de código fuente del repositorio, las descargas de estos archivos contarán en el uso de ancho de banda del repositorio. Para más información, vea "[Administración de objetos {% data variables.large_files.product_name_short %} en archivos del repositorio](/github/administering-a-repository/managing-git-lfs-objects-in-archives-of-your-repository)".
 {% endif %}
 
 {% tip %}
 
-**Tips**:
+**Sugerencias**:
 - {% data reusables.large_files.owner_quota_only %}
 - {% data reusables.large_files.does_not_carry %}
 
 {% endtip %}
 
-## Storage quota
+## Cuota de almacenamiento
 
-If you use more than {% data variables.large_files.initial_storage_quota %} of storage without purchasing a data pack, you can still clone repositories with large assets, but you will only retrieve the pointer files, and you will not be able to push new files back up. For more information about pointer files, see "[About {% data variables.large_files.product_name_long %}](/github/managing-large-files/about-git-large-file-storage#pointer-file-format)."
+Si utilizas más de {% data variables.large_files.initial_storage_quota %} de almacenamiento sin comprar un paquete de datos, aún puedes clonar repositorios con elementos grandes, pero solo podrás descargar los archivos puntero, y no podrás subir archivos nuevos otra vez. Para obtener más información sobre los archivos puntero, consulte "[Acerca de {% data variables.large_files.product_name_long %}](/github/managing-large-files/about-git-large-file-storage#pointer-file-format)".
 
-## Bandwidth quota
+## Cuota de ancho de banda
 
-If you use more than {% data variables.large_files.initial_bandwidth_quota %} of bandwidth per month without purchasing a data pack, {% data variables.large_files.product_name_short %} support is disabled on your account until the next month.
+Si usas más de {% data variables.large_files.initial_bandwidth_quota %} de ancho de banda por mes sin comprar un paquete de datos, el soporte de {% data variables.large_files.product_name_short %} se desactiva en tu cuenta hasta el próximo mes.
 
-## Further reading
+## Información adicional
 
-- "[Viewing your {% data variables.large_files.product_name_long %} usage](/articles/viewing-your-git-large-file-storage-usage)"
-- "[Managing billing for {% data variables.large_files.product_name_long %}](/articles/managing-billing-for-git-large-file-storage)"
+- "[Visualización del uso de {% data variables.large_files.product_name_long %}](/articles/viewing-your-git-large-file-storage-usage)"
+- "[Administración de la facturación para {% data variables.large_files.product_name_long %}](/articles/managing-billing-for-git-large-file-storage)"

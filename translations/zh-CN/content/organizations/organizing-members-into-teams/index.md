@@ -1,6 +1,6 @@
 ---
-title: Organizing members into teams
-intro: You can group organization members into teams that reflect your company or group's structure with cascading access permissions and mentions.
+title: 将成员组织为团队
+intro: 您可以将组织成员组成团队，通过级联访问权限和提及来反映公司或群组结构。
 redirect_from:
   - /articles/setting-up-teams-improved-organization-permissions
   - /articles/setting-up-teams-for-accessing-organization-repositories
@@ -38,5 +38,11 @@ children:
   - /managing-scheduled-reminders-for-your-team
   - /deleting-a-team
 shortTitle: Organize members into teams
+ms.openlocfilehash: 98bd34c41d1a57341ccd3c02636ae93dce180991
+ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
+ms.translationtype: HT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 09/05/2022
+ms.locfileid: '145101311'
 ---
 

@@ -1,6 +1,6 @@
 ---
-title: Rebuilding contributions data
-intro: You may need to rebuild contributions data to link existing commits to a user account.
+title: Recriar dados de contribuições
+intro: Talvez você precise recriar os dados das contribuições para vincular os commits existentes a uma conta de usuário.
 redirect_from:
   - /enterprise/admin/articles/rebuilding-contributions-data
   - /enterprise/admin/user-management/rebuilding-contributions-data
@@ -13,15 +13,20 @@ topics:
   - Repositories
   - User account
 shortTitle: Rebuild contributions
+ms.openlocfilehash: 66a4aff597be725eb06dd4c8743ee2ad8691c7e4
+ms.sourcegitcommit: fcf3546b7cc208155fb8acdf68b81be28afc3d2d
+ms.translationtype: HT
+ms.contentlocale: pt-BR
+ms.lasthandoff: 09/10/2022
+ms.locfileid: '145094853'
 ---
-Whenever a commit is pushed to {% data variables.product.prodname_enterprise %}, it is linked to a user account if they are both associated with the same email address. However, existing commits are *not* retroactively linked when a user registers a new email address or creates a new account.
+Sempre que é enviado para o {% data variables.product.prodname_enterprise %}, o commit é vinculado a uma conta de usuário caso ambos estejam associados ao mesmo endereço de e-mail. No entanto, os commits existentes *não* são vinculados retroativamente quando um usuário registra um novo endereço de email ou cria uma conta.
 
-1. Visit the user's profile page.
+1. Acesse a página de perfil do usuário.
 {% data reusables.enterprise_site_admin_settings.access-settings %}
-3. On the left side of the page, click **Admin**.
-  ![Admin tab](/assets/images/enterprise/site-admin-settings/admin-tab.png)
-4. Under **Contributions data**, click **Rebuild**.
-![Rebuild button](/assets/images/enterprise/site-admin-settings/rebuild-button.png)
+3. No lado esquerdo da página, clique em **Administrador**. ![Guia Administrador](/assets/images/enterprise/site-admin-settings/admin-tab.png)
+4. Em **Dados de contribuições**, clique em **Recompilar**.
+![Botão Recompilar](/assets/images/enterprise/site-admin-settings/rebuild-button.png)
 
 {% data variables.product.prodname_enterprise %} will now start background jobs to re-link commits with that user's account.
-  ![Queued rebuild jobs](/assets/images/enterprise/site-admin-settings/rebuild-jobs.png)
+  ![Trabalhos recompilados na fila](/assets/images/enterprise/site-admin-settings/rebuild-jobs.png)

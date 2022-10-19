@@ -1,6 +1,6 @@
 ---
-title: Viewing your repository's releases and tags
-intro: You can view the chronological history of your repository by release name or tag version number.
+title: Visualizar los lanzamientos y etiquetas de tu repositorio
+intro: 'Puedes ver el historial cronológico de tu repositorio por lanzamiento, nombre o número de versión de la etiqueta.'
 redirect_from:
   - /articles/working-with-tags
   - /articles/viewing-your-repositorys-tags
@@ -15,28 +15,30 @@ versions:
 topics:
   - Repositories
 shortTitle: View releases & tags
+ms.openlocfilehash: c6cdad2626eb5b3260efd46a1d47dac499c73051
+ms.sourcegitcommit: fb047f9450b41b24afc43d9512a5db2a2b750a2a
+ms.translationtype: HT
+ms.contentlocale: es-ES
+ms.lasthandoff: 09/11/2022
+ms.locfileid: '145136633'
 ---
-{% ifversion fpt or ghae or ghes or ghec %}
 {% tip %}
 
-**Tip**: You can also view a release using the {% data variables.product.prodname_cli %}. For more information, see "[`gh release view`](https://cli.github.com/manual/gh_release_view)" in the {% data variables.product.prodname_cli %} documentation.
+**Sugerencia**: También puede ver una versión utilizando la {% data variables.product.prodname_cli %}. Para obtener más información, consulte "[`gh release view`](https://cli.github.com/manual/gh_release_view)" en la documentación de {% data variables.product.prodname_cli %}.
 
 {% endtip %}
-{% endif %}
 
-## Viewing releases
+## Visualizar lanzamientos
 
-{% data reusables.repositories.navigate-to-repo %}
-{% data reusables.repositories.releases %}
-2. At the top of the Releases page, click **Releases**.
+{% data reusables.repositories.navigate-to-repo %} {% data reusables.repositories.releases %}
+2. En la parte superior de la página Releases (Versiones), haga clic en **Releases** (Versiones).
 
-## Viewing tags
+## Visualizar etiquetas
 
-{% data reusables.repositories.navigate-to-repo %}
-{% data reusables.repositories.releases %}
-2. At the top of the Releases page, click **Tags**.
-![Tags page](/assets/images/help/releases/tags-list.png)
+{% data reusables.repositories.navigate-to-repo %} {% data reusables.repositories.releases %}
+2. En la parte superior de la página Versiones, haga clic en **Etiquetas**.
+![Página de etiquetas](/assets/images/help/releases/tags-list.png)
 
-## Further reading
+## Información adicional
 
-- "[Signing tags](/articles/signing-tags)"
+- "[Firma de etiquetas](/articles/signing-tags)"

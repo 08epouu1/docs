@@ -1,6 +1,6 @@
 ---
-title: Searching commits
-intro: 'You can search for commits on {% data variables.product.product_name %} and narrow the results using these commit search qualifiers in any combination.'
+title: コミットを検索する
+intro: '{% data variables.product.product_name %} 上のコミットを検索することができます。そして、これらのコミットを検索する修飾子を組み合わせることで、検索結果を絞ることができます。'
 redirect_from:
   - /articles/searching-commits
   - /github/searching-for-information-on-github/searching-commits
@@ -12,110 +12,110 @@ versions:
   ghec: '*'
 topics:
   - GitHub search
+ms.openlocfilehash: 2dc35c96805e175bef1ed1ec1898d48e50de6042
+ms.sourcegitcommit: fb047f9450b41b24afc43d9512a5db2a2b750a2a
+ms.translationtype: HT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 09/11/2022
+ms.locfileid: '145118902'
 ---
-You can search for commits globally across all of {% data variables.product.product_name %}, or search for commits within a particular repository or organization. For more information, see "[About searching on {% data variables.product.company_short %}](/search-github/getting-started-with-searching-on-github/about-searching-on-github)."
+{% data variables.product.product_name %} 全体にわたってグローバルにコミットを検索できます。あるいは、特定のリポジトリや Organization のコミットに限った検索もできます。 詳細については、「[{% data variables.product.company_short %} での検索について](/search-github/getting-started-with-searching-on-github/about-searching-on-github)」を参照してください。
 
-When you search for commits, only the [default branch](/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-branches) of a repository is searched.
+コミットを検索すると、リポジトリの[既定のブランチ](/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-branches)のみが検索されます。
 
 {% data reusables.search.syntax_tips %}
 
-## Search within commit messages
+## コミットメッセージ内を検索
 
-You can find commits that contain particular words in the message. For example, [**fix typo**](https://github.com/search?q=fix+typo&type=Commits) matches commits containing the words "fix" and "typo."
+メッセージに特定の単語を含むコミットを検索できます。 たとえば、[**fix typo**](https://github.com/search?q=fix+typo&type=Commits) は、「fix」と「typo」という単語を含むコミットにマッチします。
 
-## Search by author or committer
+## オーサーやコミッターで検索
 
-You can find commits by a particular user with the `author` or `committer` qualifiers.
+`author` や `committer` の修飾子を使用すると、特定のユーザーによるコミットを発見できます。
 
-| Qualifier  | Example
+| 修飾子  | 例
 | ------------- | -------------
-| <code>author:<em>USERNAME</em></code> | [**author:defunkt**](https://github.com/search?q=author%3Adefunkt&type=Commits) matches commits authored by @defunkt.
-| <code>committer:<em>USERNAME</em></code> | [**committer:defunkt**](https://github.com/search?q=committer%3Adefunkt&type=Commits) matches commits committed by @defunkt.
+| <code>author:<em>USERNAME</em></code> | [**author:defunkt**](https://github.com/search?q=author%3Adefunkt&type=Commits) は、@defunkt が作成したコミットとマッチします。
+| <code>committer:<em>USERNAME</em></code> | [**committer:defunkt**](https://github.com/search?q=committer%3Adefunkt&type=Commits) は、@defunkt がコミットしたコミットとマッチします。
 
-The `author-name` and `committer-name` qualifiers match commits by the name of the author or committer.
+`author-name` と `committer-name` の修飾子は、作成者またはコミッターの名前によるコミットとマッチします。
 
-| Qualifier  | Example
+| 修飾子  | 例
 | ------------- | -------------
-| <code>author-name:<em>NAME</em></code> | [**author-name:wanstrath**](https://github.com/search?q=author-name%3Awanstrath&type=Commits) matches commits with "wanstrath" in the author name.
-| <code>committer-name:<em>NAME</em></code> | [**committer-name:wanstrath**](https://github.com/search?q=committer-name%3Awanstrath&type=Commits) matches commits with "wanstrath" in the committer name.
+| <code>author-name:<em>NAME</em></code> | [**author-name:wanstrath**](https://github.com/search?q=author-name%3Awanstrath&type=Commits) は、作成者名に「wanstrath」を含むコミットとマッチします。
+| <code>committer-name:<em>NAME</em></code> | [**committer-name:wanstrath**](https://github.com/search?q=committer-name%3Awanstrath&type=Commits) は、コミッター名に「wanstrath」を含むコミットとマッチします。
 
-The `author-email` and `committer-email` qualifiers match commits by the author's or committer's full email address.
+`author-email` と `committer-email` の修飾子は、作成者またはコミッターの完全なメール アドレスによるコミットとマッチします。
 
-| Qualifier  | Example
+| 修飾子  | 例
 | ------------- | -------------
-| <code>author-email:<em>EMAIL</em></code> | [**author-email:chris@github.com**](https://github.com/search?q=author-email%3Achris%40github.com&type=Commits) matches commits authored by chris@github.com.
-| <code>committer-email:<em>EMAIL</em></code> | [**committer-email:chris@github.com**](https://github.com/search?q=committer-email%3Achris%40github.com&type=Commits) matches commits committed by chris@github.com.
+| <code>author-email:<em>EMAIL</em></code> | [ **author-email:chris@github.com**](https://github.com/search?q=author-email%3Achris%40github.com&type=Commits) は chris@github.com が作成したコミットとマッチします。
+| <code>committer-email:<em>EMAIL</em></code> | [ **committer-email:chris@github.com**](https://github.com/search?q=committer-email%3Achris%40github.com&type=Commits) は chris@github.com がコミットしたコミットとマッチします。
 
-## Search by authored or committed date
+## オーサー日付やコミット日付で検索
 
-Use the `author-date` and `committer-date` qualifiers to match commits authored or committed within the specified date range.
+`author-date` と `committer-date` の修飾子を使用すると、指定した日付範囲内で作成またはコミットされたコミットとマッチできます。
 
 {% data reusables.search.date_gt_lt %}
 
-| Qualifier  | Example
+| 修飾子  | 例
 | ------------- | -------------
-| <code>author-date:<em>YYYY-MM-DD</em></code> | [**author-date:&lt;2016-01-01**](https://github.com/search?q=author-date%3A<2016-01-01&type=Commits) matches commits authored before 2016-01-01.
-| <code>committer-date:<em>YYYY-MM-DD</em></code> | [**committer-date:&gt;2016-01-01**](https://github.com/search?q=committer-date%3A>2016-01-01&type=Commits) matches commits committed after 2016-01-01.
+| <code>author-date:<em>YYYY-MM-DD</em></code> | [**author-date:&lt;2016-01-01**](https://github.com/search?q=author-date%3A<2016-01-01&type=Commits) は、2016-01-01 より前に作成されたコミットとマッチします。
+| <code>committer-date:<em>YYYY-MM-DD</em></code> | [**committer-date:&gt;2016-01-01**](https://github.com/search?q=committer-date%3A>2016-01-01&type=Commits) は、2016-01-01 より後にコミットされたコミットとマッチします。
 
-## Filter merge commits
+## マージコミットのフィルタリング
 
-The `merge` qualifier filters merge commits.
+`merge` 修飾子はマージ コミットをフィルタリングします。
 
-| Qualifier  | Example
+| 修飾子  | 例
 | ------------- | -------------
-| `merge:true` | [**merge:true**](https://github.com/search?q=merge%3Atrue&type=Commits) matches merge commits.
-| `merge:false` | [**merge:false**](https://github.com/search?q=merge%3Afalse&type=Commits) matches non-merge commits.
+| `merge:true` | [**merge:true**](https://github.com/search?q=merge%3Atrue&type=Commits) はマージ コミットとマッチします。
+| `merge:false` | [**merge:false**](https://github.com/search?q=merge%3Afalse&type=Commits) はマージ以外のコミットとマッチします。
 
-## Search by hash
+## ハッシュで検索
 
-The `hash` qualifier matches commits with the specified SHA-1 hash.
+`hash` 修飾子は、指定された SHA-1 ハッシュを含むコミットとマッチします。
 
-| Qualifier  | Example
+| 修飾子  | 例
 | ------------- | -------------
-| <code>hash:<em>HASH</em></code> | [**hash:124a9a0ee1d8f1e15e833aff432fbb3b02632105**](https://github.com/github/gitignore/search?q=hash%3A124a9a0ee1d8f1e15e833aff432fbb3b02632105&type=Commits) matches commits with the hash `124a9a0ee1d8f1e15e833aff432fbb3b02632105`.
+| <code>hash:<em>HASH</em></code> | [**hash:124a9a0ee1d8f1e15e833aff432fbb3b02632105**](https://github.com/github/gitignore/search?q=hash%3A124a9a0ee1d8f1e15e833aff432fbb3b02632105&type=Commits) は、ハッシュ `124a9a0ee1d8f1e15e833aff432fbb3b02632105` を含むコミットとマッチします。
 
-## Search by parent
+## 親で検索
 
-The `parent` qualifier matches commits whose parent has the specified SHA-1 hash.
+`parent` 修飾子は、親が指定された SHA-1 ハッシュを持つコミットとマッチします。
 
-| Qualifier  | Example
+| 修飾子  | 例
 | ------------- | -------------
-| <code>parent:<em>HASH</em></code> | [**parent:124a9a0ee1d8f1e15e833aff432fbb3b02632105**](https://github.com/github/gitignore/search?q=parent%3A124a9a0ee1d8f1e15e833aff432fbb3b02632105&type=Commits&utf8=%E2%9C%93) matches children of commits with the hash `124a9a0ee1d8f1e15e833aff432fbb3b02632105`.
+| <code>parent:<em>HASH</em></code> | [**parent:124a9a0ee1d8f1e15e833aff432fbb3b02632105**](https://github.com/github/gitignore/search?q=parent%3A124a9a0ee1d8f1e15e833aff432fbb3b02632105&type=Commits&utf8=%E2%9C%93) は、ハッシュ `124a9a0ee1d8f1e15e833aff432fbb3b02632105` を含むコミットの子とマッチします。
 
-## Search by tree
+## ツリーで検索
 
-The `tree` qualifier matches commits with the specified SHA-1 git tree hash.
+`tree` 修飾子は、指定された SHA-1 Git ツリー ハッシュを含むコミットとマッチします。
 
-| Qualifier  | Example
+| 修飾子  | 例
 | ------------- | -------------
-| <code>tree:<em>HASH</em></code> | [**tree:99ca967**](https://github.com/github/gitignore/search?q=tree%3A99ca967&type=Commits) matches commits that refer to the tree hash `99ca967`.
+| <code>tree:<em>HASH</em></code> | [**tree:99ca967**](https://github.com/github/gitignore/search?q=tree%3A99ca967&type=Commits) は、ツリー ハッシュ `99ca967` を参照するコミットとマッチします。
 
-## Search within a user's or organization's repositories
+## ユーザまたは Organization のリポジトリ内の検索
 
-To search commits in all repositories owned by a certain user or organization, use the `user` or `org` qualifier. To search commits in a specific repository, use the `repo` qualifier.
+特定のユーザーまたは組織が所有するすべてのリポジトリでコミットを検索するには、`user` または `org` 修飾子を使用します。 特定のリポジトリ内のコミットを検索するには、`repo` 修飾子を使用します。
 
-| Qualifier  | Example
+| 修飾子  | 例
 | ------------- | -------------
-| <code>user:<em>USERNAME</em></code> | [**gibberish user:defunkt**](https://github.com/search?q=gibberish+user%3Adefunkt&type=Commits&utf8=%E2%9C%93) matches commit messages with the word "gibberish" in repositories owned by @defunkt.
-| <code>org:<em>ORGNAME</em></code> | [**test org:github**](https://github.com/search?utf8=%E2%9C%93&q=test+org%3Agithub&type=Commits) matches commit messages with the word "test" in repositories owned by @github.
-| <code>repo:<em>USERNAME/REPO</em></code> | [**language repo:defunkt/gibberish**](https://github.com/search?utf8=%E2%9C%93&q=language+repo%3Adefunkt%2Fgibberish&type=Commits) matches commit messages with the word "language" in @defunkt's "gibberish" repository.
+| <code>user:<em>USERNAME</em></code> | [**gibberish user:defunkt**](https://github.com/search?q=gibberish+user%3Adefunkt&type=Commits&utf8=%E2%9C%93) は、@defunkt が所有するリポジトリ内で「gibberish」という単語を含むコミット メッセージとマッチします。
+| <code>org:<em>ORGNAME</em></code> | [**test org:github**](https://github.com/search?utf8=%E2%9C%93&q=test+org%3Agithub&type=Commits) は、@github が所有するリポジトリ内で「test」という単語を含むコミット メッセージとマッチします。
+| <code>repo:<em>USERNAME/REPO</em></code> | [**language repo:defunkt/gibberish**](https://github.com/search?utf8=%E2%9C%93&q=language+repo%3Adefunkt%2Fgibberish&type=Commits) は、@defunkt の「gibberish」リポジトリ内で「language」という単語を含むコミット メッセージとマッチします。
 
-## Filter by repository visibility
+## リポジトリの可視性によるフィルタ
 
-The `is` qualifier matches commits from repositories with the specified visibility. For more information, see "[About repositories](/repositories/creating-and-managing-repositories/about-repositories#about-repository-visibility)."
+`is` 修飾子は、指定した可視性を持つリポジトリからのコミットとマッチします。 詳細については、[リポジトリ](/repositories/creating-and-managing-repositories/about-repositories#about-repository-visibility)に関する説明を参照してください。
 
-| Qualifier  | Example
+| 修飾子  | 例
 | ------------- | ------------- |
-{%- ifversion fpt or ghes or ghec %}
-| `is:public` | [**is:public**](https://github.com/search?q=is%3Apublic&type=Commits) matches commits to public repositories.
-{%- endif %}
+{%- ifversion fpt or ghes or ghec %} | `is:public` | [**is:public**](https://github.com/search?q=is%3Apublic&type=Commits) はパブリック リポジトリへのコミットとマッチします。
+{%- endif %} {%- ifversion ghes or ghec or ghae %} | `is:internal` | [**is:internal**](https://github.com/search?q=is%3Ainternal&type=Commits) は内部リポジトリへのコミットとマッチします。
+{%- endif %} | `is:private` | [**is:private**](https://github.com/search?q=is%3Aprivate&type=Commits) はプライベート リポジトリへのコミットとマッチします。
 
-{%- ifversion ghes or ghec or ghae %}
-| `is:internal` | [**is:internal**](https://github.com/search?q=is%3Ainternal&type=Commits) matches commits to internal repositories.
-{%- endif %}
+## 参考資料
 
-| `is:private` | [**is:private**](https://github.com/search?q=is%3Aprivate&type=Commits) matches commits to private repositories.
-
-## Further reading
-
-- "[Sorting search results](/search-github/getting-started-with-searching-on-github/sorting-search-results/)"
+- 「[検索結果をソートする](/search-github/getting-started-with-searching-on-github/sorting-search-results/)」

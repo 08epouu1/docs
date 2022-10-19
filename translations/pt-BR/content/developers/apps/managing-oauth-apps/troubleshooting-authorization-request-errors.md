@@ -1,5 +1,5 @@
 ---
-title: Troubleshooting authorization request errors
+title: Solucionar problemas de erros de solicitação de autorização
 intro: '{% data reusables.shortdesc.troubleshooting_authorization_request_errors_oauth_apps %}'
 redirect_from:
   - /apps/building-integrations/managing-oauth-apps/troubleshooting-authorization-request-errors
@@ -13,41 +13,42 @@ versions:
 topics:
   - GitHub Apps
 shortTitle: Troubleshoot authorization
+ms.openlocfilehash: 8706453423298277ed27ac5f950c562db8a42a09
+ms.sourcegitcommit: fb047f9450b41b24afc43d9512a5db2a2b750a2a
+ms.translationtype: HT
+ms.contentlocale: pt-BR
+ms.lasthandoff: 09/11/2022
+ms.locfileid: '145083974'
 ---
-## Application suspended
+## Aplicativo suspenso
 
-If the OAuth App you set up has been suspended (due to reported abuse, spam, or a mis-use of the API), GitHub will redirect to the registered callback URL using the following parameters to summarize the error:
+Se o aplicativo OAuth que você configurou foi suspenso (em razão de abusos, spam, ou de má utilização da API), o GitHub irá redirecionar para a URL de chamada de retorno registrada, usando os parâmetros a seguir para resumir o erro:
 
     http://your-application.com/callback?error=application_suspended
       &error_description=Your+application+has+been+suspended.+Contact+support@github.com.
       &error_uri=/apps/building-integrations/setting-up-and-registering-oauth-apps/troubleshooting-authorization-request-errors/%23application-suspended
       &state=xyz
 
-To solve issues with suspended applications, please contact {% data variables.contact.contact_support %}.
+Para resolver problemas com aplicativos suspensos, entre em contato com {% data variables.contact.contact_support %}.
 
-## Redirect URI mismatch
+## Erro no redirecionamento do URI
 
-If you provide a `redirect_uri` that doesn't match what you've registered with your application, GitHub will redirect to the registered callback URL with the following parameters summarizing the error:
+Se você fornecer um `redirect_uri` que não corresponda ao que você registrou no seu aplicativo, o GitHub redirecionará você para a URL de retorno de chamada registrada com os seguintes parâmetros resumindo o erro:
 
     http://your-application.com/callback?error=redirect_uri_mismatch
       &error_description=The+redirect_uri+MUST+match+the+registered+callback+URL+for+this+application.
       &error_uri=/apps/building-integrations/setting-up-and-registering-oauth-apps/troubleshooting-authorization-request-errors/%23redirect-uri-mismatch
       &state=xyz
 
-To correct this error, either provide a `redirect_uri` that matches what you registered or leave out this parameter to use the default one registered with your application.
+Para corrigir este erro, forneça um `redirect_uri` que corresponda ao que você registrou ou deixe este parâmetro de fora para usar o padrão registrado com seu aplicativo.
 
-### Access denied
+### Acesso negado
 
-If the user rejects access to your application, GitHub will redirect to
-the registered callback URL with the following parameters summarizing
-the error:
+Se o usuário rejeitar o acesso ao seu aplicativo, o GitHub o redirecionará para a URL de retorno de chamada registrada com os seguintes parâmetros resumindo o erro:
 
     http://your-application.com/callback?error=access_denied
       &error_description=The+user+has+denied+your+application+access.
       &error_uri=/apps/building-integrations/setting-up-and-registering-oauth-apps/troubleshooting-authorization-request-errors/%23access-denied
       &state=xyz
 
-There's nothing you can do here as users are free to choose not to use
-your application. More often than not, users will just close the window
-or press back in their browser, so it is likely that you'll never see
-this error.
+Não há nada que você possa fazer aqui, pois os usuários são livres para optar por não usar seu aplicativo. Frequentemente, os usuários apenas fecharão a janela ou pressionarão "Voltar" no navegador. Portanto, é provável que você nunca veja esse erro.

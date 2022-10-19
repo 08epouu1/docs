@@ -1,5 +1,5 @@
 ---
-title: Accessing your organization's settings
+title: 访问组织的设置
 redirect_from:
   - /articles/who-can-access-organization-billing-information-and-account-settings
   - /articles/managing-the-organization-s-settings
@@ -9,7 +9,7 @@ redirect_from:
   - /articles/accessing-your-organization-s-settings
   - /articles/accessing-your-organizations-settings
   - /github/setting-up-and-managing-organizations-and-teams/accessing-your-organizations-settings
-intro: 'The organization account settings page provides several ways to manage the account, such as billing, team membership, and repository settings.'
+intro: 组织帐户设置页面提供几种管理帐户的方式，如帐单、团队成员资格和仓库设置。
 versions:
   fpt: '*'
   ghes: '*'
@@ -19,16 +19,21 @@ topics:
   - Organizations
   - Teams
 shortTitle: Access organization settings
+ms.openlocfilehash: 952b4c7d911c131fa7913b9f8ce9f6da67e34cd5
+ms.sourcegitcommit: fcf3546b7cc208155fb8acdf68b81be28afc3d2d
+ms.translationtype: HT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 09/10/2022
+ms.locfileid: '145128603'
 ---
 {% ifversion fpt or ghec %}
 
 {% tip %}
 
-**Tip:** Only organization owners and billing managers can see and change the billing information and account settings for an organization. {% data reusables.organizations.new-org-permissions-more-info %}
+提示：只有组织所有者和账单管理员可以查看及更改组织的账单信息与一组完整的帐户设置。 组织审查者只能查看审查设置。 {% data reusables.organizations.new-org-permissions-more-info %}
 
 {% endtip %}
 
 {% endif %}
 
-{% data reusables.profile.access_org %}
-{% data reusables.profile.org_settings %}
+{% data reusables.profile.access_org %} {% data reusables.profile.org_settings %}

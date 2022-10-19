@@ -1,6 +1,6 @@
 ---
-title: Auditing SSH keys
-intro: Site administrators can initiate an instance-wide audit of SSH keys.
+title: Auditar chaves SSH
+intro: Os administradores do site podem iniciar uma auditoria em toda a instância das chaves SSH.
 redirect_from:
   - /enterprise/admin/articles/auditing-ssh-keys
   - /enterprise/admin/user-management/auditing-ssh-keys
@@ -14,24 +14,30 @@ topics:
   - Enterprise
   - Security
   - SSH
+ms.openlocfilehash: 6ffcbdc698b6eb3a4736fdb2b4713e2871dcaac2
+ms.sourcegitcommit: 76b840f45ba85fb79a7f0c1eb43bc663b3eadf2b
+ms.translationtype: HT
+ms.contentlocale: pt-BR
+ms.lasthandoff: 09/12/2022
+ms.locfileid: '147508429'
 ---
-Once initiated, the audit disables all existing SSH keys and forces users to approve or reject them before they're able to clone, pull, or push to any repositories. An audit is useful in situations where an employee or contractor leaves the company and you need to ensure that all keys are verified.
+Depois de iniciada, a auditoria desabilita todas as chaves SSH e força os usuários a aprová-las ou rejeitá-las antes que eles possam clonar, fazer pull ou fazer push para qualquer repositório. Auditorias são úteis nos casos em que um funcionário ou contratado sai da empresa e você deve garantir a verificação de todas as chaves.
 
-## Initiating an audit
+## Iniciar uma auditoria
 
-You can initiate an SSH key audit from the "All users" tab of the site admin dashboard:
+Você pode iniciar uma auditoria de chave SSH na guia "All users" (Todos os usuários) do painel de administração do site:
 
-![Starting a public key audit](/assets/images/enterprise/security/Enterprise-Start-Key-Audit.png)
+![Iniciar auditoria de chave pública](/assets/images/enterprise/security/Enterprise-Start-Key-Audit.png)
 
-After you click the "Start public key audit" button, you'll be taken to a confirmation screen explaining what will happen next:
+Depois de clicar no botão "Start public key audit" (Iniciar auditoria de chave pública), você será redirecionado para uma tela de confirmação explicando as próximas etapas:
 
-![Confirming the audit](/assets/images/enterprise/security/Enterprise-Begin-Audit.png)
+![Confirmar a auditoria](/assets/images/enterprise/security/Enterprise-Begin-Audit.png)
 
-After you click the "Begin audit" button, all SSH keys are invalidated and will require approval. You'll see a notification indicating the audit has begun.
+Depois de clicar no botão "Begin audit" (Iniciar auditoria), todas as chaves SSH serão invalidadas e exigirão aprovação. Você verá uma notificação indicando o início da auditoria.
 
-## What users see
+## O que os usuários visualizam
 
-If a user attempts to perform any git operation over SSH, it will fail and provide them with the following message:
+Se o usuário tentar fazer qualquer operação no Git por SSH, a operação vai falhar e a seguinte mensagem será exibida:
 
 ```shell
 ERROR: Hi <em>username</em>. We're doing an SSH key audit.
@@ -41,19 +47,21 @@ Fingerprint: ed:21:60:64:c0:dc:2b:16:0f:54:5f:2b:35:2a:94:91
 fatal: The remote end hung up unexpectedly
 ```
 
-When they follow the link, they're asked to approve the keys on their account:
+Quando clicar no link, o usuário deverá aprovar as chaves da própria conta:
 
-![Auditing keys](/assets/images/enterprise/security/Enterprise-Audit-SSH-Keys.jpg)
+![Auditar chaves](/assets/images/enterprise/security/Enterprise-Audit-SSH-Keys.jpg)
 
-After they approve or reject their keys, they'll be able interact with repositories as usual.
+Depois de aprovar ou rejeitar as chaves, o usuário poderá interagir normalmente com os repositórios.
 
-## Adding an SSH key
+## Adicionar chave SSH
 
-New users will be prompted for their password when adding an SSH key:
+{% ifversion ghes %}
 
-![Password confirmation](/assets/images/help/settings/sudo_mode_popup.png)
+Quando um novo usuário adicionar uma chave SSH a uma conta, para confirmar o acesso do usuário, {% data variables.product.product_name %} solicitará a autenticação. Para obter mais informações, confira "[Modo sudo](/authentication/keeping-your-account-and-data-secure/sudo-mode)".
 
-When a user adds a key, they'll receive a notification email that will look something like this:
+{% endif %}
+
+Quando adicionar a chave, o usuário receberá um e-mail de notificação como este:
 
     The following SSH key was added to your account:
 

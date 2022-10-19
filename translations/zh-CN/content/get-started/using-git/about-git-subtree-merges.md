@@ -1,5 +1,5 @@
 ---
-title: About Git subtree merges
+title: 关于 Git 子树合并
 redirect_from:
   - /articles/working-with-subtree-merge
   - /subtree-merge
@@ -7,38 +7,44 @@ redirect_from:
   - /github/using-git/about-git-subtree-merges
   - /github/getting-started-with-github/about-git-subtree-merges
   - /github/getting-started-with-github/using-git/about-git-subtree-merges
-intro: 'If you need to manage multiple projects within a single repository, you can use a *subtree merge* to handle all the references.'
+intro: 如果需要管理单个存储库中的多个项目，可以使用子树合并来处理所有引用。
 versions:
   fpt: '*'
   ghes: '*'
   ghae: '*'
   ghec: '*'
+ms.openlocfilehash: cd553d4193f3e4ad5de54abc218df623b1d53276
+ms.sourcegitcommit: 96bbb6b8f3c9172209d80cb1502017ace3019807
+ms.translationtype: HT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 09/10/2022
+ms.locfileid: '147880026'
 ---
-## About subtree merges
+## 关于子树合并
 
-Typically, a subtree merge is used to contain a repository within a repository. The "subrepository" is stored in a folder of the main repository.
+通常，子树合并用于在仓库中包含仓库。 “子仓库”存储在主仓库的文件夹中。
 
-The best way to explain subtree merges is to show by example. We will:
+解释子树合并的最佳方式是举例说明。 我们将：
 
-- Make an empty repository called `test` that represents our project
-- Merge another repository into it as a subtree called `Spoon-Knife`.
-- The `test` project will use that subproject as if it were part of the same repository.
-- Fetch updates from `Spoon-Knife` into our `test` project.
+- 创建一个名为 `test` 的空存储库，用于表示我们的项目
+- 将另一个名为 `Spoon-Knife` 的存储库作为子树合并到其中。
+- `test` 项目将使用该子项目，就像它也属于同一存储库一样。
+- 从 `Spoon-Knife` 将更新提取到 `test` 项目中。
 
-## Setting up the empty repository for a subtree merge
+## 创建用于子树合并的空仓库
 
 {% data reusables.command_line.open_the_multi_os_terminal %}
-2. Create a new directory and navigate to it.
+2. 创建一个新目录并找到它。
   ```shell
   $ mkdir test
   $ cd test
   ```
-3. Initialize a new Git repository.
+3. 初始化新的 Git 存储库。
   ```shell
   $ git init
   > Initialized empty Git repository in /Users/octocat/tmp/test/.git/
   ```
-4. Create and commit a new file.
+4. 创建并提交新文件。
   ```shell
   $ touch .gitignore
   $ git add .gitignore
@@ -48,11 +54,11 @@ The best way to explain subtree merges is to show by example. We will:
   >  create mode 100644 .gitignore
   ```
 
-## Adding a new repository as a subtree
+## 新增一个仓库为子树
 
-1. Add a new remote URL pointing to the separate project that we're interested in.
+1. 新增指向我们感兴趣的单独项目的远程 URL。
   ```shell
-  $ git remote add -f spoon-knife git@github.com:octocat/Spoon-Knife.git
+  $ git remote add -f spoon-knife https://github.com/octocat/Spoon-Knife.git
   > Updating spoon-knife
   > warning: no common commits
   > remote: Counting objects: 1732, done.
@@ -60,55 +66,55 @@ The best way to explain subtree merges is to show by example. We will:
   > remote: Total 1732 (delta 1086), reused 1558 (delta 967)
   > Receiving objects: 100% (1732/1732), 528.19 KiB | 621 KiB/s, done.
   > Resolving deltas: 100% (1086/1086), done.
-  > From git://github.com/octocat/Spoon-Knife
+  > From https://github.com/octocat/Spoon-Knife
   >  * [new branch]      main     -> Spoon-Knife/main
   ```
-2. Merge the `Spoon-Knife` project into the local Git project. This doesn't change any of your files locally, but it does prepare Git for the next step.
+2. 将 `Spoon-Knife` 项目合并到本地 Git 项目。 这不会在本地更改任何文件，但会为下一步准备 Git。
 
-  If you're using Git 2.9 or above:
+  如果您使用的是 Git 2.9 或更高版本：
   ```shell
   $ git merge -s ours --no-commit --allow-unrelated-histories spoon-knife/main
   > Automatic merge went well; stopped before committing as requested
   ```
 
-  If you're using Git 2.8 or below:
+  如果您使用的是 Git 2.8 或更低版本：
   ```shell
   $ git merge -s ours --no-commit spoon-knife/main
   > Automatic merge went well; stopped before committing as requested
   ```
-3. Create a new directory called **spoon-knife**, and copy the Git history of the `Spoon-Knife` project into it.
+3. 创建新目录“spoon-knife”并将 `Spoon-Knife` 项目的 Git 历史记录复制到其中。
   ```shell
   $ git read-tree --prefix=spoon-knife/ -u spoon-knife/main
   ```
-4. Commit the changes to keep them safe.
+4. 提交更改以确保其安全。
   ```shell
   $ git commit -m "Subtree merged in spoon-knife"
   > [main fe0ca25] Subtree merged in spoon-knife
   ```
 
-Although we've only added one subproject, any number of subprojects can be incorporated into a Git repository.
+虽然我们只添加了一个子项目，但是可在 Git 仓库中加入任意数量的子项目。
 
 {% tip %}
 
-**Tip**: If you create a fresh clone of the repository in the future,  the remotes you've added will not be created for you. You will have to add them again using [the `git remote add` command](/github/getting-started-with-github/managing-remote-repositories).
+**提示**：如果你以后创建存储库的全新克隆，系统不会为你创建你已添加的远程库。 必须使用 [`git remote add` 命令](/github/getting-started-with-github/managing-remote-repositories) 来添加它们。
 
 {% endtip %}
 
-## Synchronizing with updates and changes
+## 同步更新和更改
 
-When a subproject is added, it is not automatically kept in sync with the upstream changes. You will need to update the subproject with the following command:
+添加子项目时，它不会自动与上游更改保持同步。 您需要使用以下命令更新子项目：
 
 ```shell
 $ git pull -s subtree <em>remotename</em> <em>branchname</em>
 ```
 
-For the example above, this would be:
+对于上述示例，将是：
 
 ```shell
 $ git pull -s subtree spoon-knife main
 ```
 
-## Further reading
+## 延伸阅读
 
-- [The "Advanced Merging" chapter from the _Pro Git_ book](https://git-scm.com/book/en/v2/Git-Tools-Advanced-Merging)
-- "[How to use the subtree merge strategy](https://www.kernel.org/pub/software/scm/git/docs/howto/using-merge-subtree.html)"
+- [《Pro Git》一书中的“高级合并”章节](https://git-scm.com/book/en/v2/Git-Tools-Advanced-Merging)
+- [如何使用子树合并策略](https://www.kernel.org/pub/software/scm/git/docs/howto/using-merge-subtree.html)

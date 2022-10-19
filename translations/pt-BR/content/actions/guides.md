@@ -1,6 +1,6 @@
 ---
-title: Guides for GitHub Actions
-intro: 'These guides for {% data variables.product.prodname_actions %} include specific use cases and examples to help you configure workflows.'
+title: Guias para o GitHub Actions
+intro: 'Estes guias para {% data variables.product.prodname_actions %} incluem casos de uso específicos e exemplos para ajudar você a configurar fluxos de trabalho.'
 allowTitleToDifferFromFilename: true
 layout: product-guides
 versions:
@@ -13,14 +13,15 @@ learningTracks:
   - continuous_integration
   - continuous_deployment
   - deploy_to_the_cloud
-  - '{% ifversion ghec or ghes or ghae %}adopting_github_actions_for_your_enterprise{% endif %}'
+  - adopting_github_actions_for_your_enterprise_ghec
+  - adopting_github_actions_for_your_enterprise_ghes_and_ghae
   - hosting_your_own_runners
   - create_actions
 includeGuides:
   - /actions/quickstart
   - /actions/learn-github-actions/introduction-to-github-actions
   - /actions/creating-actions/creating-a-docker-container-action
-  - /actions/learn-github-actions/using-workflow-templates
+  - /actions/learn-github-actions/using-starter-workflows
   - /actions/automating-builds-and-tests/building-and-testing-python
   - /actions/automating-builds-and-tests/building-and-testing-nodejs
   - /actions/publishing-packages/about-packaging-with-github-actions
@@ -71,5 +72,11 @@ includeGuides:
   - /actions/deployment/deploying-to-your-cloud-provider/deploying-to-azure/deploying-python-to-azure-app-service
   - /actions/deployment/deploying-to-your-cloud-provider/deploying-to-azure/deploying-to-azure-static-web-app
   - /actions/deployment/deploying-to-your-cloud-provider/deploying-to-azure/deploying-to-azure-kubernetes-service
+ms.openlocfilehash: 79b3b57f30be1b9cbccd9453d29c6c86f108c944
+ms.sourcegitcommit: fcf3546b7cc208155fb8acdf68b81be28afc3d2d
+ms.translationtype: HT
+ms.contentlocale: pt-BR
+ms.lasthandoff: 09/10/2022
+ms.locfileid: '145085286'
 ---
 

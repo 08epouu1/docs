@@ -1,6 +1,6 @@
 ---
-title: Creating a personal access token
-intro: You should create a personal access token to use in place of a password with the command line or with the API.
+title: Creación de un token de acceso personal
+intro: Puedes crear un token de acceso personal para utilizar como contraseña con la línea de comandos o con la API.
 redirect_from:
   - /articles/creating-an-oauth-token-for-command-line-use
   - /articles/creating-an-access-token-for-command-line-use
@@ -8,6 +8,7 @@ redirect_from:
   - /github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line
   - /github/authenticating-to-github/creating-a-personal-access-token
   - /github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token
+  - /github/extending-github/git-automation-with-oauth-tokens
 versions:
   fpt: '*'
   ghes: '*'
@@ -17,67 +18,59 @@ topics:
   - Identity
   - Access management
 shortTitle: Create a PAT
+ms.openlocfilehash: 437e06ba2fdf82252702106600ac6da73ee4c792
+ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
+ms.translationtype: HT
+ms.contentlocale: es-ES
+ms.lasthandoff: 09/05/2022
+ms.locfileid: '147064430'
 ---
-
 {% note %}
 
-**Note:** If you use {% data variables.product.prodname_cli %} to authenticate to {% data variables.product.product_name %} on the command line, you can skip generating a personal access token and authenticate via the web browser instead. For more information about authenticating with {% data variables.product.prodname_cli %}, see [`gh auth login`](https://cli.github.com/manual/gh_auth_login).
+**Notas:**
+
+- Si usas la {% data variables.product.prodname_cli %} para autenticarte en {% data variables.product.product_name %} en la línea de comandos, puedes omitir la generación de un token de acceso personal y autenticarte mediante el explorador web. Para más información sobre la autenticación con {% data variables.product.prodname_cli %}, vea [`gh auth login`](https://cli.github.com/manual/gh_auth_login).
+-  El [Administrador de credenciales de Git](https://github.com/GitCredentialManager/git-credential-manager/blob/main/README.md) es una alternativa segura y multiplataforma al uso de tokens de acceso personal (PAT) y elimina la necesidad de administrar el ámbito y la expiración de PAT. Para obtener instrucciones de instalación, consulta [Descargar e instalar](https://github.com/GitCredentialManager/git-credential-manager/blob/main/README.md#download-and-install) en el repositorio GitCredentialManager/git-credential-manager.
 
 {% endnote %}
 
-Personal access tokens (PATs) are an alternative to using passwords for authentication to {% data variables.product.product_name %} when using the [GitHub API](/rest/overview/other-authentication-methods#via-oauth-and-personal-access-tokens) or the [command line](#using-a-token-on-the-command-line).
+Los tokens de acceso personal (PAT) son una alternativa al uso de contraseñas para la autenticación en {% data variables.product.product_name %} cuando se usa la [API de GitHub](/rest/overview/other-authentication-methods#via-oauth-and-personal-access-tokens) o la [línea de comandos](#using-a-token-on-the-command-line).
 
-{% ifversion fpt or ghec %}If you want to use a PAT to access resources owned by an organization that uses SAML SSO, you must authorize the PAT. For more information, see "[About authentication with SAML single sign-on](/enterprise-cloud@latest/authentication/authenticating-with-saml-single-sign-on/about-authentication-with-saml-single-sign-on)" and "[Authorizing a personal access token for use with SAML single sign-on](/enterprise-cloud@latest/authentication/authenticating-with-saml-single-sign-on/authorizing-a-personal-access-token-for-use-with-saml-single-sign-on){% ifversion fpt %}" in the {% data variables.product.prodname_ghe_cloud %} documentation.{% else %}."{% endif %}{% endif %}
+{% ifversion fpt or ghec %}Si quiere utilizar un PAT para acceder a los recursos que pertenecen a una organización que usa el SSO de SAML, tendrá que autorizarlo. Para más información, vea "[Acerca de la autenticación con el inicio de sesión único de SAML](/enterprise-cloud@latest/authentication/authenticating-with-saml-single-sign-on/about-authentication-with-saml-single-sign-on)" y "[Autorización de un token de acceso personal para su uso con el inicio de sesión único de SAML](/enterprise-cloud@latest/authentication/authenticating-with-saml-single-sign-on/authorizing-a-personal-access-token-for-use-with-saml-single-sign-on){% ifversion fpt %}" en la documentación de {% data variables.product.prodname_ghe_cloud %}.{% else %}".{% endif %}{% endif %}
 
-{% ifversion fpt or ghec %}{% data reusables.user_settings.removes-personal-access-tokens %}{% endif %}
+{% ifversion fpt or ghec %}{% data reusables.user-settings.removes-personal-access-tokens %}{% endif %}
 
-A token with no assigned scopes can only access public information. To use your token to access repositories from the command line, select `repo`. For more information, see "[Available scopes](/apps/building-oauth-apps/scopes-for-oauth-apps#available-scopes)".
+Un token sin alcances asignados solo puede acceder a información pública. A fin de usar el token para acceder a repositorios desde la línea de comandos, seleccione `repo`. Para más información, vea "[Ámbitos disponibles](/apps/building-oauth-apps/scopes-for-oauth-apps#available-scopes)".
 
-## Creating a token
+## Creación de un token
 
-{% ifversion fpt or ghec %}1. [Verify your email address](/github/getting-started-with-github/verifying-your-email-address), if it hasn't been verified yet.{% endif %}
-{% data reusables.user_settings.access_settings %}
-{% data reusables.user_settings.developer_settings %}
-{% data reusables.user_settings.personal_access_tokens %}
-{% data reusables.user_settings.generate_new_token %}
-5. Give your token a descriptive name.
-   ![Token description field](/assets/images/help/settings/token_description.png){% ifversion fpt or ghes > 3.2 or ghae-issue-4374 or ghec %}
-6. To give your token an expiration, select the **Expiration** drop-down menu, then click a default or use the calendar picker.
-   ![Token expiration field](/assets/images/help/settings/token_expiration.png){% endif %}
-7. Select the scopes, or permissions, you'd like to grant this token. To use your token to access repositories from the command line, select **repo**.
-   {% ifversion fpt or ghes or ghec %}
-   ![Selecting token scopes](/assets/images/help/settings/token_scopes.gif)
-   {% elsif ghae %}
-   ![Selecting token scopes](/assets/images/enterprise/github-ae/settings/access-token-scopes-for-ghae.png)
-   {% endif %}
-8. Click **Generate token**.
-   ![Generate token button](/assets/images/help/settings/generate_token.png)
-   {% ifversion fpt or ghec %}
-   ![Newly created token](/assets/images/help/settings/personal_access_tokens.png)
-   {% elsif ghes > 3.1 or ghae %}
-   ![Newly created token](/assets/images/help/settings/personal_access_tokens_ghe.png)
-   {% else %}
-   ![Newly created token](/assets/images/help/settings/personal_access_tokens_ghe_legacy.png)
-   {% endif %}
-   {% warning %}
+{% ifversion fpt or ghec %}1. [Verifica la dirección de correo electrónico](/github/getting-started-with-github/verifying-your-email-address), si todavía no se ha verificado.{% endif %} {% data reusables.user-settings.access_settings %} {% data reusables.user-settings.developer_settings %} {% data reusables.user-settings.personal_access_tokens %} {% data reusables.user-settings.generate_new_token %}
+5. Asígnale a tu token un nombre descriptivo.
+   ![Campo de descripción del token](/assets/images/help/settings/token_description.png){% ifversion fpt or ghes > 3.2 or ghae or ghec %}
+6. Para asignar una expiración al token, seleccione el menú desplegable **Expiración** y, después, haga clic en un valor predeterminado, o bien use el selector de calendario.
+   ![Campo de expiración del token](/assets/images/help/settings/token_expiration.png){% endif %}
+7. Selecciona los alcances o permisos que deseas otorgarle a este token. A fin de usar el token para acceder a repositorios desde la línea de comandos, seleccione **repo**.
+   {% ifversion fpt or ghes or ghec %} ![Selección de ámbitos de token](/assets/images/help/settings/token_scopes.gif) {% elsif ghae %} ![Selecting token scopes](/assets/images/enterprise/github-ae/settings/access-token-scopes-for-ghae.png) {% endif %}
+8. Haga clic en **Generar token**.
+   ![Botón Generar token](/assets/images/help/settings/generate_token.png) {% ifversion fpt or ghec %} ![Token recién creado](/assets/images/help/settings/personal_access_tokens.png) {% elsif ghes or ghae %} ![Token recién creado](/assets/images/help/settings/personal_access_tokens_ghe.png) {% else %} ![Token recién creado](/assets/images/help/settings/personal_access_tokens_ghe_legacy.png) {% endif %} {% warning %}
 
-   **Warning:** Treat your tokens like passwords and keep them secret. When working with the API, use tokens as environment variables instead of hardcoding them into your programs. 
+   **Advertencia:** Trate los tokens como si fueran contraseñas y manténgalos en secreto. Cuando trabajes con la API, usa tokens como variables del entorno en lugar de codificarlos de forma rígida en tus programas. 
 
    {% endwarning %}
 
-{% ifversion fpt or ghec %}9. To use your token to authenticate to an organization that uses SAML single sign-on, authorize the token. For more information, see "[Authorizing a personal access token for use with SAML single sign-on](/enterprise-cloud@latest/authentication/authenticating-with-saml-single-sign-on/authorizing-a-personal-access-token-for-use-with-saml-single-sign-on){% ifversion fpt %}" in the {% data variables.product.prodname_ghe_cloud %} documentation.{% else %}."{% endif %}{% endif %}
+{% ifversion fpt or ghec %}9. Para utilizar tu token o autenticarte en una organización que utilice el inicio de sesión único de SAML, autoriza el token. Para más información, vea "[Autorización de un token de acceso personal para usarlo con el inicio de sesión único de SAML](/enterprise-cloud@latest/authentication/authenticating-with-saml-single-sign-on/authorizing-a-personal-access-token-for-use-with-saml-single-sign-on){% ifversion fpt %}" en la documentación de {% data variables.product.prodname_ghe_cloud %}.{% else %}".{% endif %}{% endif %}
 
-## Using a token on the command line
+## Usar un token en la línea de comando
 
 {% data reusables.command_line.providing-token-as-password %}
 
-Personal access tokens can only be used for HTTPS Git operations. If your repository uses an SSH remote URL, you will need to [switch the remote from SSH to HTTPS](/github/getting-started-with-github/managing-remote-repositories/#switching-remote-urls-from-ssh-to-https).
+Los tokens de acceso personal solo se pueden usar para operaciones HTTPS Git. Si en el repositorio se usa una dirección URL remota SSH, tendrá que [cambiarlo de SSH a HTTPS](/github/getting-started-with-github/managing-remote-repositories/#switching-remote-urls-from-ssh-to-https).
 
-If you are not prompted for your username and password, your credentials may be cached on your computer. You can [update your credentials in the Keychain](/github/getting-started-with-github/updating-credentials-from-the-macos-keychain) to replace your old password with the token.
+Si no se te solicita tu nombre de usuario y contraseña, tus credenciales pueden estar almacenadas en la caché de tu computadora. Puede [actualizar las credenciales en la cadena de claves](/github/getting-started-with-github/updating-credentials-from-the-macos-keychain) para reemplazar la contraseña antigua por el token.
 
-Instead of manually entering your PAT for every HTTPS Git operation, you can cache your PAT with a Git client. Git will temporarily store your credentials in memory until an expiry interval has passed. You can also store the token in a plain text file that Git can read before every request. For more information, see "[Caching your {% data variables.product.prodname_dotcom %} credentials in Git](/github/getting-started-with-github/caching-your-github-credentials-in-git)."
+En vez de ingresar tu PAT manualmente para cada operación de HTTPS de Git, puedes almacenarlo en caché con un cliente de Git. Git almacenará tus credenciales temporalmente en la memoria hasta que haya pasado un intervalo de vencimiento. También puedes almacenar el token en un archivo de texto simple que pueda leer Git antes de cada solicitud. Para más información, vea "[Almacenamiento en caché de las credenciales de {% data variables.product.prodname_dotcom %} en Git](/github/getting-started-with-github/caching-your-github-credentials-in-git)".
 
-## Further reading
+## Información adicional
 
-- "[About authentication to GitHub](/github/authenticating-to-github/about-authentication-to-github)"{% ifversion fpt or ghae-issue-4374 or ghes > 3.2 or ghec %}
-- "[Token expiration and revocation](/github/authenticating-to-github/keeping-your-account-and-data-secure/token-expiration-and-revocation)"{% endif %}
+- "[Acerca de la autenticación en GitHub](/github/authenticating-to-github/about-authentication-to-github)"{% ifversion fpt or ghae or ghes > 3.2 or ghec %}
+- "[Expiración y revocación de tokens](/github/authenticating-to-github/keeping-your-account-and-data-secure/token-expiration-and-revocation)"{% endif %}

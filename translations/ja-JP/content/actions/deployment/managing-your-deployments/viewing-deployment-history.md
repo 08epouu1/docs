@@ -1,6 +1,6 @@
 ---
-title: Viewing deployment history
-intro: View current and previous deployments for your repository.
+title: デプロイ履歴の表示
+intro: リポジトリの現在と過去のデプロイメントの表示。
 versions:
   fpt: '*'
   ghes: '*'
@@ -12,18 +12,20 @@ shortTitle: View deployment history
 redirect_from:
   - /developers/overview/viewing-deployment-history
   - /actions/deployment/viewing-deployment-history
+ms.openlocfilehash: 2941d8de6af3b7505a3c05a6b15436d32becea9b
+ms.sourcegitcommit: fcf3546b7cc208155fb8acdf68b81be28afc3d2d
+ms.translationtype: HT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 09/10/2022
+ms.locfileid: '145091389'
 ---
+{% data variables.product.prodname_actions %} と環境を介して、または REST API とサード パーティ アプリを使ってデプロイを配信することができます。 {% ifversion fpt or ghae ghes > 3.0 or ghec %}{% data variables.product.prodname_actions %} と共に環境を使ってデプロイする方法については、「[デプロイに環境を使用する](/actions/deployment/using-environments-for-deployment)」を参照してください。 {% endif %}REST API を使ったデプロイの詳細については、「[リポジトリ](/rest/reference/repos#deployments)」を参照してください。
 
+現在と過去のデプロイを表示するには、リポジトリのホーム ページで **[Environments]\(環境\)** をクリックします。
+{% ifversion ghae %} ![環境](/assets/images/enterprise/2.22/environments-sidebar.png){% else %} ![環境](/assets/images/environments-sidebar.png){% endif %}
 
-You can deliver deployments through {% ifversion fpt or ghae or ghes > 3.0 or ghec %}{% data variables.product.prodname_actions %} and environments or with {% endif %}the REST API and third party apps. {% ifversion fpt or ghae ghes > 3.0 or ghec %}For more information about using environments to deploy with {% data variables.product.prodname_actions %}, see "[Using environments for deployment](/actions/deployment/using-environments-for-deployment)." {% endif %}For more information about deployments with the REST API, see "[Repositories](/rest/reference/repos#deployments)."
+デプロイメントページは、リポジトリの各環境の最新のアクティブなデプロイメントを表示します。 デプロイに環境の URL が含まれている場合、その URL にリンクする **[View deployment]\(デプロイの表示\)** ボタンがデプロイの横に表示されます。
 
-To view current and past deployments, click **Environments** on the home page of your repository.
-{% ifversion ghae %}
-![Environments](/assets/images/enterprise/2.22/environments-sidebar.png){% else %}
-![Environments](/assets/images/environments-sidebar.png){% endif %}
+アクティビティログは、環境のデプロイメントの履歴を表示します。 既定では、環境の最新のデプロイのみが `Active` ステータスになります。以前にアクティブだったデプロイはすべて `Inactive` ステータスになります。 デプロイの自動非アクティブ化の詳細については、「[非アクティブなデプロイ](/rest/reference/deployments#inactive-deployments)」を参照してください。
 
-The deployments page displays the last active deployment of each environment for your repository. If the deployment includes an environment URL, a **View deployment** button that links to the URL is shown next to the deployment.
-
-The activity log shows the deployment history for your environments. By default, only the most recent deployment for an environment has an `Active` status; all previously active deployments have an `Inactive` status. For more information on automatic inactivation of deployments, see "[Inactive deployments](/rest/reference/deployments#inactive-deployments)."
-
-You can also use the REST API to get information about deployments. For more information, see "[Repositories](/rest/reference/repos#deployments)."
+また、REST APIを使ってデプロイメントに関する情報を取得することもできます。 詳細については、「[リポジトリ](/rest/reference/repos#deployments)」を参照してください。

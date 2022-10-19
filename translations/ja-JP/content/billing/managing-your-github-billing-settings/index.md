@@ -1,7 +1,7 @@
 ---
-title: Managing your GitHub billing settings
+title: GitHub の支払い設定を管理する
 shortTitle: Billing settings
-intro: 'Your account''s billing settings apply to every paid feature or product you add to the account. You can manage settings like your payment method, billing cycle, and billing email. You can also view billing information such as your subscription, billing date, payment history, and past receipts.'
+intro: お使いのアカウントの支払い設定は、アカウントに追加する各有料機能または製品に適用されます。 支払い方法、支払いサイクル、支払い請求先メールアドレスなどの設定を管理できます。 また、ご利用のプラン、請求日、支払い履歴、過去の領収証などの支払い情報を表示することもできます。
 redirect_from:
   - /github/setting-up-and-managing-billing-and-payments-on-github/managing-your-github-billing-settings
   - /articles/viewing-and-managing-your-personal-account-s-billing-information
@@ -25,6 +25,11 @@ children:
   - /redeeming-a-coupon
   - /troubleshooting-a-declined-credit-card-charge
   - /unlocking-a-locked-account
-  - /removing-a-payment-method
+ms.openlocfilehash: 6b9d87e20022431675c949132c9a84a23650abe7
+ms.sourcegitcommit: fb047f9450b41b24afc43d9512a5db2a2b750a2a
+ms.translationtype: HT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 09/11/2022
+ms.locfileid: '145087857'
 ---
 

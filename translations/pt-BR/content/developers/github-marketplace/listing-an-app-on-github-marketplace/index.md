@@ -1,6 +1,6 @@
 ---
-title: Listing an app on GitHub Marketplace
-intro: 'Learn about requirements and best practices for listing your app on {% data variables.product.prodname_marketplace %}.'
+title: Listar um aplicativo no GitHub Marketplace
+intro: 'Saiba mais sobre requisitos e práticas recomendadas para listar seu app no {% data variables.product.prodname_marketplace %}.'
 redirect_from:
   - /apps/adding-integrations/listing-apps-on-github-marketplace
   - /apps/marketplace/listing-apps-on-github-marketplace
@@ -22,5 +22,11 @@ children:
   - /configuring-a-webhook-to-notify-you-of-plan-changes
   - /submitting-your-listing-for-publication
 shortTitle: List an app on the Marketplace
+ms.openlocfilehash: e20f44f2287195ed5cdf0f914b64e6a9a1bbeda2
+ms.sourcegitcommit: fcf3546b7cc208155fb8acdf68b81be28afc3d2d
+ms.translationtype: HT
+ms.contentlocale: pt-BR
+ms.lasthandoff: 09/10/2022
+ms.locfileid: '145083942'
 ---
 

@@ -1,7 +1,7 @@
 ---
-title: Creating PostgreSQL service containers
+title: PostgreSQLサービスコンテナの作成
 shortTitle: PostgreSQL service containers
-intro: You can create a PostgreSQL service container to use in your workflow. This guide shows examples of creating a PostgreSQL service for jobs that run in containers or directly on the runner machine.
+intro: ワークフローで利用するPostgreSQLサービスコンテナを作成できます。 このガイドでは、コンテナで実行されるジョブか、ランナーマシン上で直接実行されるジョブのためのPostgreSQLサービスの作成例を紹介します。
 redirect_from:
   - /actions/automating-your-workflow-with-github-actions/creating-postgresql-service-containers
   - /actions/configuring-and-managing-workflows/creating-postgresql-service-containers
@@ -15,33 +15,36 @@ type: tutorial
 topics:
   - Containers
   - Docker
+ms.openlocfilehash: 9d5ad3e32e5df22101b61aa7ba134e7fe69333e5
+ms.sourcegitcommit: fcf3546b7cc208155fb8acdf68b81be28afc3d2d
+ms.translationtype: HT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 09/10/2022
+ms.locfileid: '145121117'
 ---
+{% data reusables.actions.enterprise-beta %} {% data reusables.actions.enterprise-github-hosted-runners %}
 
-{% data reusables.actions.enterprise-beta %}
-{% data reusables.actions.enterprise-github-hosted-runners %}
+## はじめに
 
-## Introduction
+このガイドでは、Docker Hub の `postgres` イメージを使ってサービス コンテナーを構成するワークフローの例を示します。 ワークフローの実行スクリプトは、PostgreSQL サービスに接続し、テーブルを作成してから、データを入力します。 ワークフローが PostgreSQL テーブルを作成してデータを入力することをテストするために、スクリプトはテーブルからコンソールにデータを出力します。
 
-This guide shows you workflow examples that configure a service container using the Docker Hub `postgres` image. The workflow runs a script that connects to the PostgreSQL service, creates a table, and then populates it with data. To test that the workflow creates and populates the PostgreSQL table, the script prints the data from the table to the console.
+{% data reusables.actions.docker-container-os-support %}
 
-{% data reusables.github-actions.docker-container-os-support %}
+## 前提条件
 
-## Prerequisites
+{% data reusables.actions.service-container-prereqs %}
 
-{% data reusables.github-actions.service-container-prereqs %}
+YAML、{% data variables.product.prodname_actions %}の構文、PosgreSQLの基本な理解があれば役立つかも知れません。 詳細については、次を参照してください。
 
-You may also find it helpful to have a basic understanding of YAML, the syntax for {% data variables.product.prodname_actions %}, and PostgreSQL. For more information, see:
+- "[{% data variables.product.prodname_actions %} について](/actions/learn-github-actions)"
+- PostgreSQL のドキュメントの [PostgreSQL チュートリアル](https://www.postgresqltutorial.com/)
 
-- "[Learn {% data variables.product.prodname_actions %}](/actions/learn-github-actions)"
-- "[PostgreSQL tutorial](https://www.postgresqltutorial.com/)" in the PostgreSQL documentation
+## コンテナ内でのジョブの実行
 
-## Running jobs in containers
+{% data reusables.actions.container-jobs-intro %}
 
-{% data reusables.github-actions.container-jobs-intro %}
+{% data reusables.actions.copy-workflow-file %}
 
-{% data reusables.github-actions.copy-workflow-file %}
-
-{% raw %}
 ```yaml{:copy}
 name: PostgreSQL service example
 on: push
@@ -73,7 +76,7 @@ jobs:
     steps:
       # Downloads a copy of the code in your repository before running CI tests
       - name: Check out repository code
-        uses: actions/checkout@v2
+        uses: {% data reusables.actions.action-checkout %}
 
       # Performs a clean installation of all dependencies in the `package.json` file
       # For more information, see https://docs.npmjs.com/cli/ci.html
@@ -91,13 +94,12 @@ jobs:
           # The default PostgreSQL port
           POSTGRES_PORT: 5432
 ```
-{% endraw %}
 
-### Configuring the runner job
+### ランナージョブの設定
 
-{% data reusables.github-actions.service-container-host %}
+{% data reusables.actions.service-container-host %}
 
-{% data reusables.github-actions.postgres-label-description %}
+{% data reusables.actions.postgres-label-description %}
 
 ```yaml{:copy}
 jobs:
@@ -125,15 +127,15 @@ jobs:
           --health-retries 5
 ```
 
-### Configuring the steps
+### ステップの設定
 
-{% data reusables.github-actions.service-template-steps %}
+{% data reusables.actions.service-template-steps %}
 
 ```yaml{:copy}
 steps:
   # Downloads a copy of the code in your repository before running CI tests
   - name: Check out repository code
-    uses: actions/checkout@v2
+    uses: {% data reusables.actions.action-checkout %}
 
   # Performs a clean installation of all dependencies in the `package.json` file
   # For more information, see https://docs.npmjs.com/cli/ci.html
@@ -153,17 +155,16 @@ steps:
       POSTGRES_PORT: 5432
 ```
 
-{% data reusables.github-actions.postgres-environment-variables %}
+{% data reusables.actions.postgres-environment-variables %}
 
-The hostname of the PostgreSQL service is the label you configured in your workflow, in this case, `postgres`. Because Docker containers on the same user-defined bridge network open all ports by default, you'll be able to access the service container on the default PostgreSQL port 5432.
+PostgreSQL サービスのホスト名は、ワークフロー内で構成されたラベルです (ここでは `postgres`)。 同じユーザー定義ブリッジネットワーク上のDockerコンテナは、デフォルトですべてのポートをオープンするので、サービスコンテナにはデフォルトのPostgreSQLのポートである5432でアクセスできます。
 
-## Running jobs directly on the runner machine
+## ランナーマシン上で直接のジョブの実行
 
-When you run a job directly on the runner machine, you'll need to map the ports on the service container to ports on the Docker host. You can access service containers from the Docker host using `localhost` and the Docker host port number.
+ランナーマシン上で直接ジョブを実行する場合、サービスコンテナ上のポートをDockerホスト上のポートにマップしなければなりません。 Docker ホストからサービス コンテナーへは、`localhost` と Docker ホストのポート番号を使ってアクセスできます。
 
-{% data reusables.github-actions.copy-workflow-file %}
+{% data reusables.actions.copy-workflow-file %}
 
-{% raw %}
 ```yaml{:copy}
 name: PostgreSQL Service Example
 on: push
@@ -196,7 +197,7 @@ jobs:
     steps:
       # Downloads a copy of the code in your repository before running CI tests
       - name: Check out repository code
-        uses: actions/checkout@v2
+        uses: {% data reusables.actions.action-checkout %}
 
       # Performs a clean installation of all dependencies in the `package.json` file
       # For more information, see https://docs.npmjs.com/cli/ci.html
@@ -215,15 +216,14 @@ jobs:
           # The default PostgreSQL port
           POSTGRES_PORT: 5432
 ```
-{% endraw %}
 
-### Configuring the runner job
+### ランナージョブの設定
 
-{% data reusables.github-actions.service-container-host-runner %}
+{% data reusables.actions.service-container-host-runner %}
 
-{% data reusables.github-actions.postgres-label-description %}
+{% data reusables.actions.postgres-label-description %}
 
-The workflow maps port 5432 on the PostgreSQL service container to the Docker host. For more information about the `ports` keyword, see "[About service containers](/actions/automating-your-workflow-with-github-actions/about-service-containers#mapping-docker-host-and-service-container-ports)."
+このワークフローはPostgreSQLサービスコンテナ上のポート5432をDockerホストにマップします。 `ports` キーワードについて詳しくは、「[サービス コンテナーについて](/actions/automating-your-workflow-with-github-actions/about-service-containers#mapping-docker-host-and-service-container-ports)」をご覧ください。
 
 ```yaml{:copy}
 jobs:
@@ -252,15 +252,15 @@ jobs:
           - 5432:5432
 ```
 
-### Configuring the steps
+### ステップの設定
 
-{% data reusables.github-actions.service-template-steps %}
+{% data reusables.actions.service-template-steps %}
 
 ```yaml{:copy}
 steps:
   # Downloads a copy of the code in your repository before running CI tests
   - name: Check out repository code
-    uses: actions/checkout@v2
+    uses: {% data reusables.actions.action-checkout %}
 
   # Performs a clean installation of all dependencies in the `package.json` file
   # For more information, see https://docs.npmjs.com/cli/ci.html
@@ -280,17 +280,17 @@ steps:
       POSTGRES_PORT: 5432
 ```
 
-{% data reusables.github-actions.postgres-environment-variables %}
+{% data reusables.actions.postgres-environment-variables %}
 
-{% data reusables.github-actions.service-container-localhost %}
+{% data reusables.actions.service-container-localhost %}
 
-## Testing the PostgreSQL service container
+## PostgreSQLサービスコンテナのテスト
 
-You can test your workflow using the following script, which connects to the PostgreSQL service and adds a new table with some placeholder data. The script then prints the values stored in the PostgreSQL table to the terminal. Your script can use any language you'd like, but this example uses Node.js and the `pg` npm module. For more information, see the [npm pg module](https://www.npmjs.com/package/pg).
+次のスクリプトを使用してワークフローをテストできます。このスクリプトは、PostgreSQL サービスに接続し、プレースホルダーデータを含む新しいテーブルを追加します。 そしてそのスクリプトは PostgreSQL テーブルに保存されている値をターミナルに出力します。 スクリプトでは任意の言語を使えますが、この例では Node.js と `pg` npm モジュールを使っています。 詳しくは、[npm redis モジュール](https://www.npmjs.com/package/pg)に関するページをご覧ください。
 
-You can modify *client.js* to include any PostgreSQL operations needed by your workflow. In this example, the script connects to the PostgreSQL service, adds a table to the `postgres` database, inserts some placeholder data, and then retrieves the data.
+*client.js* を変更して、ワークフローで必要な任意の PostgreSQL 操作を含めることができます。 この例のスクリプトは、PostgreSQL サービスに接続し、`postgres` データベースにテーブルを追加し、プレースホルダー データをいくつか挿入してから、データを取得します。
 
-{% data reusables.github-actions.service-container-add-script %}
+{% data reusables.actions.service-container-add-script %}
 
 ```javascript{:copy}
 const { Client } = require('pg');
@@ -324,11 +324,11 @@ pgclient.query('SELECT * FROM student', (err, res) => {
 });
 ```
 
-The script creates a new connection to the PostgreSQL service, and uses the `POSTGRES_HOST` and `POSTGRES_PORT` environment variables to specify the PostgreSQL service IP address and port. If `host` and `port` are not defined, the default host is `localhost` and the default port is 5432.
+このスクリプトは、PostgreSQL サービスへの新しい接続を作成し、`POSTGRES_HOST` と `POSTGRES_PORT` 環境変数を使って PostgreSQL サービスの IP アドレスとポートを指定します。 `host` と `port` が定義されていない場合、既定のホストは `localhost` で、既定のポートは 5432 です。
 
-The script creates a table and populates it with placeholder data. To test that the `postgres` database contains the data, the script prints the contents of the table to the console log.
+スクリプトはテーブルを作成し、そのテーブルにプレースホルダーデータを展開します。 `postgres` データベースにデータが含まれていることをテストするため、スクリプトでテーブルの内容をコンソール ログに出力します。
 
-When you run this workflow, you should see the following output in the "Connect to PostgreSQL" step, which confirms that you successfully created the PostgreSQL table and added data:
+このワークフローを実行すると、「PostgreSQL への接続」ステップに次の出力が表示されます。これにより、PostgreSQL テーブルが正常に作成されてデータが追加されたことを確認できます。
 
 ```
 null [ { id: 1,

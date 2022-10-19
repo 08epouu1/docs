@@ -1,6 +1,6 @@
 ---
-title: Upgrading the billing plan for a GitHub Marketplace app
-intro: 'You can upgrade your {% data variables.product.prodname_marketplace %} app to a different plan at any time.'
+title: GitHub Marketplace アプリケーションの支払いプランをアップグレードする
+intro: '{% data variables.product.prodname_marketplace %} アプリケーションを別のプランにいつでもアップグレードすることができます。'
 redirect_from:
   - /github/setting-up-and-managing-billing-and-payments-on-github/upgrading-the-billing-plan-for-a-github-marketplace-app
   - /articles/upgrading-an-app-for-your-personal-account
@@ -17,26 +17,21 @@ topics:
   - Upgrades
   - User account
 shortTitle: Upgrade billing plan
+ms.openlocfilehash: bf24ee931df72fbe113fbc1fcc2c10be48fa74c5
+ms.sourcegitcommit: fb047f9450b41b24afc43d9512a5db2a2b750a2a
+ms.translationtype: HT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 09/11/2022
+ms.locfileid: '145088026'
 ---
-When you upgrade an app, your payment method is charged a prorated amount based on the time remaining until your next billing date. For more information, see "[About billing for {% data variables.product.prodname_marketplace %}](/articles/about-billing-for-github-marketplace)."
+アプリケーションをアップグレードすると、支払い方法により、次の請求日までの残り時間に基づいて比例配分額を請求されます。 詳細については、「[{% data variables.product.prodname_marketplace %} の請求について](/articles/about-billing-for-github-marketplace)」を参照してください。
 
-## Upgrading an app for your personal account
+## 個人アカウントのアプリケーションをアップグレードする
 
-{% data reusables.user_settings.access_settings %}
-{% data reusables.user_settings.billing_plans %}
-{% data reusables.marketplace.upgrade-app-billing-settings %}
-{% data reusables.marketplace.choose-new-plan %}
-{% data reusables.marketplace.choose-new-quantity %}
-{% data reusables.marketplace.issue-plan-changes %}
+{% data reusables.user-settings.access_settings %} {% data reusables.user-settings.billing_plans %} {% data reusables.marketplace.upgrade-app-billing-settings %} {% data reusables.marketplace.choose-new-plan %} {% data reusables.marketplace.choose-new-quantity %} {% data reusables.marketplace.issue-plan-changes %}
 
-## Upgrading an app for your organization
+## Organization のアプリケーションをアップグレードする
 
 {% data reusables.marketplace.marketplace-org-perms %}
 
-{% data reusables.profile.access_org %}
-{% data reusables.profile.org_settings %}
-{% data reusables.organizations.billing_plans %}
-{% data reusables.marketplace.upgrade-app-billing-settings %}
-{% data reusables.marketplace.choose-new-plan %}
-{% data reusables.marketplace.choose-new-quantity %}
-{% data reusables.marketplace.issue-plan-changes %}
+{% data reusables.profile.access_org %} {% data reusables.profile.org_settings %} {% data reusables.organizations.billing_plans %} {% data reusables.marketplace.upgrade-app-billing-settings %} {% data reusables.marketplace.choose-new-plan %} {% data reusables.marketplace.choose-new-quantity %} {% data reusables.marketplace.issue-plan-changes %}

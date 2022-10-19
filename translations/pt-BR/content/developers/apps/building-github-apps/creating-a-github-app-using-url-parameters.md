@@ -1,6 +1,6 @@
 ---
-title: Creating a GitHub App using URL parameters
-intro: 'You can preselect the settings of a new {% data variables.product.prodname_github_app %} using URL [query parameters](https://en.wikipedia.org/wiki/Query_string) to quickly set up the new {% data variables.product.prodname_github_app %}''s configuration.'
+title: Criar um aplicativo GitHub usando parâmetros de URL
+intro: 'Você pode pré-selecionar as configurações de um novo {% data variables.product.prodname_github_app %} usando a URL [parâmetros de consulta](https://en.wikipedia.org/wiki/Query_string) para definir rapidamente a configuração do novo {% data variables.product.prodname_github_app %}.'
 redirect_from:
   - /apps/building-github-apps/creating-github-apps-using-url-parameters
   - /developers/apps/creating-a-github-app-using-url-parameters
@@ -12,100 +12,93 @@ versions:
 topics:
   - GitHub Apps
 shortTitle: App creation query parameters
+ms.openlocfilehash: 94622bfc2de9ba991758a6d1e465d8eb3d770a5f
+ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
+ms.translationtype: HT
+ms.contentlocale: pt-BR
+ms.lasthandoff: 09/05/2022
+ms.locfileid: '147064023'
 ---
-## About {% data variables.product.prodname_github_app %} URL parameters
+## Sobre parâmetros de URL do {% data variables.product.prodname_github_app %}.
 
-You can add query parameters to these URLs to preselect the configuration of a {% data variables.product.prodname_github_app %} on a personal or organization account:
+Você pode adicionar parâmetros de consulta a essas URLs para pré-selecionar a configuração de um {% data variables.product.prodname_github_app %} em uma conta pessoal ou de organização:
 
-* **User account:** `{% data variables.product.oauth_host_code %}/settings/apps/new`
-* **Organization account:** `{% data variables.product.oauth_host_code %}/organizations/:org/settings/apps/new`
+* **Conta pessoal:** `{% data variables.product.oauth_host_code %}/settings/apps/new`
+* **Conta da organização:** `{% data variables.product.oauth_host_code %}/organizations/:org/settings/apps/new`
 
-The person creating the app can edit the preselected values from the {% data variables.product.prodname_github_app %} registration page, before submitting the app. If you do not include required parameters in the URL query string, like `name`, the person creating the app will need to input a value before submitting the app.
+A pessoa que está criando o aplicativo pode editar os valores pré-selecionados a partir da página de registro do {% data variables.product.prodname_github_app %}, antes de enviar o aplicativo. Se você não incluir os parâmetros obrigatórios na cadeia de consulta da URL, como `name`, a pessoa que criar o aplicativo precisará inserir um valor antes de enviar o aplicativo.
 
-{% ifversion ghes > 3.1 or fpt or ghae or ghec %}
-For apps that require a secret to secure their webhook, the secret's value must be set in the form by the person creating the app, not by using query parameters. For more information, see "[Securing your webhooks](/developers/webhooks-and-events/webhooks/securing-your-webhooks)."
-{% endif %}
+Para aplicativos que exigem que um segredo proteja seu webhook, o valor do segredo deve ser definido no formulário pela pessoa que criou o aplicativo, não pelo uso de parâmetros de consulta. Para obter mais informações, confira "[Como proteger seus webhooks](/developers/webhooks-and-events/webhooks/securing-your-webhooks)".
 
-The following URL creates a new public app called `octocat-github-app` with a preconfigured description and callback URL. This URL also selects read and write permissions for `checks`, subscribes to the `check_run` and `check_suite` webhook events, and selects the option to request user authorization (OAuth) during installation:
-
-{% ifversion fpt or ghae or ghes > 3.0 or ghec %}
+A URL a seguir cria um aplicativo público chamado `octocat-github-app` com uma descrição pré-configurada e uma URL de retorno de chamada. Essa URL também seleciona as permissões de leitura e gravação para `checks`, inscreve-se nos eventos de webhook `check_run` e `check_suite` e seleciona a opção para solicitar a autorização do usuário (OAuth) durante a instalação:
 
 ```text
 {% data variables.product.oauth_host_code %}/settings/apps/new?name=octocat-github-app&description=An%20Octocat%20App&callback_urls[]=https://example.com&request_oauth_on_install=true&public=true&checks=write&events[]=check_run&events[]=check_suite
 ```
 
-{% else %}
+Lista completa de parâmetros de consulta, permissões e eventos disponíveis encontra-se nas seções abaixo.
 
-```text
-{% data variables.product.oauth_host_code %}/settings/apps/new?name=octocat-github-app&description=An%20Octocat%20App&callback_url=https://example.com&request_oauth_on_install=true&public=true&checks=write&events[]=check_run&events[]=check_suite
-```
+## Parâmetros de configuração do {% data variables.product.prodname_github_app %}
 
-{% endif %}
-
-The complete list of available query parameters, permissions, and events is listed in the sections below.
-
-## {% data variables.product.prodname_github_app %} configuration parameters
-
- Name | Type | Description
+ Nome | Tipo | Descrição
 -----|------|-------------
-`name` | `string` | The name of the {% data variables.product.prodname_github_app %}. Give your app a clear and succinct name. Your app cannot have the same name as an existing GitHub user, unless it is your own user or organization name. A slugged version of your app's name will be shown in the user interface when your integration takes an action.
-`description` | `string` | A description of the {% data variables.product.prodname_github_app %}.
-`url` | `string` | The full URL of your {% data variables.product.prodname_github_app %}'s website homepage.{% ifversion fpt or ghae or ghes > 3.0 or ghec %}
-`callback_urls` | `array of strings` | A full URL to redirect to after someone authorizes an installation. You can provide up to 10 callback URLs. These URLs are used if your app needs to identify and authorize user-to-server requests. For example, `callback_urls[]=https://example.com&callback_urls[]=https://example-2.com`.{% else %}
-`callback_url` | `string` | The full URL to redirect to after someone authorizes an installation. This URL is used if your app needs to identify and authorize user-to-server requests.{% endif %}
-`request_oauth_on_install` | `boolean` | If your app authorizes users using the OAuth flow, you can set this option to `true` to allow people to authorize the app when they install it, saving a step. If you select this option, the `setup_url` becomes unavailable and users will be redirected to your `callback_url` after installing the app.
-`setup_url` | `string` | The full URL to redirect to after someone installs the {% data variables.product.prodname_github_app %} if the app requires additional setup after installation.
-`setup_on_update` | `boolean` | Set to `true` to redirect people to the setup URL when installations have been updated, for example, after repositories are added or removed.
-`public` | `boolean` | Set to `true` when your {% data variables.product.prodname_github_app %} is available to the public or `false` when it is only accessible to the owner of the app.
-`webhook_active` | `boolean` | Set to `false` to disable webhook. Webhook is enabled by default.
-`webhook_url` | `string` | The full URL that you would like to send webhook event payloads to.
-{% ifversion ghes < 3.2 or ghae %}`webhook_secret` | `string` | You can specify a secret to secure your webhooks. See "[Securing your webhooks](/webhooks/securing/)" for more details.
-{% endif %}`events` | `array of strings` | Webhook events. Some webhook events require `read` or `write` permissions for a resource before you can select the event when registering a new {% data variables.product.prodname_github_app %}. See the "[{% data variables.product.prodname_github_app %} webhook events](#github-app-webhook-events)" section for available events and their required permissions. You can select multiple events in a query string. For example, `events[]=public&events[]=label`.{% ifversion ghes < 3.4 %}
-`domain` | `string` | The URL of a content reference.{% endif %}
-`single_file_name` | `string` | This is a narrowly-scoped permission that allows the app to access a single file in any repository. When you set the `single_file` permission to `read` or `write`, this field provides the path to the single file your {% data variables.product.prodname_github_app %} will manage. {% ifversion fpt or ghes or ghec %} If you need to manage multiple files, see `single_file_paths` below. {% endif %}{% ifversion fpt or ghes or ghec %}
-`single_file_paths` | `array of strings` | This allows the app to access up ten specified files in a repository. When you set the `single_file` permission to `read` or `write`, this array can store the paths for up to ten files that your {% data variables.product.prodname_github_app %} will manage. These files all receive the same permission set by `single_file`, and do not have separate individual permissions. When two or more files are configured, the API returns `multiple_single_files=true`, otherwise it returns `multiple_single_files=false`.{% endif %}
+`name` | `string` | O nome do {% data variables.product.prodname_github_app %}. Dê um nome claro e sucinto ao seu aplicativo. Seu aplicativo não pode ter o mesmo nome de um usuário existente no GitHub, a menos que seja o seu próprio nome de usuário ou da sua organização. Uma versão movida do nome do seu aplicativo será exibida na interface do usuário quando sua integração realizar uma ação.
+`description` | `string` | Uma descrição do {% data variables.product.prodname_github_app %}.
+`url` | `string` | A URL completa da página inicial do site do seu {% data variables.product.prodname_github_app %}.
+`callback_urls` | `array of strings` | Uma URL completa para a qual redirecionar após alguém autorizar uma instalação. Você pode fornecer até 10 URLs de retorno de chamada. Essas URLs são usadas se o aplicativo precisar identificar e autorizar solicitações de usuário para servidor. Por exemplo, `callback_urls[]=https://example.com&callback_urls[]=https://example-2.com`.
+`request_oauth_on_install` | `boolean` | Se o seu aplicativo autorizar usuários a usar o fluxo do OAuth, defina essa opção como `true` para permitir que pessoas autorizem o aplicativo ao instalá-lo, poupando uma etapa. Se você selecionar essa opção, a `setup_url` não ficará disponível e os usuários serão redirecionados para a `callback_url` após a instalação do aplicativo.
+`setup_url` | `string` | A URL completa para redirecionamento após alguém instalar o {% data variables.product.prodname_github_app %}, se o aplicativo precisar de configuração adicional após a instalação.
+`setup_on_update` | `boolean` | Defina como `true` para redirecionar as pessoas para a URL de configuração quando as instalações forem atualizadas, por exemplo, depois que os repositórios forem adicionados ou removidos.
+`public` | `boolean` | Defina essa opção como `true` quando o {% data variables.product.prodname_github_app %} estiver disponível para o público ou como `false` quando ele só for acessível pelo proprietário do aplicativo.
+`webhook_active` | `boolean` | Defina-a como `false` para desabilitar o webhook. O webhook está habilitado por padrão.
+`webhook_url` | `string` | A URL completa para a qual você deseja enviar as cargas do evento de webhook.
+{% ifversion ghae %}`webhook_secret` | `string` | Você pode especificar um segredo para proteger seus webhooks. Confira "[Como proteger seus webhooks](/webhooks/securing/)" para obter mais detalhes.
+{% endif %}`events` | `array of strings` | Eventos de webhook. Alguns eventos de webhook exigem permissões de `read` ou de `write` em um recurso para que você selecione o evento ao registrar um novo {% data variables.product.prodname_github_app %}. Confira a seção "[Eventos de webhook do {% data variables.product.prodname_github_app %}](#github-app-webhook-events)" para ver os eventos disponíveis e as permissões necessárias. Você pode selecionar vários eventos em uma string de consulta. Por exemplo, `events[]=public&events[]=label`.{% ifversion ghes < 3.4 %}
+`domain` | `string` | A URL de uma referência de conteúdo.{% endif %}
+`single_file_name` | `string` | Esta é uma permissão de escopo limitado que permite que o aplicativo acesse um único arquivo em qualquer repositório. Quando você define a permissão `single_file` como `read` ou `write`, esse campo fornece o caminho para o único arquivo que será gerenciado pelo {% data variables.product.prodname_github_app %}. {% ifversion fpt or ghes or ghec %} Caso você precise gerenciar vários arquivos, confira `single_file_paths` abaixo. {% endif %}{% ifversion fpt or ghes or ghec %}
+`single_file_paths` | `array of strings` | Isso permite que o aplicativo acesse até dez arquivos especificados em um repositório. Quando você define a permissão `single_file` como `read` ou `write`, essa matriz pode armazenar os caminhos para até dez arquivos que serão gerenciados pelo {% data variables.product.prodname_github_app %}. Todos esses arquivos recebem a mesma permissão definida por `single_file` e não têm permissões individuais separadas. Quando dois ou mais arquivos são configurados, a API retorna `multiple_single_files=true`, caso contrário, retorna `multiple_single_files=false`.{% endif %}
 
-## {% data variables.product.prodname_github_app %} permissions
+## Permissões do {% data variables.product.prodname_github_app %}
 
-You can select permissions in a query string using the permission name in the following table as the query parameter name and the permission type as the query value. For example, to select `Read & write` permissions in the user interface for `contents`, your query string would include `&contents=write`. To select `Read-only` permissions in the user interface for `blocking`, your query string would include `&blocking=read`. To select `no-access` in the user interface for `checks`, your query string would not include the `checks` permission.
+Você pode selecionar permissões em uma string de consultas usando o nome da permissão na tabela a seguir como o nome do parâmetro de consulta e o tipo de permissão como valor da consulta. Por exemplo, para selecionar as permissões `Read & write` na interface do usuário de `contents`, a cadeia de consulta incluirá `&contents=write`. Para selecionar as permissões `Read-only` na interface do usuário de `blocking`, a cadeia de consulta incluirá `&blocking=read`. Para selecionar `no-access` na interface do usuário de `checks`, a cadeia de consulta não incluirá a permissão `checks`.
 
-Permission | Description
+Permissão | Descrição
 ---------- | -----------
-[`administration`](/rest/reference/permissions-required-for-github-apps/#permission-on-administration) | Grants access to various endpoints for organization and repository administration. Can be one of: `none`, `read`, or `write`.{% ifversion fpt or ghec %}
-[`blocking`](/rest/reference/permissions-required-for-github-apps/#permission-on-blocking) | Grants access to the [Blocking Users API](/rest/reference/users#blocking). Can be one of: `none`, `read`, or `write`.{% endif %}
-[`checks`](/rest/reference/permissions-required-for-github-apps/#permission-on-checks) | Grants access to the [Checks API](/rest/reference/checks). Can be one of: `none`, `read`, or `write`.{% ifversion ghes < 3.4 %}
-`content_references` | Grants access to the "[Create a content attachment](/rest/reference/apps#create-a-content-attachment)" endpoint. Can be one of: `none`, `read`, or `write`.{% endif %}
-[`contents`](/rest/reference/permissions-required-for-github-apps/#permission-on-contents) |  Grants access to various endpoints that allow you to modify repository contents. Can be one of: `none`, `read`, or `write`.
-[`deployments`](/rest/reference/permissions-required-for-github-apps/#permission-on-deployments) | Grants access to the [Deployments API](/rest/reference/repos#deployments). Can be one of: `none`, `read`, or `write`.{% ifversion fpt or ghes or ghec %}
-[`emails`](/rest/reference/permissions-required-for-github-apps/#permission-on-emails) | Grants access to the [Emails API](/rest/reference/users#emails). Can be one of: `none`, `read`, or `write`.{% endif %}
-[`followers`](/rest/reference/permissions-required-for-github-apps/#permission-on-followers) | Grants access to the [Followers API](/rest/reference/users#followers). Can be one of: `none`, `read`, or `write`.
-[`gpg_keys`](/rest/reference/permissions-required-for-github-apps/#permission-on-gpg-keys) | Grants access to the [GPG Keys API](/rest/reference/users#gpg-keys). Can be one of: `none`, `read`, or `write`.
-[`issues`](/rest/reference/permissions-required-for-github-apps/#permission-on-issues) | Grants access to the [Issues API](/rest/reference/issues). Can be one of: `none`, `read`, or `write`.
-[`keys`](/rest/reference/permissions-required-for-github-apps/#permission-on-keys) | Grants access to the [Public Keys API](/rest/reference/users#keys). Can be one of: `none`, `read`, or `write`.
-[`members`](/rest/reference/permissions-required-for-github-apps/#permission-on-members) |  Grants access to manage an organization's members. Can be one of: `none`, `read`, or `write`.{% ifversion fpt or ghec %}
-[`metadata`](/rest/reference/permissions-required-for-github-apps/#metadata-permissions) | Grants access to read-only endpoints that do not leak sensitive data. Can be `read` or `none`. Defaults to `read` when you set any permission, or defaults to `none` when you don't specify any permissions for the {% data variables.product.prodname_github_app %}.
-[`organization_administration`](/rest/reference/permissions-required-for-github-apps/#permission-on-organization-administration) | Grants access to "[Update an organization](/rest/reference/orgs#update-an-organization)" endpoint and the [Organization Interaction Restrictions API](/rest/reference/interactions#set-interaction-restrictions-for-an-organization). Can be one of: `none`, `read`, or `write`.{% endif %}
-[`organization_hooks`](/rest/reference/permissions-required-for-github-apps/#permission-on-organization-hooks) | Grants access to the [Organization Webhooks API](/rest/reference/orgs#webhooks/). Can be one of: `none`, `read`, or `write`.
-`organization_plan` | Grants access to get information about an organization's plan using the "[Get an organization](/rest/reference/orgs#get-an-organization)" endpoint. Can be one of: `none` or `read`.
-[`organization_projects`](/rest/reference/permissions-required-for-github-apps/#permission-on-organization-projects) |  Grants access to the [Projects API](/rest/reference/projects). Can be one of: `none`, `read`, `write`, or `admin`.{% ifversion fpt or ghec %}
-[`organization_user_blocking`](/rest/reference/permissions-required-for-github-apps/#permission-on-organization-projects) | Grants access to the [Blocking Organization Users API](/rest/reference/orgs#blocking). Can be one of: `none`, `read`, or `write`.{% endif %}
-[`pages`](/rest/reference/permissions-required-for-github-apps/#permission-on-pages) | Grants access to the [Pages API](/rest/reference/repos#pages). Can be one of: `none`, `read`, or `write`.
-`plan` | Grants access to get information about a user's GitHub plan using the "[Get a user](/rest/reference/users#get-a-user)" endpoint. Can be one of: `none` or `read`.
-[`pull_requests`](/rest/reference/permissions-required-for-github-apps/#permission-on-pull-requests) | Grants access to various pull request endpoints. Can be one of: `none`, `read`, or `write`.
-[`repository_hooks`](/rest/reference/permissions-required-for-github-apps/#permission-on-repository-hooks) | Grants access to the [Repository Webhooks API](/rest/reference/repos#hooks). Can be one of: `none`, `read`, or `write`.
-[`repository_projects`](/rest/reference/permissions-required-for-github-apps/#permission-on-repository-projects) |  Grants access to the [Projects API](/rest/reference/projects). Can be one of: `none`, `read`, `write`, or `admin`.{% ifversion fpt or ghes > 3.0 or ghec %}
-[`secret_scanning_alerts`](/rest/reference/permissions-required-for-github-apps/#permission-on-secret-scanning-alerts) |  Grants access to the [Secret scanning API](/rest/reference/secret-scanning). Can be one of: `none`, `read`, or `write`.{% endif %}{% ifversion fpt or ghes or ghec %}
-[`security_events`](/rest/reference/permissions-required-for-github-apps/#permission-on-security-events) |  Grants access to the [Code scanning API](/rest/reference/code-scanning/). Can be one of: `none`, `read`, or `write`.{% endif %}
-[`single_file`](/rest/reference/permissions-required-for-github-apps/#permission-on-single-file) | Grants access to the [Contents API](/rest/reference/repos#contents). Can be one of: `none`, `read`, or `write`.
-[`starring`](/rest/reference/permissions-required-for-github-apps/#permission-on-starring) | Grants access to the [Starring API](/rest/reference/activity#starring). Can be one of: `none`, `read`, or `write`.
-[`statuses`](/rest/reference/permissions-required-for-github-apps/#permission-on-statuses) | Grants access to the [Statuses API](/rest/reference/repos#statuses). Can be one of: `none`, `read`, or `write`.
-[`team_discussions`](/rest/reference/permissions-required-for-github-apps/#permission-on-team-discussions) | Grants access to the [Team Discussions API](/rest/reference/teams#discussions) and the [Team Discussion Comments API](/rest/reference/teams#discussion-comments). Can be one of: `none`, `read`, or `write`.{% ifversion fpt or ghes or ghae-issue-4864 or ghec %}
-`vulnerability_alerts`| Grants access to receive security alerts for vulnerable dependencies in a repository. See "[About alerts for vulnerable dependencies](/github/managing-security-vulnerabilities/about-alerts-for-vulnerable-dependencies/)" to learn more. Can be one of: `none` or `read`.{% endif %}
-`watching` | Grants access to list and change repositories a user is subscribed to. Can be one of: `none`, `read`, or `write`.
+[`administration`](/rest/reference/permissions-required-for-github-apps/#permission-on-administration) | Concede acesso a vários pontos finais para administração de organização e repositório. Pode ser: `none`, `read` ou `write`.{% ifversion fpt or ghec %}
+[`blocking`](/rest/reference/permissions-required-for-github-apps/#permission-on-blocking) | Permite o acesso à [API de Bloqueio de Usuários](/rest/reference/users#blocking). Pode ser: `none`, `read` ou `write`.{% endif %}
+[`checks`](/rest/reference/permissions-required-for-github-apps/#permission-on-checks) | Permite o acesso à [API de Verificações](/rest/reference/checks). Pode ser: `none`, `read` ou `write`.{% ifversion ghes < 3.4 %}
+`content_references` | Permite o acesso ao ponto de extremidade "[Criar um anexo de conteúdo](/rest/reference/apps#create-a-content-attachment)". Pode ser: `none`, `read` ou `write`.{% endif %}
+[`contents`](/rest/reference/permissions-required-for-github-apps/#permission-on-contents) |  Concede acesso a vários pontos finais que permitem modificar o conteúdo do repositório. Pode ser: `none`, `read` ou `write`.
+[`deployments`](/rest/reference/permissions-required-for-github-apps/#permission-on-deployments) | Permite o acesso à [API de Implantações](/rest/reference/repos#deployments). Pode ser: `none`, `read` ou `write`.{% ifversion fpt or ghes or ghec %}
+[`emails`](/rest/reference/permissions-required-for-github-apps/#permission-on-emails) | Permite o acesso à [API de Emails](/rest/reference/users#emails). Pode ser: `none`, `read` ou `write`.{% endif %}
+[`followers`](/rest/reference/permissions-required-for-github-apps/#permission-on-followers) | Permite o acesso à [API de Seguidores](/rest/reference/users#followers). Pode ser: `none`, `read` ou `write`.
+[`gpg_keys`](/rest/reference/permissions-required-for-github-apps/#permission-on-gpg-keys) | Permite o acesso à [API de Chaves GPG](/rest/reference/users#gpg-keys). Pode ser: `none`, `read` ou `write`.
+[`issues`](/rest/reference/permissions-required-for-github-apps/#permission-on-issues) | Permite o acesso à [API de Problemas](/rest/reference/issues). Pode ser: `none`, `read` ou `write`.
+[`keys`](/rest/reference/permissions-required-for-github-apps/#permission-on-keys) | Permite o acesso à [API de Chaves Públicas](/rest/reference/users#keys). Pode ser: `none`, `read` ou `write`.
+[`members`](/rest/reference/permissions-required-for-github-apps/#permission-on-members) |  Concede acesso para gerenciar os membros de uma organização. Pode ser: `none`, `read` ou `write`.{% ifversion fpt or ghec %}
+[`metadata`](/rest/reference/permissions-required-for-github-apps/#metadata-permissions) | Concede acesso a pontos finais somente leitura que não vazam dados confidenciais. Pode ser `read` ou `none`. Usa `read` como padrão quando qualquer permissão é definida ou `none` quando nenhuma permissão é especificada para o {% data variables.product.prodname_github_app %}.
+[`organization_administration`](/rest/reference/permissions-required-for-github-apps/#permission-on-organization-administration) | Permite o acesso ao ponto de extremidade "[Atualizar uma organização](/rest/reference/orgs#update-an-organization)" e à [API de Restrições de Interação da Organização](/rest/reference/interactions#set-interaction-restrictions-for-an-organization). Pode ser: `none`, `read` ou `write`.{% endif %}
+[`organization_hooks`](/rest/reference/permissions-required-for-github-apps/#permission-on-organization-hooks) | Permite o acesso à [API de Webhooks da Organização](/rest/reference/orgs#webhooks/). Pode ser: `none`, `read` ou `write`.
+`organization_plan` | Permite o acesso para obter informações sobre o plano de uma organização usando o ponto de extremidade "[Obter uma organização](/rest/reference/orgs#get-an-organization)". Pode ser: `none` ou `read`.
+[`organization_projects`](/rest/reference/permissions-required-for-github-apps/#permission-on-organization-projects) |  Permite o acesso à [API de Projetos](/rest/reference/projects). Pode ser: `none`, `read`, `write` ou `admin`.{% ifversion fpt or ghec %}
+[`organization_user_blocking`](/rest/reference/permissions-required-for-github-apps/#permission-on-organization-projects) | Permite o acesso à [API de Bloqueio de Usuários da Organização](/rest/reference/orgs#blocking). Pode ser: `none`, `read` ou `write`.{% endif %}
+[`pages`](/rest/reference/permissions-required-for-github-apps/#permission-on-pages) | Permite o acesso à [API do Pages](/rest/reference/repos#pages). Pode ser: `none`, `read` ou `write`.
+`plan` | Permite o acesso para obter informações sobre o plano do GitHub de um usuário usando o ponto de extremidade "[Obter um usuário](/rest/reference/users#get-a-user)". Pode ser: `none` ou `read`.
+[`pull_requests`](/rest/reference/permissions-required-for-github-apps/#permission-on-pull-requests) | Concede acesso a vários pontos finais do pull request. Pode ser: `none`, `read` ou `write`.
+[`repository_hooks`](/rest/reference/permissions-required-for-github-apps/#permission-on-repository-hooks) | Permite o acesso à [API de Webhooks do Repositório](/rest/reference/repos#hooks). Pode ser: `none`, `read` ou `write`.
+[`repository_projects`](/rest/reference/permissions-required-for-github-apps/#permission-on-repository-projects) |  Permite o acesso à [API de Projetos](/rest/reference/projects). Pode ser: `none`, `read`, `write` ou `admin`.{% ifversion ghes or ghec %}
+[`secret_scanning_alerts`](/rest/reference/permissions-required-for-github-apps/#permission-on-secret-scanning-alerts) |  Permite o acesso à [API de verificação de segredos](/rest/reference/secret-scanning). Pode ser: `none`, `read` ou `write`.{% endif %}{% ifversion fpt or ghes or ghec %}
+[`security_events`](/rest/reference/permissions-required-for-github-apps/#permission-on-security-events) |  Permite o acesso à [API de verificação de código](/rest/reference/code-scanning/). Pode ser: `none`, `read` ou `write`.{% endif %}
+[`single_file`](/rest/reference/permissions-required-for-github-apps/#permission-on-single-file) | Permite o acesso à [API de Conteúdo](/rest/reference/repos#contents). Pode ser: `none`, `read` ou `write`.
+[`starring`](/rest/reference/permissions-required-for-github-apps/#permission-on-starring) | Permite o acesso à [API de Marcação com Estrelas](/rest/reference/activity#starring). Pode ser: `none`, `read` ou `write`.
+[`statuses`](/rest/reference/permissions-required-for-github-apps/#permission-on-statuses) | Permite o acesso à [API de Status](/rest/reference/commits#commit-statuses). Pode ser: `none`, `read` ou `write`.
+[`team_discussions`](/rest/reference/permissions-required-for-github-apps/#permission-on-team-discussions) | Permite o acesso à [API de Discussões em Equipe](/rest/reference/teams#discussions) e à [API de Comentários de Discussão em Equipe](/rest/reference/teams#discussion-comments). Pode ser `none`, `read` ou `write`.
+`vulnerability_alerts`| Permite acesso para receber {% data variables.product.prodname_dependabot_alerts %} em um repositório. Confira "[Sobre os {% data variables.product.prodname_dependabot_alerts %}](/code-security/dependabot/dependabot-alerts/about-dependabot-alerts)" para saber mais. Pode ser: `none` ou `read`.
+`watching` | Concede acesso à lista e alterações de repositórios que um usuário assinou. Pode ser: `none`, `read` ou `write`.
 
-## {% data variables.product.prodname_github_app %} webhook events
+## Eventos webhook do {% data variables.product.prodname_github_app %}
 
-Webhook event name | Required permission | Description
+Nome do evento webhook | Permissão necessária | Descrição
 ------------------ | ------------------- | -----------
 [`check_run`](/webhooks/event-payloads/#check_run) |`checks` | {% data reusables.webhooks.check_run_short_desc %}
 [`check_suite`](/webhooks/event-payloads/#check_suite) |`checks` | {% data reusables.webhooks.check_suite_short_desc %}
@@ -126,17 +119,18 @@ Webhook event name | Required permission | Description
 [`org_block`](/webhooks/event-payloads/#org_block) | `organization_administration` | {% data reusables.webhooks.org_block_short_desc %}{% endif %}
 [`organization`](/webhooks/event-payloads/#organization) | `members` | {% data reusables.webhooks.organization_short_desc %}
 [`page_build`](/webhooks/event-payloads/#page_build) | `pages` | {% data reusables.webhooks.page_build_short_desc %}
-[`project`](/webhooks/event-payloads/#project) | `repository_projects` or `organization_projects` | {% data reusables.webhooks.project_short_desc %}
-[`project_card`](/webhooks/event-payloads/#project_card) | `repository_projects` or `organization_projects` | {% data reusables.webhooks.project_card_short_desc %}
-[`project_column`](/webhooks/event-payloads/#project_column) | `repository_projects` or `organization_projects` | {% data reusables.webhooks.project_column_short_desc %}
+[`project`](/webhooks/event-payloads/#project) | `repository_projects` ou `organization_projects` | {% data reusables.webhooks.project_short_desc %}
+[`project_card`](/webhooks/event-payloads/#project_card) | `repository_projects` ou `organization_projects` | {% data reusables.webhooks.project_card_short_desc %}
+[`project_column`](/webhooks/event-payloads/#project_column) | `repository_projects` ou `organization_projects` | {% data reusables.webhooks.project_column_short_desc %}
 [`public`](/webhooks/event-payloads/#public) | `metadata` | {% data reusables.webhooks.public_short_desc %}
 [`pull_request`](/webhooks/event-payloads/#pull_request) | `pull_requests` | {% data reusables.webhooks.pull_request_short_desc %}
 [`pull_request_review`](/webhooks/event-payloads/#pull_request_review) | `pull_request` | {% data reusables.webhooks.pull_request_review_short_desc %}
 [`pull_request_review_comment`](/webhooks/event-payloads/#pull_request_review_comment) | `pull_request` | {% data reusables.webhooks.pull_request_review_comment_short_desc %}
+[`pull_request_review_thread`](/webhooks/event-payloads/#pull_request_review_thread) | `pull_request` | {% data reusables.webhooks.pull_request_review_thread_short_desc %}
 [`push`](/webhooks/event-payloads/#push) | `contents` | {% data reusables.webhooks.push_short_desc %}
 [`release`](/webhooks/event-payloads/#release) | `contents` | {% data reusables.webhooks.release_short_desc %}
 [`repository`](/webhooks/event-payloads/#repository) |`metadata` | {% data reusables.webhooks.repository_short_desc %}{% ifversion fpt or ghec %}
-[`repository_dispatch`](/webhooks/event-payloads/#repository_dispatch) | `contents` | Allows integrators using GitHub Actions to trigger custom events.{% endif %}
+[`repository_dispatch`](/webhooks/event-payloads/#repository_dispatch) | `contents` | Permite aos integradores que usam o GitHub Actions acionar eventos personalizados.{% endif %}
 [`status`](/webhooks/event-payloads/#status) | `statuses` | {% data reusables.webhooks.status_short_desc %}
 [`team`](/webhooks/event-payloads/#team) | `members` | {% data reusables.webhooks.team_short_desc %}
 [`team_add`](/webhooks/event-payloads/#team_add) | `members` | {% data reusables.webhooks.team_add_short_desc %}

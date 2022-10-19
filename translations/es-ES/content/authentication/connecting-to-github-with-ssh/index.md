@@ -1,6 +1,6 @@
 ---
-title: Connecting to GitHub with SSH
-intro: 'You can connect to {% data variables.product.product_name %} using the Secure Shell Protocol (SSH), which provides a secure channel over an unsecured network.'
+title: Conectar a GitHub con SSH
+intro: 'Puedes conectarte a {% data variables.product.product_name %} utilizando el Protocolo de Secure Shell (SSH), lo cual proporciona un canal seguro sobre una red insegura.'
 redirect_from:
   - /key-setup-redirect
   - /linux-key-setup
@@ -26,5 +26,11 @@ children:
   - /testing-your-ssh-connection
   - /working-with-ssh-key-passphrases
 shortTitle: Connect with SSH
+ms.openlocfilehash: 372f67e2074d7a2b6ddfb1155fac027d8b38e141
+ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
+ms.translationtype: HT
+ms.contentlocale: es-ES
+ms.lasthandoff: 09/05/2022
+ms.locfileid: '145115065'
 ---
 

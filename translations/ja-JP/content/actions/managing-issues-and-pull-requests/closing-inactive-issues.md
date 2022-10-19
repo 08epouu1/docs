@@ -1,6 +1,6 @@
 ---
-title: Closing inactive issues
-intro: 'You can use {% data variables.product.prodname_actions %} to comment on or close issues that have been inactive for a certain period of time.'
+title: 非アクティブな Issue をクローズする
+intro: '{% data variables.product.prodname_actions %} を使用して、一定期間、非アクティブであった Issue にコメントしたり、Issue をクローズしたりすることができます。'
 redirect_from:
   - /actions/guides/closing-inactive-issues
 versions:
@@ -12,22 +12,26 @@ type: tutorial
 topics:
   - Workflows
   - Project management
+ms.openlocfilehash: 7d0cab4c1ef7ac5fda67a0487b50817adfb5dfd8
+ms.sourcegitcommit: fb047f9450b41b24afc43d9512a5db2a2b750a2a
+ms.translationtype: HT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 09/10/2022
+ms.locfileid: '147063611'
 ---
+{% data reusables.actions.enterprise-beta %} {% data reusables.actions.enterprise-github-hosted-runners %}
 
-{% data reusables.actions.enterprise-beta %}
-{% data reusables.actions.enterprise-github-hosted-runners %}
+## はじめに
 
-## Introduction
+このチュートリアルでは、[`actions/stale` アクション](https://github.com/marketplace/actions/close-stale-issues)を使用して、一定期間非アクティブだった issue にコメントを付けてクローズする方法について説明します。 たとえば、Issueが 30 日間非アクティブであった場合にコメントして、参加者にアクションを実行するように促すことができます。 その後、14 日以上経っても追加のアクティビティが発生しない場合は、Issue をクローズできます。
 
-This tutorial demonstrates how to use the [`actions/stale` action](https://github.com/marketplace/actions/close-stale-issues) to comment on and close issues that have been inactive for a certain period of time. For example, you can comment if an issue has been inactive for 30 days to prompt participants to take action. Then, if no additional activity occurs after 14 days, you can close the issue.
+チュートリアルでは、[`actions/stale` アクション](https://github.com/marketplace/actions/close-stale-issues)を使用するワークフロー ファイルをまず作成します。 次に、ニーズに合わせてワークフローをカスタマイズします。
 
-In the tutorial, you will first make a workflow file that uses the [`actions/stale` action](https://github.com/marketplace/actions/close-stale-issues). Then, you will customize the workflow to suit your needs.
-
-## Creating the workflow
+## ワークフローの作成
 
 1. {% data reusables.actions.choose-repo %}
 2. {% data reusables.actions.make-workflow-file %}
-3. Copy the following YAML contents into your workflow file.
+3. 次の YAML コンテンツをワークフローファイルにコピーします。
 
     ```yaml{:copy}
     name: Close inactive issues
@@ -37,12 +41,12 @@ In the tutorial, you will first make a workflow file that uses the [`actions/sta
 
     jobs:
       close-issues:
-        runs-on: ubuntu-latest{% ifversion fpt or ghes > 3.1 or ghae or ghec %}
+        runs-on: ubuntu-latest
         permissions:
           issues: write
-          pull-requests: write{% endif %}
+          pull-requests: write
         steps:
-          - uses: actions/stale@v3
+          - uses: {% data reusables.actions.action-stale %}
             with:
               days-before-issue-stale: 30
               days-before-issue-close: 14
@@ -54,26 +58,26 @@ In the tutorial, you will first make a workflow file that uses the [`actions/sta
               repo-token: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
     ```
 
-4. Customize the parameters in your workflow file:
-   - Change the value for `on.schedule` to dictate when you want this workflow to run. In the example above, the workflow will run every day at 1:30 UTC. For more information about scheduled workflows, see "[Scheduled events](/actions/reference/events-that-trigger-workflows#scheduled-events)."
-   - Change the value for `days-before-issue-stale` to the number of days without activity before the `actions/stale` action labels an issue. If you never want this action to label issues, set this value to `-1`.
-   - Change the value for `days-before-issue-close` to the number of days without activity before the `actions/stale` action closes an issue. If you never want this action to close issues, set this value to `-1`.
-   - Change the value for `stale-issue-label` to the label that you want to apply to issues that have been inactive for the amount of time specified by `days-before-issue-stale`.
-   - Change the value for `stale-issue-message` to the comment that you want to add to issues that are labeled by the `actions/stale` action.
-   - Change the value for `close-issue-message` to the comment that you want to add to issues that are closed by the `actions/stale` action.
+4. ワークフローファイルのパラメータをカスタマイズします。
+   - `on.schedule` の値を変更して、このワークフローを実行する日時を指定します。 上記の例では、ワークフローは毎日 1:30 UTC に実行されます。 スケジュールされたワークフローの詳細については、[スケジュールされたイベント](/actions/reference/events-that-trigger-workflows#scheduled-events)に関するページを参照してください。
+   - `days-before-issue-stale` の値を、`actions/stale` アクションが issue のラベルを付ける前のアクティビティのない日数に変更します。 このアクションで issue にラベルを付けない場合は、この値を `-1` に設定します。
+   - `days-before-issue-close` の値を、`actions/stale` アクションが issue をクローズする前のアクティビティのない日数に変更します。 このアクションで issue をクローズしない場合は、この値を `-1` に設定します。
+   - `stale-issue-label` の値を、`days-before-issue-stale` で指定した期間非アクティブだった issue に適用するラベルに変更します。
+   - `stale-issue-message` の値を、`actions/stale` アクションによってラベル付けされた issue に追加するコメントに変更します。
+   - `close-issue-message` の値を、`actions/stale` アクションによってクローズされた issue に追加するコメントに変更します。
 5. {% data reusables.actions.commit-workflow %}
 
-## Expected results
+## 予想される結果
 
-Based on the `schedule` parameter (for example, every day at 1:30 UTC), your workflow will find issues that have been inactive for the specified period of time and will add the specified comment and label. Additionally, your workflow will close any previously labeled issues if no additional activity has occurred for the specified period of time.
+`schedule` パラメーター (たとえば、毎日 1:30 UTC) に基づいて、ワークフローは指定された期間非アクティブであった issue を検出し、指定されたコメントとラベルを追加します。 さらに、指定された期間に追加のアクティビティが発生しなかった場合、ワークフローは以前にラベル付けされた Issue をすべてクローズします。
 
 {% data reusables.actions.schedule-delay %}
 
-You can view the history of your workflow runs to see this workflow run periodically. For more information, see "[Viewing workflow run history](/actions/managing-workflow-runs/viewing-workflow-run-history)."
+ワークフローの実行履歴を表示して、このワークフローが定期的に実行されているかどうかを確認できます。 詳細については、「[ワークフロー実行の履歴を表示する](/actions/managing-workflow-runs/viewing-workflow-run-history)」を参照してください。
 
-This workflow will only label and/or close 30 issues at a time in order to avoid exceeding a rate limit. You can configure this with the `operations-per-run` setting. For more information, see the [`actions/stale` action documentation](https://github.com/marketplace/actions/close-stale-issues).
+このワークフローでは、レート制限を超えないように、一度に 30 件の issue にのみラベルを付けたりクローズしたりします。 `operations-per-run` 設定を使用してこれを構成できます。 詳細については、[`actions/stale` アクションのドキュメント](https://github.com/marketplace/actions/close-stale-issues)を参照してください。
 
-## Next steps
+## 次の手順
 
-- To learn more about additional things you can do with the `actions/stale` action, like closing inactive pull requests, ignoring issues with certain labels or milestones, or only checking issues with certain labels, see the [`actions/stale` action documentation](https://github.com/marketplace/actions/close-stale-issues).
-- [Search GitHub](https://github.com/search?q=%22uses%3A+actions%2Fstale%22&type=code) for examples of workflows using this action.
+- 非アクティブな pull request のクローズ、特定のラベルやマイルストーンに関する issue の無視、特定のラベルに関する issue のみの確認など、`actions/stale` アクションで実行できるその他の操作の詳細については、[`actions/stale` アクションのドキュメント](https://github.com/marketplace/actions/close-stale-issues)を参照してください。
+- このアクションを使用するワークフローの例については [GitHub を検索](https://github.com/search?q=%22uses%3A+actions%2Fstale%22&type=code)してください。

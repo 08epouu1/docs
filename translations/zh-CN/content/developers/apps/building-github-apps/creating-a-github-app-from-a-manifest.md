@@ -1,6 +1,6 @@
 ---
-title: Creating a GitHub App from a manifest
-intro: 'A GitHub App Manifest is a preconfigured GitHub App you can share with anyone who wants to use your app in their personal repositories. The manifest flow allows someone to quickly create, install, and start extending a GitHub App without needing to register the app or connect the registration to the hosted app code.'
+title: 从清单创建 GitHub 应用程序
+intro: GitHub 应用程序清单是预先配置的 GitHub 应用程序，您可以与希望在其个人仓库中使用您的应用程序的任何用户分享它。 清单流程允许用户快速创建、安装和开始扩展 GitHub 应用程序，而无需注册应用程序或将注册连接到托管应用代码。
 redirect_from:
   - /apps/building-github-apps/creating-github-apps-from-a-manifest
   - /developers/apps/creating-a-github-app-from-a-manifest
@@ -12,78 +12,83 @@ versions:
 topics:
   - GitHub Apps
 shortTitle: App creation manifest flow
+ms.openlocfilehash: 8dd917a5b08605b995a7ecf8321b5cd61c50a681
+ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
+ms.translationtype: HT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 09/05/2022
+ms.locfileid: '145099208'
 ---
-## About GitHub App Manifests
+## 关于 GitHub 应用程序清单
 
-When someone creates a GitHub App from a manifest, they only need to follow a URL and name the app. The manifest includes the permissions, events, and webhook URL needed to automatically register the app. The manifest flow creates the GitHub App registration and retrieves the app's webhook secret, private key (PEM file), and GitHub App ID. The person who creates the app from the manifest will own the app and can choose to [edit the app's configuration settings](/apps/managing-github-apps/modifying-a-github-app/), delete it, or transfer it to another person on GitHub.
+当有人从清单创建 GitHub 应用程序时，他们只需遵循 URL 并命名应用程序即可。 清单包括自动注册应用程序所需的权限、事件和 web 挂钩 URL。 清单流程创建 GitHub 应用程序注册并检索应用程序的 web 挂钩密钥、私钥 （PEM 文件） 和 GitHub 应用程序 ID。 从清单创建应用的人将拥有该应用，并可以选择[编辑应用的配置设置](/apps/managing-github-apps/modifying-a-github-app/)、删除它或将其转让给 GitHub 上的其他人。
 
-You can use [Probot](https://probot.github.io/) to get started with GitHub App Manifests or see an example implementation. See "[Using Probot to implement the GitHub App Manifest flow](#using-probot-to-implement-the-github-app-manifest-flow)" to learn more.
+可以使用 [Probot](https://probot.github.io/) 开始使用 GitHub 应用清单或查看示例实现。 有关详细信息，请参阅“[使用 Probot 实现 GitHub 应用清单流](#using-probot-to-implement-the-github-app-manifest-flow)”。
 
-Here are some scenarios where you might use GitHub App Manifests to create preconfigured apps:
+以下是您可以使用 GitHub 应用程序清单来创建预配置应用程序的一些场景：
 
-* Help new team members come up-to-speed quickly when developing GitHub Apps.
-* Allow others to extend a GitHub App using the GitHub APIs without requiring them to configure an app.
-* Create GitHub App reference designs to share with the GitHub community.
-* Ensure you deploy GitHub Apps to development and production environments using the same configuration.
-* Track revisions to a GitHub App configuration.
+* 开发 GitHub 应用程序时，帮助新的团队成员快速上手。
+* 允许其他人使用 GitHub API 扩展 GitHub 应用程序，而无需他们配置应用程序。
+* 创建 GitHub 应用程序参考设计，与 GitHub 社区分享。
+* 确保使用相同的配置将 GitHub 应用程序部署到开发和生产环境。
+* 跟踪对 GitHub 应用程序配置的修订。
 
-## Implementing the GitHub App Manifest flow
+## 实现 GitHub 应用程序清单流程
 
-The GitHub App Manifest flow uses a handshaking process similar to the [OAuth flow](/apps/building-oauth-apps/authorizing-oauth-apps/). The flow uses a manifest to [register a GitHub App](/apps/building-github-apps/creating-a-github-app/) and receives a temporary `code` used to retrieve the app's private key, webhook secret, and ID.
+GitHub 应用清单流使用类似于 [OAuth 流](/apps/building-oauth-apps/authorizing-oauth-apps/)的握手过程。 该流使用清单[注册 GitHub 应用](/apps/building-github-apps/creating-a-github-app/)，并接收用于检索该应用的私钥、Webhook 机密和 ID 的临时 `code`。
 
 {% note %}
 
-**Note:** You must complete all three steps in the GitHub App Manifest flow within one hour.
+注意：必须在一小时内完成 GitHub 应用清单流中的所有三个步骤。
 
 {% endnote %}
 
-Follow these steps to implement the GitHub App Manifest flow:
+按照以下步骤实现 GitHub 应用程序清单流程：
 
-1. You redirect people to GitHub to create a new GitHub App.
-1. GitHub redirects people back to your site.
-1. You exchange the temporary code to retrieve the app configuration.
+1. 将人员重定向到 GitHub 以创建新的 GitHub 应用程序。
+1. GitHub 将人员重定向回您的站点。
+1. 交换临时代码以检索应用程序配置。
 
-### 1. You redirect people to GitHub to create a new GitHub App
+### 1. 将人员重定向到 GitHub 以创建新的 GitHub 应用
 
-To redirect people to create a new GitHub App, [provide a link](#examples) for them to click that sends a `POST` request to `https://github.com/settings/apps/new` for a user account or `https://github.com/organizations/ORGANIZATION/settings/apps/new` for an organization account, replacing `ORGANIZATION` with the name of the organization account where the app will be created.
+若要重定向人员以创建新的 GitHub 应用，请为他们[提供一个链接](#examples)以供单击，该链接针对个人帐户将 `POST` 请求发送到 `https://github.com/settings/apps/new`，或针对组织帐户将该请求发送到 `https://github.com/organizations/ORGANIZATION/settings/apps/new`，并将 `ORGANIZATION` 替换为将创建应用的组织帐户的名称。
 
-You must include the [GitHub App Manifest parameters](#github-app-manifest-parameters) as a JSON-encoded string in a parameter called `manifest`. You can also include a `state` [parameter](#parameters) for additional security.
+必须将 [GitHub 应用清单参数](#github-app-manifest-parameters)作为 JSON 编码的字符串包含在名为 `manifest` 的参数中。 还可以包含一个 `state` [参数](#parameters)以实现额外的安全性。
 
-The person creating the app will be redirected to a GitHub page with an input field where they can edit the name of the app you included in the `manifest` parameter. If you do not include a `name` in the `manifest`, they can set their own name for the app in this field.
+创建应用的人将被重定向到带有输入字段的 GitHub 页面，他们可以在该页面编辑你包含在 `manifest` 参数中的应用的名称。 如果你未在 `manifest` 中包含 `name`，他们可以在此字段中为应用设置自己的名称。
 
-![Create a GitHub App Manifest](/assets/images/github-apps/create-github-app-manifest.png)
+![创建 GitHub 应用程序清单](/assets/images/github-apps/create-github-app-manifest.png)
 
-#### GitHub App Manifest parameters
+#### GitHub 应用程序清单参数
 
- Name | Type | Description
+ 名称 | 类型 | 说明
 -----|------|-------------
-`name` | `string` | The name of the GitHub App.
-`url` | `string` | **Required.** The homepage of your GitHub App.
-`hook_attributes` | `object` | The configuration of the GitHub App's webhook.
-`redirect_url` | `string` | The full URL to redirect to after a user initiates the creation of a GitHub App from a manifest.{% ifversion fpt or ghae or ghes > 3.0 or ghec %}
-`callback_urls` | `array of strings` | A full URL to redirect to after someone authorizes an installation. You can provide up to 10 callback URLs.{% else %}
-`callback_url` | `string` |  A full URL to redirect to after someone authorizes an installation.{% endif %}
-`description` | `string` | A description of the GitHub App.
-`public` | `boolean` | Set to `true` when your GitHub App is available to the public or `false` when it is only accessible to the owner of the app.
-`default_events` | `array` | The list of [events](/webhooks/event-payloads) the GitHub App subscribes to.
-`default_permissions` | `object` | The set of [permissions](/rest/reference/permissions-required-for-github-apps) needed by the GitHub App. The format of the object uses the permission name for the key (for example, `issues`) and the access type for the value (for example, `write`).
+`name` | `string` | GitHub 应用程序的名称。
+`url` | `string` | **必填。** GitHub 应用的主页。
+`hook_attributes` | `object` | GitHub 应用程序 web 挂钩的配置
+`redirect_url` | `string` | 用户从清单启动 GitHub 应用创建后要重定向到的完整 URL。
+`callback_urls` | `array of strings` | 在用户授权安装后重定向到的完整 URL。 您可以提供最多 10 个回叫 URL。
+`description` | `string` | GitHub 应用程序的说明。
+`public` | `boolean` | 当 GitHub 应用可供公众使用时，设置为 `true`；当其仅可供应用所有者访问时，设置为 `false`。
+`default_events` | `array` | GitHub 应用订阅的[事件](/webhooks/event-payloads)列表。
+`default_permissions` | `object` | GitHub 应用所需的[权限](/rest/reference/permissions-required-for-github-apps)集。 对象的格式使用键的权限名称（例如 `issues`）和值的访问类型（例如 `write`）。
 
-The `hook_attributes` object has the following key:
+`hook_attributes` 对象具有以下键：
 
-Name | Type | Description
+名称 | 类型 | 说明
 -----|------|-------------
-`url` | `string` | **Required.** The URL of the server that will receive the webhook `POST` requests.
-`active` | `boolean` | Deliver event details when this hook is triggered, defaults to true.
+`url` | `string` | **必填。** 将接收 Webhook `POST` 请求的服务器的 URL。
+`active` | `boolean` | 当此挂钩被触发时提供事件详细信息，默认值为 true。
 
-#### Parameters
+#### 参数
 
- Name | Type | Description
+ 名称 | 类型 | 说明
 -----|------|-------------
 `state`| `string` | {% data reusables.apps.state_description %}
 
-#### Examples
+#### 示例
 
-This example uses a form on a web page with a button that triggers the `POST` request for a user account:
+此示例使用网页上的表单，其中包含一个按钮，该按钮可触发个人帐户的 `POST` 请求：
 
 ```html
 <form action="https://github.com/settings/apps/new?state=abc123" method="post">
@@ -100,9 +105,9 @@ This example uses a form on a web page with a button that triggers the `POST` re
      "url": "https://example.com/github/events",
    },
    "redirect_url": "https://example.com/redirect",
-   {% ifversion fpt or ghae or ghes > 3.0 or ghec %}"callback_urls": [
+   "callback_urls": [
      "https://example.com/callback"
-   ],{% else %}"callback_url": "https://example.com/callback",{% endif %}
+   ],
    "public": true,
    "default_permissions": {
      "issues": "write",
@@ -118,7 +123,7 @@ This example uses a form on a web page with a button that triggers the `POST` re
 </script>
 ```
 
-This example uses a form on a web page with a button that triggers the `POST` request for an organization account. Replace `ORGANIZATION` with the name of the organization account where you want to create the app.
+此示例使用网页上的表单，其中包含一个按钮，该按钮可触发组织帐户的 `POST` 请求。 将 `ORGANIZATION` 替换为要在其中创建应用的组织帐户的名称。
 
 ```html
 <form action="https://github.com/organizations/ORGANIZATION/settings/apps/new?state=abc123" method="post">
@@ -135,9 +140,9 @@ This example uses a form on a web page with a button that triggers the `POST` re
      "url": "https://example.com/github/events",
    },
    "redirect_url": "https://example.com/redirect",
-   {% ifversion fpt or ghae or ghes > 3.0 or ghec %}"callback_urls": [
+   "callback_urls": [
      "https://example.com/callback"
-   ],{% else %}"callback_url": "https://example.com/callback",{% endif %}
+   ],
    "public": true,
    "default_permissions": {
      "issues": "write",
@@ -153,49 +158,49 @@ This example uses a form on a web page with a button that triggers the `POST` re
 </script>
 ```
 
-### 2. GitHub redirects people back to your site
+### 2. GitHub 将人员重定向回你的站点
 
-When the person clicks **Create GitHub App**, GitHub redirects back to the `redirect_url` with a temporary `code` in a code parameter. For example:
+当人员单击“创建 GitHub 应用”时，GitHub 会重定向回 `redirect_url`，其中，代码参数中包含临时 `code`。 例如：
 
     https://example.com/redirect?code=a180b1a3d263c81bc6441d7b990bae27d4c10679
 
-If you provided a `state` parameter, you will also see that parameter in the `redirect_url`. For example:
+如果提供了 `state` 参数，则还将在 `redirect_url` 中看到该参数。 例如：
 
     https://example.com/redirect?code=a180b1a3d263c81bc6441d7b990bae27d4c10679&state=abc123
 
-### 3. You exchange the temporary code to retrieve the app configuration
+### 3. 交换临时代码以检索应用配置
 
-To complete the handshake, send the temporary `code` in a `POST` request to the [Create a GitHub App from a manifest](/rest/reference/apps#create-a-github-app-from-a-manifest) endpoint. The response will include the `id` (GitHub App ID), `pem` (private key), and `webhook_secret`. GitHub creates a webhook secret for the app automatically. You can store these values in environment variables on the app's server. For example, if your app uses [dotenv](https://github.com/bkeepers/dotenv) to store environment variables, you would store the variables in your app's `.env` file.
+若要完成握手，请将 `POST` 请求中的临时 `code` 发送到[从清单创建 GitHub 应用](/rest/reference/apps#create-a-github-app-from-a-manifest)终结点。 响应将包括 `id`（GitHub 应用 ID）、`pem`（私钥）和 `webhook_secret`。 GitHub 会自动为应用程序创建一个 web 挂钩密钥。 您可以将这些值存储在应用程序服务器上的环境变量中。 例如，如果应用使用 [dotenv](https://github.com/bkeepers/dotenv) 来存储环境变量，则你应该将这些变量存储在应用的 `.env` 文件中。
 
-You must complete this step of the GitHub App Manifest flow within one hour.
+您必须在一小时内完成 GitHub 应用程序清单流程中的此步骤。
 
 {% note %}
 
-**Note:** This endpoint is rate limited. See [Rate limits](/rest/reference/rate-limit) to learn how to get your current rate limit status.
+注意：此终结点具有速率限制。 请参阅[速率限制](/rest/reference/rate-limit)，了解如何获取当前速率限制状态。
 
 {% endnote %}
 
     POST /app-manifests/{code}/conversions
 
-For more information about the endpoint's response, see [Create a GitHub App from a manifest](/rest/reference/apps#create-a-github-app-from-a-manifest).
+有关终结点响应的详细信息，请参阅[从清单创建 GitHub 应用](/rest/reference/apps#create-a-github-app-from-a-manifest)。
 
-When the final step in the manifest flow is completed, the person creating the app from the flow will be an owner of a registered GitHub App that they can install on any of their personal repositories. They can choose to extend the app using the GitHub APIs, transfer ownership to someone else, or delete it at any time.
+清单流程的最后一步完成后，从流程创建应用程序的人将是注册 GitHub 应用程序的所有者，他们可以将其安装到他们的任何个人仓库中。 他们可以选择使用 GitHub API 扩展应用程序、将所有权转让给其他人或者随时删除它。
 
-## Using Probot to implement the GitHub App Manifest flow
+## 使用 Probot 实现 GitHub 应用程序清单流程
 
-[Probot](https://probot.github.io/) is a framework built with [Node.js](https://nodejs.org/) that performs many of the tasks needed by all GitHub Apps, like validating webhooks and performing authentication. Probot implements the [GitHub App manifest flow](#implementing-the-github-app-manifest-flow), making it easy to create and share GitHub App reference designs with the GitHub community.
+[Probot](https://probot.github.io/) 是一种使用 [Node.js](https://nodejs.org/) 构建的框架，可执行所有 GitHub 应用所需的很多任务，例如验证 Webhook 和执行身份验证。 Probot 实现了 [GitHub 应用清单流](#implementing-the-github-app-manifest-flow)，使人们能够轻松创建 GitHub 应用参考设计并与 GitHub 社区共享。
 
-To create a Probot App that you can share, follow these steps:
+要创建可以分享的 Probot 应用程序，请遵循以下步骤：
 
-1. [Generate a new GitHub App](https://probot.github.io/docs/development/#generating-a-new-app).
-1. Open the project you created, and customize the settings in the `app.yml` file. Probot uses the settings in `app.yml` as the [GitHub App Manifest parameters](#github-app-manifest-parameters).
-1. Add your application's custom code.
-1. [Run the GitHub App locally](https://probot.github.io/docs/development/#running-the-app-locally) or [host it anywhere you'd like](#hosting-your-app-with-glitch). When you navigate to the hosted app's URL, you'll find a web page with a **Register GitHub App** button that people can click to create a preconfigured app. The web page below is Probot's implementation of [step 1](#1-you-redirect-people-to-github-to-create-a-new-github-app) in the GitHub App Manifest flow:
+1. [生成新的 GitHub 应用](https://probot.github.io/docs/development/#generating-a-new-app)。
+1. 打开你创建的项目，自定义 `app.yml` 文件中的设置。 Probot 使用 `app.yml` 中的设置作为 [GitHub 应用清单参数](#github-app-manifest-parameters)。
+1. 添加应用程序的自定义代码。
+1. [在本地运行 GitHub 应用](https://probot.github.io/docs/development/#running-the-app-locally)，或[将其托管到你想要的任何位置](#hosting-your-app-with-glitch)。 导航到托管应用的 URL 时，你会发现一个包含“注册 GitHub 应用”按钮的网页，人们可以单击该按钮创建预配置的应用。 下面的网页是 Probot 对 GitHub 应用清单流中的[步骤 1](#1-you-redirect-people-to-github-to-create-a-new-github-app) 的实现：
 
-![Register a Probot GitHub App](/assets/images/github-apps/github_apps_probot-registration.png)
+![注册 Probot GitHub 应用程序](/assets/images/github-apps/github_apps_probot-registration.png)
 
-Using [dotenv](https://github.com/bkeepers/dotenv), Probot creates a `.env` file and sets the `APP_ID`, `PRIVATE_KEY`, and `WEBHOOK_SECRET` environment variables with the values [retrieved from the app configuration](#3-you-exchange-the-temporary-code-to-retrieve-the-app-configuration).
+Probot 使用 [dotenv](https://github.com/bkeepers/dotenv) 创建一个 `.env` 文件，并使用[从应用配置中检索的](#3-you-exchange-the-temporary-code-to-retrieve-the-app-configuration)值设置 `APP_ID`、`PRIVATE_KEY` 和 `WEBHOOK_SECRET` 环境变量。
 
-### Hosting your app with Glitch
+### 使用 Glitch 托管应用程序
 
-You can see an [example Probot app](https://glitch.com/~auspicious-aardwolf) that uses [Glitch](https://glitch.com/) to host and share the app. The example uses the [Checks API](/rest/reference/checks) and selects the necessary Checks API events and permissions in the `app.yml` file. Glitch is a tool that allows you to "Remix your own" apps. Remixing an app creates a copy of the app that Glitch hosts and deploys. See "[About Glitch](https://glitch.com/about/)" to learn about remixing Glitch apps.
+可以看到一个[示例 Probot 应用](https://glitch.com/~auspicious-aardwolf)，该应用使用 [Glitch](https://glitch.com/) 来托管和共享应用。 该示例使用[检查 API](/rest/reference/checks)，并选择 `app.yml` 文件中必要的检查 API 事件和权限。 Glitch 是一个允许您“重新组合自己的”应用程序的工具。 重新组合应用程序将创建一个 Glitch 托管和部署的应用程序副本。 请参阅“[关于 Glitch](https://glitch.com/about/)”，了解如何重新组合 Glitch 应用。

@@ -1,244 +1,203 @@
 ---
-title: API previews
-intro: You can use API previews to try out new features and provide feedback before these features become official.
+title: API プレビュー
+intro: API プレビューを使用して新機能を試し、これらの機能が正式なものになる前にフィードバックを提供できます。
 redirect_from:
   - /v3/previews
 versions:
-  fpt: '*'
-  ghes: '*'
-  ghae: '*'
-  ghec: '*'
+  ghes: <3.4
 topics:
   - API
+ms.openlocfilehash: fe00e2ab78881edab8d0f7704f80f2f20163fdeb
+ms.sourcegitcommit: ac00e2afa6160341c5b258d73539869720b395a4
+ms.translationtype: HT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 09/09/2022
+ms.locfileid: '147878439'
 ---
+API プレビューを使用すると、正式に GitHub API の一部になる前に、新しい API や既存の API メソッドへの変更を試すことができます。
 
+プレビュー期間中は、開発者からのフィードバックに基づいて機能を変更することがあります。 変更を行う際には、事前の通知なく[開発者ブログ](https://developer.github.com/changes/)で発表します。
 
-API previews let you try out new APIs and changes to existing API methods before they become part of the official GitHub API.
-
-During the preview period, we may change some features based on developer feedback. If we do make changes, we'll announce them on the [developer blog](https://developer.github.com/changes/) without advance notice.
-
-To access an API preview, you'll need to provide a custom [media type](/rest/overview/media-types) in the `Accept` header for your requests. Feature documentation for each preview specifies which custom media type to provide.
+API プレビューにアクセスするには、自分の要求の `Accept` ヘッダーにカスタムの[メディアの種類](/rest/overview/media-types)を指定する必要があります。 各プレビューの機能ドキュメントに、どのカスタムメディアタイプを提供するのかが示されています。
 
 {% ifversion ghes < 3.3 %}
 
-## Enhanced deployments
+## 強化されたデプロイメント
 
-Exercise greater control over [deployments](/rest/reference/repos#deployments) with more information and finer granularity.
+より多くの情報と細かい粒度で[デプロイ](/rest/reference/repos#deployments)をより細かく制御します。
 
-**Custom media type:** `ant-man-preview`
-**Announced:** [2016-04-06](https://developer.github.com/changes/2016-04-06-deployment-and-deployment-status-enhancements/)
-
-{% endif %}
-
-{% ifversion ghes < 3.3 %}
-
-## Reactions
-
-Manage [reactions](/rest/reference/reactions) for commits, issues, and comments.
-
-**Custom media type:** `squirrel-girl-preview`
-**Announced:** [2016-05-12](https://developer.github.com/changes/2016-05-12-reactions-api-preview/)
-**Update:** [2016-06-07](https://developer.github.com/changes/2016-06-07-reactions-api-update/)
+**カスタムのメディアの種類:** `ant-man-preview`
+**発表日:** [2016-04-06](https://developer.github.com/changes/2016-04-06-deployment-and-deployment-status-enhancements/)
 
 {% endif %}
 
 {% ifversion ghes < 3.3 %}
 
-## Timeline
+## リアクション
 
-Get a [list of events](/rest/reference/issues#timeline) for an issue or pull request.
+コミット、問題、コメントの[リアクション](/rest/reference/reactions)を管理します。
 
-**Custom media type:** `mockingbird-preview`
-**Announced:** [2016-05-23](https://developer.github.com/changes/2016-05-23-timeline-preview-api/)
-
-{% endif %}
-
-{% ifversion ghes %}
-## Pre-receive environments
-
-Create, list, update, and delete environments for pre-receive hooks.
-
-**Custom media type:** `eye-scream-preview`
-**Announced:** [2015-07-29](/rest/reference/enterprise-admin#pre-receive-environments)
-{% endif %}
-
-{% ifversion ghes < 3.3 %}
-## Projects
-
-Manage [projects](/rest/reference/projects).
-
-**Custom media type:** `inertia-preview`
-**Announced:** [2016-09-14](https://developer.github.com/changes/2016-09-14-projects-api/)
-**Update:** [2016-10-27](https://developer.github.com/changes/2016-10-27-changes-to-projects-api/)
-{% endif %}
-{% ifversion ghes < 3.3 %}
-
-## Commit search
-
-[Search commits](/rest/reference/search).
-
-**Custom media type:** `cloak-preview`
-**Announced:** [2017-01-05](https://developer.github.com/changes/2017-01-05-commit-search-api/)
-{% endif %}
-{% ifversion ghes < 3.3 %}
-
-## Repository topics
-
-View a list of [repository topics](/articles/about-topics/) in [calls](/rest/reference/repos) that return repository results.
-
-**Custom media type:** `mercy-preview`
-**Announced:** [2017-01-31](https://github.com/blog/2309-introducing-topics)
-{% endif %}
-{% ifversion ghes < 3.3 %}
-
-## Codes of conduct
-
-View all [codes of conduct](/rest/reference/codes-of-conduct) or get which code of conduct a repository has currently.
-
-**Custom media type:** `scarlet-witch-preview`
-
-{% endif %}
-
-{% ifversion ghae or ghes %}
-
-## Global webhooks
-
-Enables [global webhooks](/rest/reference/enterprise-admin#global-webhooks/) for  [organization](/webhooks/event-payloads/#organization) and [user](/webhooks/event-payloads/#user) event types. This API preview is only available for {% data variables.product.prodname_ghe_server %}.
-
-**Custom media type:** `superpro-preview`
-**Announced:** [2017-12-12](/rest/reference/enterprise-admin#global-webhooks)
+**カスタムのメディアの種類:** `squirrel-girl-preview`
+**発表:** [2016-05-12](https://developer.github.com/changes/2016-05-12-reactions-api-preview/)
+**更新:** [2016-06-07](https://developer.github.com/changes/2016-06-07-reactions-api-update/)
 
 {% endif %}
 
 {% ifversion ghes < 3.3 %}
 
-## Require signed commits
+## タイムライン
 
-You can now use the API to manage the setting for [requiring signed commits on protected branches](/rest/reference/repos#branches).
+問題または pull request の[イベントの一覧](/rest/reference/issues#timeline)を取得します。
 
-**Custom media type:** `zzzax-preview`
-**Announced:** [2018-02-22](https://developer.github.com/changes/2018-02-22-protected-branches-required-signatures)
+**カスタムのメディアの種類:** `mockingbird-preview`
+**発表日:** [2016-05-23](https://developer.github.com/changes/2016-05-23-timeline-preview-api/)
+
 {% endif %}
+
 {% ifversion ghes < 3.3 %}
+## プロジェクト
 
-## Require multiple approving reviews
+[プロジェクト](/rest/reference/projects)を管理します。
 
-You can now [require multiple approving reviews](/rest/reference/repos#branches) for a pull request using the API.
+**カスタムのメディアの種類:** `inertia-preview`
+**発表:** [2016-09-14](https://developer.github.com/changes/2016-09-14-projects-api/)
+**更新:** [2016-10-27](https://developer.github.com/changes/2016-10-27-changes-to-projects-api/) {% endif %} {% ifversion ghes < 3.3 %}
 
-**Custom media type:** `luke-cage-preview`
-**Announced:** [2018-03-16](https://developer.github.com/changes/2018-03-16-protected-branches-required-approving-reviews)
+## コミット検索
 
-{% endif %}
+[コミットを検索します](/rest/reference/search)。
 
+**カスタムのメディアの種類:** `cloak-preview`
+**発表:** [2017-01-05](https://developer.github.com/changes/2017-01-05-commit-search-api/) {% endif %} {% ifversion ghes < 3.3 %}
 
-{% ifversion ghes %}
+## リポジトリトピック
 
-## Anonymous Git access to repositories
+リポジトリの結果を返す[呼び出し](/articles/about-topics/)で[リポジトリ トピック](/rest/reference/repos)の一覧を表示します。
 
-When a {% data variables.product.prodname_ghe_server %} instance is in private mode, site and repository administrators can enable anonymous Git access for a public repository.
+**カスタムのメディアの種類:** `mercy-preview`
+**発表:** [2017-01-31](https://github.com/blog/2309-introducing-topics) {% endif %} {% ifversion ghes < 3.3 %}
 
-**Custom media type:** `x-ray-preview`
-**Announced:** [2018-07-12](https://blog.github.com/2018-07-12-introducing-enterprise-2-14/)
+## 行動規範
 
-{% endif %}
-{% ifversion ghes < 3.3 %}
+すべての[行動規範](/rest/reference/codes-of-conduct)を表示するか、リポジトリに現在含まれる行動規範を取得します。
 
-## Project card details
-
-The REST API responses for [issue events](/rest/reference/issues#events) and [issue timeline events](/rest/reference/issues#timeline) now return the `project_card` field for project-related events.
-
-**Custom media type:** `starfox-preview`
-**Announced:** [2018-09-05](https://developer.github.com/changes/2018-09-05-project-card-events)
-
-{% endif %}
-{% ifversion fpt or ghec %}
-
-## GitHub App Manifests
-
-GitHub App Manifests allow people to create preconfigured GitHub Apps. See "[Creating GitHub Apps from a manifest](/apps/building-github-apps/creating-github-apps-from-a-manifest/)" for more details.
-
-**Custom media type:** `fury-preview`
+**カスタムのメディアの種類:** `scarlet-witch-preview`
 
 {% endif %}
 
 {% ifversion ghes < 3.3 %}
 
-## Deployment statuses
+## グローバル webhook
 
-You can now update the `environment` of a [deployment status](/rest/reference/deployments#create-a-deployment-status) and use the `in_progress` and `queued` states. When you create deployment statuses, you can now use the `auto_inactive` parameter to mark old `production` deployments as `inactive`.
+[組織](/webhooks/event-payloads/#organization)と[ユーザー](/webhooks/event-payloads/#user)のイベントの種類に対して[グローバル Webhook](/rest/reference/enterprise-admin#global-webhooks/) を有効にします。 この API プレビューは {% data variables.product.prodname_ghe_server %} でのみ使用できます。
 
-**Custom media type:** `flash-preview`
-**Announced:** [2018-10-16](https://developer.github.com/changes/2018-10-16-deployments-environments-states-and-auto-inactive-updates/)
+**カスタムのメディアの種類:** `superpro-preview`
+**発表日:** [2017-12-12](/rest/reference/enterprise-admin#global-webhooks)
 
 {% endif %}
 
 {% ifversion ghes < 3.3 %}
 
-## Repository creation permissions
+## 署名済みコミットの必須化
 
-You can now configure whether organization members can create repositories and which types of repositories they can create. See "[Update an organization](/rest/reference/orgs#update-an-organization)" for more details.
+これで、API を使用して、[保護されたブランチで署名済みコミットを必須にする](/rest/reference/repos#branches)ための設定を管理できるようになりました。
 
-**Custom media types:** `surtur-preview`
-**Announced:** [2019-12-03](https://developer.github.com/changes/2019-12-03-internal-visibility-changes/)
+**カスタムのメディアの種類:** `zzzax-preview`
+**発表:** [2018-02-22](https://developer.github.com/changes/2018-02-22-protected-branches-required-signatures) {% endif %} {% ifversion ghes < 3.3 %}
+
+## 複数の承認レビューの必須化
+
+API を使用することで、pull request に対して[複数の承認レビューを要求](/rest/reference/repos#branches)できるようになりました。
+
+**カスタムのメディアの種類:** `luke-cage-preview`
+**発表日:** [2018-03-16](https://developer.github.com/changes/2018-03-16-protected-branches-required-approving-reviews)
+
+{% endif %}
+
+{% ifversion ghes < 3.3 %}
+
+## プロジェクトカードの詳細
+
+[issue イベント](/rest/reference/issues#events)と [issue タイムライン イベント](/rest/reference/issues#timeline) の REST API 応答から、プロジェクト関連のイベントの `project_card` フィールドが返されるようになりました。
+
+**カスタムのメディアの種類:** `starfox-preview`
+**発表日:** [2018-09-05](https://developer.github.com/changes/2018-09-05-project-card-events)
+
+{% endif %}
+
+{% ifversion ghes < 3.3 %}
+
+## デプロイメントステータス
+
+これで、[デプロイ状態](/rest/reference/deployments#create-a-deployment-status)の `environment` を更新し、`in_progress` と `queued` の状態を使用できるようになりました。 デプロイの状態を作成する際に、`auto_inactive` パラメーターを使用して古い `production` デプロイを `inactive` として使用できるようになりました。
+
+**カスタムのメディアの種類:** `flash-preview`
+**発表日:** [2018-10-16](https://developer.github.com/changes/2018-10-16-deployments-environments-states-and-auto-inactive-updates/)
+
+{% endif %}
+
+{% ifversion ghes < 3.3 %}
+
+## リポジトリの作成権限
+
+Organization メンバーによるリポジトリの作成可否、および作成可能なリポジトリのタイプを設定できるようになりました。 詳細については、[組織の更新](/rest/reference/orgs#update-an-organization)に関するページを参照してください。
+
+**カスタムのメディアの種類:** `surtur-preview`
+**発表:** [2019-12-03](https://developer.github.com/changes/2019-12-03-internal-visibility-changes/)
 
 {% endif %}
 
 {% ifversion ghes < 3.4 %}
-## Content attachments
+## コンテンツの添付
 
-You can now provide more information in GitHub for URLs that link to registered domains by using the {% data variables.product.prodname_unfurls %} API. See "[Using content attachments](/apps/using-content-attachments/)" for more details.
+{% data variables.product.prodname_unfurls %} API を使用して、登録されたドメインにリンクする URL の詳細情報を GitHub で提供できるようになりました。 詳細については、「[添付コンテンツを使用する](/apps/using-content-attachments/)」を参照してください。
 
-**Custom media types:** `corsair-preview`
-**Announced:** [2018-12-10](https://developer.github.com/changes/2018-12-10-content-attachments-api/)
+**カスタムのメディアの種類:** `corsair-preview`
+**発表:** [2018-12-10](https://developer.github.com/changes/2018-12-10-content-attachments-api/)
 
-{% endif %}
-{% ifversion ghae or ghes < 3.3 %}
+{% endif %} {% ifversion ghes < 3.3 %}
 
-## Enable and disable Pages
+## Pages の有効化と無効化
 
-You can use the new endpoints in the [Pages API](/rest/reference/repos#pages) to enable or disable Pages. To learn more about Pages, see "[GitHub Pages Basics](/categories/github-pages-basics)".
+[Pages API](/rest/reference/repos#pages) の新しいエンドポイントを使用して、Pages を有効または無効にすることができます。 Pages の詳細については、[GitHub Pages の基本](/categories/github-pages-basics)に関するページを参照してください。
 
-**Custom media types:** `switcheroo-preview`
-**Announced:** [2019-03-14](https://developer.github.com/changes/2019-03-14-enabling-disabling-pages/)
-
-{% endif %}
-
-{% ifversion ghes < 3.3 %}
-
-## List branches or pull requests for a commit
-
-You can use two new endpoints in the [Commits API](/rest/reference/repos#commits) to list branches or pull requests for a commit.
-
-**Custom media types:** `groot-preview`
-**Announced:** [2019-04-11](https://developer.github.com/changes/2019-04-11-pulls-branches-for-commit/)
+**カスタムのメディアの種類:** `switcheroo-preview`
+**発表:** [2019-03-14](https://developer.github.com/changes/2019-03-14-enabling-disabling-pages/)
 
 {% endif %}
 
 {% ifversion ghes < 3.3 %}
 
-## Update a pull request branch
+## コミットのブランチまたはプルリクエストの一覧表示
 
-You can use a new endpoint to [update a pull request branch](/rest/reference/pulls#update-a-pull-request-branch) with changes from the HEAD of the upstream branch.
+[Commits API](/rest/reference/repos#commits) で 2 つの新しいエンドポイントを使用して、コミットのブランチまたは pull requests を一覧表示できます。
 
-**Custom media types:** `lydian-preview`
-**Announced:** [2019-05-29](https://developer.github.com/changes/2019-05-29-update-branch-api/)
+**カスタムのメディアの種類:** `groot-preview`
+**発表:** [2019-04-11](https://developer.github.com/changes/2019-04-11-pulls-branches-for-commit/)
 
 {% endif %}
+
 {% ifversion ghes < 3.3 %}
 
-## Create and use repository templates
+## プルリクエストブランチの更新
 
-You can use a new endpoint to [Create a repository using a template](/rest/reference/repos#create-a-repository-using-a-template) and [Create a repository for the authenticated user](/rest/reference/repos#create-a-repository-for-the-authenticated-user) that is a template repository by setting the `is_template` parameter to `true`. [Get a repository](/rest/reference/repos#get-a-repository) to check whether it's set as a template repository using the `is_template` key.
+新しいエンドポイントを使用することで、アップストリーム ブランチの HEAD からの変更で [pull request ブランチを更新](/rest/reference/pulls#update-a-pull-request-branch)することができます。
 
-**Custom media types:** `baptiste-preview`
-**Announced:** [2019-07-05](https://developer.github.com/changes/2019-07-16-repository-templates-api/)
-{% endif %}
-{% ifversion ghes < 3.3 %}
+**カスタムのメディアの種類:** `lydian-preview`
+**発表:** [2019-05-29](https://developer.github.com/changes/2019-05-29-update-branch-api/)
 
-## New visibility parameter for the Repositories API
+{% endif %} {% ifversion ghes < 3.3 %}
 
-You can set and retrieve the visibility of a repository in the [Repositories API](/rest/reference/repos).
+## リポジトリテンプレートの作成および使用
 
-**Custom media types:** `nebula-preview`
-**Announced:** [2019-11-25](https://developer.github.com/changes/2019-12-03-internal-visibility-changes/)
-{% endif %}
+新しいエンドポイントを使用すると、[テンプレートを使用してリポジトリを作成](/rest/reference/repos#create-a-repository-using-a-template)したり、`is_template` パラメーターを `true` に設定して[認証済みユーザー用のリポジトリを作成](/rest/reference/repos#create-a-repository-for-the-authenticated-user)したりできます。 [リポジトリを取得](/rest/reference/repos#get-a-repository)することで、`is_template` キーを使用してそれがテンプレート リポジトリとして設定されているかどうかを確認できます。
+
+**カスタムのメディアの種類:** `baptiste-preview`
+**発表:** [2019-07-05](https://developer.github.com/changes/2019-07-16-repository-templates-api/) {% endif %} {% ifversion ghes < 3.3 %}
+
+## Repositories API の新しい可視性パラメータ
+
+[Repositories API](/rest/reference/repos) でリポジトリの可視性を設定および取得できます。
+
+**カスタムのメディアの種類:** `nebula-preview`
+**発表:** [2019-11-25](https://developer.github.com/changes/2019-12-03-internal-visibility-changes/) {% endif %}

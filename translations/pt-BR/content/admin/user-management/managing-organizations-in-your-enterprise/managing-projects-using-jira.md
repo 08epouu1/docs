@@ -1,6 +1,6 @@
 ---
-title: Managing projects using Jira
-intro: 'You can integrate Jira with {% data variables.product.prodname_enterprise %} for project management.'
+title: Gerenciar projetos usando o Jira
+intro: 'Você pode integrar o Jira com {% data variables.product.product_name %} para gerenciamento do projeto.'
 redirect_from:
   - /enterprise/admin/guides/installation/project-management-using-jira
   - /enterprise/admin/articles/project-management-using-jira
@@ -10,60 +10,67 @@ redirect_from:
   - /admin/user-management/managing-projects-using-jira
 versions:
   ghes: '*'
+  ghae: '*'
 type: how_to
 topics:
   - Enterprise
   - Project management
 shortTitle: Project management with Jira
+ms.openlocfilehash: da1a02894bf8c916089de94a8642396ba7ceabe4
+ms.sourcegitcommit: fb047f9450b41b24afc43d9512a5db2a2b750a2a
+ms.translationtype: HT
+ms.contentlocale: pt-BR
+ms.lasthandoff: 09/11/2022
+ms.locfileid: '145094584'
 ---
-## Connecting Jira to a {% data variables.product.prodname_enterprise %} organization
+## Conectar o Jira a uma organização de {% data variables.product.prodname_enterprise %}
 
-1. Sign into your {% data variables.product.prodname_enterprise %} account at http[s]://[hostname]/login. If already signed in, click on the {% data variables.product.prodname_dotcom %} logo in the top left corner.
-2. Click on your profile icon under the {% data variables.product.prodname_dotcom %} logo and select the organization you would like to connect with Jira.
+1. Entre na sua conta do {% data variables.product.prodname_enterprise %} em http[s]://[hostname]/login. Se já conectado, clique no logotipo de {% data variables.product.prodname_dotcom %} no canto superior esquerdo.
+2. Clique no seu ícone de perfil abaixo do logotipo de {% data variables.product.prodname_dotcom %} e selecione a organização que você deseja que se conecte com o Jira.
 
-  ![Select an organization](/assets/images/enterprise/orgs-and-teams/profile-select-organization.png)
+  ![Selecione uma organização](/assets/images/enterprise/orgs-and-teams/profile-select-organization.png)
 
-3. Click on the **Edit _organization name_ settings** link.
+3. Clique no link **Editar configurações de _nome da organização_**.
 
-  ![Edit organization settings](/assets/images/enterprise/orgs-and-teams/edit-organization-settings.png)
+  ![Editar configurações da organização](/assets/images/enterprise/orgs-and-teams/edit-organization-settings.png)
 
-4. In the left sidebar, under **Developer settings**, click **OAuth Apps**.
+4. Na barra lateral esquerda, em **Configurações do desenvolvedor**, clique em **Aplicativos OAuth**.
 
-  ![Select OAuth Apps](/assets/images/enterprise/orgs-and-teams/organization-dev-settings-oauth-apps.png)
+  ![Selecionar aplicativos OAuth](/assets/images/enterprise/orgs-and-teams/organization-dev-settings-oauth-apps.png)
 
-5. Click on the **Register new application** button.
+5. Clique no botão **Registrar novo aplicativo**.
 
-  ![Register new application button](/assets/images/enterprise/orgs-and-teams/register-oauth-application-button.png)
+  ![Botão para cadastrar novo aplicativo](/assets/images/enterprise/orgs-and-teams/register-oauth-application-button.png)
 
-6. Fill in the application settings:
-    - In the **Application name** field, type "Jira" or any name you would like to use to identify the Jira instance.
-    - In the **Homepage URL** field, type the full URL of your Jira instance.
-    - In the **Authorization callback URL** field, type the full URL of your Jira instance.
-7. Click **Register application**.
-8. At the top of the page, note the **Client ID** and **Client Secret**. You will need these for configuring your Jira instance.
+6. Defina as configurações do aplicativo:
+    - No campo **Nome do aplicativo**, digite "Jira" ou qualquer nome que desejar usar para identificar a instância do Jira.
+    - No campo **URL da Home page**, digite a URL completa da instância do Jira.
+    - No campo **URL de retorno de chamada de autorização**, digite a URL completa da instância do Jira.
+7. Clique em **Registrar aplicativo**.
+8. Na parte superior da página, anote a **ID do Cliente** e o **Segredo do Cliente**. Você precisará dessas informações para configurar sua instância do Jira.
 
-## Jira instance configuration
+## Configuração da instância do Jira
 
-1. On your Jira instance, log into an account with administrative access.
-2. At the top of the page, click the settings (gear) icon and choose **Applications**.
+1. Na instância do Jira, faça login em uma conta com acesso administrativo.
+2. Na parte superior da página, clique no ícone de configurações (engrenagem) e escolha **Aplicativos**.
 
-  ![Select Applications on Jira settings](/assets/images/enterprise/orgs-and-teams/jira/jira-applications.png)
+  ![Selecionar aplicativos nas configurações do Jira](/assets/images/enterprise/orgs-and-teams/jira/jira-applications.png)
 
-3. In the left sidebar, under **Integrations**, click **DVCS accounts**.
+3. Na barra lateral esquerda, em **Integrações**, clique em **Contas DVCS**.
 
-  ![Jira Integrations menu - DVCS accounts](/assets/images/enterprise/orgs-and-teams/jira/jira-integrations-dvcs.png)
+  ![Menu de Integrações do Jira - Contas DVCS](/assets/images/enterprise/orgs-and-teams/jira/jira-integrations-dvcs.png)
 
-4. Click **Link Bitbucket Cloud or {% data variables.product.prodname_dotcom %} account**.
+4. Clique em **Link Bitbucket Cloud ou conta do {% data variables.product.prodname_dotcom %}** .
 
-  ![Link GitHub account to Jira](/assets/images/enterprise/orgs-and-teams/jira/jira-link-github-account.png)
+  ![Vincular conta do GitHub ao Jira](/assets/images/enterprise/orgs-and-teams/jira/jira-link-github-account.png)
 
-5. In the **Add New Account** modal, fill in your {% data variables.product.prodname_enterprise %} settings:
-    - From the **Host** dropdown menu, choose **{% data variables.product.prodname_enterprise %}**.
-    - In the **Team or User Account** field, type the name of your {% data variables.product.prodname_enterprise %} organization or personal account.
-    - In the **OAuth Key** field, type the Client ID of your {% data variables.product.prodname_enterprise %} developer application.
-    - In the **OAuth Secret** field, type the Client Secret for your {% data variables.product.prodname_enterprise %} developer application.
-    - If you don't want to link new repositories owned by your {% data variables.product.prodname_enterprise %} organization or personal account, deselect **Auto Link New Repositories**.
-    - If you don't want to enable smart commits, deselect **Enable Smart Commits**.
-    - Click **Add**.
-6. Review the permissions you are granting to your {% data variables.product.prodname_enterprise %} account and click **Authorize application**.
-7. If necessary, type your password to continue.
+5. Na caixa de diálogo modal **Adicionar Nova Conta**, preencha suas configurações do {% data variables.product.prodname_enterprise %}:
+    - No menu suspenso **Host**, escolha **{% data variables.product.prodname_enterprise %}** .
+    - No campo **Conta de Equipe ou Usuário**, digite o nome da conta de usuário ou da organização do {% data variables.product.prodname_enterprise %}.
+    - No campo **Chave OAuth**, digite a ID do cliente do aplicativo de desenvolvedor do {% data variables.product.prodname_enterprise %}.
+    - No campo **Segredo do OAuth**, digite o Segredo do Cliente do aplicativo de desenvolvedor do {% data variables.product.prodname_enterprise %}.
+    - Se não quiser vincular novos repositórios pertencentes à sua conta de usuário ou da organização do {% data variables.product.prodname_enterprise %}, desmarque a opção **Vincular Novos Repositórios Automaticamente**.
+    - Caso não deseje habilitar commits inteligentes, desmarque a opção **Habilitar Commits Inteligentes**.
+    - Clique em **Adicionar**.
+6. Revise as permissões que você está concedendo à sua conta do {% data variables.product.prodname_enterprise %} e clique em **Autorizar aplicativo**.
+7. Se necessário, digite a senha para continuar.

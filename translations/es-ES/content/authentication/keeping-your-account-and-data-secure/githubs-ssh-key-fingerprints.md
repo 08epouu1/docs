@@ -1,6 +1,6 @@
 ---
-title: GitHub's SSH key fingerprints
-intro: Public key fingerprints can be used to validate a connection to a remote server.
+title: Huellas digitales de la clave SSH de GitHub
+intro: Se pueden utilizar las huellas digitales de clave pública para validar una conexión a un servidor remoto.
 redirect_from:
   - /articles/what-are-github-s-ssh-key-fingerprints
   - /articles/github-s-ssh-key-fingerprints
@@ -14,8 +14,14 @@ topics:
   - Identity
   - Access management
 shortTitle: SSH key fingerprints
+ms.openlocfilehash: 29f61df463d014e6a72ad7dd21049a2b338b893e
+ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
+ms.translationtype: HT
+ms.contentlocale: es-ES
+ms.lasthandoff: 09/05/2022
+ms.locfileid: '145091822'
 ---
-These are {% data variables.product.prodname_dotcom %}'s public key fingerprints:
+Estas son las huellas dactilares de la llave pública de {% data variables.product.prodname_dotcom %}:
 
 - `SHA256:nThbg6kXUpJWGl7E1IGOCspRomTxdCARLviKw6E5SY8` (RSA)
 - `SHA256:p2QAMXNIC1TJYWeIOttrVc98/R1BUFWu3/LiyKgUfQM` (ECDSA)

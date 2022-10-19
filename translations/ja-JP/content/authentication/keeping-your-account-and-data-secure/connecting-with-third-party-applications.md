@@ -1,6 +1,6 @@
 ---
-title: Connecting with third-party applications
-intro: 'You can connect your {% data variables.product.product_name %} identity to third-party applications using OAuth. When authorizing one of these applications, you should ensure you trust the application, review who it''s developed by, and review the kinds of information the application wants to access.'
+title: サードパーティアプリケーションと接続する
+intro: '{% data variables.product.product_name %}のアイデンティティを、OAuth を使うサードパーティのアプリケーションに接続できます。 これらのアプリケーションを認可する際には、そのアプリケーションを信頼するか、誰が開発したのか、そのアプリケーションがどういった種類の情報にアクセスしたいのかを確認すべきです。'
 redirect_from:
   - /articles/connecting-with-third-party-applications
   - /github/authenticating-to-github/connecting-with-third-party-applications
@@ -14,64 +14,70 @@ topics:
   - Identity
   - Access management
 shortTitle: Third-party applications
+ms.openlocfilehash: b8cd20d36926c373116061e211be62701b1bd2f6
+ms.sourcegitcommit: fb047f9450b41b24afc43d9512a5db2a2b750a2a
+ms.translationtype: HT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 09/11/2022
+ms.locfileid: '145115053'
 ---
-When a third-party application wants to identify you by your {% data variables.product.product_name %} login, you'll see a page with the developer contact information and a list of the specific data that's being requested.
+サードパーティアプリケーションが {% data variables.product.product_name %} ログインであなたを識別したい場合、そのアプリケーションの開発者の連絡先情報と、リクエストされている情報のリストのページが表示されます。
 
-## Contacting the application developer
+## アプリケーション開発者に連絡する
 
-Because an application is developed by a third-party who isn't {% data variables.product.product_name %}, we don't know exactly how an application uses the data it's requesting access to. You can use the developer information at the top of the page to contact the application admin if you have questions or concerns about their application.
+アプリケーションは、{% data variables.product.product_name %} 以外のサードパーティにより開発されているため、アプリケーションがアクセスを要求しているデータをどう使うかについて、私たちは正確に把握していません。 アプリケーションについて、質問や懸念がある場合は、ページ上部の開発者情報を使って、アプリケーション管理者に連絡できます。
 
-![{% data variables.product.prodname_oauth_app %} owner information](/assets/images/help/platform/oauth_owner_bar.png)
+![{% data variables.product.prodname_oauth_app %}オーナー情報](/assets/images/help/platform/oauth_owner_bar.png)
 
-If the developer has chosen to supply it, the right-hand side of the page provides a detailed description of the application, as well as its associated website.
+開発者が情報を入力している場合は、ページの右側に、アプリケーションの詳細情報や関連ウェブサイトが表示されます。
 
-![OAuth application information and website](/assets/images/help/platform/oauth_app_info.png)
+![OAuth アプリケーションの情報とウェブサイト](/assets/images/help/platform/oauth_app_info.png)
 
-## Types of application access and data
+## アプリケーションのアクセスとデータのタイプ
 
-Applications can have *read* or *write* access to your {% data variables.product.product_name %} data.
+アプリケーションは、{% data variables.product.product_name %} のデータに対して *読み取り* または *書き取り* アクセスを持つことができます。
 
-- **Read access** only allows an application to *look at* your data.
-- **Write access** allows an application to *change* your data.
+- **読み取りアクセス** では、アプリケーションはデータの "*閲覧*" のみ可能です。
+- **書き込みアクセス** では、アプリケーションはデータの "*変更*" が可能です。
 
-### About OAuth scopes
+### OAuth のスコープについて
 
-*Scopes* are named groups of permissions that an application can request to access both public and non-public data.
+*スコープ* は、アプリケーションがパブリックおよび非パブリックのデータへのアクセスを要求する権限の名前付きのグループです。
 
-When you want to use a third-party application that integrates with {% data variables.product.product_name %}, that application lets you know what type of access to your data will be required. If you grant access to the application, then the application will be able to perform actions on your behalf, such as reading or modifying data. For example, if you want to use an app that requests `user:email` scope, the app will have read-only access to your private email addresses. For more information, see "[About scopes for {% data variables.product.prodname_oauth_apps %}](/apps/building-integrations/setting-up-and-registering-oauth-apps/about-scopes-for-oauth-apps)."
-
-{% tip %}
-
-**Note:** Currently, you can't scope source code access to read-only.
-
-{% endtip %}
-
-### Types of requested data
-
-There are several types of data that applications can request.
-
-![OAuth access details](/assets/images/help/platform/oauth_access_types.png)
+{% data variables.product.product_name %} と統合するサードパーティアプリケーションを使用したい場合、そのアプリケーションは、データに対してどういった種類のアクセスが必要になるのかをあなたに通知します。 アプリケーションにアクセスを許可すれば、アプリケーションはあなたの代わりにデータの読み取りや変更といったアクションを行えるようになります。 たとえば、`user:email` スコープを要求するアプリを使用する必要がある場合、アプリは個人用メール アドレスへの読み取り専用アクセス権を持つことになります。 詳しい情報については、「[{% data variables.product.prodname_oauth_apps %} のスコープについて](/apps/building-integrations/setting-up-and-registering-oauth-apps/about-scopes-for-oauth-apps)」を参照してください。
 
 {% tip %}
 
-**Tip:** {% data reusables.user_settings.review_oauth_tokens_tip %}
+**注:** 現在、ソース コード アクセスを読み取り専用にスコープすることはできません。
 
 {% endtip %}
 
-| Type of data | Description |
+### リクエストされるデータの種類
+
+アプリケーションがリクエストできるデータの種類はいくつかあります。
+
+![OAuth アクセスの詳細](/assets/images/help/platform/oauth_access_types.png)
+
+{% tip %}
+
+**ヒント:** {% data reusables.user-settings.review_oauth_tokens_tip %}
+
+{% endtip %}
+
+| データの種類 | 説明 |
 | --- | --- |
-| Commit status | You can grant access for a third-party application to report your commit status. Commit status access allows applications to determine if a build is a successful against a specific commit. Applications won't have access to your code, but they <em>can</em> read and write status information against a specific commit. |
-| Deployments | Deployment status access allows applications to determine if a deployment is successful against a specific commit for a repository. Applications won't have access to your code. |
-| Gists | [Gist](https://gist.github.com) access allows applications to read or write to {% ifversion not ghae %}both your public and{% else %}both your internal and{% endif %} secret Gists. |
-| Hooks | [Webhooks](/webhooks) access allows applications to read or write hook configurations on repositories you manage. |
-| Notifications | Notification access allows applications to read your {% data variables.product.product_name %} notifications, such as comments on issues and pull requests. However, applications remain unable to access anything in your repositories. |
-| Organizations and teams | Organization and teams access allows apps to access and manage organization and team membership. |
-| Personal user data | User data includes information found in your user profile, like your name, e-mail address, and location. |
-| Repositories | Repository information includes the names of contributors, the branches you've created, and the actual files within your repository. An application can request access to all of your repositories of any visibility level. For more information, see "[About repositories](/repositories/creating-and-managing-repositories/about-repositories#about-repository-visibility)." |
-| Repository delete | Applications can request to delete repositories that you administer, but they won't have access to your code. |
+| コミットのステータス | サードパーティアプリケーションに、コミットのステータスを報告するためのアクセスを許可できます。 コミットステータスのアクセスがあれば、アプリケーションはビルドが特定のコミットに対して成功したかどうかを判定できます。 アプリケーションはコードへはアクセスできませんが、特定のコミットに対するステータス情報を読み書きすることは<em>できます</em>。 |
+| デプロイメント | デプロイメントステータスにアクセスできれば、アプリケーションは、リポジトリの特定のコミットに対してデプロイメントが成功したかどうかを判断できます。 アプリケーションはコードにアクセスできなくなります。 |
+| Gists | アプリケーションは、[Gist](https://gist.github.com) アクセスで、{% ifversion not ghae %}パブリックおよび{% else %}内部および{% endif %}シークレットの両方の Gists の読み取りや書き込みができるようになります。 |
+| フック | アプリケーションは、[Webhook](/webhooks) アクセスで、管理するリポジトリのフック構成の読み取りや書き込みができるようになります。 |
+| 通知 | 通知アクセスがあれば、アプリケーションは Issue やプルリクエストへのコメントなど、あなたの {% data variables.product.product_name %} 通知を読むことができます。 ただし、アプリケーションはリポジトリ内へはアクセスできません。 |
+| 組織とチーム | Organization および Team のアクセスがあれば、アプリケーションは Organization および Team のメンバー構成へのアクセスと管理ができます。 |
+| ユーザーの個人データ | ユーザデータには、名前、メールアドレス、所在地など、ユーザプロファイル内の情報が含まれます。 |
+| リポジトリ | リポジトリ情報には、コントリビュータの名前、あなたが作成したブランチ、リポジトリ内の実際のファイルなどが含まれます。 アプリケーションは、可視可能な全レベルのすべてのリポジトリへのアクセスを要求できます。 詳細については、[リポジトリ](/repositories/creating-and-managing-repositories/about-repositories#about-repository-visibility)に関する説明を参照してください。 |
+| リポジトリの削除 | アプリケーションはあなたが管理するリポジトリの削除をリクエストできますが、コードにアクセスすることはできません。 |
 
-## Requesting updated permissions
+## 更新された権限のリクエスト
 
-Applications can request new access privileges. When asking for updated permissions, the application will notify you of the differences.
+アプリケーションは新しいアクセス権限をリクエストできます。 権限の更新を要求する場合、アプリケーションはその違いについて通知します。
 
-![Changing third-party application access](/assets/images/help/platform/oauth_existing_access_pane.png)
+![サードパーティアプリケーションのアクセスを変更する](/assets/images/help/platform/oauth_existing_access_pane.png)

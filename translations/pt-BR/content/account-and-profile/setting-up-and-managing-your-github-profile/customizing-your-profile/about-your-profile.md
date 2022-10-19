@@ -1,6 +1,6 @@
 ---
-title: About your profile
-intro: 'Your profile page tells people the story of your work through the repositories you''re interested in, the contributions you''ve made, and the conversations you''ve had.'
+title: Sobre seu perfil
+intro: 'Sua página de perfil conta a história do seu trabalho por meio de repositórios nos quais você está interessado, das contribuições que fez e das conversas que teve.'
 redirect_from:
   - /articles/viewing-your-feeds
   - /articles/profile-pages
@@ -14,30 +14,36 @@ versions:
   ghec: '*'
 topics:
   - Profiles
+ms.openlocfilehash: edbe34a38c2ab23de22e3b5ea466e35276c6bc35
+ms.sourcegitcommit: fcf3546b7cc208155fb8acdf68b81be28afc3d2d
+ms.translationtype: HT
+ms.contentlocale: pt-BR
+ms.lasthandoff: 09/11/2022
+ms.locfileid: '146199951'
 ---
-You can add personal information about yourself in your bio, like previous places you've worked, projects you've contributed to, or interests you have that other people may like to know about. For more information, see "[Adding a bio to your profile](/articles/personalizing-your-profile/#adding-a-bio-to-your-profile)."
+Você pode adicionar informações pessoais sobre si mesmo na bio, como locais em que trabalhou anteriormente, os projetos com os quais contribuiu ou interesses que você tem que outras pessoas talvez gostem de saber. Para obter mais informações, confira "[Como adicionar uma biografia ao seu perfil](/articles/personalizing-your-profile/#adding-a-bio-to-your-profile)".
 
 {% ifversion fpt or ghes or ghec %}
 
 {% data reusables.profile.profile-readme %}
 
-![Profile README file displayed on profile](/assets/images/help/repository/profile-with-readme.png)
+![Arquivo README do perfil exibido no perfil](/assets/images/help/repository/profile-with-readme.png)
 
 {% endif %}
 
-People who visit your profile see a timeline of your contribution activity, like issues and pull requests you've opened, commits you've made, and pull requests you've reviewed. You can choose to display only public contributions or to also include private, anonymized contributions. For more information, see "[Viewing contributions on your profile page](/articles/viewing-contributions-on-your-profile-page)" or "[Publicizing or hiding your private contributions on your profile](/articles/publicizing-or-hiding-your-private-contributions-on-your-profile)."
+As pessoas que visitam seu perfil veem uma linha do tempo da sua atividade de contribuição, como problemas e pull requests que abriu, commits que fez e pull requests que revisou. Você pode optar por exibir apenas contribuições públicas ou também incluir contribuições privadas e anônimas. Para obter mais informações, confira "[Como ver as contribuições na página do seu perfil](/articles/viewing-contributions-on-your-profile-page)" ou "[Como divulgar ou ocultar suas contribuições privadas no seu perfil](/articles/publicizing-or-hiding-your-private-contributions-on-your-profile)".
 
-People who visit your profile can also see the following information.
+As pessoas que visitam seu perfil também podem ver as informações a seguir.
 
-- Repositories and gists you own or contribute to. {% ifversion fpt or ghes or ghec %}You can showcase your best work by pinning repositories and gists to your profile. For more information, see "[Pinning items to your profile](/github/setting-up-and-managing-your-github-profile/pinning-items-to-your-profile)."{% endif %}
-- Repositories you've starred{% ifversion fpt or ghec %} and organized into lists.{% endif %} For more information, see "[Saving repositories with stars](/articles/saving-repositories-with-stars/)."
-- An overview of your activity in organizations, repositories, and teams you're most active in. For more information, see "[Showing an overview of your activity on your profile](/articles/showing-an-overview-of-your-activity-on-your-profile)."{% ifversion fpt or ghec %}
-- Badges that show if you use {% data variables.product.prodname_pro %} or participate in programs like the {% data variables.product.prodname_arctic_vault %}, {% data variables.product.prodname_sponsors %}, or the {% data variables.product.company_short %} Developer Program. For more information, see "[Personalizing your profile](/github/setting-up-and-managing-your-github-profile/personalizing-your-profile#displaying-badges-on-your-profile)."{% endif %}
+- Repositórios e gists que você possui ou com os quais contribui. {% ifversion fpt or ghes or ghec %}Você pode apresentar seus melhores trabalhos fixando repositórios e gists no seu perfil. Para obter mais informações, confira "[Como fixar itens no seu perfil](/github/setting-up-and-managing-your-github-profile/pinning-items-to-your-profile)".{% endif %}
+- Repositórios que você marcou com estrela{% ifversion fpt or ghec %} e organizou em listas.{% endif %} Para obter mais informações, confira "[Como salvar repositórios com estrelas](/articles/saving-repositories-with-stars/)".
+- Uma visão geral da sua atividade em organizações, repositórios e equipes nos quais você está mais ativo. Para obter mais informações, confira "[Como mostrar uma visão geral da sua atividade no seu perfil](/articles/showing-an-overview-of-your-activity-on-your-profile)".{% ifversion fpt or ghec %}
+- Selos e conquistas que destacam sua atividade e mostram se você usa o {% data variables.product.prodname_pro %} ou participa de programas como {% data variables.product.prodname_arctic_vault %}, {% data variables.product.prodname_sponsors %} ou {% data variables.product.company_short %} Developer Program. Para obter mais informações, confira "[Como personalizar seu perfil](/github/setting-up-and-managing-your-github-profile/personalizing-your-profile#displaying-badges-on-your-profile)".{% endif %}
 
-You can also set a status on your profile to provide information about your availability. For more information, see "[Setting a status](/articles/personalizing-your-profile/#setting-a-status)."
+Você também pode definir um status no seu perfil para fornecer informações sobre a sua disponibilidade. Para obter mais informações, confira "[Como configurar um status](/articles/personalizing-your-profile/#setting-a-status)".
 
-## Further reading
+## Leitura adicional
 
-- "[How do I set up my profile picture?](/articles/how-do-i-set-up-my-profile-picture)"
-- "[Publicizing or hiding your private contributions on your profile](/articles/publicizing-or-hiding-your-private-contributions-on-your-profile)"
-- "[Viewing contributions on your profile](/articles/viewing-contributions-on-your-profile)"
+- "[Como fazer para configurar a foto do meu perfil?](/articles/how-do-i-set-up-my-profile-picture)"
+- "[Como publicar ou ocultar contribuições privadas no seu perfil](/articles/publicizing-or-hiding-your-private-contributions-on-your-profile)"
+- "[Como ver as contribuições no seu perfil](/articles/viewing-contributions-on-your-profile)"

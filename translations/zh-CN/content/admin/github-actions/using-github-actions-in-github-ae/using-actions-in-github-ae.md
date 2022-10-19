@@ -1,6 +1,6 @@
 ---
-title: Using actions in GitHub AE
-intro: '{% data variables.product.prodname_ghe_managed %} includes most of the {% data variables.product.prodname_dotcom %}-authored actions.'
+title: 在 GitHub AE 中使用操作
+intro: '{% data variables.product.prodname_ghe_managed %} 包含大部分 {% data variables.product.prodname_dotcom %} 编写的操作。'
 versions:
   ghae: '*'
 type: how_to
@@ -10,17 +10,21 @@ topics:
 redirect_from:
   - /admin/github-actions/using-actions-in-github-ae
 shortTitle: Use actions
+ms.openlocfilehash: a8439a08f73667b7d048b31e2c9eb3968ba2e957
+ms.sourcegitcommit: fcf3546b7cc208155fb8acdf68b81be28afc3d2d
+ms.translationtype: HT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 09/10/2022
+ms.locfileid: '145099985'
 ---
+{% data variables.product.prodname_actions %} 工作流可使用操作，它们是一些单独的任务，可以组合这些操作以创建作业并自定义工作流。 您可以创建自己的操作，或者使用和自定义 {% data variables.product.prodname_dotcom %} 社区分享的操作。
 
+## 与 {% data variables.product.prodname_ghe_managed %} 捆绑的官方操作
 
-{% data variables.product.prodname_actions %} workflows can use _actions_, which are individual tasks that you can combine to create jobs and customize your workflow. You can create your own actions, or use and customize actions shared by the {% data variables.product.prodname_dotcom %} community.
+大多数 {% data variables.product.prodname_dotcom %} 编写的官方操作都会自动与 {% data variables.product.prodname_ghe_managed %} 捆绑，并且会在某个时间点从 {% data variables.product.prodname_marketplace %} 捕获。 当你的 {% data variables.product.prodname_ghe_managed %} 实例更新时，捆绑的官方操作也会更新。
 
-## Official actions bundled with {% data variables.product.prodname_ghe_managed %}
-
-Most official {% data variables.product.prodname_dotcom %}-authored actions are automatically bundled with {% data variables.product.prodname_ghe_managed %}, and are captured at a point in time from {% data variables.product.prodname_marketplace %}. When your {% data variables.product.prodname_ghe_managed %} instance is updated, the bundled official actions are also updated.
-
-The bundled official actions include `actions/checkout`, `actions/upload-artifact`, `actions/download-artifact`, `actions/labeler`, and various `actions/setup-` actions, among others. To see which of the official actions are included, browse to the following organizations on your instance: 
+捆绑的官方操作包括 `actions/checkout`、`actions/upload-artifact`、`actions/download-artifact`、`actions/labeler` 和各种 `actions/setup-` 操作等。 要查看包含哪些官方操作，请在您的实例中浏览到以下组织： 
 - <code>https://<em>HOSTNAME</em>/actions</code>
 - <code>https://<em>HOSTNAME</em>/github</code>
 
-Each action's files are kept in a repository in the `actions` and `github` organizations. Each action repository includes the necessary tags, branches, and commit SHAs that your workflows can use to reference the action.
+每个操作的文件都保存在 `actions` 和 `github` 组织的存储库中。 每个操作仓库都包含必要的标签、分支和提交 SHA，您的工作流可以使用它们来引用操作。

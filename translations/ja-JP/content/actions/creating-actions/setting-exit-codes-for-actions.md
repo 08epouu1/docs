@@ -1,7 +1,7 @@
 ---
-title: Setting exit codes for actions
+title: アクションの終了コードの設定
 shortTitle: Setting exit codes
-intro: 'You can use exit codes to set the status of an action. {% data variables.product.prodname_dotcom %} displays statuses to indicate passing or failing actions.'
+intro: '終了コードを使って、アクションのステータスを設定できます。 {% data variables.product.prodname_dotcom %}は、パスした、あるいは失敗したアクションを示すステータスを表示します。'
 redirect_from:
   - /actions/building-actions/setting-exit-codes-for-actions
 versions:
@@ -10,23 +10,27 @@ versions:
   ghae: '*'
   ghec: '*'
 type: how_to
+ms.openlocfilehash: 28aecc646814736beb8c814dfe4b8385a6605cd2
+ms.sourcegitcommit: fb047f9450b41b24afc43d9512a5db2a2b750a2a
+ms.translationtype: HT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 09/11/2022
+ms.locfileid: '145088631'
 ---
+{% data reusables.actions.enterprise-beta %} {% data reusables.actions.enterprise-github-hosted-runners %}
 
-{% data reusables.actions.enterprise-beta %}
-{% data reusables.actions.enterprise-github-hosted-runners %}
+## 終了コードについて
 
-## About exit codes
+{% data variables.product.prodname_dotcom %} では、終了コードを使用してアクションのチェック実行ステータスを設定します。ステータスは `success` か `failure` です。
 
-{% data variables.product.prodname_dotcom %} uses the exit code to set the action's check run status, which can be `success` or `failure`.
-
-Exit status | Check run status | Description
+終了ステータス | チェック実行ステータス | 説明
 ------------|------------------|------------
-`0` | `success` | The action completed successfully and other tasks that depends on it can begin.
-Nonzero value (any integer but 0)| `failure` | Any other exit code indicates the action failed. When an action fails, all concurrent actions are canceled and future actions are skipped. The check run and check suite both get a `failure` status.
+`0` | `success` | アクションが正常に完了し、それに依存する他のタスクを開始できます。
+ゼロ以外の値 (0 以外の任意の整数)| `failure` | その他の終了コードは、アクションの失敗を表します。 アクションが失敗すると、同時に実行されていたアクションはすべてキャンセルされ、今後のアクションはスキップされます。 チェック実行とチェック スイートの両方に `failure` ステータスが与えられます。
 
-## Setting a failure exit code in a JavaScript action
+## JavaScript アクションで失敗終了を設定する
 
-If you are creating a JavaScript action, you can use the actions toolkit [`@actions/core`](https://github.com/actions/toolkit/tree/main/packages/core) package to log a message and set a failure exit code. For example:
+JavaScript のアクションを作成する場合は、アクション ツールキット [`@actions/core`](https://github.com/actions/toolkit/tree/main/packages/core) パッケージを使用してメッセージをログに記録し、エラー終了コードを設定できます。 次に例を示します。
 
 ```javascript
 try {
@@ -36,11 +40,11 @@ try {
 }
 ```
 
-For more information, see "[Creating a JavaScript action](/articles/creating-a-javascript-action)."
+詳細については、「[JavaScript アクションを作成する](/articles/creating-a-javascript-action)」を参照してください。
 
-## Setting a failure exit code in a Docker container action
+## Docker コンテナアクションで失敗終了コードを設定する
 
-If you are creating a Docker container action, you can set a failure exit code in your `entrypoint.sh` script. For example:
+Docker コンテナー アクションを作成する場合は、`entrypoint.sh` スクリプトにエラー終了コードを設定できます。 次に例を示します。
 
 ```
 if <condition> ; then
@@ -49,4 +53,4 @@ if <condition> ; then
 fi
 ```
 
-For more information, see "[Creating a Docker container action](/articles/creating-a-docker-container-action)."
+詳細については、「[Docker コンテナー アクションを作成する](/articles/creating-a-docker-container-action)」を参照してください。

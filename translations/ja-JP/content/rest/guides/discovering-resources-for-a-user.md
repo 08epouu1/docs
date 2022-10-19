@@ -1,8 +1,8 @@
 ---
-title: Discovering resources for a user
-intro: Learn how to find the repositories and organizations that your app can access for a user in a reliable way for your authenticated requests to the REST API.
+title: ユーザのリソースを調べる
+intro: REST APIに対する認証済みリクエストにおいて、アプリケーションがアクセスできるユーザのリポジトリやOrganizationを確実に調べる方法を学びます。
 redirect_from:
-  - /guides/discovering-resources-for-a-user/
+  - /guides/discovering-resources-for-a-user
   - /v3/guides/discovering-resources-for-a-user
 versions:
   fpt: '*'
@@ -12,25 +12,28 @@ versions:
 topics:
   - API
 shortTitle: Discover resources for a user
+ms.openlocfilehash: 9650ff8dee220f0b32d74cacb0f86acd236df5b6
+ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
+ms.translationtype: HT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 09/05/2022
+ms.locfileid: '145131365'
 ---
+{% ifversion fpt or ghec %}{% data variables.product.prodname_dotcom %}{% else %}{% data variables.product.product_name %}{% endif %} APIに対して認証済みのリクエストを行う際には、アプリケーションがカレントユーザのリポジトリやOrganizationをフェッチしなければならないことがしばしばあります。 このガイドでは、これらのリソースを確実に調べる方法について説明します。
 
+{% ifversion fpt or ghec %}{% data variables.product.prodname_dotcom %}{% else %}{% data variables.product.product_name %}{% endif %} API を使うには、[Octokit.rb][octokit.rb] を使います。 このプロジェクトの完全なソース コードは、[platform-samples][platform samples] リポジトリにあります。
 
+## 作業の開始
 
-When making authenticated requests to the {% ifversion fpt or ghec %}{% data variables.product.prodname_dotcom %}{% else %}{% data variables.product.product_name %}{% endif %} API, applications often need to fetch the current user's repositories and organizations. In this guide, we'll explain how to reliably discover those resources.
+まだ「[認証の基本][basics-of-authentication]」を読んでいない場合は、それを読んでから以下の例に取り組んでください。 以下の例は、[OAuth アプリケーションを登録][register-oauth-app]してあり、[アプリケーションにユーザー用の OAuth トークンがある][make-authenticated-request-for-user]ことを前提としています。
 
-To interact with the {% ifversion fpt or ghec %}{% data variables.product.prodname_dotcom %}{% else %}{% data variables.product.product_name %}{% endif %} API, we'll be using [Octokit.rb][octokit.rb]. You can find the complete source code for this project in the [platform-samples][platform samples] repository.
+## アプリケーションでアクセス可能なユーザのリポジトリを調べる
 
-## Getting started
+ユーザは、個人でリポジトリを所有する他に、別のユーザやOrganizationが所有するリポジトリのコラボレータであることもあります。 まとめると、ユーザが権限を持ってアクセスできるリポジトリがあります。それはユーザが読み取りあるいは書き込みアクセスを持つプライベートリポジトリであったり、ユーザが書き込み権限を持つ{% ifversion fpt %}パブリック{% elsif ghec or ghes %}パブリックもしくはインターナル{% elsif ghae %}インターナル{% endif %}リポジトリであったりします。
 
-If you haven't already, you should read the ["Basics of Authentication"][basics-of-authentication] guide before working through the examples below. The examples below assume that you have [registered an OAuth application][register-oauth-app] and that your [application has an OAuth token for a user][make-authenticated-request-for-user].
+[OAuth スコープ][scopes]と [Organization のアプリケーション ポリシー][oap]によって、アプリでユーザーに対してアクセスできるリポジトリが決まります。 以下のワークフローを使用して、これらのリポジトリを調べます。
 
-## Discover the repositories that your app can access for a user
-
-In addition to having their own personal repositories, a user may be a collaborator on repositories owned by other users and organizations. Collectively, these are the repositories where the user has privileged access: either it's a private repository where the user has read or write access, or it's {% ifversion fpt %}a public{% elsif ghec or ghes %}a public or internal{% elsif ghae %}an internal{% endif %} repository where the user has write access.
-
-[OAuth scopes][scopes] and [organization application policies][oap] determine which of those repositories your app can access for a user. Use the workflow below to discover those repositories.
-
-As always, first we'll require [GitHub's Octokit.rb][octokit.rb] Ruby library. Then we'll configure Octokit.rb to automatically handle [pagination][pagination] for us.
+いつものように、まずは [GitHub の Octokit.rb][octokit.rb] Ruby ライブラリが必要です。 そして、[ページネーション][pagination]を自動的に処理するように Octokit.rb を構成します。
 
 ``` ruby
 require 'octokit'
@@ -38,7 +41,7 @@ require 'octokit'
 Octokit.auto_paginate = true
 ```
 
-Next, we'll pass in our application's [OAuth token for a given user][make-authenticated-request-for-user]:
+次に、アプリケーションの[特定ユーザー用の OAuth トークン][make-authenticated-request-for-user]を渡します。
 
 ``` ruby
 # !!! DO NOT EVER USE HARD-CODED VALUES IN A REAL APP !!!
@@ -46,7 +49,7 @@ Next, we'll pass in our application's [OAuth token for a given user][make-authen
 client = Octokit::Client.new :access_token => ENV["OAUTH_ACCESS_TOKEN"]
 ```
 
-Then, we're ready to fetch the [repositories that our application can access for the user][list-repositories-for-current-user]:
+これで、[アプリケーションがそのユーザーに対してアクセスできるリポジトリ][list-repositories-for-current-user]をフェッチする準備ができました。
 
 ``` ruby
 client.repositories.each do |repository|
@@ -63,11 +66,11 @@ client.repositories.each do |repository|
 end
 ```
 
-## Discover the organizations that your app can access for a user
+## アプリケーションがアクセス可能なユーザのOrganizationを調べる
 
-Applications can perform all sorts of organization-related tasks for a user. To perform these tasks, the app needs an [OAuth authorization][scopes] with sufficient permission. For example, the `read:org` scope allows you to [list teams][list-teams], and the `user` scope lets you [publicize the user’s organization membership][publicize-membership]. Once a user has granted one or more of these scopes to your app, you're ready to fetch the user’s organizations.
+アプリケーションは、ユーザに対してOrganizationに関するあらゆるタスクを実行できます。 これらのタスクを実行するには、アプリに十分な権限を持つ [OAuth 承認][scopes]が必要です。 たとえば、`read:org` スコープを使うと[チームの一覧を表示する][list-teams]ことができ、`user` スコープでは[ユーザーの Organization メンバーシップを公開する][publicize-membership]ことができます。 ユーザがこれらのスコープのうちの1つ以上をアプリケーションに付与すると、ユーザのOrganizationをフェッチする準備が整います。
 
-Just as we did when discovering repositories above, we'll start by requiring [GitHub's Octokit.rb][octokit.rb] Ruby library and configuring it to take care of [pagination][pagination] for us:
+上でリポジトリを調べたときと同様に、まずは [GitHub の Octokit.rb][octokit.rb] Ruby ライブラリを要求し、[ページネーション][pagination]を自動的に処理するように構成します。
 
 ``` ruby
 require 'octokit'
@@ -75,7 +78,7 @@ require 'octokit'
 Octokit.auto_paginate = true
 ```
 
-Next, we'll pass in our application's [OAuth token for a given user][make-authenticated-request-for-user] to initialize our API client:
+次に、アプリケーションの[特定ユーザーに対する OAuth トークン][make-authenticated-request-for-user]を渡して、API クライアントを初期化します。
 
 ``` ruby
 # !!! DO NOT EVER USE HARD-CODED VALUES IN A REAL APP !!!
@@ -83,7 +86,7 @@ Next, we'll pass in our application's [OAuth token for a given user][make-authen
 client = Octokit::Client.new :access_token => ENV["OAUTH_ACCESS_TOKEN"]
 ```
 
-Then, we can [list the organizations that our application can access for the user][list-orgs-for-current-user]:
+これで、[アプリケーションがそのユーザーに対してアクセスできる Organization の一覧を取得する][list-orgs-for-current-user]ことができます。
 
 ``` ruby
 client.organizations.each do |organization|
@@ -91,11 +94,11 @@ client.organizations.each do |organization|
 end
 ```
 
-### Return all of the user's organization memberships
+### ユーザのすべてのOrganizationメンバーシップを返す
 
-If you've read the docs from cover to cover, you may have noticed an [API method for listing a user's public organization memberships][list-public-orgs]. Most applications should avoid this API method. This method only returns the user's public organization memberships, not their private organization memberships.
+ドキュメントをよく読むと、[ユーザーのパブリックな Organization のメンバーシップの一覧を取得する API メソッド][list-public-orgs]に気付くかもしれません。 ほとんどのアプリケーションでは、このAPIメソッドを避けるべきです。 このメソッドは、ユーザのパブリックなOrganizationに属するメンバーだけを返し、プライベートなOrganizationに属するメンバーは返しません。
 
-As an application, you typically want all of the user's organizations that your app is authorized to access. The workflow above will give you exactly that.
+アプリケーションでは通常、アクセスを認可されたすべてのユーザのOrganizationが求められます。 上記のワークフローでは、まさにこれを実行しています。
 
 [basics-of-authentication]: /rest/guides/basics-of-authentication
 [list-public-orgs]: /rest/reference/orgs#list-organizations-for-a-user

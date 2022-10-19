@@ -1,6 +1,6 @@
 ---
-title: Unblocking a user from your organization
-intro: 'Organization owners can unblock a user who was previously blocked, restoring their access to the organization''s repositories.'
+title: Desbloquear usuários da organização
+intro: 'Os proprietários e moderadores da organização podem desbloquear um usuário que foi bloqueado anteriormente, restaurando seu acesso aos repositórios da organização.'
 redirect_from:
   - /articles/unblocking-a-user-from-your-organization
   - /github/building-a-strong-community/unblocking-a-user-from-your-organization
@@ -10,37 +10,40 @@ versions:
 topics:
   - Community
 shortTitle: Unblock from your org
+ms.openlocfilehash: 0c7099c21e3342717605f59a94e0025a7949b1cc
+ms.sourcegitcommit: 1309b46201604c190c63bfee47dce559003899bf
+ms.translationtype: HT
+ms.contentlocale: pt-BR
+ms.lasthandoff: 09/10/2022
+ms.locfileid: '145095214'
 ---
+O desbloqueio de um usuário da organização permite que ele continue contribuindo para os repositórios da organização.
 
-After unblocking a user from your organization, they'll be able to contribute to your organization's repositories.
-
-If you selected a specific amount of time to block the user, they will be automatically unblocked when that period of time ends. For more information, see "[Blocking a user from your organization](/articles/blocking-a-user-from-your-organization)."
+Se você tiver selecionado uma duração para o bloqueio do usuário, ele será automaticamente desbloqueado quando esse tempo acabar. Para obter mais informações, confira "[Como bloquear um usuário da sua organização](/articles/blocking-a-user-from-your-organization)".
 
 {% tip %}
 
-**Tip**: Any settings that were removed when you blocked the user from your organization, such as collaborator status, stars, and watches, will not be restored when you unblock the user.
+**Dica**: todas as configurações que foram removidas quando você bloqueou o usuário da sua organização, como status de colaborador, estrelas e inspeções, não serão restauradas quando você desbloquear o usuário.
 
 {% endtip %}
 
-## Unblocking a user in a comment
+## Desbloquear usuários em um comentário
 
-1. Navigate to the comment whose author you would like to unblock.
-2. In the upper-right corner of the comment, click {% octicon "kebab-horizontal" aria-label="The horizontal kebab icon" %}, then click **Unblock user**.
-![The horizontal kebab icon and comment moderation menu showing the unblock user option](/assets/images/help/repository/comment-menu-unblock-user.png)
-3. To confirm you would like to unblock the user, click **Okay**.
+1. Navegue até o comentário cujo autor você deseja desbloquear.
+2. No canto superior direito do comentário, clique em {% octicon "kebab-horizontal" aria-label="The horizontal kebab icon" %} e clique em **Desbloquear usuário**.
+![Ícone de kebab horizontal e menu de moderação de comentários que mostra a opção Desbloquear usuário](/assets/images/help/repository/comment-menu-unblock-user.png)
+3. Para confirmar se deseja desbloquear o usuário, clique em **OK**.
 
-## Unblocking a user in the organization settings
+## Desbloquear usuários nas configurações da organização
 
 
-{% data reusables.profile.access_org %}
-{% data reusables.profile.org_settings %}
-{% data reusables.organizations.moderation-settings %}
-5. Under "Blocked users", next to the user you'd like to unblock, click **Unblock**.
-![Unblock user button](/assets/images/help/organizations/org-unblock-user-button.png)
+{% data reusables.profile.access_org %} {% data reusables.profile.org_settings %} {% data reusables.organizations.block_users %}
+1. Em "Usuários bloqueados", ao lado do usuário que você deseja desbloquear, clique em **Desbloquear**.
+![Botão Desbloquear usuário](/assets/images/help/organizations/org-unblock-user-button.png)
 
-## Further reading
+## Leitura adicional
 
-- "[Blocking a user from your organization](/communities/maintaining-your-safety-on-github/blocking-a-user-from-your-organization)"
-- "[Blocking a user from your personal account](/communities/maintaining-your-safety-on-github/blocking-a-user-from-your-personal-account)"
-- "[Unblocking a user from your personal account](/communities/maintaining-your-safety-on-github/unblocking-a-user-from-your-personal-account)"
-- "[Reporting abuse or spam](/communities/maintaining-your-safety-on-github/reporting-abuse-or-spam)"
+- "[Como bloquear um usuário da sua organização](/communities/maintaining-your-safety-on-github/blocking-a-user-from-your-organization)"
+- "[Como bloquear um usuário da sua conta pessoal](/communities/maintaining-your-safety-on-github/blocking-a-user-from-your-personal-account)"
+- "[Como desbloquear um usuário da sua conta pessoal](/communities/maintaining-your-safety-on-github/unblocking-a-user-from-your-personal-account)"
+- "[Como denunciar abuso ou spam](/communities/maintaining-your-safety-on-github/reporting-abuse-or-spam)"

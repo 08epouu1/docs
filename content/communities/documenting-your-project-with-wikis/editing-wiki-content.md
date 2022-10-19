@@ -26,7 +26,7 @@ topics:
 You can create links in wikis using the standard markup supported by your page, or using MediaWiki syntax. For example:
 
 - If your pages are rendered with Markdown, the link syntax is `[Link Text](full-URL-of-wiki-page)`.
-- With MediaWiki syntax, the link syntax is `[[Link Text|nameofwikipage]]`.
+- With MediaWiki syntax, the link syntax is `[[nameofwikipage|Link Text]]`.
 
 ## Adding images
 
@@ -46,10 +46,15 @@ You can link to an image in a repository on {% data variables.product.product_na
 
     [[https://github.com/USERNAME/REPOSITORY/blob/main/img/octocat.png|alt=octocat]]
 
+{% ifversion fpt or ghec or ghes > 3.6 or ghae > 3.6 %}
+## Adding mathematical expressions and diagrams{% endif %}
+
+{% data reusables.getting-started.math-and-diagrams %}
+
 ## Supported MediaWiki formats
 
 No matter which markup language your wiki page is written in, certain MediaWiki syntax will always be available to you.
-- Links ([except Asciidoc](https://github.com/gollum/gollum/commit/d1cf698b456cd6a35a54c6a8e7b41d3068acec3b))
+- Links ([except AsciiDoc](https://github.com/gollum/gollum/commit/d1cf698b456cd6a35a54c6a8e7b41d3068acec3b))
 - Horizontal rules via `---`
 - Shorthand symbol entities (such as `&delta;` or `&euro;`)
 

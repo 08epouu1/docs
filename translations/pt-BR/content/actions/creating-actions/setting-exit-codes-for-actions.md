@@ -1,7 +1,7 @@
 ---
-title: Setting exit codes for actions
+title: Definindo códigos de saída para ações
 shortTitle: Setting exit codes
-intro: 'You can use exit codes to set the status of an action. {% data variables.product.prodname_dotcom %} displays statuses to indicate passing or failing actions.'
+intro: 'Você pode usar códigos de saída para definir o status de uma ação. {% data variables.product.prodname_dotcom %} exibe os status para indicar a aprovação ou falha das ações.'
 redirect_from:
   - /actions/building-actions/setting-exit-codes-for-actions
 versions:
@@ -10,23 +10,27 @@ versions:
   ghae: '*'
   ghec: '*'
 type: how_to
+ms.openlocfilehash: 28aecc646814736beb8c814dfe4b8385a6605cd2
+ms.sourcegitcommit: fb047f9450b41b24afc43d9512a5db2a2b750a2a
+ms.translationtype: HT
+ms.contentlocale: pt-BR
+ms.lasthandoff: 09/11/2022
+ms.locfileid: '145083681'
 ---
+{% data reusables.actions.enterprise-beta %} {% data reusables.actions.enterprise-github-hosted-runners %}
 
-{% data reusables.actions.enterprise-beta %}
-{% data reusables.actions.enterprise-github-hosted-runners %}
+## Sobre os códigos de saída
 
-## About exit codes
+O {% data variables.product.prodname_dotcom %} usa o código de saída para definir o status de execução de verificação da ação, que pode ser `success` ou `failure`.
 
-{% data variables.product.prodname_dotcom %} uses the exit code to set the action's check run status, which can be `success` or `failure`.
-
-Exit status | Check run status | Description
+Status da saída | Status de verificação de execução | Descrição
 ------------|------------------|------------
-`0` | `success` | The action completed successfully and other tasks that depends on it can begin.
-Nonzero value (any integer but 0)| `failure` | Any other exit code indicates the action failed. When an action fails, all concurrent actions are canceled and future actions are skipped. The check run and check suite both get a `failure` status.
+`0` | `success` | A ação foi concluída com êxito, outras tarefas que dependem dela podem começar.
+Valor diferente de zero (qualquer número inteiro que não seja 0)| `failure` | Qualquer outro código de saída indica falha na ação. Quando uma ação falha, todas as ações simultâneas são canceladas e as ações futuras são ignoradas. O conjunto de verificação e a execução de verificação obtém um status `failure`.
 
-## Setting a failure exit code in a JavaScript action
+## Definir um código de saída de falha em uma ação JavaScript
 
-If you are creating a JavaScript action, you can use the actions toolkit [`@actions/core`](https://github.com/actions/toolkit/tree/main/packages/core) package to log a message and set a failure exit code. For example:
+Se você estiver criando uma ação do JavaScript, poderá usar o pacote do kit de ferramentas de ações [`@actions/core`](https://github.com/actions/toolkit/tree/main/packages/core) para registrar uma mensagem e definir um código de saída de falha. Por exemplo:
 
 ```javascript
 try {
@@ -36,11 +40,11 @@ try {
 }
 ```
 
-For more information, see "[Creating a JavaScript action](/articles/creating-a-javascript-action)."
+Para obter mais informações, confira "[Criando uma ação JavaScript](/articles/creating-a-javascript-action)".
 
-## Setting a failure exit code in a Docker container action
+## Definir um código de saída de falha em uma ação de contêiner do Docker
 
-If you are creating a Docker container action, you can set a failure exit code in your `entrypoint.sh` script. For example:
+Se você estiver criando uma ação de contêiner do Docker, poderá definir um código de saída de falha em seu script `entrypoint.sh`. Por exemplo:
 
 ```
 if <condition> ; then
@@ -49,4 +53,4 @@ if <condition> ; then
 fi
 ```
 
-For more information, see "[Creating a Docker container action](/articles/creating-a-docker-container-action)."
+Para obter mais informações, confira "[Como criar uma ação de contêiner do Docker](/articles/creating-a-docker-container-action)".

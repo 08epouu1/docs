@@ -1,6 +1,6 @@
 ---
-title: Deleting and restoring branches in a pull request
-intro: 'If you have write access in a repository, you can delete branches that are associated with closed or merged pull requests. You cannot delete branches that are associated with open pull requests.'
+title: プルリクエスト中のブランチの削除と復元
+intro: リポジトリでの書き込みアクセスがある場合、クローズまたはマージされたプルリクエストに関連付けられているブランチを削除できます。 オープンなプルリクエストに関連付けられているブランチは削除できません。
 redirect_from:
   - /articles/tidying-up-pull-requests
   - /articles/restoring-branches-in-a-pull-request
@@ -16,32 +16,34 @@ versions:
 topics:
   - Repositories
 shortTitle: Delete & restore branches
+ms.openlocfilehash: 48007869ae43d39553e0f8948f90e89b7fb73af0
+ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
+ms.translationtype: HT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 09/05/2022
+ms.locfileid: '145132367'
 ---
-## Deleting a branch used for a pull request
+## プルリクエストに使用されるブランチを削除する
 
-You can delete a branch that is associated with a pull request if the pull request has been merged or closed and there are no other open pull requests referencing the branch. For information on closing branches that are not associated with pull requests, see "[Creating and deleting branches within your repository](/github/collaborating-with-issues-and-pull-requests/creating-and-deleting-branches-within-your-repository#deleting-a-branch)."
+プルリクエストがマージまたはクローズされていて、ブランチを参照している他のオープンなプルリクエストがない場合は、プルリクエストに関連付けられているブランチを削除できます。 pull request に関連付けられていないブランチをクローズする方法については、「[リポジトリ内でブランチを作成および削除する](/github/collaborating-with-issues-and-pull-requests/creating-and-deleting-branches-within-your-repository#deleting-a-branch)」を参照してください。
 
-{% data reusables.repositories.navigate-to-repo %}
-{% data reusables.repositories.sidebar-pr %}
-{% data reusables.repositories.list-closed-pull-requests %}
-4. In the list of pull requests, click the pull request that's associated with the branch that you want to delete.
-5. Near the bottom of the pull request, click **Delete branch**.
-   ![Delete branch button](/assets/images/help/pull_requests/delete_branch_button.png)
+{% data reusables.repositories.navigate-to-repo %} {% data reusables.repositories.sidebar-pr %} {% data reusables.repositories.list-closed-pull-requests %}
+4. プルリクエストのリストで、削除対象のブランチに関連付けられているプルリクエストをクリックします。
+5. その pull request の下部周辺で、 **[ブランチの削除]** をクリックします。
+   ![[ブランチの削除]](/assets/images/help/pull_requests/delete_branch_button.png) ボタン
 
-   This button isn't displayed if there's currently an open pull request for this branch.
+   現時点でこのブランチにオープンなプルリクエストがある場合、このボタンは表示されません。
 
-## Restoring a deleted branch
+## 削除したブランチの復元
 
-You can restore the head branch of a closed pull request.
+クローズされたプルリクエストの head ブランチを復元できます。
 
-{% data reusables.repositories.navigate-to-repo %}
-{% data reusables.repositories.sidebar-pr %}
-{% data reusables.repositories.list-closed-pull-requests %}
-4. In the list of pull requests, click the pull request that's associated with the branch that you want to restore.
-5. Near the bottom of the pull request, click **Restore branch**.
-   ![Restore deleted branch button](/assets/images/help/branches/branches-restore-deleted.png)
+{% data reusables.repositories.navigate-to-repo %} {% data reusables.repositories.sidebar-pr %} {% data reusables.repositories.list-closed-pull-requests %}
+4. プルリクエストのリストで、復元対象のブランチに関連付けられているプルリクエストをクリックします。
+5. その pull request の下部周辺で、 **[ブランチを復元]** をクリックします。
+   ![削除されたブランチの復元ボタン](/assets/images/help/branches/branches-restore-deleted.png)
 
-## Further reading
+## 参考資料
 
-- "[Creating and deleting branches within your repository](/github/collaborating-with-issues-and-pull-requests/creating-and-deleting-branches-within-your-repository)"
-- "[Managing the automatic deletion of branches](/github/administering-a-repository/managing-the-automatic-deletion-of-branches)"
+- 「[リポジトリ内でブランチを作成および削除する](/github/collaborating-with-issues-and-pull-requests/creating-and-deleting-branches-within-your-repository)」
+- 「[ブランチの自動的削除を管理する](/github/administering-a-repository/managing-the-automatic-deletion-of-branches)」

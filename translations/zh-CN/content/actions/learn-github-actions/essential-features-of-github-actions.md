@@ -1,7 +1,7 @@
 ---
-title: Essential features of GitHub Actions
+title: GitHub Actions 的基本功能
 shortTitle: Essential features
-intro: '{% data variables.product.prodname_actions %} are designed to help you build robust and dynamic automations. This guide will show you how to craft {% data variables.product.prodname_actions %} workflows that include environment variables, customized scripts, and more.'
+intro: '{% data variables.product.prodname_actions %} 旨在帮助您建立强大而动态的自动化。 本指南说明如何创建包括环境变量、定制化脚本等的 {% data variables.product.prodname_actions %} 工作流程。'
 versions:
   fpt: '*'
   ghes: '*'
@@ -10,18 +10,22 @@ versions:
 type: overview
 topics:
   - Fundamentals
+ms.openlocfilehash: 46a6a33928d9ff4587707972fc26de86c59f9ac6
+ms.sourcegitcommit: fcf3546b7cc208155fb8acdf68b81be28afc3d2d
+ms.translationtype: HT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 09/10/2022
+ms.locfileid: '145067023'
 ---
+{% data reusables.actions.enterprise-beta %} {% data reusables.actions.enterprise-github-hosted-runners %}
 
-{% data reusables.actions.enterprise-beta %}
-{% data reusables.actions.enterprise-github-hosted-runners %}
+## 概述
 
-## Overview
+{% data variables.product.prodname_actions %} 允许您自定义工作流程，以满足应用程序和团队的独特需求。 在本指南中，我们将讨论一些基本的自定义技术，例如使用变量、运行脚本以及在作业之间共享数据和构件。
 
-{% data variables.product.prodname_actions %} allow you to customize your workflows to meet the unique needs of your application and team. In this guide, we'll discuss some of the essential customization techniques such as using variables, running scripts, and sharing data and artifacts between jobs.
+##  在工作流程中使用变量
 
-##  Using variables in your workflows
-
-{% data variables.product.prodname_actions %} include default environment variables for each workflow run. If you need to use custom environment variables, you can set these in your YAML workflow file. This example demonstrates how to create custom variables named `POSTGRES_HOST` and `POSTGRES_PORT`. These variables are then available to the `node client.js` script.
+{% data variables.product.prodname_actions %} 包含每个工作流程运行的默认环境变量。 如果您需要使用自定义环境变量，可以在 YAML 工作流程文件中设置这些变量。 此示例演示如何创建名为 `POSTGRES_HOST` 和 `POSTGRES_PORT` 的自定义变量。 然后，这些变量可供 `node client.js` 脚本使用。
 
 ```yaml
 jobs:
@@ -34,11 +38,11 @@ jobs:
             POSTGRES_PORT: 5432
 ```
 
-For more information, see "[Using environment variables](/actions/configuring-and-managing-workflows/using-environment-variables)."
+有关详细信息，请参阅“[使用环境变量](/actions/configuring-and-managing-workflows/using-environment-variables)”。
 
-## Adding scripts to your workflow
+## 添加脚本到工作流程
 
-You can use actions to run scripts and shell commands, which are then executed on the assigned runner. This example demonstrates how an action can use the `run` keyword to execute `npm install -g bats` on the runner.
+您可以使用操作来运行脚本和 shell 命令，然后在指定的运行器上执行。 此示例演示操作如何使用 `run` 关键字在运行器上执行 `npm install -g bats`。
 
 ```yaml
 jobs:
@@ -47,7 +51,7 @@ jobs:
       - run: npm install -g bats
 ```
 
-For example, to run a script as an action, you can store the script in your repository and supply the path and shell type.
+例如，要将脚本作为操作运行，您可以将脚本存储在您的仓库中并提供路径和 shell 类型。
 
 ```yaml
 jobs:
@@ -58,13 +62,13 @@ jobs:
         shell: bash
 ```
 
-For more information, see "[Workflow syntax for {% data variables.product.prodname_actions %}](/actions/reference/workflow-syntax-for-github-actions#jobsjob_idstepsrun)."
+有关详细信息，请参阅“[{% data variables.product.prodname_actions %} 的工作流语法](/actions/reference/workflow-syntax-for-github-actions#jobsjob_idstepsrun)”。
 
-## Sharing data between jobs
+## 在作业之间共享数据
 
-If your job generates files that you want to share with another job in the same workflow, or if you want to save the files for later reference, you can store them in {% data variables.product.prodname_dotcom %} as _artifacts_. Artifacts are the files created when you build and test your code. For example, artifacts might include binary or package files, test results, screenshots, or log files. Artifacts are associated with the workflow run where they were created and can be used by another job. {% data reusables.actions.reusable-workflow-artifacts %}
+如果作业生成你要与同一工作流中的另一个作业共享的文件，或者你要保存这些文件供以后参考，则可以将它们作为工件存储在 {% data variables.product.prodname_dotcom %} 中。 构件是创建并测试代码时所创建的文件。 例如，构件可能包含二进制或包文件、测试结果、屏幕截图或日志文件。 构件与其创建时所在的工作流程运行相关，可被另一个作业使用。 {% data reusables.actions.reusable-workflow-artifacts %}
 
-For example, you can create a file and then upload it as an artifact.
+例如，您可以创建一个文件，然后将其作为构件上传。
 
 ```yaml
 jobs:
@@ -75,28 +79,28 @@ jobs:
         run: |
           expr 1 + 1 > output.log
       - name: Upload output file
-        uses: actions/upload-artifact@v2
+        uses: {% data reusables.actions.action-upload-artifact %}
         with:
           name: output-log-file
           path: output.log
 ```
 
-To download an artifact from a separate workflow run, you can use the `actions/download-artifact` action. For example, you can download the artifact named `output-log-file`.
+若要从单独的工作流运行中下载工件，可以使用 `actions/download-artifact` 操作。 例如，可以下载名为 `output-log-file` 的工件。
 
 ```yaml
 jobs:
   example-job:
     steps:
       - name: Download a single artifact
-        uses: actions/download-artifact@v2
+        uses: {% data reusables.actions.action-download-artifact %}
         with:
           name: output-log-file
 ```
 
-To download an artifact from the same workflow run, your download job should specify `needs: upload-job-name` so it doesn't start until the upload job finishes.
+若要从同一工作流运行中下载工件，下载作业应指定 `needs: upload-job-name`，使其在上传作业完成之前不会开始。
 
-For more information about artifacts, see "[Persisting workflow data using artifacts](/actions/configuring-and-managing-workflows/persisting-workflow-data-using-artifacts)."
+有关工件的详细信息，请参阅“[使用工件持久保存工作流数据](/actions/configuring-and-managing-workflows/persisting-workflow-data-using-artifacts)”。
 
-## Next steps
+## 后续步骤
 
-To continue learning about {% data variables.product.prodname_actions %}, see "[Managing complex workflows](/actions/learn-github-actions/managing-complex-workflows)."
+若要继续了解 {% data variables.product.prodname_actions %}，请参阅“[管理复杂工作流](/actions/learn-github-actions/managing-complex-workflows)”。

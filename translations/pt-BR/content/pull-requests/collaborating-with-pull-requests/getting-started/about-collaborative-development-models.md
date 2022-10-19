@@ -1,6 +1,6 @@
 ---
-title: About collaborative development models
-intro: The way you use pull requests depends on the type of development model you use in your project. You can use the fork and pull model or the shared repository model.
+title: Sobre modelos de desenvolvimento colaborativo
+intro: O modo como você usa pull requests depende do tipo de modelo de desenvolvimento usado no projeto. Você pode usar a bifurcação e o modelo de pull ou o modelo de repositório compartilhado.
 redirect_from:
   - /github/collaborating-with-issues-and-pull-requests/getting-started/about-collaborative-development-models
   - /articles/types-of-collaborative-development-models
@@ -15,23 +15,29 @@ versions:
 topics:
   - Pull requests
 shortTitle: Collaborative development
+ms.openlocfilehash: 2a054071dc801ac035f3925e81895200c0a7375d
+ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
+ms.translationtype: HT
+ms.contentlocale: pt-BR
+ms.lasthandoff: 09/05/2022
+ms.locfileid: '146139181'
 ---
-## Fork and pull model
+## Modelo de bifurcação e pull
 
-In the fork and pull model, anyone can fork an existing repository and push changes to their personal fork. You do not need permission to the source repository to push to a user-owned fork. The changes can be pulled into the source repository by the project maintainer. When you open a pull request proposing changes from your user-owned fork to a branch in the source (upstream) repository, you can allow anyone with push access to the upstream repository to make changes to your pull request.  This model is popular with open source projects as it reduces the amount of friction for new contributors and allows people to work independently without upfront coordination.
+No fork e pull model, qualquer um pode bifurcar um repositório existente e fazer push das alterações em sua bifurcação pessoal. Você não precisa de permissão ao repositório de origem para fazer push em uma bifurcação de propriedade do usuário. As alterações podem ser enviadas por pull no repositório de origem pelo mantenedor do projeto. Ao abrir uma pull request propondo alterações a partir de sua bifurcação de propriedade de usuário para um branch no repositório de origem (upstream), você poderá permitir que qualquer pessoa com acesso push ao repositório upstream faça alterações na sua pull request.  Esse modelo é popular entre projetos de código aberto, pois ele reduz a resistência de novos contribuidores, além de permitir que as pessoas trabalhem de modo independente sem coordenação inicial.
 
 {% tip %}
 
-**Tip:** {% data reusables.open-source.open-source-guide-general %} {% data reusables.open-source.open-source-learning-lab %}
+**Dica:** {% data reusables.open-source.open-source-guide-general %} {% data reusables.open-source.open-source-learning %}
 
 {% endtip %}
 
-## Shared repository model
+## Modelo de repositório compartilhado
 
-In the shared repository model, collaborators are granted push access to a single shared repository and topic branches are created when changes need to be made. Pull requests are useful in this model as they initiate code review and general discussion about a set of changes before the changes are merged into the main development branch. This model is more prevalent with small teams and organizations collaborating on private projects.
+No modelo de repositório compartilhado, os colaboradores recebem acesso de push a um só repositório compartilhado, e os branches do tópico são criados quando as alterações precisam ser feitas. As pull requests são úteis nesse modelo, uma vez que iniciam a revisão de código e a discussão geral sobre um conjunto de alterações antes que elas sofram merge no branch de desenvolvimento principal. Esse modelo é mais predominante em equipes e organizações pequenas que colaboram em projetos privados.
 
-## Further reading
+## Leitura adicional
 
-- "[About pull requests](/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests)"
-- "[Creating a pull request from a fork](/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork)"
-- "[Allowing changes to a pull request branch created from a fork](/pull-requests/collaborating-with-pull-requests/working-with-forks/allowing-changes-to-a-pull-request-branch-created-from-a-fork)"
+- "[Sobre as solicitações de pull](/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests)"
+- "[Como criar uma solicitação de pull com base em um fork](/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork)"
+- "[Como permitir alterações em um branch de solicitação de pull criado com base em um fork](/pull-requests/collaborating-with-pull-requests/working-with-forks/allowing-changes-to-a-pull-request-branch-created-from-a-fork)"

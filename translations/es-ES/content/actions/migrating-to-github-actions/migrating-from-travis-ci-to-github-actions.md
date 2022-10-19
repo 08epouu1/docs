@@ -1,6 +1,6 @@
 ---
-title: Migrating from Travis CI to GitHub Actions
-intro: '{% data variables.product.prodname_actions %} and Travis CI share multiple similarities, which helps make it relatively straightforward to migrate to {% data variables.product.prodname_actions %}.'
+title: Migrarse de Travis CI a GitHub Actions
+intro: '{% data variables.product.prodname_actions %} y Travis CI comparte muchas similitudes, lo cual hace que el migrarse a {% data variables.product.prodname_actions %} sea relativamente fácil.'
 redirect_from:
   - /actions/learn-github-actions/migrating-from-travis-ci-to-github-actions
 versions:
@@ -15,56 +15,60 @@ topics:
   - CI
   - CD
 shortTitle: Migrate from Travis CI
+ms.openlocfilehash: 00da8dc259ef4de197faffd8db654dd536c1c237
+ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
+ms.translationtype: HT
+ms.contentlocale: es-ES
+ms.lasthandoff: 09/05/2022
+ms.locfileid: '146178995'
 ---
+{% data reusables.actions.enterprise-beta %} {% data reusables.actions.enterprise-github-hosted-runners %}
 
-{% data reusables.actions.enterprise-beta %}
-{% data reusables.actions.enterprise-github-hosted-runners %}
+## Introducción
 
-## Introduction
+Esta guía te ayuda a migrar de Travis CI a {% data variables.product.prodname_actions %}. Aquí se comparan sus conceptos y sintaxis, se describen sus similitudes y se demuestran sus acercamientos distintos para las tareas comunes.
 
-This guide helps you migrate from Travis CI to {% data variables.product.prodname_actions %}. It compares their concepts and syntax, describes the similarities, and demonstrates their different approaches to common tasks.
+## Antes de comenzar
 
-## Before you start
+Antes de que comiences tu migración a {% data variables.product.prodname_actions %}, sería útil familiarizarse con la forma en la que funciona:
 
-Before starting your migration to {% data variables.product.prodname_actions %}, it would be useful to become familiar with how it works:
+- Para ver un ejemplo rápido que muestra un trabajo de {% data variables.product.prodname_actions %}, consulte "[Inicio rápido para {% data variables.product.prodname_actions %}](/actions/quickstart)".
+- Para obtener información sobre los conceptos básicos de {% data variables.product.prodname_actions %}, vea "[Introducción a Acciones de GitHub](/actions/learn-github-actions/introduction-to-github-actions)".
 
-- For a quick example that demonstrates a {% data variables.product.prodname_actions %} job, see "[Quickstart for {% data variables.product.prodname_actions %}](/actions/quickstart)."
-- To learn the essential {% data variables.product.prodname_actions %} concepts, see "[Introduction to GitHub Actions](/actions/learn-github-actions/introduction-to-github-actions)."
+## Comparar la ejecución de jobs
 
-## Comparing job execution
+Para proporcionarle control sobre cuándo se ejecutan las tareas de CI, un _flujo de trabajo_ de {% data variables.product.prodname_actions %} usa _trabajos_ que se ejecutan en paralelo de forma predeterminada. Cada trabajo contiene _pasos_ que se ejecutan en una secuencia definida por usted. Si necesitas ejecutar acciones de configuración y limpieza para un job, puedes definir pasos en cada job para que esto se lleve a cabo.
 
-To give you control over when CI tasks are executed, a {% data variables.product.prodname_actions %} _workflow_ uses _jobs_ that run in parallel by default. Each job contains _steps_ that are executed in a sequence that you define. If you need to run setup and cleanup actions for a job, you can define steps in each job to perform these.
+## Similitudes en las claves
 
-## Key similarities
+{% data variables.product.prodname_actions %} y Travis CI comparten algunas similitudes y entenderlas con anticipación puede ayudar a agilizar el proceso de migración.
 
-{% data variables.product.prodname_actions %} and Travis CI share certain similarities, and understanding these ahead of time can help smooth the migration process.
+### Utilizar la sintaxis de YAML
 
-### Using YAML syntax
+Tanto Travis CI como {% data variables.product.prodname_actions %} utilizan YAML para crear jobs y flujos de trabajo y estos archivos se almacenan en el repositorio del código. Para obtener más información sobre cómo {% data variables.product.prodname_actions %} usa YAML, vea "[Creación de un archivo de flujo de trabajo](/actions/learn-github-actions/introduction-to-github-actions#create-an-example-workflow)".
 
-Travis CI and {% data variables.product.prodname_actions %} both use YAML to create jobs and workflows, and these files are stored in the code's repository. For more information on how {% data variables.product.prodname_actions %} uses YAML, see ["Creating a workflow file](/actions/learn-github-actions/introduction-to-github-actions#create-an-example-workflow)."
+### Variables de entorno personalizadas
 
-### Custom environment variables
+Travis CI te permite configurar variables de ambiente y compartirlas entre etapas. De forma similar, las {% data variables.product.prodname_actions %} te permiten definir las variables de ambiente para un paso, job o flujo de trabajo. Para más información, vea "[Variables de entorno](/actions/reference/environment-variables)".
 
-Travis CI lets you set environment variables and share them between stages. Similarly, {% data variables.product.prodname_actions %} lets you define environment variables for a step, job, or workflow. For more information, see ["Environment variables](/actions/reference/environment-variables)."
+### Variables de entorno predeterminadas
 
-### Default environment variables
+Tanto Travis CI como {% data variables.product.prodname_actions %} incluyen variables de ambiente predeterminadas que puedes utilizar en tus archivos de YAML. Puede ver las variables de {% data variables.product.prodname_actions %} en "[Variables de entorno predeterminadas](/actions/reference/environment-variables#default-environment-variables)".
 
-Travis CI and {% data variables.product.prodname_actions %} both include default environment variables that you can use in your YAML files. For {% data variables.product.prodname_actions %}, you can see these listed in "[Default environment variables](/actions/reference/environment-variables#default-environment-variables)."
+### Proceso paralelo de jobs
 
-### Parallel job processing
+Travis CI puede usar `stages` para ejecutar trabajos en paralelo. Del mismo modo, {% data variables.product.prodname_actions %} ejecuta `jobs` en paralelo. Para más información, vea "[Creación de trabajos dependientes](/actions/learn-github-actions/managing-complex-workflows#creating-dependent-jobs)".
 
-Travis CI can use `stages` to run jobs in parallel. Similarly, {% data variables.product.prodname_actions %} runs `jobs` in parallel. For more information, see "[Creating dependent jobs](/actions/learn-github-actions/managing-complex-workflows#creating-dependent-jobs)."
+### Notificaciones de estado
 
-### Status badges
+Tanto Travis CI como {% data variables.product.prodname_actions %} son compatibles con las insignias de estado, lo cual te permite indicar si una compilación pasa o falla.
+Para más información, vea "[Adición de un distintivo de estado de flujo de trabajo al repositorio](/actions/managing-workflow-runs/adding-a-workflow-status-badge)".
 
-Travis CI and {% data variables.product.prodname_actions %} both support status badges, which let you indicate whether a build is passing or failing.
-For more information, see ["Adding a workflow status badge to your repository](/actions/managing-workflow-runs/adding-a-workflow-status-badge)."
+### Uso de una matriz
 
-### Using a build matrix
+Tanto Travis CI como {% data variables.product.prodname_actions %} son compatibles con matrices, lo cual te permite realizar pruebas mediante combinaciones de sistemas operativos y paquetes de software. Para más información, consulta "[Uso de una matriz para los trabajos](/actions/using-jobs/using-a-matrix-for-your-jobs)".
 
-Travis CI and {% data variables.product.prodname_actions %} both support a build matrix, allowing you to perform testing using combinations of operating systems and software packages. For more information, see "[Using a build matrix](/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix)."
-
-Below is an example comparing the syntax for each system:
+A continuación podrás encontrar un ejemplo que compara la sintaxis para cada sistema:
 
 <table>
 <tr>
@@ -100,11 +104,11 @@ jobs:
 </tr>
 </table>
 
-### Targeting specific branches
+### Apuntar a ramas específicas
 
-Travis CI and {% data variables.product.prodname_actions %} both allow you to target your CI to a specific branch. For more information, see "[Workflow syntax for GitHub Actions](/actions/reference/workflow-syntax-for-github-actions#onpushpull_requestbranchestags)."
+Tanto Travis CI como {% data variables.product.prodname_actions %} te permiten apuntar tu IC a una rama específica. Para más información, vea "[Sintaxis del flujo de trabajo para Acciones de GitHub](/actions/reference/workflow-syntax-for-github-actions#onpushbranchestagsbranches-ignoretags-ignore)".
 
-Below is an example of the syntax for each system:
+Aquí se muestra un ejemplo de la sintaxis para cada sistema:
 
 <table>
 <tr>
@@ -140,11 +144,11 @@ on:
 </tr>
 </table>
 
-### Checking out submodules
+### Verificar submódulos
 
-Travis CI and {% data variables.product.prodname_actions %} both allow you to control whether submodules are included in the repository clone.
+Tanto Travis CI como {% data variables.product.prodname_actions %} te permiten controlar si los submódulos se incluirán en los clones de los repositorios.
 
-Below is an example of the syntax for each system:
+Aquí se muestra un ejemplo de la sintaxis para cada sistema:
 
 <table>
 <tr>
@@ -165,61 +169,62 @@ git:
 {% endraw %}
 </td>
 <td class="d-table-cell v-align-top">
-{% raw %}
+
 ```yaml
-- uses: actions/checkout@v2
+- uses: {% data reusables.actions.action-checkout %}
   with:
     submodules: false
 ```
-{% endraw %}
+
 </td>
 </tr>
 </table>
 
-### Using environment variables in a matrix
+### Utilizar variables de ambiente en una matriz
 
-Travis CI and {% data variables.product.prodname_actions %} can both add custom environment variables to a test matrix, which allows you to refer to the variable in a later step.
+Tanto {% data variables.product.prodname_actions %} como Travis CI pueden agregar variables de ambiente personalizadas a una matriz de pruebas, lo cual te permite referirte a la variable en un paso subsecuente.
 
-In {% data variables.product.prodname_actions %}, you can use the `include` key to add custom environment variables to a matrix. {% data reusables.github-actions.matrix-variable-example %}
+En {% data variables.product.prodname_actions %}, puede usar la clave `include` para agregar variables de entorno personalizadas a una matriz. {% data reusables.actions.matrix-variable-example %}
 
-## Key features in {% data variables.product.prodname_actions %}
+## Características clave en {% data variables.product.prodname_actions %}
 
-When migrating from Travis CI, consider the following key features in {% data variables.product.prodname_actions %}:
+Cuando te migres de Travis CI, consider las siguientes características clave en {% data variables.product.prodname_actions %}:
 
-### Storing secrets
+### Almacenamiento de secretos
 
-{% data variables.product.prodname_actions %} allows you to store secrets and reference them in your jobs. {% data variables.product.prodname_actions %} organizations can limit which repositories can access organization secrets. {% ifversion fpt or ghes > 3.0 or ghae or ghec %}Environment protection rules can require manual approval for a workflow to access environment secrets. {% endif %}For more information, see "[Encrypted secrets](/actions/reference/encrypted-secrets)."
+{% data variables.product.prodname_actions %} te permite almacenar secretos y referenciarlos en tus jobs. Las organizaciones de {% data variables.product.prodname_actions %} pueden limitar qué repositorios pueden acceder a sus secretos. Las reglas de protección de ambiente pueden requerir aprobación manual para que un flujo de trabajo acceda a los secretos del ambiente. Para más información, vea "[Secretos cifrados](/actions/reference/encrypted-secrets)".
 
-### Sharing files between jobs and workflows
+### Compartir archivos entre jobs y flujos de trabajo
 
-{% data variables.product.prodname_actions %} includes integrated support for artifact storage, allowing you to share files between jobs in a workflow. You can also save the resulting files and share them with other workflows. For more information, see "[Sharing data between jobs](/actions/learn-github-actions/essential-features-of-github-actions#sharing-data-between-jobs)."
+{% data variables.product.prodname_actions %} incluye compatibilidad integrada para almacenamiento de artefactos, lo cual te permite compartir archivos entre jobs en un flujo de trabajo. También puedes guardar los archivos resultantes y compartirlos con otros flujos de trabajo. Para más información, vea "[Uso compartido de datos entre trabajos](/actions/learn-github-actions/essential-features-of-github-actions#sharing-data-between-jobs)".
 
-### Hosting your own runners
+### Alojar tus propios corredores
 
-If your jobs require specific hardware or software, {% data variables.product.prodname_actions %} allows you to host your own runners and send your jobs to them for processing. {% data variables.product.prodname_actions %} also lets you use policies to control how these runners are accessed, granting access at the organization or repository level. For more information, see ["Hosting your own runners](/actions/hosting-your-own-runners)."
+Si tus jobs requieren de hardware o software específico, {% data variables.product.prodname_actions %} te permite almacenar tus propios ejecutores y enviar tus jobs para que éstos los procesen. {% data variables.product.prodname_actions %} también te permite utilizar políticas para controlar cómo se accede a estos ejecutores, otorgando acceso a nivel de organización o de repositorio. Para más información, vea "[Hospedaje de sus propios ejecutores](/actions/hosting-your-own-runners)".
 
 {% ifversion fpt or ghec %}
 
-### Concurrent jobs and execution time
+### Tiempo de ejecución y jobs simultáneos
 
-The concurrent jobs and workflow execution times in {% data variables.product.prodname_actions %} can vary depending on your {% data variables.product.company_short %} plan. For more information, see "[Usage limits, billing, and administration](/actions/reference/usage-limits-billing-and-administration)."
+Los jobs simultáneos y los tiempos de ejecución de los flujos de trabajo en {% data variables.product.prodname_actions %} pueden variad dependiendo de tu plan de {% data variables.product.company_short %}. Para más información, vea "[Límites de uso, facturación y administración](/actions/reference/usage-limits-billing-and-administration)".
 
 {% endif %}
 
-### Using different languages in {% data variables.product.prodname_actions %}
+### Utilizar lenguajes diferentes en {% data variables.product.prodname_actions %}
 
-When working with different languages in {% data variables.product.prodname_actions %}, you can create a step in your job to set up your language dependencies. For more information about working with a particular language, see the specific guide:
-  - [Building and testing Node.js or Python](/actions/guides/building-and-testing-nodejs-or-python)
-  - [Building and testing PowerShell](/actions/guides/building-and-testing-powershell)
-  - [Building and testing Java with Maven](/actions/guides/building-and-testing-java-with-maven)
-  - [Building and testing Java with Gradle](/actions/guides/building-and-testing-java-with-gradle)
-  - [Building and testing Java with Ant](/actions/guides/building-and-testing-java-with-ant)
+Cuando trabajas con lenguajes diferentes en {% data variables.product.prodname_actions %}, pueeds crear un paso en tu job para configurar tus dependencias de lenguaje. Para obtener más información acerca de cómo trabajar con un lenguaje en particular, consulta la guía específica:
+  - [Crear y probar en Node.js](/actions/guides/building-and-testing-nodejs)
+  - [Crear y probar en Python](/actions/guides/building-and-testing-python)
+  - [Compilar y probar PowerShell](/actions/guides/building-and-testing-powershell)
+  - [Compilación y prueba de Java con Maven](/actions/guides/building-and-testing-java-with-maven)
+  - [Compilación y prueba de Java con Gradle](/actions/guides/building-and-testing-java-with-gradle)
+  - [Compilación y prueba de Java con Ant](/actions/guides/building-and-testing-java-with-ant)
 
-## Executing scripts
+## Ejecución de scripts
 
-{% data variables.product.prodname_actions %} can use `run` steps to run scripts or shell commands. To use a particular shell, you can specify the `shell` type when providing the path to the script. For more information, see "[Workflow syntax for {% data variables.product.prodname_actions %}](/actions/reference/workflow-syntax-for-github-actions#jobsjob_idstepsrun)."
+{% data variables.product.prodname_actions %} puede usar pasos `run` para ejecutar scripts o comandos de shell. Para usar un shell determinado, puede especificar el tipo de `shell` al proporcionar la ruta de acceso al script. Para más información, vea "[Sintaxis de flujo de trabajo para {% data variables.product.prodname_actions %}](/actions/reference/workflow-syntax-for-github-actions#jobsjob_idstepsrun)".
 
-For example:
+Por ejemplo:
 
 ```yaml
 steps:
@@ -228,23 +233,23 @@ steps:
     shell: bash
 ```
 
-## Error handling in {% data variables.product.prodname_actions %}
+## Manejo de errores en {% data variables.product.prodname_actions %}
 
-When migrating to {% data variables.product.prodname_actions %}, there are different approaches to error handling that you might need to be aware of.
+Cuando te migras a {% data variables.product.prodname_actions %}, hay varios acercamientos al manejo de errores que puede que necesites tener en mente.
 
-### Script error handling
+### Manejo de errores en scripts
 
-{% data variables.product.prodname_actions %} stops a job immediately if one of the steps returns an error code. For more information, see "[Workflow syntax for {% data variables.product.prodname_actions %}](/actions/reference/workflow-syntax-for-github-actions#exit-codes-and-error-action-preference)."
+{% data variables.product.prodname_actions %} detiene un job inmediatamente si alguno de los pasos regresa un código de error. Para más información, vea "[Sintaxis de flujo de trabajo para {% data variables.product.prodname_actions %}](/actions/reference/workflow-syntax-for-github-actions#exit-codes-and-error-action-preference)".
 
-### Job error handling
+### Manejo de errores en jobs
 
-{% data variables.product.prodname_actions %} uses `if` conditionals to execute jobs or steps in certain situations. For example, you can run a step when another step results in a `failure()`. For more information, see "[Workflow syntax for {% data variables.product.prodname_actions %}](/actions/reference/workflow-syntax-for-github-actions#example-using-status-check-functions)."  You can also use [`continue-on-error`](/actions/reference/workflow-syntax-for-github-actions#jobsjob_idcontinue-on-error) to prevent a workflow run from stopping when a job fails.
+{% data variables.product.prodname_actions %} usa condicionales `if` para ejecutar trabajos o pasos en ciertas situaciones. Por ejemplo, puede ejecutar un paso cuando otro paso da como resultado `failure()`. Para más información, vea "[Sintaxis de flujo de trabajo para {% data variables.product.prodname_actions %}](/actions/reference/workflow-syntax-for-github-actions#example-using-status-check-functions)".  También puede usar [`continue-on-error`](/actions/reference/workflow-syntax-for-github-actions#jobsjob_idcontinue-on-error) para evitar que una ejecución de flujo de trabajo se detenga cuando se produce un error en un trabajo.
 
-## Migrating syntax for conditionals and expressions
+## Sintaxis de migración para condicionales y expresiones
 
-To run jobs under conditional expressions, Travis CI and {% data variables.product.prodname_actions %} share a similar `if` condition syntax. {% data variables.product.prodname_actions %} lets you use the `if` conditional to prevent a job or step from running unless a condition is met. For more information, see "[Expressions](/actions/learn-github-actions/expressions)."
+Para ejecutar trabajos con expresiones condicionales, Travis CI y {% data variables.product.prodname_actions %} comparten una sintaxis de condición `if` similar. {% data variables.product.prodname_actions %} permite usar el condicional `if` para evitar que un trabajo o un paso se ejecuten a menos que se cumpla una condición. Para más información, vea "[Expresiones](/actions/learn-github-actions/expressions)".
 
-This example demonstrates how an `if` conditional can control whether a step is executed:
+En este ejemplo se muestra cómo un condicional `if` puede controlar si se ejecuta un paso:
 
 ```yaml
 jobs:
@@ -255,11 +260,11 @@ jobs:
         if: env.str == 'ABC' && env.num == 123
 ```
 
-## Migrating phases to steps
+## Migrar las fases a pasos
 
-Where Travis CI uses _phases_ to run _steps_, {% data variables.product.prodname_actions %} has _steps_ which execute _actions_. You can find prebuilt actions in the [{% data variables.product.prodname_marketplace %}](https://github.com/marketplace?type=actions), or you can create your own actions. For more information, see "[Building actions](/actions/building-actions)."
+Donde Travis CI usa _fases_ para ejecutar _pasos_, {% data variables.product.prodname_actions %} tiene _pasos_ que ejecutan _acciones_. Puede encontrar acciones precompiladas en [{% data variables.product.prodname_marketplace %}](https://github.com/marketplace?type=actions), o bien puede crear sus propias acciones. Para más información, vea "[Creación de acciones](/actions/building-actions)".
 
-Below is an example of the syntax for each system:
+Aquí se muestra un ejemplo de la sintaxis para cada sistema:
 
 <table>
 <tr>
@@ -284,26 +289,30 @@ script:
 {% endraw %}
 </td>
 <td class="d-table-cell v-align-top">
-{% raw %}
+
 ```yaml
 jobs:
   run_python:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/setup-python@v2
+      - uses: {% data reusables.actions.action-setup-python %}
         with:
           python-version: '3.7'
           architecture: 'x64'
       - run: python script.py
 ```
-{% endraw %}
+
 </td>
 </tr>
 </table>
 
-## Caching dependencies
+## Almacenar dependencias en caché
 
-Travis CI and {% data variables.product.prodname_actions %} let you manually cache dependencies for later reuse. This example demonstrates the cache syntax for each system.
+Travis CI y {% data variables.product.prodname_actions %} te permiten guardar dependencias en caché manualmente para reutilizarlas posteriormente.
+
+{% ifversion actions-caching %}
+
+Este ejemplo ilustra la sintaxis de caché para cada sistema.
 
 <table>
 <tr>
@@ -311,7 +320,7 @@ Travis CI and {% data variables.product.prodname_actions %} let you manually cac
 Travis CI
 </th>
 <th>
-GitHub Actions
+Acciones de GitHub
 </th>
 </tr>
 <tr>
@@ -324,29 +333,33 @@ cache: npm
 {% endraw %}
 </td>
 <td class="d-table-cell v-align-top">
-{% raw %}
+
 ```yaml
 - name: Cache node modules
-  uses: actions/cache@v2
+  uses: {% data reusables.actions.action-cache %}
   with:
     path: ~/.npm
-    key: v1-npm-deps-${{ hashFiles('**/package-lock.json') }}
+    key: {% raw %}v1-npm-deps-${{ hashFiles('**/package-lock.json') }}{% endraw %}
     restore-keys: v1-npm-deps-
 ```
-{% endraw %}
+
 </td>
 </tr>
 </table>
 
-{% data variables.product.prodname_actions %} caching is only applicable for repositories hosted on {% data variables.product.prodname_dotcom_the_website %}. For more information, see "<a href="/actions/guides/caching-dependencies-to-speed-up-workflows" class="dotcom-only">Caching dependencies to speed up workflows</a>."
+{% else %}
 
-## Examples of common tasks
+{% data reusables.actions.caching-availability %}
 
-This section compares how {% data variables.product.prodname_actions %} and Travis CI perform common tasks.
+{% endif %}
 
-### Configuring environment variables
+## Ejemplos de tareas comunes
 
-You can create custom environment variables in a {% data variables.product.prodname_actions %} job. For example:
+Esta sección compara cómo {% data variables.product.prodname_actions %} y Travis CI realizan tareas en común.
+
+### Configurar variables de ambiente
+
+Puedes crear variables de ambiente personalizadas en un job de {% data variables.product.prodname_actions %}. Por ejemplo:
 
 <table>
 <tr>
@@ -354,7 +367,7 @@ You can create custom environment variables in a {% data variables.product.prodn
 Travis CI
 </th>
 <th>
-{% data variables.product.prodname_actions %} Workflow
+Flujo de trabajo de {% data variables.product.prodname_actions %}
 </th>
 </tr>
 <tr>
@@ -379,7 +392,7 @@ jobs:
 </tr>
 </table>
 
-### Building with Node.js
+### Compilar con Node.js
 
 <table>
 <tr>
@@ -387,7 +400,7 @@ jobs:
 Travis CI
 </th>
 <th>
-{% data variables.product.prodname_actions %} Workflow
+Flujo de trabajo de {% data variables.product.prodname_actions %}
 </th>
 </tr>
 <tr>
@@ -403,7 +416,7 @@ script:
 {% endraw %}
 </td>
 <td>
-{% raw %}
+
 ```yaml
 name: Node.js CI
 on: [push]
@@ -411,20 +424,20 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: {% data reusables.actions.action-checkout %}
       - name: Use Node.js
-        uses: actions/setup-node@v2
+        uses: {% data reusables.actions.action-setup-node %}
         with:
           node-version: '12.x'
       - run: npm install
       - run: npm run build
       - run: npm test
 ```
-{% endraw %}
+
 </td>
 </tr>
 </table>
 
-## Next steps
+## Pasos siguientes
 
-To continue learning about the main features of  {% data variables.product.prodname_actions %}, see "[Learn {% data variables.product.prodname_actions %}](/actions/learn-github-actions)."
+Para seguir aprendiendo sobre las características principales de {% data variables.product.prodname_actions %}, vea"[Más información sobre {% data variables.product.prodname_actions %}](/actions/learn-github-actions)".

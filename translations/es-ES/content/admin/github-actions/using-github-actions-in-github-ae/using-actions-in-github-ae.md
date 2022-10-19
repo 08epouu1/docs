@@ -1,6 +1,6 @@
 ---
-title: Using actions in GitHub AE
-intro: '{% data variables.product.prodname_ghe_managed %} includes most of the {% data variables.product.prodname_dotcom %}-authored actions.'
+title: Utilizar las acciones en GitHub AE
+intro: '{% data variables.product.prodname_ghe_managed %} incluye la mayoría de las acciones que crea {% data variables.product.prodname_dotcom %}.'
 versions:
   ghae: '*'
 type: how_to
@@ -10,17 +10,21 @@ topics:
 redirect_from:
   - /admin/github-actions/using-actions-in-github-ae
 shortTitle: Use actions
+ms.openlocfilehash: a8439a08f73667b7d048b31e2c9eb3968ba2e957
+ms.sourcegitcommit: fcf3546b7cc208155fb8acdf68b81be28afc3d2d
+ms.translationtype: HT
+ms.contentlocale: es-ES
+ms.lasthandoff: 09/10/2022
+ms.locfileid: '145120370'
 ---
+Los flujos de trabajo de {% data variables.product.prodname_actions %} pueden usar _acciones_, que son tareas individuales que puede combinar para crear trabajos y personalizar el flujo de trabajo. Puedes crear tus propias acciones, o utilizar y personalizar a quellas que comparte la comunidad de {% data variables.product.prodname_dotcom %}.
 
+## Acciones oficiales incluidas en {% data variables.product.prodname_ghe_managed %}
 
-{% data variables.product.prodname_actions %} workflows can use _actions_, which are individual tasks that you can combine to create jobs and customize your workflow. You can create your own actions, or use and customize actions shared by the {% data variables.product.prodname_dotcom %} community.
+La mayoría de las acciones oficiales creadas con {% data variables.product.prodname_dotcom %} se incluyen automáticamente en {% data variables.product.prodname_ghe_managed %} y se capturan en un punto en el tiempo desde {% data variables.product.prodname_marketplace %}. Cuando la instancia de {% data variables.product.prodname_ghe_managed %} se actualiza, también lo hacen las acciones oficiales incluidas.
 
-## Official actions bundled with {% data variables.product.prodname_ghe_managed %}
-
-Most official {% data variables.product.prodname_dotcom %}-authored actions are automatically bundled with {% data variables.product.prodname_ghe_managed %}, and are captured at a point in time from {% data variables.product.prodname_marketplace %}. When your {% data variables.product.prodname_ghe_managed %} instance is updated, the bundled official actions are also updated.
-
-The bundled official actions include `actions/checkout`, `actions/upload-artifact`, `actions/download-artifact`, `actions/labeler`, and various `actions/setup-` actions, among others. To see which of the official actions are included, browse to the following organizations on your instance: 
+Las acciones oficiales agrupadas incluyen `actions/checkout`, `actions/upload-artifact`, `actions/download-artifact`, `actions/labeler` y varias acciones `actions/setup-`, entre otras. Para ver cuáles de las acciones oficiales se incluyen, busca las siguientes organizaciones en tu instancia: 
 - <code>https://<em>HOSTNAME</em>/actions</code>
 - <code>https://<em>HOSTNAME</em>/github</code>
 
-Each action's files are kept in a repository in the `actions` and `github` organizations. Each action repository includes the necessary tags, branches, and commit SHAs that your workflows can use to reference the action.
+Los archivos de cada acción se conservan en un repositorio de las organizaciones `actions` y `github`. Cada repositorio de estas acciones incluye las etiquetas, ramas y SHA de confirmación necesarios que tu flujo de trabajo puede utilizar para referenciar a la acción.

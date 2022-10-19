@@ -1,6 +1,6 @@
 ---
-title: Converting an admin team to improved organization permissions
-intro: 'If your organization was created after September 2015, your organization has improved organization permissions by default. Organizations created before September 2015 may need to migrate older Owners and Admin teams to the improved permissions model. Members of legacy admin teams automatically retain the ability to create repositories until those teams are migrated to the improved organization permissions model.'
+title: 管理者 Team を改善された Organization の権限に移行する
+intro: 2015 年 9 月以降に作成された Organization の場合、Organization の権限モデルはデフォルトで改善されています。 2015 年 9 月より前に作成された Organization は、古いオーナーおよび管理者 Team から、改善された権限モデルに移行する必要があるかもしれません。 レガシーの管理者 Team は、改善された Organization 権限モデルに移行するまで、リポジトリの作成資格を自動的に維持します。
 redirect_from:
   - /articles/converting-your-previous-admin-team-to-the-improved-organization-permissions
   - /articles/converting-an-admin-team-to-improved-organization-permissions
@@ -13,22 +13,27 @@ topics:
   - Organizations
   - Teams
 shortTitle: Convert admin team
+ms.openlocfilehash: 183ccd5d1252265ed6ac94924703ceb75ed8adad
+ms.sourcegitcommit: fcf3546b7cc208155fb8acdf68b81be28afc3d2d
+ms.translationtype: HT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 09/10/2022
+ms.locfileid: '145125598'
 ---
+レガシーの管理者 Team メンバーのために新しい Team を作成することで、レガシーの管理者 Team が持つリポジトリ作成の資格を削除できます。Team が Organization のリポジトリに対して必要なアクセスを持っていることを確認してから、レガシーの管理者 Teamを削除してください。
 
-You can remove the ability for members of legacy admin teams to create repositories by creating a new team for these members, ensuring that the team has necessary access to the organization's repositories, then deleting the legacy admin team.
-
-For more information, see "[Repository roles for an organization](/organizations/managing-access-to-your-organizations-repositories/repository-roles-for-an-organization)."
+詳細については、「[Organization のリポジトリ ロール](/organizations/managing-access-to-your-organizations-repositories/repository-roles-for-an-organization)」を参照してください。
 
 {% warning %}
 
-**Warnings:**
-- If there are members of your legacy Admin team who are not members of other teams, deleting the team will remove those members from the organization. Before deleting the team, ensure members are already direct members of the organization, or have collaborator access to necessary repositories.
-- To prevent the loss of private forks made by members of the legacy Admin team, you must follow steps 1-3 below before deleting the legacy Admin team.
-- Because "admin" is a term for organization members with specific [access to certain repositories](/articles/repository-permission-levels-for-an-organization) in the organization, we recommend you avoid that term in any team name you decide on.
+**警告:**
+- レガシーの管理者 Team のメンバーが、他の Team のメンバーではない場合、そのメンバーは Team を削除すると Organization から削除されます。 Team を削除する前に、メンバーを Organization の直接メンバーにするか、必要なリポジトリに対するコラボレーターアクセスを持たせてください。
+- レガシーの管理者 Team メンバーが作成したプライベートフォークを失わないために、レガシーの管理者 Teamを削除する前に、以下のステップ 1 - 3 に従う必要があります。
+- "admin" は、Organization 内の [特定のリポジトリへの特定のアクセス権](/articles/repository-permission-levels-for-an-organization)を持つ Organization のメンバーの用語であるため、決定した Team 名ではその用語を避けることをお勧めします。
 
 {% endwarning %}
 
-1. [Create a new team](/articles/creating-a-team).
-2. [Add each of the members](/articles/adding-organization-members-to-a-team) of your legacy admin team to the new team.
-3. [Give the new team equivalent access](/articles/managing-team-access-to-an-organization-repository) to each of the repositories the legacy team could access.
-4. [Delete the legacy admin team](/articles/deleting-a-team).
+1. [新しい Team を作成します](/articles/creating-a-team)。
+2. 新しい Team にレガシ管理 Team の[各メンバーを追加します](/articles/adding-organization-members-to-a-team)。
+3. 新しい Team に、レガシ Team がアクセスできる各リポジトリへの[同等のアクセス権を付与します](/articles/managing-team-access-to-an-organization-repository)。
+4. [レガシ管理 Team を削除します](/articles/deleting-a-team)。

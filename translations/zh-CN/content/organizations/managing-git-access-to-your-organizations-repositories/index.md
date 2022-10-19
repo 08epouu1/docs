@@ -1,13 +1,11 @@
 ---
-title: Managing Git access to your organization's repositories
-intro: You can add an SSH certificate authority (CA) to your organization and allow members to access the organization's repositories over Git using keys signed by the SSH CA.
-product: '{% data reusables.gated-features.ssh-certificate-authorities %}'
+title: 管理对组织仓库的 Git 访问
+intro: 您可以将 SSH 证书颁发机构 (CA) 添加到组织，并允许成员使用 SSH CA 签名的密钥通过 Git 访问组织的仓库。
 redirect_from:
   - /articles/managing-git-access-to-your-organizations-repositories-using-ssh-certificate-authorities
   - /articles/managing-git-access-to-your-organizations-repositories
   - /github/setting-up-and-managing-organizations-and-teams/managing-git-access-to-your-organizations-repositories
 versions:
-  fpt: '*'
   ghes: '*'
   ghae: '*'
   ghec: '*'
@@ -18,5 +16,11 @@ children:
   - /about-ssh-certificate-authorities
   - /managing-your-organizations-ssh-certificate-authorities
 shortTitle: Manage Git access
+ms.openlocfilehash: 6ef8cc587bda642e0eab5cce3fa2026adf54da53
+ms.sourcegitcommit: fb047f9450b41b24afc43d9512a5db2a2b750a2a
+ms.translationtype: HT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 09/11/2022
+ms.locfileid: '145127460'
 ---
-
+{% data reusables.organizations.ssh-ca-ghec-only %}

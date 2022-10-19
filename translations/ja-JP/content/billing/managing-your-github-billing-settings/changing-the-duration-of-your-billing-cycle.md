@@ -1,6 +1,6 @@
 ---
-title: Changing the duration of your billing cycle
-intro: You can pay for your account's subscription and other paid features and products on a monthly or yearly billing cycle.
+title: 支払いサイクル期間の変更
+intro: アカウントのプランや、その他有料機能、有料製品は、月次または年次のサイクルで支払うことができます。
 redirect_from:
   - /github/setting-up-and-managing-billing-and-payments-on-github/changing-the-duration-of-your-billing-cycle
   - /articles/monthly-and-yearly-billing
@@ -17,30 +17,31 @@ topics:
   - Repositories
   - User account
 shortTitle: Billing cycle
+ms.openlocfilehash: 164b0192f1b055b95ad83fc2845e9af59058b6a7
+ms.sourcegitcommit: fb047f9450b41b24afc43d9512a5db2a2b750a2a
+ms.translationtype: HT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 09/11/2022
+ms.locfileid: '145087863'
 ---
-When you change your billing cycle's duration, your {% data variables.product.prodname_dotcom %} subscription, along with any other paid features and products, will be moved to your new billing cycle on your next billing date.
+支払いサイクル期間を変更すると、{% data variables.product.prodname_dotcom %}のプランおよびその他の有料機能、有料製品は、次の支払日から新しい支払いサイクルに移行します。
 
-## Changing the duration of your personal account's billing cycle
+## 個人アカウントの支払いサイクル期間の変更
 
-{% data reusables.user_settings.access_settings %}
-{% data reusables.user_settings.billing_plans %}
-{% data reusables.dotcom_billing.change_plan_duration %}
-{% data reusables.dotcom_billing.confirm_duration_change %}
+{% data reusables.user-settings.access_settings %} {% data reusables.user-settings.billing_plans %} {% data reusables.dotcom_billing.change_plan_duration %} {% data reusables.dotcom_billing.confirm_duration_change %}
 
-## Changing the duration of your organization's billing cycle
+## Organization の支払いサイクル期間の変更
 
 {% data reusables.dotcom_billing.org-billing-perms %}
 
-### Changing the duration of a per-user subscription
+### ユーザ単位プランの期間の変更
+
+{% data reusables.organizations.billing-settings %} {% data reusables.dotcom_billing.change_plan_duration %} {% data reusables.dotcom_billing.confirm_duration_change %}
+
+### 過去のリポジトリ単位プランの期間の変更
 
 {% data reusables.organizations.billing-settings %}
-{% data reusables.dotcom_billing.change_plan_duration %}
-{% data reusables.dotcom_billing.confirm_duration_change %}
-
-### Changing the duration of a legacy per-repository plan
-
-{% data reusables.organizations.billing-settings %}
-4. Under "Billing overview", click **Change plan**.
-  ![Billing overview change plan button](/assets/images/help/billing/billing_overview_change_plan.png)
-5. At the top right corner, click **Switch to monthly billing** or **Switch to yearly billing**.
-  ![Billing information section](/assets/images/help/billing/settings_billing_organization_plans_switch_to_yearly.png)
+4. [課金の概要] で、 **[プランの変更]** をクリックします。
+  ![課金概要のプラン変更ボタン](/assets/images/help/billing/billing_overview_change_plan.png)
+5. 右上隅にある **[月次支払いに切り替える]** または **[年次支払いに切り替える]** をクリックします。
+  ![支払い情報セクション](/assets/images/help/billing/settings_billing_organization_plans_switch_to_yearly.png)

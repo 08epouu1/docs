@@ -1,6 +1,6 @@
 ---
-title: Adding information to your receipts
-intro: 'You can add extra information to your {% data variables.product.product_name %} receipts, such as tax or accounting information required by your company or country.'
+title: 領収書に情報を追加する
+intro: '{% data variables.product.product_name %} の領収書には、税金や会社あるいは国が求める会計情報などの情報を加えることができます。'
 redirect_from:
   - /github/setting-up-and-managing-billing-and-payments-on-github/adding-information-to-your-receipts
   - /articles/can-i-add-my-credit-card-number-to-my-receipts
@@ -22,31 +22,32 @@ topics:
   - Receipts
   - User account
 shortTitle: Add to your receipts
+ms.openlocfilehash: 1b7495e5d23266816ca106defa7b695ff184ea43
+ms.sourcegitcommit: fcf3546b7cc208155fb8acdf68b81be28afc3d2d
+ms.translationtype: HT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 09/10/2022
+ms.locfileid: '145087870'
 ---
-Your receipts include your {% data variables.product.prodname_dotcom %} subscription as well as any subscriptions for [other paid features and products](/articles/about-billing-on-github).
+領収書には、{% data variables.product.prodname_dotcom %} プランと合わせて[他の有料の機能や製品](/articles/about-billing-on-github)のプランが含まれます。
 
 {% warning %}
 
-**Warning**: For security reasons, we strongly recommend against including any confidential or financial information (such as credit card numbers) on your receipts.
+**警告**: セキュリティ上の理由から、領収書には秘密情報や財務情報 (クレジット カード番号など) を含めないように強くお勧めします。
 
 {% endwarning %}
 
-## Adding information to your personal account's receipts
+## 個人アカウントの領収書への情報の追加
 
-{% data reusables.user_settings.access_settings %}
-{% data reusables.user_settings.billing_plans %}
-{% data reusables.user_settings.payment-info-link %}
-{% data reusables.dotcom_billing.extra_info_receipt %}
+{% data reusables.user-settings.access_settings %} {% data reusables.user-settings.billing_plans %} {% data reusables.user-settings.payment-info-link %} {% data reusables.dotcom_billing.extra_info_receipt %}
 
-## Adding information to your organization's receipts
+## Organization の領収書への情報の追加
 
 {% note %}
 
-**Note**: {% data reusables.dotcom_billing.org-billing-perms %}
+**注:** {% data reusables.dotcom_billing.org-billing-perms %}
 
 {% endnote %}
 
 
-{% data reusables.organizations.billing-settings %}
-{% data reusables.user_settings.payment-info-link %}
-{% data reusables.dotcom_billing.extra_info_receipt %}
+{% data reusables.organizations.billing-settings %} {% data reusables.user-settings.payment-info-link %} {% data reusables.dotcom_billing.extra_info_receipt %}

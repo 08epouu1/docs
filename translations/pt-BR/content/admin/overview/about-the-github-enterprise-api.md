@@ -1,6 +1,6 @@
 ---
-title: About the GitHub Enterprise API
-intro: '{% data variables.product.product_name %} supports REST and GraphQL APIs.'
+title: Sobre a API do GitHub Enterprise
+intro: '{% data variables.product.product_name %} é compatível com APIs REST e do GraphQL.'
 redirect_from:
   - /enterprise/admin/installation/about-the-github-enterprise-server-api
   - /enterprise/admin/articles/about-the-enterprise-api
@@ -14,14 +14,19 @@ versions:
 topics:
   - Enterprise
 shortTitle: GitHub Enterprise API
+ms.openlocfilehash: d7228182a2dbccc856cb4030a3b08d1883eb266b
+ms.sourcegitcommit: fcf3546b7cc208155fb8acdf68b81be28afc3d2d
+ms.translationtype: HT
+ms.contentlocale: pt-BR
+ms.lasthandoff: 09/11/2022
+ms.locfileid: '146331629'
 ---
-
-With the APIs, you can automate many administrative tasks. Some examples include:
+Com as APIs, você pode automatizar muitas tarefas administrativas. Alguns exemplos incluem:
 
 {% ifversion ghes %}
-- Perform changes to the {% data variables.enterprise.management_console %}. For more information, see "[{% data variables.enterprise.management_console %}](/enterprise/{{ currentVersion }}/user/rest/reference/enterprise-admin#management-console)."
-- Configure LDAP sync. For more information, see "[LDAP](/enterprise/{{ currentVersion }}/user/rest/reference/enterprise-admin#ldap)."{% endif %}
-- Collect statistics about your enterprise. For more information, see "[Admin stats](/rest/reference/enterprise-admin#admin-stats)."
-- Manage your enterprise account. For more information, see "[Enterprise accounts](/graphql/guides/managing-enterprise-accounts)."
+- Fazer alterações no {% data variables.enterprise.management_console %}. Para obter mais informações, confira "[{% data variables.enterprise.management_console %}](/enterprise/user/rest/reference/enterprise-admin#management-console)".
+- Configure a sincronização LDAP. Para obter mais informações, confira "[LDAP](/enterprise/user/rest/reference/enterprise-admin#ldap)".{% endif %}
+- Colete estatísticas sobre sua empresa. Para obter mais informações, confira "[Estatísticas de administrador](/rest/reference/enterprise-admin#admin-stats)".
+- Gerenciar sua conta corporativa. Para obter mais informações, confira "[Contas Enterprise](/graphql/guides/managing-enterprise-accounts)".
 
-For the complete documentation for {% data variables.product.prodname_enterprise_api %}, see [{% data variables.product.prodname_dotcom %} REST API](/rest) and [{% data variables.product.prodname_dotcom%} GraphQL API](/graphql). 
+Para ver a documentação completa da {% data variables.product.prodname_enterprise_api %}, confira [API REST do {% data variables.product.prodname_dotcom %}](/rest) e [API do GraphQL do {% data variables.product.prodname_dotcom%}](/graphql). 

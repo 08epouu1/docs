@@ -1,6 +1,6 @@
 ---
-title: Using submodules with GitHub Pages
-intro: 'You can use submodules with {% data variables.product.prodname_pages %} to include other projects in your site''s code.'
+title: Usar submódulos com o GitHub Pages
+intro: 'Você pode usar submódulos com o {% data variables.product.prodname_pages %} para incluir outros projetos no código do seu site.'
 redirect_from:
   - /articles/using-submodules-with-pages
   - /articles/using-submodules-with-github-pages
@@ -12,15 +12,20 @@ versions:
 topics:
   - Pages
 shortTitle: Use submodules with Pages
+ms.openlocfilehash: cfe863c3a7d77d006ee4c78e9d58302fb01e4dd4
+ms.sourcegitcommit: fb047f9450b41b24afc43d9512a5db2a2b750a2a
+ms.translationtype: HT
+ms.contentlocale: pt-BR
+ms.lasthandoff: 09/10/2022
+ms.locfileid: '147880795'
 ---
+Se o repositório do seu site do {% data variables.product.prodname_pages %} contiver submódulos, o conteúdo dele será inserido automaticamente quando o site for criado.
 
-If the repository for your {% data variables.product.prodname_pages %} site contains submodules, their contents will automatically be pulled in when your site is built.
+Só é possível usar submódulos que apontem para repositórios públicos, porque o servidor do {% data variables.product.prodname_pages %} não pode acessar repositórios privados.
 
-You can only use submodules that point to public repositories, because the {% data variables.product.prodname_pages %} server cannot access private repositories.
+Use a URL somente leitura `https://` para os submódulos, inclusive os aninhados. Essa alteração pode ser feita no arquivo _.gitmodules_.
 
-Use the `https://` read-only URL for your submodules, including nested submodules. You can make this change in your _.gitmodules_ file.
+## Leitura adicional
 
-## Further reading
-
-- "[Git Tools - Submodules](https://git-scm.com/book/en/Git-Tools-Submodules)" from the _Pro Git_ book
-- "[Troubleshooting Jekyll build errors for {% data variables.product.prodname_pages %} sites](/articles/troubleshooting-jekyll-build-errors-for-github-pages-sites)"
+- "[Ferramentas do Git – Submódulos](https://git-scm.com/book/en/Git-Tools-Submodules)" do _Livro Pro Git_
+- "[Solução de problemas de erros de build do Jekyll para sites do {% data variables.product.prodname_pages %}](/articles/troubleshooting-jekyll-build-errors-for-github-pages-sites)"

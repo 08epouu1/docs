@@ -1,6 +1,6 @@
 ---
-title: Viewing deployment history
-intro: View current and previous deployments for your repository.
+title: Exibir o histórico de implantações
+intro: Veja as implantações atuais e anteriores para o seu repositório.
 versions:
   fpt: '*'
   ghes: '*'
@@ -12,18 +12,20 @@ shortTitle: View deployment history
 redirect_from:
   - /developers/overview/viewing-deployment-history
   - /actions/deployment/viewing-deployment-history
+ms.openlocfilehash: 2941d8de6af3b7505a3c05a6b15436d32becea9b
+ms.sourcegitcommit: 5f9527483381cfb1e41f2322f67c80554750a47d
+ms.translationtype: HT
+ms.contentlocale: pt-BR
+ms.lasthandoff: 09/11/2022
+ms.locfileid: '145085293'
 ---
+Você pode fornecer implantações por meio do {% data variables.product.prodname_actions %} e de ambientes ou com a API REST e aplicativos de terceiros. {% ifversion fpt or ghae ghes > 3.0 or ghec %}Para obter mais informações sobre como usar ambientes para implantação com o {% data variables.product.prodname_actions %}, confira "[Como usar ambientes para implantação](/actions/deployment/using-environments-for-deployment)". {% endif %}Para obter mais informações sobre as implantações com a API REST, confira "[Repositórios](/rest/reference/repos#deployments)".
 
+Para ver as implantações atuais e anteriores, clique em **Ambientes** na home page do repositório.
+{% ifversion ghae %} ![Ambientes](/assets/images/enterprise/2.22/environments-sidebar.png){% else %} ![Ambientes](/assets/images/environments-sidebar.png){% endif %}
 
-You can deliver deployments through {% ifversion fpt or ghae or ghes > 3.0 or ghec %}{% data variables.product.prodname_actions %} and environments or with {% endif %}the REST API and third party apps. {% ifversion fpt or ghae ghes > 3.0 or ghec %}For more information about using environments to deploy with {% data variables.product.prodname_actions %}, see "[Using environments for deployment](/actions/deployment/using-environments-for-deployment)." {% endif %}For more information about deployments with the REST API, see "[Repositories](/rest/reference/repos#deployments)."
+A página de implantações exibe a última implantação ativa de cada ambiente do seu repositório. Se a implantação incluir uma URL de ambiente, será mostrado um botão **Exibir implantação** vinculado à URL ao lado da implantação.
 
-To view current and past deployments, click **Environments** on the home page of your repository.
-{% ifversion ghae %}
-![Environments](/assets/images/enterprise/2.22/environments-sidebar.png){% else %}
-![Environments](/assets/images/environments-sidebar.png){% endif %}
+O registro da atividade mostra o histórico de implantação para seus ambientes. Por padrão, apenas a implantação mais recente para um ambiente tem o status `Active`. Todas as implantações anteriormente ativas têm o status `Inactive`. Para obter mais informações sobre a inativação automática de implantações, confira "[Implantações inativas](/rest/reference/deployments#inactive-deployments)".
 
-The deployments page displays the last active deployment of each environment for your repository. If the deployment includes an environment URL, a **View deployment** button that links to the URL is shown next to the deployment.
-
-The activity log shows the deployment history for your environments. By default, only the most recent deployment for an environment has an `Active` status; all previously active deployments have an `Inactive` status. For more information on automatic inactivation of deployments, see "[Inactive deployments](/rest/reference/deployments#inactive-deployments)."
-
-You can also use the REST API to get information about deployments. For more information, see "[Repositories](/rest/reference/repos#deployments)."
+Você também pode usar a API REST para obter informações sobre implantações. Para obter mais informações, confira "[Repositórios](/rest/reference/repos#deployments)".

@@ -1,6 +1,6 @@
 ---
-title: Creating an issue or pull request
-intro: You can create an issue or pull request to propose and collaborate on changes to a repository.
+title: Criar um problema ou um pull request
+intro: É possível criar um problema ou um pull request para propor e colaborar com alterações em um repositório.
 permissions: 'Anyone can create an issue in a public repository that has issues enabled. Anyone with read permissions to a repository can create a pull request, but you must have write permissions to create a branch.'
 redirect_from:
   - /desktop/contributing-to-projects/creating-an-issue-or-pull-request
@@ -9,74 +9,76 @@ redirect_from:
 versions:
   fpt: '*'
 shortTitle: Create an issue or PR
+ms.openlocfilehash: 5430c8f11d08efc3f21cf1c62f470f38dcc2f257
+ms.sourcegitcommit: fb047f9450b41b24afc43d9512a5db2a2b750a2a
+ms.translationtype: HT
+ms.contentlocale: pt-BR
+ms.lasthandoff: 09/11/2022
+ms.locfileid: '145095168'
 ---
-## About issues and pull requests
+## Sobre problemas e pull requests
 
-You can use issues to track ideas, bugs, tasks, and other information that's important to your project. You can create an issue in your project's repository with {% data variables.product.prodname_desktop %}. For more information about issues, see "[About issues](/github/managing-your-work-on-github/about-issues)."
+Você pode usar problemas para rastrear ideias, erros, tarefas e outras informações importantes para o seu projeto. Você pode criar um problema no repositório do seu projeto com o {% data variables.product.prodname_desktop %}. Para obter mais informações sobre problemas, confira "[Sobre os problemas](/github/managing-your-work-on-github/about-issues)".
 
-After you create a branch and make changes to files in a project, you can create a pull request. With a pull request, you can propose, discuss, and iterate on changes before you merge the changes into the project. You can create a pull request in your project's repository with {% data variables.product.prodname_desktop %}. For more information about pull requests, see "[About pull requests](/github/collaborating-with-issues-and-pull-requests/about-pull-requests)."
+Após criar um branch e fazer alterações nos arquivos em um projeto, você poderá criar um pull request. Com um pull request, você pode propor, discutir e repetir alterações antes de fazer merge das alterações no projeto. Você pode criar um pull request no repositório do seu projeto com o {% data variables.product.prodname_desktop %}. Para obter mais informações sobre solicitações de pull, confira "[Sobre as solicitações de pull](/github/collaborating-with-issues-and-pull-requests/about-pull-requests)".
 
-## Prerequisites
+## Pré-requisitos
 
-Before you create a pull request, you'll need to push changes to a branch on {% data variables.product.prodname_dotcom %}.
-- Save and commit any changes on your local branch. For more information, see "[Committing and reviewing changes to your project](/desktop/contributing-and-collaborating-using-github-desktop/committing-and-reviewing-changes-to-your-project)."
-- Push your local commits to the remote repository. For more information, see "[Pushing changes to GitHub](/desktop/contributing-and-collaborating-using-github-desktop/pushing-changes-to-github)."
-- Publish your current branch to {% data variables.product.prodname_dotcom %}. For more information, see "[Managing branches](/desktop/contributing-and-collaborating-using-github-desktop/managing-branches)."
+Antes de criar um pull request, você deverá fazer push das alterações em um branch em {% data variables.product.prodname_dotcom %}.
+- Salve e faça o commit de quaisquer alterações no seu branch local. Para obter mais informações, confira "[Como fazer commit das alterações no seu projeto e revisá-las](/desktop/contributing-and-collaborating-using-github-desktop/committing-and-reviewing-changes-to-your-project)".
+- Faça push dos seus commits locais para o repositório remoto. Para obter mais informações, confira "[Como efetuar push de alterações para o GitHub](/desktop/contributing-and-collaborating-using-github-desktop/pushing-changes-to-github)".
+- Publique seu branch atual no {% data variables.product.prodname_dotcom %}. Para obter mais informações, confira "[Como gerenciar branches](/desktop/contributing-and-collaborating-using-github-desktop/managing-branches)".
 
-## Creating an issue
+## Criar um problema
 
 {% mac %}
 
-1. In the menu bar, use the **Repository** drop-down menu, then click **Create Issue on {% data variables.product.prodname_dotcom %}**.
-    ![Repository value in the Branch menu](/assets/images/help/desktop/create-issue-mac.png)
-2. On {% data variables.product.prodname_dotcom %}, click **Get started** to open an issue template or click **Open a blank issue**.
-    ![Create new issue options](/assets/images/help/desktop/create-new-issue.png)
+1. Na barra de menus, use o menu suspenso **Repositório** e clique em **Criar Problema no {% data variables.product.prodname_dotcom %}** .
+    ![Valor do repositório no menu Branch](/assets/images/help/desktop/create-issue-mac.png)
+2. No {% data variables.product.prodname_dotcom %}, clique **em Introdução** para abrir um modelo de problema ou em **Abrir um problema em branco**.
+    ![Opções de Criar problema](/assets/images/help/desktop/create-new-issue.png)
 
 {% endmac %}
 
 {% windows %}
 
-1. In the menu bar, use the **Repository** drop-down menu, then click **Create issue on {% data variables.product.prodname_dotcom %}**.
-    ![The Repository value in the Branch menu](/assets/images/help/desktop/create-issue-windows.png)
-2. On {% data variables.product.prodname_dotcom %}, click **Get started** to open an issue template or click **Open a blank issue**.
-    ![Create new issue options](/assets/images/help/desktop/create-new-issue.png)
+1. Na barra de menus, use o menu suspenso **Repositório** e clique em **Criar problema no {% data variables.product.prodname_dotcom %}** .
+    ![O valor de Repositório no menu Branch](/assets/images/help/desktop/create-issue-windows.png)
+2. No {% data variables.product.prodname_dotcom %}, clique **em Introdução** para abrir um modelo de problema ou em **Abrir um problema em branco**.
+    ![Opções de Criar problema](/assets/images/help/desktop/create-new-issue.png)
 
 {% endwindows %}
 
 {% note %}
 
-**Note**: If issue templates aren't enabled in your current repository, {% data variables.product.prodname_desktop %} will direct you to a blank issue on {% data variables.product.prodname_dotcom %}.
+**Observação**: se os modelos de problemas não estiverem habilitados no seu repositório atual, o {% data variables.product.prodname_desktop %} direcionará você para um problema em branco no {% data variables.product.prodname_dotcom %}.
 
 {% endnote %}
 
-## Creating a pull request
+## Como criar uma solicitação de pull
 
 {% mac %}
 
-1. Switch to the branch that you want to create a pull request for. For more information, see "[Switching between branches](/desktop/contributing-and-collaborating-using-github-desktop/managing-branches#switching-between-branches)."
-2. Click **Create Pull Request**. {% data variables.product.prodname_desktop %} will open your default browser to take you to {% data variables.product.prodname_dotcom %}.
-  ![The Create Pull Request button](/assets/images/help/desktop/mac-create-pull-request.png)
-4. On {% data variables.product.prodname_dotcom %}, confirm that the branch in the **base:** drop-down menu is the branch where you want to merge your changes. Confirm that the branch in the **compare:** drop-down menu is the topic branch where you made your changes.
-  ![Drop-down menus for choosing the base and compare branches](/assets/images/help/desktop/base-and-compare-branches.png)
-{% data reusables.repositories.pr-title-description %}
-{% data reusables.repositories.create-pull-request %}
+1. Alterne para o branch para o qual você deseja criar um pull request. Para obter mais informações, confira "[Como alternar entre branches](/desktop/contributing-and-collaborating-using-github-desktop/managing-branches#switching-between-branches)".
+2. Clique em **Criar Solicitação de Pull**. {% data variables.product.prodname_desktop %} abrirá o seu navegador-padrão para levar você a {% data variables.product.prodname_dotcom %}.
+  ![O botão Criar Solicitação de Pull](/assets/images/help/desktop/mac-create-pull-request.png)
+4. No {% data variables.product.prodname_dotcom %}, confirme se o branch no menu suspenso **base:** é o branch em que deseja mesclar as alterações. Confirme se o branch no menu suspenso **comparação:** é o branch do tópico em que você fez as alterações.
+  ![Menus suspensos usados para escolher os branches base e de comparação](/assets/images/help/desktop/base-and-compare-branches.png) {% data reusables.repositories.pr-title-description %} {% data reusables.repositories.create-pull-request %}
 
 {% endmac %}
 
 {% windows %}
 
-1. Switch to the branch that you want to create a pull request for. For more information, see "[Switching between branches](/desktop/contributing-and-collaborating-using-github-desktop/managing-branches#switching-between-branches)."
-2. Click **Create Pull Request**. {% data variables.product.prodname_desktop %} will open your default browser to take you to {% data variables.product.prodname_dotcom %}.
-  ![The Create Pull Request button](/assets/images/help/desktop/windows-create-pull-request.png)
-3. On {% data variables.product.prodname_dotcom %}, confirm that the branch in the **base:** drop-down menu is the branch where you want to merge your changes. Confirm that the branch in the **compare:** drop-down menu is the topic branch where you made your changes.
-  ![Drop-down menus for choosing the base and compare branches](/assets/images/help/desktop/base-and-compare-branches.png)
-{% data reusables.repositories.pr-title-description %}
-{% data reusables.repositories.create-pull-request %}
+1. Alterne para o branch para o qual você deseja criar um pull request. Para obter mais informações, confira "[Como alternar entre branches](/desktop/contributing-and-collaborating-using-github-desktop/managing-branches#switching-between-branches)".
+2. Clique em **Criar Solicitação de Pull**. {% data variables.product.prodname_desktop %} abrirá o seu navegador-padrão para levar você a {% data variables.product.prodname_dotcom %}.
+  ![O botão Criar Solicitação de Pull](/assets/images/help/desktop/windows-create-pull-request.png)
+3. No {% data variables.product.prodname_dotcom %}, confirme se o branch no menu suspenso **base:** é o branch em que deseja mesclar as alterações. Confirme se o branch no menu suspenso **comparação:** é o branch do tópico em que você fez as alterações.
+  ![Menus suspensos usados para escolher os branches base e de comparação](/assets/images/help/desktop/base-and-compare-branches.png) {% data reusables.repositories.pr-title-description %} {% data reusables.repositories.create-pull-request %}
 
 {% endwindows %}
 
-## Further reading
-- "[Issue](/github/getting-started-with-github/github-glossary#issue)" in the {% data variables.product.prodname_dotcom %} glossary
-- "[Pull request](/github/getting-started-with-github/github-glossary#pull-request)" in the {% data variables.product.prodname_dotcom %} glossary
-- "[Base branch](/github/getting-started-with-github/github-glossary#base-branch)" in the {% data variables.product.prodname_dotcom %} glossary
-- "[Topic branch](/github/getting-started-with-github/github-glossary#topic-branch)" in the {% data variables.product.prodname_dotcom %} glossary
+## Leitura adicional
+- "[Problema](/github/getting-started-with-github/github-glossary#issue)" no glossário do {% data variables.product.prodname_dotcom %}
+- "[Solicitação de pull](/github/getting-started-with-github/github-glossary#pull-request)" no glossário do {% data variables.product.prodname_dotcom %}
+- "[Branch base](/github/getting-started-with-github/github-glossary#base-branch)" no glossário do {% data variables.product.prodname_dotcom %}
+- "[Branch do tópico](/github/getting-started-with-github/github-glossary#topic-branch)" no glossário do {% data variables.product.prodname_dotcom %}

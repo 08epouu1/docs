@@ -1,7 +1,7 @@
 ---
-title: Dockerfile support for GitHub Actions
+title: Suporte do arquivo Docker para GitHub Actions
 shortTitle: Dockerfile support
-intro: 'When creating a `Dockerfile` for a Docker container action, you should be aware of how some Docker instructions interact with GitHub Actions and an action''s metadata file.'
+intro: 'Ao criar um `Dockerfile` para uma ação do contêiner Docker, você deverá ter em mente como algumas instruções do Docker interagem com o GitHub Actions e com um arquivo de metadados da ação.'
 redirect_from:
   - /actions/building-actions/dockerfile-support-for-github-actions
 versions:
@@ -10,58 +10,64 @@ versions:
   ghae: '*'
   ghec: '*'
 type: reference
+ms.openlocfilehash: 6e061e479f4988398cbdc92114e387a3055734af
+ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
+ms.translationtype: HT
+ms.contentlocale: pt-BR
+ms.lasthandoff: 09/05/2022
+ms.locfileid: '145083685'
 ---
+{% data reusables.actions.enterprise-beta %} {% data reusables.actions.enterprise-github-hosted-runners %}
 
-{% data reusables.actions.enterprise-beta %}
-{% data reusables.actions.enterprise-github-hosted-runners %}
+## Sobre as instruções do arquivo Docker
 
-## About Dockerfile instructions
+Um `Dockerfile` contém instruções e argumentos que definem o conteúdo e o comportamento de inicialização de um contêiner do Docker. Para obter mais informações sobre as instruções às quais o Docker dá suporte, confira "[Referência do Dockerfile](https://docs.docker.com/engine/reference/builder/)" na documentação do Docker.
 
-A `Dockerfile` contains instructions and arguments that define the contents and startup behavior of a Docker container. For more information about the instructions Docker supports, see "[Dockerfile reference](https://docs.docker.com/engine/reference/builder/)" in the Docker documentation.
+## Instruções e substituições do arquivo Docker
 
-## Dockerfile instructions and overrides
-
-Some Docker instructions interact with GitHub Actions, and an action's metadata file can override some Docker instructions. Ensure that you are familiar with how your Dockerfile interacts with {% data variables.product.prodname_actions %} to prevent any unexpected behavior.
+Algumas instruções do Docker interagem com o GitHub Actions e um arquivo de metadados pode substituir algumas instruções do Docker. Certifique-se de que você esteja familiarizado com a forma como o arquivo Docker interage com {% data variables.product.prodname_actions %} para evitar comportamento inesperado.
 
 ### USER
 
-Docker actions must be run by the default Docker user (root). Do not use the `USER` instruction in your `Dockerfile`, because you won't be able to access the `GITHUB_WORKSPACE`. For more information, see "[Using environment variables](/actions/configuring-and-managing-workflows/using-environment-variables)" and [USER reference](https://docs.docker.com/engine/reference/builder/#user) in the Docker documentation.
+As ações do Docker devem ser executadas pelo usuário-padrão do Docker (raiz). Não use a instrução `USER` no `Dockerfile`, porque você não poderá acessar o `GITHUB_WORKSPACE`. Para obter mais informações, confira "[Como usar variáveis de ambiente](/actions/configuring-and-managing-workflows/using-environment-variables)" e [Referência de USER](https://docs.docker.com/engine/reference/builder/#user) na documentação do Docker.
 
 ### FROM
 
-The first instruction in the `Dockerfile` must be `FROM`, which selects a Docker base image. For more information, see the [FROM reference](https://docs.docker.com/engine/reference/builder/#from) in the Docker documentation.
+A primeira instrução no `Dockerfile` precisa ser `FROM`, que seleciona uma imagem base do Docker. Para obter mais informações, confira a [Referência de FROM](https://docs.docker.com/engine/reference/builder/#from) na documentação do Docker.
 
-These are some best practices when setting the `FROM` argument:
+Estas são algumas melhores práticas ao definir o argumento `FROM`:
 
-- It's recommended to use official Docker images. For example, `python` or `ruby`.
-- Use a version tag if it exists, preferably with a major version. For example, use `node:10` instead of `node:latest`.
-- It's recommended to use Docker images based on the [Debian](https://www.debian.org/) operating system.
+- Recomendamos o uso de imagens oficiais do Docker. Por exemplo, `python` ou `ruby`.
+- Use uma tag da versão, se houver, preferencialmente com uma versão principal. Por exemplo, use `node:10` ao invés de `node:latest`.
+- Recomendamos usar imagens do Docker com base no sistema operacional [Debian](https://www.debian.org/).
 
 ### WORKDIR
 
-{% data variables.product.product_name %} sets the working directory path in the `GITHUB_WORKSPACE` environment variable. It's recommended to not use the `WORKDIR` instruction in your `Dockerfile`. Before the action executes, {% data variables.product.product_name %} will mount the `GITHUB_WORKSPACE` directory on top of anything that was at that location in the Docker image and set `GITHUB_WORKSPACE` as the working directory. For more information, see "[Using environment variables](/actions/configuring-and-managing-workflows/using-environment-variables)" and the [WORKDIR reference](https://docs.docker.com/engine/reference/builder/#workdir) in the Docker documentation.
+O {% data variables.product.product_name %} define o caminho do diretório de trabalho na variável de ambiente `GITHUB_WORKSPACE`. Recomendamos não usar a instrução `WORKDIR` no `Dockerfile`. Antes da execução da ação, o {% data variables.product.product_name %} montará o diretório `GITHUB_WORKSPACE` em qualquer item que estava naquele local na imagem do Docker e definirá `GITHUB_WORKSPACE` como o diretório de trabalho. Para obter mais informações, confira "[Como usar variáveis de ambiente](/actions/configuring-and-managing-workflows/using-environment-variables)" e a [Referência de WORKDIR](https://docs.docker.com/engine/reference/builder/#workdir) na documentação do Docker.
 
 ### ENTRYPOINT
 
-If you define `entrypoint` in an action's metadata file, it will override the `ENTRYPOINT` defined in the `Dockerfile`. For more information, see "[Metadata syntax for {% data variables.product.prodname_actions %}](/actions/creating-actions/metadata-syntax-for-github-actions/#runsentrypoint)."
+Se você definir `entrypoint` no arquivo de metadados de uma ação, ele substituirá o `ENTRYPOINT` definido no `Dockerfile`. Para obter mais informações, confira "[Sintaxe de metadados do {% data variables.product.prodname_actions %}](/actions/creating-actions/metadata-syntax-for-github-actions/#runsentrypoint)".
 
-The Docker `ENTRYPOINT` instruction has a _shell_ form and _exec_ form. The Docker `ENTRYPOINT` documentation recommends using the _exec_ form of the `ENTRYPOINT` instruction. For more information about _exec_ and _shell_ form, see the [ENTRYPOINT reference](https://docs.docker.com/engine/reference/builder/#entrypoint) in the Docker documentation.
+A instrução `ENTRYPOINT` do Docker tem um formulário _shell_ e um formulário _exec_. A documentação de `ENTRYPOINT` do Docker recomenda o uso do formulário _exec_ da instrução `ENTRYPOINT`. Para obter mais informações sobre os formulários _exec_ e _shell_, confira a [Referência de ENTRYPOINT](https://docs.docker.com/engine/reference/builder/#entrypoint) na documentação do Docker.
 
-If you configure your container to use the _exec_ form of the `ENTRYPOINT` instruction, the `args` configured in the action's metadata file won't run in a command shell. If the action's `args` contain an environment variable, the variable will not be substituted. For example, using the following _exec_ format will not print the value stored in `$GITHUB_SHA`, but will instead print `"$GITHUB_SHA"`.
+Você não deve usar `WORKDIR` para especificar o ponto de entrada no Dockerfile. Em vez disso, você edverá usar um caminho absoluto. Para obter mais informações, confira [WORKDIR](#workdir).
+
+Se você configurar o contêiner para usar o formulário _exec_ da instrução `ENTRYPOINT`, os `args` configurados no arquivo de metadados da ação não serão executados em um shell de comando. Se os `args` da ação contiverem uma variável de ambiente, a variável não será substituída. Por exemplo, o uso do formato _exec_ a seguir não imprimirá o valor armazenado em `$GITHUB_SHA`, mas imprimirá `"$GITHUB_SHA"`.
 
 ```dockerfile
 ENTRYPOINT ["echo $GITHUB_SHA"]
 ```
 
- If you want variable substitution, then either use the _shell_ form or execute a shell directly. For example, using the following _exec_ format, you can execute a shell to print the value stored in the `GITHUB_SHA` environment variable.
+ Caso deseje fazer a substituição da variável, use o formulário _shell_ ou execute um shell diretamente. Por exemplo, usando o formato _exec_ a seguir, você pode executar um shell para imprimir o valor armazenado na variável de ambiente `GITHUB_SHA`.
 
 ```dockerfile
 ENTRYPOINT ["sh", "-c", "echo $GITHUB_SHA"]
 ```
 
- To supply `args` defined in the action's metadata file to a Docker container that uses the _exec_ form in the `ENTRYPOINT`, we recommend creating a shell script called `entrypoint.sh` that you call from the `ENTRYPOINT` instruction:
+ Para fornecer os `args` definidos no arquivo de metadados da ação para um contêiner do Docker que usa o formulário _exec_, `ENTRYPOINT`recomendamos criar um script de shell com o nome `entrypoint.sh` que é chamado por meio da instrução `ENTRYPOINT`:
 
-#### Example *Dockerfile*
+#### Exemplo de *Dockerfile*
 
 ```dockerfile
 # Container image that runs your code
@@ -74,9 +80,9 @@ COPY entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
 ```
 
-#### Example *entrypoint.sh* file
+#### Exemplo de arquivo *entrypoint.sh*
 
-Using the example Dockerfile above, {% data variables.product.product_name %} will send the `args` configured in the action's metadata file as arguments to `entrypoint.sh`. Add the `#!/bin/sh` [shebang](https://en.wikipedia.org/wiki/Shebang_(Unix)) at the top of the `entrypoint.sh` file to explicitly use the system's [POSIX](https://en.wikipedia.org/wiki/POSIX)-compliant shell.
+Usando o exemplo de Dockerfile acima, o {% data variables.product.product_name %} enviará os `args` configurados no arquivo de metadados da ação como argumentos para `entrypoint.sh`. Adicione o [shebang](https://en.wikipedia.org/wiki/Shebang_(Unix)) `#!/bin/sh` no início do arquivo `entrypoint.sh` para usar explicitamente o shell compatível com [POSIX](https://en.wikipedia.org/wiki/POSIX) do sistema.
 
 ``` sh
 #!/bin/sh
@@ -86,12 +92,12 @@ Using the example Dockerfile above, {% data variables.product.product_name %} wi
 sh -c "echo $*"
 ```
 
-Your code must be executable. Make sure the `entrypoint.sh` file has `execute` permissions before using it in a workflow. You can modify the permission from your terminal using this command:
+O seu código deve ser executável. Verifique se o arquivo `entrypoint.sh` tem as permissões `execute` antes de usá-lo em um fluxo de trabalho. Você pode modificar as permissões a partir do seu terminal usando este comando:
   ``` sh
   chmod +x entrypoint.sh
   ```
 
-When an `ENTRYPOINT` shell script is not executable, you'll receive an error similar to this:
+Quando um script de shell `ENTRYPOINT` não for executável, você receberá um erro semelhante a este:
 
 ``` sh
 Error response from daemon: OCI runtime create failed: container_linux.go:348: starting container process caused "exec: \"/entrypoint.sh\": permission denied": unknown
@@ -99,12 +105,12 @@ Error response from daemon: OCI runtime create failed: container_linux.go:348: s
 
 ### CMD
 
-If you define `args` in the action's metadata file, `args` will override the `CMD` instruction specified in the `Dockerfile`. For more information, see "[Metadata syntax for {% data variables.product.prodname_actions %}](/actions/creating-actions/metadata-syntax-for-github-actions#runsargs)".
+Se você definir `args` no arquivo de metadados da ação, `args` substituirá a instrução `CMD` especificada no `Dockerfile`. Para obter mais informações, confira "[Sintaxe de metadados do {% data variables.product.prodname_actions %}](/actions/creating-actions/metadata-syntax-for-github-actions#runsargs)".
 
-If you use `CMD` in your `Dockerfile`, follow these guidelines:
+Se você usar `CMD` no `Dockerfile`, siga estas diretrizes:
 
-{% data reusables.github-actions.dockerfile-guidelines %}
+{% data reusables.actions.dockerfile-guidelines %}
 
-## Supported Linux capabilities
+## Recursos compatíveis com o Linux
 
-{% data variables.product.prodname_actions %} supports the default Linux capabilities that Docker supports. Capabilities can't be added or removed. For more information about the default Linux capabilities that Docker supports, see "[Runtime privilege and Linux capabilities](https://docs.docker.com/engine/reference/run/#runtime-privilege-and-linux-capabilities)" in the Docker documentation. To learn more about Linux capabilities, see "[Overview of Linux capabilities](http://man7.org/linux/man-pages/man7/capabilities.7.html)" in the Linux man-pages.
+{% data variables.product.prodname_actions %} suporta os recursos-padrão compatíveis com o Linux que são compatíveis com o Docker. Não é possível adicionar ou remover recursos. Para obter mais informações sobre as funcionalidades padrão do Linux compatíveis com o Docker, confira "[Privilégio de runtime e funcionalidades do Linux](https://docs.docker.com/engine/reference/run/#runtime-privilege-and-linux-capabilities)" na documentação do Docker. Para saber mais sobre as funcionalidades do Linux, confira "[Visão geral das funcionalidades do Linux](http://man7.org/linux/man-pages/man7/capabilities.7.html)" nas páginas do manual do Linux.

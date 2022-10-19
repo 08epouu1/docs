@@ -1,6 +1,6 @@
 ---
-title: Manually creating a single issue template for your repository
-intro: 'When you add a manually-created issue template to your repository, project contributors will automatically see the template''s contents in the issue body.'
+title: Criar manualmente um modelo único de problema no repositório
+intro: 'Ao adicionar um modelo de problema criado manualmente no repositório, os colaboradores de projetos verão automaticamente o conteúdo do modelo no texto do problema.'
 redirect_from:
   - /articles/creating-an-issue-template-for-your-repository
   - /articles/manually-creating-a-single-issue-template-for-your-repository
@@ -13,15 +13,20 @@ versions:
 topics:
   - Community
 shortTitle: Create an issue template
+ms.openlocfilehash: 0d10da9cc3be128744a7b0465c016d1c6346b6f3
+ms.sourcegitcommit: fb047f9450b41b24afc43d9512a5db2a2b750a2a
+ms.translationtype: HT
+ms.contentlocale: pt-BR
+ms.lasthandoff: 09/11/2022
+ms.locfileid: '145084084'
 ---
-
 {% data reusables.repositories.legacy-issue-template-tip %}
 
-You can create an *ISSUE_TEMPLATE/* subdirectory in any of the supported folders to contain multiple issue templates, and use the `template` query parameter to specify the template that will fill the issue body. For more information, see "[About automation for issues and pull requests with query parameters](/articles/about-automation-for-issues-and-pull-requests-with-query-parameters)."
+Crie um subdiretório *ISSUE_TEMPLATE/* em uma das pastas com suporte para conter vários modelos de problemas e use o parâmetro de consulta `template` para especificar o modelo que preencherá o corpo do problema. Para obter mais informações, confira "[Sobre a automação para problemas e solicitações de pull com parâmetros de consulta](/articles/about-automation-for-issues-and-pull-requests-with-query-parameters)".
 
-You can add YAML frontmatter to each issue template to pre-fill the issue title, automatically add labels and assignees, and give the template a name and description that will be shown in the template chooser that people see when creating a new issue in your repository.
+Você pode adicionar o YAML frontmatter a cada modelo de problema para preencher previamente o título do problema, adicionar rótulos e responsáveis ​​automaticamente e atribuir ao modelo um nome e uma descrição que serão mostrados no seletor de modelos que as pessoas veem ao criar um novo problema em seu repositório .
 
-Here is example YAML front matter.
+Aqui está um exemplo de YAML front matter.
 
 ```yaml
 ---
@@ -34,7 +39,7 @@ assignees: octocat
 ```
 {% note %}
 
-**Note:** If a front matter value includes a YAML-reserved character such as `:` , you must put the whole value in quotes. For example, `":bug: Bug"` or `":new: triage needed, :bug: bug"`.
+**Observação:** se um valor de front matter incluir um caractere reservado pelo YAML, como `:`, você precisará colocar todo o valor entre aspas. Por exemplo, `":bug: Bug"` ou `":new: triage needed, :bug: bug"`.
 
 {% endnote %}
 
@@ -50,31 +55,27 @@ assignees: octocat
 
 {% endif %}
 
-## Adding an issue template
+## Adicionar um modelo de problema
 
-{% data reusables.repositories.navigate-to-repo %}
-{% data reusables.files.add-file %}
-3. In the file name field:
-    -  To make your issue template visible in the repository's root directory, type the name of your *issue_template*. For example, `issue_template.md`.
-  ![New issue template name in root directory](/assets/images/help/repository/issue-template-file-name.png)
-    - To make your issue template visible in the repository's `docs` directory, type *docs/* followed by the name of your *issue_template*. For example, `docs/issue_template.md`,
-  ![New issue template in docs directory](/assets/images/help/repository/issue-template-file-name-docs.png)
-    - To store your file in a hidden directory, type *.github/* followed by the name of your *issue_template*. For example, `.github/issue_template.md`.
-  ![New issue template in hidden directory](/assets/images/help/repository/issue-template-hidden-directory.png)
-    - To create multiple issue templates and use the `template` query parameter to specify a template to fill the issue body, type *.github/ISSUE_TEMPLATE/*, then the name of your issue template. For example, `.github/ISSUE_TEMPLATE/issue_template.md`. You can also store multiple issue templates in an `ISSUE_TEMPLATE` subdirectory within the root or `docs/` directories. For more information, see "[About automation for issues and pull requests with query parameters](/articles/about-automation-for-issues-and-pull-requests-with-query-parameters)."
-  ![New multiple issue template in hidden directory](/assets/images/help/repository/issue-template-multiple-hidden-directory.png)
-4. In the body of the new file, add your issue template. This could include:
+{% data reusables.repositories.navigate-to-repo %} {% data reusables.files.add-file %}
+3. No campo nome do arquivo:
+    -  Para tornar o modelo de problema visível no diretório raiz do repositório, digite o nome do *issue_template*. Por exemplo, `issue_template.md`.
+  ![Novo nome de modelo de problema no diretório raiz](/assets/images/help/repository/issue-template-file-name.png)
+    - Para tornar o modelo de problema visível no diretório `docs` do repositório, digite *docs/* seguido do nome do *issue_template*. Por exemplo, `docs/issue_template.md`, ![Novo modelo de problema no diretório docs](/assets/images/help/repository/issue-template-file-name-docs.png)
+    - Para armazenar seu arquivo em um diretório oculto, digite *.github/* seguido do nome do *issue_template*. Por exemplo, `.github/issue_template.md`.
+  ![Novo modelo de problema no diretório oculto](/assets/images/help/repository/issue-template-hidden-directory.png)
+    - Para criar vários modelos de problemas e usar o parâmetro de consulta `template` para especificar um modelo para preencher o corpo do problema, digite *.github/ISSUE_TEMPLATE/* e o nome do modelo de problema. Por exemplo, `.github/ISSUE_TEMPLATE/issue_template.md`. Você também pode armazenar vários modelos de problemas em um subdiretório `ISSUE_TEMPLATE` na raiz ou nos diretórios `docs/`. Para obter mais informações, confira "[Sobre a automação para problemas e solicitações de pull com parâmetros de consulta](/articles/about-automation-for-issues-and-pull-requests-with-query-parameters)".
+  ![Vários novos modelos de problemas no diretório oculto](/assets/images/help/repository/issue-template-multiple-hidden-directory.png)
+4. No texto do novo arquivo, adicione seu modelo de problema. Pode conter:
     - YAML frontmatter
-    - Expected behavior and actual behavior
-    - Steps to reproduce the problem
-    - Specifications like the version of the project, operating system, or hardware
-{% data reusables.files.write_commit_message %}
-{% data reusables.files.choose_commit_branch %} Templates are available to collaborators when they are merged into the repository's default branch.
+    - Comportamento esperado e comportamento real
+    - Etapas para reproduzir o problema
+    - Especificações como versão do projeto, sistema operacional ou hardware {% data reusables.files.write_commit_message %} {% data reusables.files.choose_commit_branch %} Os modelos estão disponíveis para os colaboradores quando eles são mesclados no branch padrão do repositório.
 {% data reusables.files.propose_new_file %}
 
-## Further reading
+## Leitura adicional
 
-- "[About issue and pull request templates](/articles/about-issue-and-pull-request-templates)"
-- "[Configuring issue templates for your repository](/articles/configuring-issue-templates-for-your-repository)"
-- "[About automation for issues and pull requests with query parameters](/articles/about-automation-for-issues-and-pull-requests-with-query-parameters)"
-- "[Creating an issue](/articles/creating-an-issue)"
+- "[Sobre modelos de problemas e solicitação de pull](/articles/about-issue-and-pull-request-templates)"
+- "[Como configurar modelos de problemas no seu repositório](/articles/configuring-issue-templates-for-your-repository)"
+- "[Sobre a automação para problemas e solicitações de pull com parâmetros de consulta](/articles/about-automation-for-issues-and-pull-requests-with-query-parameters)"
+- "[Como criar um problema](/articles/creating-an-issue)"

@@ -1,6 +1,6 @@
 ---
-title: Redeeming a coupon
-intro: 'If you have a coupon, you can redeem it towards a paid {% data variables.product.prodname_dotcom %} subscription.'
+title: Resgatar um cupom
+intro: 'Se você tiver um cupom, poderá resgatá-lo em uma assinatura {% data variables.product.prodname_dotcom %} paga.'
 redirect_from:
   - /github/setting-up-and-managing-billing-and-payments-on-github/redeeming-a-coupon
   - /articles/where-do-i-add-a-coupon-code
@@ -17,25 +17,29 @@ topics:
   - Fundamentals
   - Organizations
   - User account
+ms.openlocfilehash: 8b1c0c9b250994e4186371c74a4bc97e7609770d
+ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
+ms.translationtype: HT
+ms.contentlocale: pt-BR
+ms.lasthandoff: 09/05/2022
+ms.locfileid: '145083433'
 ---
-{% data variables.product.product_name %} can't issue a refund if you pay for an account before applying a coupon. We also can't transfer a redeemed coupon or give you a new coupon if you apply it to the wrong account. Confirm that you're applying the coupon to the correct account before you redeem a coupon.
+O {% data variables.product.product_name %} não poderá efetuar um reembolso se uma conta for paga antes da aplicação de um cupom. Também não poderemos transferir um cupom resgatado ou fornecer um novo cupom se você aplicar o cupom na conta errada. Verifique se você está aplicando o cupom na conta correta antes de resgatá-lo.
 
 {% data reusables.dotcom_billing.coupon-expires %}
 
-You cannot apply coupons to paid plans for {% data variables.product.prodname_marketplace %} apps.
+Não é possível aplicar cupons em planos pagos para apps {% data variables.product.prodname_marketplace %}.
 
-## Redeeming a coupon for your personal account
+## Resgatar um cupom na conta pessoal
 
 {% data reusables.dotcom_billing.enter_coupon_code_on_redeem_page %}
-4. Under "Redeem your coupon", click **Choose** next to your *personal* account's username.
-   ![Choose button](/assets/images/help/settings/redeem-coupon-choose-button-for-personal-accounts.png)
-{% data reusables.dotcom_billing.redeem_coupon %}
+4. Em "Resgatar seu cupom", clique em **Escolher** ao lado do nome de usuário da sua conta *pessoal*.
+   ![Botão Escolher](/assets/images/help/settings/redeem-coupon-choose-button-for-personal-accounts.png) {% data reusables.dotcom_billing.redeem_coupon %}
 
-## Redeeming a coupon for your organization
+## Resgatar um cupom na organização
 
 {% data reusables.dotcom_billing.org-billing-perms %}
 
 {% data reusables.dotcom_billing.enter_coupon_code_on_redeem_page %}
-4. Under "Redeem your coupon", click **Choose** next to the *organization* you want to apply the coupon to. If you'd like to apply your coupon to a new organization that doesn't exist yet, click **Create a new organization**.
-   ![Choose button](/assets/images/help/settings/redeem-coupon-choose-button.png)
-{% data reusables.dotcom_billing.redeem_coupon %}
+4. Em "Resgatar seu cupom", clique em **Escolher** ao lado da *organização* à qual deseja aplicar o cupom. Se quiser aplicar o cupom a uma nova organização que ainda não existe, clique em **Criar uma organização**.
+   ![Botão Escolher](/assets/images/help/settings/redeem-coupon-choose-button.png) {% data reusables.dotcom_billing.redeem_coupon %}

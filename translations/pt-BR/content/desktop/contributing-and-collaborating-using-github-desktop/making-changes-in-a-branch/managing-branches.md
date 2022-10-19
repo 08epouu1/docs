@@ -1,6 +1,6 @@
 ---
-title: Managing branches
-intro: You can create a branch off of a repository's default branch so you can safely experiment with changes.
+title: Gerenciar branches
+intro: Você pode criar um branch fora do branch-padrão de um repositório para poder experimentar as alterações com segurança.
 redirect_from:
   - /desktop/contributing-to-projects/creating-a-branch-for-your-work
   - /desktop/contributing-to-projects/switching-between-branches
@@ -8,116 +8,93 @@ redirect_from:
   - /desktop/contributing-and-collaborating-using-github-desktop/managing-branches
 versions:
   fpt: '*'
+ms.openlocfilehash: 30604c6b3ed0ab9ca5c0f3f8ca0fe853624ee86b
+ms.sourcegitcommit: 80842b4e4c500daa051eff0ccd7cde91c2d4bb36
+ms.translationtype: HT
+ms.contentlocale: pt-BR
+ms.lasthandoff: 09/12/2022
+ms.locfileid: '147886963'
 ---
-## About managing branches
-You can use branches to safely experiment with changes to your project. Branches isolate your development work from other branches in the repository. For example, you could use a branch to develop a new feature or fix a bug.
+## Sobre o gerenciamento de branches
+Você pode usar os branches para experimentar com segurança as alterações no seu projeto. Os branches isolam seu trabalho de desenvolvimento de outros branches do repositório. Por exemplo, você poderia usar um branch para desenvolver um novo recurso ou corrigir um erro.
 
-You always create a branch from an existing branch. Typically, you might create a branch from the default branch of your repository. You can then work on this new branch in isolation from changes that other people are making to the repository.
+Você sempre cria um branch a partir de um branch existente. Normalmente, você pode criar um branch a partir do branch-padrão do seu repositório. Você então poderá trabalhar nesse novo branch isolado das mudanças que outras pessoas estão fazendo no repositório.
 
-You can also create a branch starting from a previous commit in a branch's history. This can be helpful if you need to return to an earlier view of the repository to investigate a bug, or to create a hot fix on top of your latest release.
+Você também pode criar um branch a partir de um commit anterior no histórico de um branch. Isso pode ser útil se você precisar retornar a uma visão anterior do repositório para investigar um erro ou para criar uma correção em cima de sua versão mais recente.
 
-Once you're satisfied with your work, you can create a pull request to merge your changes in the current branch into another branch. For more information, see "[Creating an issue or pull request](/desktop/contributing-to-projects/creating-an-issue-or-pull-request)" and "[About pull requests](/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests)."
+Quando estiver satisfeito com seu trabalho, você poderá criar um pull request para fazer merge nas suas alterações no branch atual em outro branch. Para obter mais informações, confira "[Como criar um problema ou uma solicitação de pull](/desktop/contributing-to-projects/creating-an-issue-or-pull-request)" e "[Sobre as solicitações de pull](/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests)".
 
-You can always create a branch in {% data variables.product.prodname_desktop %} if you have read access to a repository, but you can only push the branch to {% data variables.product.prodname_dotcom %} if you have write access to the repository.
+É sempre possível criar um branch no {% data variables.product.prodname_desktop %}, se tiver acesso de leitura a um repositório, mas você só pode fazer push do branch para o {% data variables.product.prodname_dotcom %} se você tiver acesso de gravação no repositório.
 
 {% data reusables.desktop.protected-branches %}
 
-## Creating a branch
+## Criar um branch
 
 {% tip %}
 
-**Tip:** The first new branch you create will be based on the default branch. If you have more than one branch, you can choose to base the new branch on the currently checked out branch or the default branch.
+**Dica:** o primeiro branch criado será baseado no branch padrão. Se você tiver mais de um branch, você pode escolher basear o novo branch no branch atualmente verificado ou no branch-padrão.
 
 {% endtip %}
 
 {% mac %}
 
-{% data reusables.desktop.click-base-branch-in-drop-down %}
-  ![Drop-down menu to switch your current branch](/assets/images/help/desktop/select-branch-from-dropdown.png)
-{% data reusables.desktop.create-new-branch %}
-  ![New Branch option in the Branch menu](/assets/images/help/desktop/new-branch-button-mac.png)
-{% data reusables.desktop.name-branch %}
-  ![Field for creating a name for the new branch](/assets/images/help/desktop/create-branch-name-mac.png)
-{% data reusables.desktop.select-base-branch %}
-  ![Base branch options](/assets/images/help/desktop/create-branch-choose-branch-mac.png)
-{% data reusables.desktop.confirm-new-branch-button %}
-  ![Create Branch button](/assets/images/help/desktop/create-branch-button-mac.png)
+{% data reusables.desktop.click-base-branch-in-drop-down %} ![Menu suspenso usado para alternar o branch atual](/assets/images/help/desktop/select-branch-from-dropdown.png) {% data reusables.desktop.create-new-branch %} ![Opção Novo Branch no menu Branch](/assets/images/help/desktop/new-branch-button-mac.png) {% data reusables.desktop.name-branch %} ![Campo usado para criar um nome para o novo branch](/assets/images/help/desktop/create-branch-name-mac.png) {% data reusables.desktop.select-base-branch %} ![Opções do branch base](/assets/images/help/desktop/create-branch-choose-branch-mac.png) {% data reusables.desktop.confirm-new-branch-button %} ![Botão Criar Branch](/assets/images/help/desktop/create-branch-button-mac.png)
 
 {% endmac %}
 
 {% windows %}
 
-{% data reusables.desktop.click-base-branch-in-drop-down %}
-  ![Drop-down menu to switch your current branch](/assets/images/help/desktop/click-branch-in-drop-down-win.png)
-{% data reusables.desktop.create-new-branch %}
-  ![New Branch option in the Branch menu](/assets/images/help/desktop/new-branch-button-win.png)
-{% data reusables.desktop.name-branch %}
-  ![Field for creating a name for the new branch](/assets/images/help/desktop/create-branch-name-win.png)
-{% data reusables.desktop.select-base-branch %}
-  ![Base branch options](/assets/images/help/desktop/create-branch-choose-branch-win.png)
-{% data reusables.desktop.confirm-new-branch-button %}
-  ![Create branch button](/assets/images/help/desktop/create-branch-button-win.png)
+{% data reusables.desktop.click-base-branch-in-drop-down %} ![Menu suspenso usado para alternar o branch atual](/assets/images/help/desktop/click-branch-in-drop-down-win.png) {% data reusables.desktop.create-new-branch %} ![Opção Novo Branch no menu Branch](/assets/images/help/desktop/new-branch-button-win.png) {% data reusables.desktop.name-branch %} ![Campo usado para criar um nome para o novo branch](/assets/images/help/desktop/create-branch-name-win.png) {% data reusables.desktop.select-base-branch %} ![Opções do branch base](/assets/images/help/desktop/create-branch-choose-branch-win.png) {% data reusables.desktop.confirm-new-branch-button %} ![Botão Criar branch](/assets/images/help/desktop/create-branch-button-win.png)
 
 {% endwindows %}
 
-## Creating a branch from a previous commit
+## Criando um branch de um commit anterior
 
 {% data reusables.desktop.history-tab %}
-2. Right-click on the commit you would like to create a new branch from and select **Create Branch from Commit**.
-  ![Create branch from commit context menu](/assets/images/help/desktop/create-branch-from-commit-context-menu.png)
-{% data reusables.desktop.name-branch %}
-{% data reusables.desktop.confirm-new-branch-button %}
-  ![Create branch from commit](/assets/images/help/desktop/create-branch-from-commit-overview.png)
+2. Clique com o botão direito do mouse no commit com base no qual deseja criar um branch e selecione **Criar Branch com base no Commit**.
+  ![Menu de contexto Criar branch com base no commit](/assets/images/help/desktop/create-branch-from-commit-context-menu.png) {% data reusables.desktop.name-branch %} {% data reusables.desktop.confirm-new-branch-button %} ![Criar branch com base no commit](/assets/images/help/desktop/create-branch-from-commit-overview.png)
 
-## Publishing a branch
+## Publicar um branch
 
-If you create a branch on {% data variables.product.product_name %}, you'll need to publish the branch to make it available for collaboration on {% data variables.product.prodname_dotcom %}.
+Se você criar um branch no {% data variables.product.product_name %}, você deverá publicá-lo para disponibilizá-lo para colaboração no {% data variables.product.prodname_dotcom %}.
 
-1. At the top of the app, click {% octicon "git-branch" aria-label="The branch icon" %} **Current Branch**, then click the branch that you want to publish.
-  ![Drop-down menu to select which branch to publish](/assets/images/help/desktop/select-branch-from-dropdown.png)
-2. Click **Publish branch**.
-  ![The Publish branch button](/assets/images/help/desktop/publish-branch-button.png)
+1. Na parte superior do aplicativo, clique em {% octicon "git-branch" aria-label="The branch icon" %} **Branch Atual** e clique no branch que deseja publicar.
+  ![Menu suspenso usado para selecionar o branch que será publicado](/assets/images/help/desktop/select-branch-from-dropdown.png)
+2. Clique em **Publicar branch**.
+  ![Botão Publicar branch](/assets/images/help/desktop/publish-branch-button.png)
 
-## Switching between branches
-You can view and make commits to any of your repository's branches. If you have uncommitted, saved changes, you'll need to decide what to do with your changes before you can switch branches. You can commit your changes on the current branch, stash your changes to temporarily save them on the current branch, or bring the changes to your new branch. If you want to commit your changes before switching branches, see "[Committing and reviewing changes to your project](/desktop/contributing-to-projects/committing-and-reviewing-changes-to-your-project)."
+## Alternar entre branches
+É possível exibir e fazer commits em qualquer branch do seu repositório. Se houver alterações salvas sem commit, você terá que decidir o que fazer com elas antes de poder alternar entre os branches. Você pode fazer o commit das alterações no branch atual, ocultar as suas alterações para salvá-las temporariamente no branch atual ou trazer as mudanças para seu novo branch. Caso deseje fazer commit das alterações antes de alternar branches, confira "[Como fazer commit de alterações no seu projeto e revisá-las](/desktop/contributing-to-projects/committing-and-reviewing-changes-to-your-project)".
 {% tip %}
 
-**Tip**: You can set a default behavior for switching branches in the **Advanced** settings. For more information, see "[Configuring basic settings](/desktop/getting-started-with-github-desktop/configuring-basic-settings)."
+**Dica**: você pode definir um comportamento padrão para alternar branches nas configurações **Avançadas**. Para obter mais informações, confira "[Como definir configurações básicas](/desktop/getting-started-with-github-desktop/configuring-basic-settings)".
 
 {% endtip %}
 
-{% data reusables.desktop.current-branch-menu %}
-{% data reusables.desktop.switching-between-branches %}
-  ![List of branches in the repository](/assets/images/help/desktop/select-branch-from-dropdown.png)
-3. If you have saved, uncommitted changes, choose **Leave my changes** or **Bring my changes**, then click **Switch Branch**.
-  ![Switch branch with changes options](/assets/images/help/desktop/stash-changes-options.png)
+{% data reusables.desktop.current-branch-menu %} {% data reusables.desktop.switching-between-branches %} ![Lista de branches no repositório](/assets/images/help/desktop/select-branch-from-dropdown.png)
+3. Se você tiver alterações salvas e sem commit, escolha **Manter minhas alterações** ou **Levar minhas alterações** e clique em **Alternar Branch**.
+  ![Alternar branch com opções de alterações](/assets/images/help/desktop/stash-changes-options.png)
 
-## Deleting a branch
+## Excluir um branch
 
-You can't delete a branch if it's currently associated with an open pull request. You cannot undo deleting a branch.
+Não é possível excluir um branch se ele estiver atualmente associado a uma pull request aberta. Não é possível desfazer a exclusão de um branch.
 
 {% mac %}
 
-{% data reusables.desktop.select-branch-to-delete %}
-  ![Drop-down menu to select which branch to delete](/assets/images/help/desktop/select-branch-from-dropdown.png)
-{% data reusables.desktop.delete-branch-mac %}
-  ![Delete... option in the Branch menu](/assets/images/help/desktop/delete-branch-mac.png)
+{% data reusables.desktop.select-branch-to-delete %} ![Menu suspenso usado para selecionar o branch que será excluído](/assets/images/help/desktop/select-branch-from-dropdown.png) {% data reusables.desktop.delete-branch-mac %} ![Opção Excluir… no menu Branch](/assets/images/help/desktop/delete-branch-mac.png)
 
 {% endmac %}
 
 {% windows %}
 
-{% data reusables.desktop.select-branch-to-delete %}
-  ![Drop-down menu to select which branch to delete](/assets/images/help/desktop/select-branch-from-dropdown.png)
-{% data reusables.desktop.delete-branch-win %}
-  ![Delete... option in the Branch menu](/assets/images/help/desktop/delete-branch-win.png)
+{% data reusables.desktop.select-branch-to-delete %} ![Menu suspenso usado para selecionar o branch que será excluído](/assets/images/help/desktop/select-branch-from-dropdown.png) {% data reusables.desktop.delete-branch-win %} ![Opção Excluir… no menu Branch](/assets/images/help/desktop/delete-branch-win.png)
 
 {% endwindows %}
 
-## Further reading
+## Leitura adicional
 
-- "[Cloning a repository from {% data variables.product.prodname_desktop %}](/desktop/guides/contributing-to-projects/cloning-a-repository-from-github-to-github-desktop)"
-- "[Branch](/articles/github-glossary/#branch)" in the {% data variables.product.prodname_dotcom %} glossary
-- "[About branches](/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-branches)"
-- "[Branches in a Nutshell](https://git-scm.com/book/en/v2/Git-Branching-Branches-in-a-Nutshell)" in the Git documentation
-- "[Stashing changes](/desktop/contributing-and-collaborating-using-github-desktop/stashing-changes)"
+- "[Como clonar um repositório do {% data variables.product.prodname_desktop %}](/desktop/guides/contributing-to-projects/cloning-a-repository-from-github-to-github-desktop)"
+- "[Branch](/articles/github-glossary/#branch)" no glossário do {% data variables.product.prodname_dotcom %}
+- "[Sobre os branches](/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-branches)"
+- "[Visão rápida sobre os branches](https://git-scm.com/book/en/v2/Git-Branching-Branches-in-a-Nutshell)" na documentação do Git
+- "[Como fazer stash de alterações](/desktop/contributing-and-collaborating-using-github-desktop/stashing-changes)"

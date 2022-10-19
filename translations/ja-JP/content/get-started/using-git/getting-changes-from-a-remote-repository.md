@@ -1,6 +1,6 @@
 ---
-title: Getting changes from a remote repository
-intro: You can use common Git commands to access remote repositories.
+title: リモートリポジトリから変更を取得する
+intro: 一般的な Git コマンドを使用して、リモートリポジトリにアクセスできます。
 redirect_from:
   - /articles/fetching-a-remote
   - /articles/getting-changes-from-a-remote-repository
@@ -13,75 +13,75 @@ versions:
   ghae: '*'
   ghec: '*'
 shortTitle: Get changes from a remote
+ms.openlocfilehash: 11996b33ccedea8169f472feb1804f2eed5a5d9d
+ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
+ms.translationtype: HT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 09/05/2022
+ms.locfileid: '145125790'
 ---
-## Options for getting changes
+## 変更を取得するためのオプション
 
-These commands are very useful when interacting with [a remote repository](/github/getting-started-with-github/about-remote-repositories). `clone` and `fetch` download remote code from a repository's remote URL to your local computer, `merge` is used to merge different people's work together with yours, and `pull` is a combination of `fetch` and `merge`.
+これらのコマンドは[リモート リポジトリ](/github/getting-started-with-github/about-remote-repositories)とやりとりするときに非常に便利です。 `clone` と `fetch` はリポジトリのリモート URL からローカル コンピューターにリモート コードをダウンロードし、`merge` は異なる人の作業と自分のものを一緒にマージするために使い、`pull` は `fetch` と `merge` を組み合わせたものです。
 
-## Cloning a repository
+## リポジトリをクローンする
 
-To grab a complete copy of another user's repository, use `git clone` like this:
+他のユーザーのリポジトリの完全なコピーを取得するには、`git clone` を次のように使います。
 
 ```shell
 $ git clone https://{% data variables.command_line.codeblock %}/<em>USERNAME</em>/<em>REPOSITORY</em>.git
 # Clones a repository to your computer
 ```
 
-You can choose from [several different URLs](/github/getting-started-with-github/about-remote-repositories) when cloning a repository. While logged in to {% data variables.product.prodname_dotcom %}, these URLs are available below the repository details:
+リポジトリをクローンするときに、[複数の異なる URL](/github/getting-started-with-github/about-remote-repositories) から選びます。 {% data variables.product.prodname_dotcom %}にログインした状態である間は、これらの URL はリポジトリの詳細の下に表示されます:
 
-![Remote URL list](/assets/images/help/repository/remotes-url.png)
+![リモート URL リスト](/assets/images/help/repository/remotes-url.png)
 
-When you run `git clone`, the following actions occur:
-- A new folder called `repo` is made
-- It is initialized as a Git repository
-- A remote named `origin` is created, pointing to the URL you cloned from
-- All of the repository's files and commits are downloaded there
-- The default branch is checked out
+`git clone` を実行すると、次のアクションが発生します。
+- `repo` という新しいフォルダーが作成される
+- Git リポジトリとして初期化される
+- クローン元の URL を指す `origin` という名前のリモートが作成される
+- リポジトリのファイルとコミットすべてがそこにダウンロードされる
+- デフォルトブランチがチェックアウトされる
 
-For every branch `foo` in the remote repository, a corresponding remote-tracking branch
-`refs/remotes/origin/foo` is created in your local repository. You can usually abbreviate
-such remote-tracking branch names to `origin/foo`.
+リモート リポジトリの各ブランチ `foo` について、対応するリモート追跡ブランチ `refs/remotes/origin/foo` がローカル リポジトリに作成されます。 このようなリモート追跡ブランチの名前は、通常 `origin/foo` と省略できます。
 
-## Fetching changes from a remote repository
+## リモートリポジトリから変更をフェッチする
 
-Use `git fetch` to retrieve new work done by other people. Fetching from a repository grabs all the new remote-tracking branches and tags *without* merging those changes into your own branches.
+他のユーザーが行った新しい作業を取得するには、`git fetch` を使います。 リポジトリからフェッチすると、すべての新しいリモート追跡ブランチとタグが取得され、かつ、それらの変更は自分のブランチへマージ *されません*。
 
-If you already have a local repository with a remote URL set up for the desired project, you can grab all the new information by using `git fetch *remotename*` in the terminal:
+目的のプロジェクト用にリモート URL が設定されたローカル リポジトリが既にある場合、ターミナルで `git fetch *remotename*` を使うことで、すべての新しい情報を取得できます。
 
 ```shell
 $ git fetch <em>remotename</em>
 # Fetches updates made to a remote repository
 ```
 
-Otherwise, you can always add a new remote and then fetch. For more information, see "[Managing remote repositories](/github/getting-started-with-github/managing-remote-repositories)."
+それ以外の場合は、常に新しいリモートを追加してからフェッチできます。 詳細については、「[リモート リポジトリを管理する](/github/getting-started-with-github/managing-remote-repositories)」を参照してください。
 
-## Merging changes into your local branch
+## ローカルブランチに変更をマージする
 
-Merging combines your local changes with changes made by others.
+マージとは、あなたのローカルでの変更を他のユーザによる変更と結合させる処理です。
 
-Typically, you'd merge a remote-tracking branch (i.e., a branch fetched from a remote repository) with your local branch:
+通常、リモート追跡ブランチ (リモートリポジトリからフェッチされたブランチ) をローカルのブランチとマージします。
 
 ```shell
 $ git merge <em>remotename</em>/<em>branchname</em>
 # Merges updates made online with your local work
 ```
 
-## Pulling changes from a remote repository
+## リモートリポジトリから変更をプルする
 
-`git pull` is a convenient shortcut for completing both `git fetch` and `git merge `in the same command:
+`git pull` は、`git fetch` と `git merge ` の両方を同じコマンドで完了させる便利なショートカットです。
 
 ```shell
 $ git pull <em>remotename</em> <em>branchname</em>
 # Grabs online updates and merges them with your local work
 ```
 
-Because `pull` performs a merge on the retrieved changes, you should ensure that
-your local work is committed before running the `pull` command. If you run into
-[a merge conflict](/github/collaborating-with-pull-requests/addressing-merge-conflicts/resolving-a-merge-conflict-using-the-command-line)
-you cannot resolve, or if you decide to quit the merge, you can use `git merge --abort`
-to take the branch back to where it was in before you pulled.
+`pull` は、取得された変更のマージを実行するため、`pull` コマンドの実行前にローカルの作業がコミットされていることを確認する必要があります。 [マージ コンフリクト](/github/collaborating-with-pull-requests/addressing-merge-conflicts/resolving-a-merge-conflict-using-the-command-line)が発生しても解決できない場合、またはマージを中止する場合、`git merge --abort` を使ってブランチをプルする前の状態に戻すことができます。
 
-## Further reading
+## 参考資料
 
-- ["Working with Remotes" from the _Pro Git_ book](https://git-scm.com/book/en/Git-Basics-Working-with-Remotes)"{% ifversion fpt or ghec %}
-- "[Troubleshooting connectivity problems](/articles/troubleshooting-connectivity-problems)"{% endif %}
+- _Pro Git_ ブックの「[Working with Remotes (リモートでの作業)](https://git-scm.com/book/en/Git-Basics-Working-with-Remotes)」{% ifversion fpt or ghec %}
+- 「[Troubleshooting connectivity problems (接続問題のトラブルシューティング)](/articles/troubleshooting-connectivity-problems)」{% endif %}

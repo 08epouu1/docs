@@ -1,6 +1,6 @@
 ---
-title: Building and testing Node.js
-intro: You can create a continuous integration (CI) workflow to build and test your Node.js project.
+title: Node.js のビルドとテスト
+intro: Node.jsプロジェクトのビルドとテストのための継続的インテグレーション（CI）ワークフローを作成できます。
 redirect_from:
   - /actions/automating-your-workflow-with-github-actions/using-nodejs-with-github-actions
   - /actions/language-and-framework-guides/using-nodejs-with-github-actions
@@ -11,38 +11,39 @@ versions:
   ghae: '*'
   ghec: '*'
 type: tutorial
-hidden: true
 topics:
   - CI
   - Node
   - JavaScript
 shortTitle: Build & test Node.js
-hasExperimentalAlternative: true
+ms.openlocfilehash: 25e44f1454387a84dd198ea9998d1ebc2f94cfe7
+ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
+ms.translationtype: HT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 09/05/2022
+ms.locfileid: '146179024'
 ---
+{% data reusables.actions.enterprise-beta %} {% data reusables.actions.enterprise-github-hosted-runners %}
 
-{% data reusables.actions.enterprise-beta %}
-{% data reusables.actions.enterprise-github-hosted-runners %}
+## はじめに
 
-## Introduction
+このガイドでは、Node.jsのコードのビルドとテストを行う継続的インテグレーション（CI）ワークフローの作成方法を紹介します。 CIテストにパスしたなら、コードをデプロイしたりパッケージを公開したりすることになるでしょう。
 
-This guide shows you how to create a continuous integration (CI) workflow that builds and tests Node.js code. If your CI tests pass, you may want to deploy your code or publish a package.
+## 前提条件
 
-## Prerequisites
+Node.js、YAML、ワークフローの設定オプションと、ワークフローファイルの作成方法についての基本的な知識を持っておくことをおすすめします。 詳細については、次を参照してください。
 
-We recommend that you have a basic understanding of Node.js, YAML, workflow configuration options, and how to create a workflow file. For more information, see:
-
-- "[Learn {% data variables.product.prodname_actions %}](/actions/learn-github-actions)"
-- "[Getting started with Node.js](https://nodejs.org/en/docs/guides/getting-started-guide/)"
+- "[{% data variables.product.prodname_actions %} について](/actions/learn-github-actions)"
+- "[Node.js の使用を開始する](https://nodejs.org/en/docs/guides/getting-started-guide/)"
 
 {% data reusables.actions.enterprise-setup-prereq %}
 
-## Starting with the Node.js workflow template
+## Node.js スターター ワークフローの使用
 
-{% data variables.product.prodname_dotcom %} provides a Node.js workflow template that will work for most Node.js projects. This guide includes npm and Yarn examples that you can use to customize the template. For more information, see the [Node.js workflow template](https://github.com/actions/starter-workflows/blob/main/ci/node.js.yml).
+{% data variables.product.prodname_dotcom %} では、ほとんどの Node.js プロジェクトで使用できる Node.js のスターター ワークフローを提供しています。 このガイドには、スターター ワークフローをカスタマイズして利用できる npm および Yarn の例が含まれます。 詳細については、[Node.js のスターター ワークフロー](https://github.com/actions/starter-workflows/blob/main/ci/node.js.yml)に関するページを参照してください。
 
-To get started quickly, add the template to the `.github/workflows` directory of your repository. The workflow shown below assumes that the default branch for your repository is `main`.
+すぐに作業を開始するには、リポジトリの `.github/workflows` ディレクトリにスターター ワークフローを追加します。 以下に示すワークフローは、リポジトリのデフォルトブランチが `main` であることを前提としています。
 
-{% raw %}
 ```yaml{:copy}
 name: Node.js CI
 
@@ -62,45 +63,42 @@ jobs:
         node-version: [10.x, 12.x, 14.x, 15.x]
 
     steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+      - uses: {% data reusables.actions.action-checkout %}
+      - name: Use Node.js {% raw %}${{ matrix.node-version }}{% endraw %}
+        uses: {% data reusables.actions.action-setup-node %}
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: {% raw %}${{ matrix.node-version }}{% endraw %}
       - run: npm ci
       - run: npm run build --if-present
       - run: npm test
 ```
-{% endraw %}
 
-{% data reusables.github-actions.example-github-runner %}
+{% data reusables.actions.example-github-runner %}
 
-## Specifying the Node.js version
+## Node.jsのバージョンの指定
 
-The easiest way to specify a Node.js version is by using the `setup-node` action provided by {% data variables.product.prodname_dotcom %}. For more information see, [`setup-node`](https://github.com/actions/setup-node/).
+最も簡単に Node.js のバージョンを指定する方法は、{% data variables.product.prodname_dotcom %} によって提供される `setup-node` アクションを使用することです。 詳細については、[`setup-node`](https://github.com/actions/setup-node/) に関するページを参照してください。
 
-The `setup-node` action takes a Node.js version as an input and configures that version on the runner. The `setup-node` action finds a specific version of Node.js from the tools cache on each runner and adds the necessary binaries to `PATH`, which persists for the rest of the job. Using the `setup-node` action is the recommended way of using Node.js with {% data variables.product.prodname_actions %} because it ensures consistent behavior across different runners and different versions of Node.js. If you are using a self-hosted runner, you must install Node.js and add it to `PATH`.
+`setup-node` アクションでは Node.js のバージョンを入力として取り、ランナー上でそのバージョンを構成します。 `setup-node` アクションでは、各ランナーのツール キャッシュから特定のバージョンの Node.js を見つけ、必要なバイナリを `PATH` に追加します。これは、残りのジョブで永続化されます。 `setup-node` アクションを利用することは、{% data variables.product.prodname_actions %} で Node.js を使用するための推奨される方法です。そうすることで様々なランナーや様々なバージョンの Node.js で一貫した動作が保証されるのです。 セルフホスト ランナーを使用している場合は、Node.js をインストールし、それを `PATH` に追加する必要があります。
 
-The template includes a matrix strategy that builds and tests your code with four Node.js versions: 10.x, 12.x, 14.x, and 15.x. The 'x' is a wildcard character that matches the latest minor and patch release available for a version. Each version of Node.js specified in the `node-version` array creates a job that runs the same steps.
+スターター ワークフローには、4 つの Node.js バージョン (10.x、12.x、14.x、および 15.x) を使用してコードをビルドおよびテストするマトリックス戦略が含まれています。 この'x'はワイルドカードキャラクターで、そのバージョンで利用できる最新のマイナー及びパッチリリースにマッチします。 `node-version` 配列で指定された Node.js の各バージョンに対して、同じステップを実行するジョブが作成されます。
 
-Each job can access the value defined in the matrix `node-version` array using the `matrix` context. The `setup-node` action uses the context as the `node-version` input. The `setup-node` action configures each job with a different Node.js version before building and testing code. For more information about matrix strategies and contexts, see "[Workflow syntax for {% data variables.product.prodname_actions %}](/actions/automating-your-workflow-with-github-actions/workflow-syntax-for-github-actions#jobsjob_idstrategymatrix)" and "[Contexts](/actions/learn-github-actions/contexts)."
+各ジョブでは、`matrix` コンテキストを使用してマトリックス `node-version` 配列で定義された値にアクセスできます。 `setup-node` アクションでは、コンテキストが `node-version` 入力として使用されます。 `setup-node` アクションでは、コードのビルドとテストに先立って、様々な Node.js のバージョンで各ジョブを設定します。 マトリックスの戦略とコンテキストの詳細については、"[{% data variables.product.prodname_actions %} のワークフロー構文](/actions/automating-your-workflow-with-github-actions/workflow-syntax-for-github-actions#jobsjob_idstrategymatrix)" および "[コンテキスト](/actions/learn-github-actions/contexts)" に関するページを参照してください。
 
-{% raw %}
 ```yaml{:copy}
 strategy:
   matrix:
     node-version: [10.x, 12.x, 14.x, 15.x]
 
 steps:
-- uses: actions/checkout@v2
-- name: Use Node.js ${{ matrix.node-version }}
-  uses: actions/setup-node@v2
+- uses: {% data reusables.actions.action-checkout %}
+- name: Use Node.js {% raw %}${{ matrix.node-version }}{% endraw %}
+  uses: {% data reusables.actions.action-setup-node %}
   with:
-    node-version: ${{ matrix.node-version }}
+    node-version: {% raw %}${{ matrix.node-version }}{% endraw %}
 ```
-{% endraw %}
 
-Alternatively, you can build and test with exact Node.js versions.
+あるいは、厳密にNode.jsバージョンを指定してビルドとテストを行うこともできます。
 
 ```yaml{:copy}
 strategy:
@@ -108,9 +106,8 @@ strategy:
     node-version: [8.16.2, 10.17.0]
 ```
 
-Or, you can build and test using a single version of Node.js too.
+または、Node.jsの1つのバージョンを使ってビルドとテストを行うこともできます。
 
-{% raw %}
 ```yaml{:copy}
 name: Node.js CI
 
@@ -122,102 +119,97 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: {% data reusables.actions.action-checkout %}
       - name: Use Node.js
-        uses: actions/setup-node@v2
+        uses: {% data reusables.actions.action-setup-node %}
         with:
           node-version: '12.x'
       - run: npm ci
       - run: npm run build --if-present
       - run: npm test
 ```
-{% endraw %}
 
-If you don't specify a Node.js version, {% data variables.product.prodname_dotcom %} uses the environment's default Node.js version.
-{% ifversion ghae %} {% data reusables.actions.self-hosted-runners-software %}
-{% else %} For more information, see "[Specifications for {% data variables.product.prodname_dotcom %}-hosted runners](/actions/reference/specifications-for-github-hosted-runners/#supported-software)".
+Node.jsのバージョンを指定しなかった場合、{% data variables.product.prodname_dotcom %}は環境のデフォルトのNode.jsのバージョンを使います。
+{% ifversion ghae %} {% data reusables.actions.self-hosted-runners-software %} {% else %} 詳細については、"[{% data variables.product.prodname_dotcom %}-hosted runners の仕様](/actions/reference/specifications-for-github-hosted-runners/#supported-software)" に関するページを参照してください。
 {% endif %}
 
-## Installing dependencies
+## 依存関係のインストール
 
-{% data variables.product.prodname_dotcom %}-hosted runners have npm and Yarn dependency managers installed. You can use npm and Yarn to install dependencies in your workflow before building and testing your code. The Windows and Linux {% data variables.product.prodname_dotcom %}-hosted runners also have Grunt, Gulp, and Bower installed.
+{% data variables.product.prodname_dotcom %}ホストランナーには、依存関係マネージャーのnpmとYarnがインストールされています。 コードのビルドとテストに先立って、npmやYarnを使ってワークフロー中で依存関係をインストールできます。 Windows及びLinuxの{% data variables.product.prodname_dotcom %}ホストランナーには、Grunt、Gulp、Bowerもインストールされています。
 
-When using {% data variables.product.prodname_dotcom %}-hosted runners, you can also cache dependencies to speed up your workflow. For more information, see "<a href="/actions/guides/caching-dependencies-to-speed-up-workflows" class="dotcom-only">Caching dependencies to speed up workflows</a>."
+{% ifversion actions-caching %}ワークフローの速度を上げるために、依存関係をキャッシュすることもできます。 詳細については、「[依存関係をキャッシュしてワークフローのスピードを上げる](/actions/using-workflows/caching-dependencies-to-speed-up-workflows)」を参照してください。{% endif %}
 
-### Example using npm
+### npmの利用例
 
-This example installs the dependencies defined in the *package.json* file. For more information, see [`npm install`](https://docs.npmjs.com/cli/install).
+以下の例では、*package.json* ファイルで定義された依存関係がインストールされます。 詳細については、「[`npm install`](https://docs.npmjs.com/cli/install)」を参照してください。
 
 ```yaml{:copy}
 steps:
-- uses: actions/checkout@v2
+- uses: {% data reusables.actions.action-checkout %}
 - name: Use Node.js
-  uses: actions/setup-node@v2
+  uses: {% data reusables.actions.action-setup-node %}
   with:
     node-version: '12.x'
 - name: Install dependencies
   run: npm install
 ```
 
-Using `npm ci` installs the versions in the *package-lock.json* or *npm-shrinkwrap.json* file and prevents updates to the lock file. Using `npm ci` is generally faster than running `npm install`. For more information, see [`npm ci`](https://docs.npmjs.com/cli/ci.html) and "[Introducing `npm ci` for faster, more reliable builds](https://blog.npmjs.org/post/171556855892/introducing-npm-ci-for-faster-more-reliable)."
+`npm ci` を使用すると、該当するバージョンが *package-lock.json* または *npm-shrinkwrap.json* ファイルにインストールされ、ロック ファイルが更新されなくなります。 `npm ci` を使用する方法は一般に `npm install` を実行する方法よりも高速です。 詳細については、[「`npm ci`」](https://docs.npmjs.com/cli/ci.html) および「[より高速で信頼性の高いビルドのための `npm ci` の導入](https://blog.npmjs.org/post/171556855892/introducing-npm-ci-for-faster-more-reliable)」を参照してください。
 
-{% raw %}
 ```yaml{:copy}
 steps:
-- uses: actions/checkout@v2
+- uses: {% data reusables.actions.action-checkout %}
 - name: Use Node.js
-  uses: actions/setup-node@v2
+  uses: {% data reusables.actions.action-setup-node %}
   with:
     node-version: '12.x'
 - name: Install dependencies
   run: npm ci
 ```
-{% endraw %}
 
-### Example using Yarn
+### Yarnの利用例
 
-This example installs the dependencies defined in the *package.json* file. For more information, see [`yarn install`](https://yarnpkg.com/en/docs/cli/install).
+以下の例では、*package.json* ファイルで定義された依存関係がインストールされます。 詳細については、「[`yarn install`](https://yarnpkg.com/en/docs/cli/install)」を参照してください。
 
 ```yaml{:copy}
 steps:
-- uses: actions/checkout@v2
+- uses: {% data reusables.actions.action-checkout %}
 - name: Use Node.js
-  uses: actions/setup-node@v2
+  uses: {% data reusables.actions.action-setup-node %}
   with:
     node-version: '12.x'
 - name: Install dependencies
   run: yarn
 ```
 
-Alternatively, you can pass `--frozen-lockfile` to install the versions in the *yarn.lock* file and prevent updates to the *yarn.lock* file.
+または、`--frozen-lockfile` を渡して該当するバージョンを `yarn.lock` ファイルにインストールし、`yarn.lock` ファイルが更新されないようにすることもできます。
 
 ```yaml{:copy}
 steps:
-- uses: actions/checkout@v2
+- uses: {% data reusables.actions.action-checkout %}
 - name: Use Node.js
-  uses: actions/setup-node@v2
+  uses: {% data reusables.actions.action-setup-node %}
   with:
     node-version: '12.x'
 - name: Install dependencies
   run: yarn --frozen-lockfile
 ```
 
-### Example using a private registry and creating the .npmrc file
+### プライベートレジストリの利用と.npmrcファイルの作成の例
 
-{% data reusables.github-actions.setup-node-intro %}
+{% data reusables.actions.setup-node-intro %}
 
-To authenticate to your private registry, you'll need to store your npm authentication token as a secret. For example, create a repository secret called `NPM_TOKEN`. For more information, see "[Creating and using encrypted secrets](/actions/automating-your-workflow-with-github-actions/creating-and-using-encrypted-secrets)."
+プライベートレジストリに対して認証するには、npm 認証トークンをシークレットとして保存する必要があります。 たとえば、`NPM_TOKEN` というリポジトリ シークレットを作成します。 詳細については、「[暗号化されたシークレットの作成と使用](/actions/automating-your-workflow-with-github-actions/creating-and-using-encrypted-secrets)」を参照してください。
 
-In the example below, the secret `NPM_TOKEN` stores the npm authentication token. The `setup-node` action configures the *.npmrc* file to read the npm authentication token from the `NODE_AUTH_TOKEN` environment variable. When using the `setup-node` action to create an *.npmrc* file, you must set the `NODE_AUTH_TOKEN` environment variable with the secret that contains your npm authentication token.
+以下の例では、`NPM_TOKEN` というシークレットには npm の認証トークンが保存されます。 `setup-node` アクションでは、`NODE_AUTH_TOKEN` 環境変数から npm 認証トークンを読み取るように、 *.npmrc* ファイルを構成します。 `setup-node` アクションを使用して *.npmrc* ファイルを作成する場合は、npm 認証トークンを含むシークレットを使用して `NODE_AUTH_TOKEN` 環境変数を設定する必要があります。
 
-Before installing dependencies, use the `setup-node` action to create the *.npmrc* file. The action has two input parameters. The `node-version` parameter sets the Node.js version, and the `registry-url` parameter sets the default registry. If your package registry uses scopes, you must use the `scope` parameter. For more information, see [`npm-scope`](https://docs.npmjs.com/misc/scope).
+依存関係をインストールする前に、`setup-node` アクションを使用して *.npmrc* ファイルを作成します。 このアクションには2つの入力パラメーターがあります。 `node-version` パラメーターによって、Node.js のバージョンが設定され、`registry-url` パラメーターによって既定のレジストリーが設定されます。 パッケージ レジストリでスコープが使用されている場合は、`scope` パラメーターを使用する必要があります。 詳細については、「[`npm-scope`](https://docs.npmjs.com/misc/scope)」を参照してください。
 
-{% raw %}
 ```yaml{:copy}
 steps:
-- uses: actions/checkout@v2
+- uses: {% data reusables.actions.action-checkout %}
 - name: Use Node.js
-  uses: actions/setup-node@v2
+  uses: {% data reusables.actions.action-setup-node %}
   with:
     always-auth: true
     node-version: '12.x'
@@ -226,11 +218,10 @@ steps:
 - name: Install dependencies
   run: npm ci
   env:
-    NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+    NODE_AUTH_TOKEN: {% raw %}${{ secrets.NPM_TOKEN }}{% endraw %}
 ```
-{% endraw %}
 
-The example above creates an *.npmrc* file with the following contents:
+上の例では、以下の内容で *.npmrc* ファイルを作成しています。
 
 ```ini
 //registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}
@@ -238,15 +229,18 @@ The example above creates an *.npmrc* file with the following contents:
 always-auth=true
 ```
 
-### Example caching dependencies
+{% ifversion actions-caching %}
 
-When using {% data variables.product.prodname_dotcom %}-hosted runners, you can cache and restore the dependencies using the [`setup-node` action](https://github.com/actions/setup-node).
+### 依存関係のキャッシングの例
 
-The following example caches dependencies for npm.
+[`setup-node`アクション](https://github.com/actions/setup-node)を使用して依存関係をキャッシュおよび復元できます。
+
+次の例では npm の依存関係をキャッシュします。
+
 ```yaml{:copy}
 steps:
-- uses: actions/checkout@v2
-- uses: actions/setup-node@v2
+- uses: {% data reusables.actions.action-checkout %}
+- uses: {% data reusables.actions.action-setup-node %}
   with:
     node-version: '14'
     cache: 'npm'
@@ -254,12 +248,12 @@ steps:
 - run: npm test
 ```
 
-The following example caches dependencies for Yarn.
+次の例では Yarn の依存関係をキャッシュします。
 
 ```yaml{:copy}
 steps:
-- uses: actions/checkout@v2
-- uses: actions/setup-node@v2
+- uses: {% data reusables.actions.action-checkout %}
+- uses: {% data reusables.actions.action-setup-node %}
   with:
     node-version: '14'
     cache: 'yarn'
@@ -267,7 +261,7 @@ steps:
 - run: yarn test
 ```
 
-The following example caches dependencies for pnpm (v6.10+).
+次の例では pnpm (v6.10+) の依存関係をキャッシュします。
 
 ```yaml{:copy}
 {% data reusables.actions.actions-not-certified-by-github-comment %}
@@ -275,11 +269,11 @@ The following example caches dependencies for pnpm (v6.10+).
 # NOTE: pnpm caching support requires pnpm version >= 6.10.0
 
 steps:
-- uses: actions/checkout@v2
+- uses: {% data reusables.actions.action-checkout %}
 - uses: pnpm/action-setup@646cdf48217256a3d0b80361c5a50727664284f2
   with:
     version: 6.10.0
-- uses: actions/setup-node@v2
+- uses: {% data reusables.actions.action-setup-node %}
   with:
     node-version: '14'
     cache: 'pnpm'
@@ -287,17 +281,19 @@ steps:
 - run: pnpm test
 ```
 
-If you have a custom requirement or need finer controls for caching, you can use the [`cache` action](https://github.com/marketplace/actions/cache). For more information, see "<a href="/actions/guides/caching-dependencies-to-speed-up-workflows" class="dotcom-only">Caching dependencies to speed up workflows</a>".
+カスタム要件がある場合、またはキャッシュに対してより細かい制御が必要な場合は、[`cache` アクション](https://github.com/marketplace/actions/cache)を使用できます。 詳細については、「[ワークフローを高速化するための依存関係のキャッシュ](/actions/using-workflows/caching-dependencies-to-speed-up-workflows)」を参照してください。
 
-## Building and testing your code
+{% endif %}
 
-You can use the same commands that you use locally to build and test your code. For example, if you run `npm run build` to run build steps defined in your *package.json* file and `npm test` to run your test suite, you would add those commands in your workflow file.
+## コードのビルドとテスト
+
+ローカルで使うのと同じコマンドを、コードのビルドとテストに使えます。 たとえば、`npm run build` を実行することで、*package.json* ファイルで定義されたビルド ステップを実行し、さらに `npm test` を実行することでテスト スイートを実行する場合は、それらのコマンドをワークフロー ファイルに追加します。
 
 ```yaml{:copy}
 steps:
-- uses: actions/checkout@v2
+- uses: {% data reusables.actions.action-checkout %}
 - name: Use Node.js
-  uses: actions/setup-node@v2
+  uses: {% data reusables.actions.action-setup-node %}
   with:
     node-version: '12.x'
 - run: npm install
@@ -305,10 +301,10 @@ steps:
 - run: npm test
 ```
 
-## Packaging workflow data as artifacts
+## 成果物としてのワークフローのデータのパッケージ化
 
-You can save artifacts from your build and test steps to view after a job completes. For example, you may need to save log files, core dumps, test results, or screenshots. For more information, see "[Persisting workflow data using artifacts](/actions/automating-your-workflow-with-github-actions/persisting-workflow-data-using-artifacts)."
+ビルドとテストのステップの成果物を保存し、ジョブの完了後に見ることができます。 たとえば、ログファイル、コアダンプ、テスト結果、スクリーンショットを保存する必要があるかもしれません。 詳細については、「[アーティファクトを使用してワークフロー データを永続化する](/actions/automating-your-workflow-with-github-actions/persisting-workflow-data-using-artifacts)」を参照してください。
 
-## Publishing to package registries
+## パッケージレジストリへの公開
 
-You can configure your workflow to publish your Node.js package to a package registry after your CI tests pass. For more information about publishing to npm and {% data variables.product.prodname_registry %}, see "[Publishing Node.js packages](/actions/automating-your-workflow-with-github-actions/publishing-nodejs-packages)."
+CIテストにパスした後、Node.jsパッケージをパッケージレジストリに公開するようにワークフローを設定できます。 npm および {% data variables.product.prodname_registry %} への発行の詳細については、「[Node.js パッケージの公開](/actions/automating-your-workflow-with-github-actions/publishing-nodejs-packages)」を参照してください。

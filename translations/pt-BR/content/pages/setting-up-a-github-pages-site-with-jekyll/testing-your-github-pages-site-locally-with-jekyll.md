@@ -1,6 +1,6 @@
 ---
-title: Testing your GitHub Pages site locally with Jekyll
-intro: 'You can build your {% data variables.product.prodname_pages %} site locally to preview and test changes to your site.'
+title: Testar o site do GitHub Pages localmente com o Jekyll
+intro: 'Você pode criar o site do {% data variables.product.prodname_pages %} localmente para visualizar e testar as alterações nele.'
 redirect_from:
   - /articles/setting-up-your-pages-site-locally-with-jekyll
   - /articles/setting-up-your-github-pages-site-locally-with-jekyll
@@ -15,26 +15,30 @@ versions:
 topics:
   - Pages
 shortTitle: Test site locally with Jekyll
+ms.openlocfilehash: 68123d7bc2849881fc60fdd89dc4177e6701f5d4
+ms.sourcegitcommit: ac00e2afa6160341c5b258d73539869720b395a4
+ms.translationtype: HT
+ms.contentlocale: pt-BR
+ms.lasthandoff: 09/09/2022
+ms.locfileid: '147875528'
 ---
+Qualquer pessoa com permissões de leitura para um repositório pode testar um site do {% data variables.product.prodname_pages %} localmente.
 
-Anyone with read permissions for a repository can test a {% data variables.product.prodname_pages %} site locally.
+## Pré-requisitos
 
-## Prerequisites
-
-Before you can use Jekyll to test a site, you must:
-  - Install [Jekyll](https://jekyllrb.com/docs/installation/).
-  - Create a Jekyll site. For more information, see "[Creating a {% data variables.product.prodname_pages %} site with Jekyll](/articles/creating-a-github-pages-site-with-jekyll)."
+Antes de usar o Jekyll para testar um site, você deve:
+  - Instalar o [Jekyll](https://jekyllrb.com/docs/installation/).
+  - Criar um site do Jekyll. Para obter mais informações, confira "[Como criar um site do {% data variables.product.prodname_pages %} com o Jekyll](/articles/creating-a-github-pages-site-with-jekyll)".
 
 {% data reusables.pages.recommend-bundler %}
 
 {% data reusables.pages.jekyll-install-troubleshooting %}
 
-## Building your site locally
+## Criar site localmente
 
-{% data reusables.command_line.open_the_multi_os_terminal %}
-{% data reusables.pages.navigate-publishing-source %}
-3. Run `bundle install`.
-3. Run your Jekyll site locally.
+{% data reusables.command_line.open_the_multi_os_terminal %} {% data reusables.pages.navigate-publishing-source %}
+3. Execute `bundle install`.
+3. Execute o site do Jekyll localmente.
   ```shell
   $ bundle exec jekyll serve
   > Configuration file: /Users/octocat/my-site/_config.yml
@@ -48,17 +52,23 @@ Before you can use Jekyll to test a site, you must:
   >    Server address: http://127.0.0.1:4000/
   >  Server running... press ctrl-c to stop.
   ```
-3. To preview your site, in your web browser, navigate to `http://localhost:4000`.
+3. Para visualizar seu site, no navegador da Web, navegue até `http://localhost:4000`.
 
-## Updating the {% data variables.product.prodname_pages %} gem
+{% note %}
 
-Jekyll is an active open source project that is updated frequently. If the `github-pages` gem on your computer is out of date with the `github-pages` gem on the {% data variables.product.prodname_pages %} server, your site may look different when built locally than when published on {% data variables.product.product_name %}. To avoid this, regularly update the `github-pages` gem on your computer.
+**Observação:** se você estiver usando o Ruby 3.0 e o Jekyll 4.2.x ou uma versão mais antiga, precisará adicionar o gem `webrick` ao Gemfile do projeto antes de executar `bundle install`.
+
+{% endnote %}
+
+## Atualizar o gem do {% data variables.product.prodname_pages %}
+
+O Jekyll é um projeto ativo de código aberto que é atualizado com frequência. Se o gem `github-pages` do computador estiver desatualizado com o gem `github-pages` do servidor do {% data variables.product.prodname_pages %}, seu site poderá parecer diferente quando criado localmente do que quando publicado no {% data variables.product.product_name %}. Para evitar isso, atualize regularmente o gem `github-pages` do computador.
 
 {% data reusables.command_line.open_the_multi_os_terminal %}
-2. Update the `github-pages` gem.
-    - If you installed Bundler, run `bundle update github-pages`.
-    - If you don't have Bundler installed, run `gem update github-pages`.
+2. Atualize o gem `github-pages`.
+    - Se você instalou o Bundler, execute `bundle update github-pages`.
+    - Se você não tiver o Bundler instalado, execute `gem update github-pages`.
 
-## Further reading
+## Leitura adicional
 
-- [{% data variables.product.prodname_pages %}](http://jekyllrb.com/docs/github-pages/) in the Jekyll documentation
+- [{% data variables.product.prodname_pages %}](http://jekyllrb.com/docs/github-pages/) na documentação do Jekyll

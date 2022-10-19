@@ -1,6 +1,6 @@
 ---
-title: Defining the mergeability of pull requests
-intro: 'You can require pull requests to pass a set of checks before they can be merged. For example, you can block pull requests that don''t pass status checks or require that pull requests have a specific number of approving reviews before they can be merged.'
+title: 定义拉取请求的可合并性
+intro: 您可以要求拉取请求在可以合并之前先通过一组检查。 例如，您可以阻止未通过状态检查的拉取请求，或要求拉取请求在获得特定数量的批准审查之后才可合并。
 redirect_from:
   - /articles/defining-the-mergeability-of-a-pull-request
   - /articles/defining-the-mergeability-of-pull-requests
@@ -19,5 +19,11 @@ children:
   - /managing-a-branch-protection-rule
   - /troubleshooting-required-status-checks
 shortTitle: Mergeability of PRs
+ms.openlocfilehash: 4f3f4de6c136710ba2689b22e6def8c7d8de859c
+ms.sourcegitcommit: 5f9527483381cfb1e41f2322f67c80554750a47d
+ms.translationtype: HT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 09/11/2022
+ms.locfileid: '147882423'
 ---
 

@@ -1,6 +1,6 @@
 ---
-title: Installing an Apple certificate on macOS runners for Xcode development
-intro: 'You can sign Xcode apps within your continuous integration (CI) workflow by installing an Apple code signing certificate on {% data variables.product.prodname_actions %} runners.'
+title: Instalar um certificado da Apple em executores do macOS para desenvolvimento do Xcode
+intro: 'Você pode assinar aplicativos Xcode na sua integração contínua (CI) instalando um certificado de assinatura de código da Apple nos executores de {% data variables.product.prodname_actions %}.'
 redirect_from:
   - /actions/guides/installing-an-apple-certificate-on-macos-runners-for-xcode-development
   - /actions/deployment/installing-an-apple-certificate-on-macos-runners-for-xcode-development
@@ -14,67 +14,70 @@ topics:
   - CI
   - Xcode
 shortTitle: Sign Xcode applications
+ms.openlocfilehash: 47c534db1e16595af4735362c524f673376b53fe
+ms.sourcegitcommit: fcf3546b7cc208155fb8acdf68b81be28afc3d2d
+ms.translationtype: HT
+ms.contentlocale: pt-BR
+ms.lasthandoff: 09/10/2022
+ms.locfileid: '145084173'
 ---
+{% data reusables.actions.enterprise-beta %} {% data reusables.actions.enterprise-github-hosted-runners %}
 
-{% data reusables.actions.enterprise-beta %}
-{% data reusables.actions.enterprise-github-hosted-runners %}
+## Introdução
 
-## Introduction
+Este guia mostra como adicionar uma etapa ao fluxo de trabalho de integração contínua (CI) que instala um certificado de assinatura de código da Apple e o perfil de provisionamento em executores de {% data variables.product.prodname_actions %}. Isso permitirá que você assine seus aplicativos Xcode para publicar na Apple App Store ou distribuí-los para testar grupos.
 
-This guide shows you how to add a step to your continuous integration (CI) workflow that installs an Apple code signing certificate and provisioning profile on {% data variables.product.prodname_actions %} runners. This will allow you to sign your Xcode apps for publishing to the Apple App Store, or distributing it to test groups.
+## Pré-requisitos
 
-## Prerequisites
+Você deve estar familiarizado com o YAML e a sintaxe do {% data variables.product.prodname_actions %}. Para obter mais informações, consulte:
 
-You should be familiar with YAML and the syntax for {% data variables.product.prodname_actions %}. For more information, see:
+- "[Aprenda a usar o {% data variables.product.prodname_actions %}](/actions/learn-github-actions)"
+- "[Sintaxe de fluxo de trabalho do {% data variables.product.prodname_actions %}](/actions/automating-your-workflow-with-github-actions/workflow-syntax-for-github-actions)"
 
-- "[Learn {% data variables.product.prodname_actions %}](/actions/learn-github-actions)"
-- "[Workflow syntax for {% data variables.product.prodname_actions %}](/actions/automating-your-workflow-with-github-actions/workflow-syntax-for-github-actions)"
+Você deve ter um entendimento de criação e assinatura do aplicativo Xcode. Para obter mais informações, confira a [documentação de desenvolvedor da Apple](https://developer.apple.com/documentation/).
 
-You should have an understanding of Xcode app building and signing. For more information, see the [Apple developer documentation](https://developer.apple.com/documentation/).
+## Criar segredos para seu certificado e perfil de provisionamento
 
-## Creating secrets for your certificate and provisioning profile
+O processo de assinatura envolve o armazenamento de certificados e provisionamento de perfis, transferindo-os para o executor, importando-os para a keychain e usando-os na sua compilação.
 
-The signing process involves storing certificates and provisioning profiles, transferring them to the runner, importing them to the runner's keychain, and using them in your build.
+Para usar seu certificado e perfil de provisionamento em um executor, é altamente recomendado que você use segredos de {% data variables.product.prodname_dotcom %}. Para obter mais informações sobre como criar segredos e usá-los em um fluxo de trabalho, confira "[Segredos criptografados](/actions/reference/encrypted-secrets)".
 
-To use your certificate and provisioning profile on a runner, we strongly recommend that you use {% data variables.product.prodname_dotcom %} secrets. For more information on creating secrets and using them in a workflow, see "[Encrypted secrets](/actions/reference/encrypted-secrets)."
+Crie segredos no seu repositório ou organização para os seguintes itens:
 
-Create secrets in your repository or organization for the following items:
+* Seu certificado de assinatura Apple.
 
-* Your Apple signing certificate.
-
-  - This is your `p12` certificate file. For more information on exporting your signing certificate from Xcode, see the [Xcode documentation](https://help.apple.com/xcode/mac/current/#/dev154b28f09).
+  - Esse é o arquivo de certificado `p12`. Para obter mais informações sobre como exportar seu certificado de autenticação do Xcode, confira a [documentação do Xcode](https://help.apple.com/xcode/mac/current/#/dev154b28f09).
   
-  - You should convert your certificate to Base64 when saving it as a secret. In this example, the secret is named `BUILD_CERTIFICATE_BASE64`.
+  - Você deve converter seu certificado em Base64 ao salvá-lo como um segredo. Neste exemplo, o segredo é chamado `BUILD_CERTIFICATE_BASE64`.
 
-  - Use the following command to convert your certificate to Base64 and copy it to your clipboard:
+  - Use o comando a seguir para converter seu certificado para Base64 e copiá-lo para a sua área de transferência:
 
     ```shell
     base64 <em>build_certificate</em>.p12 | pbcopy
     ```
-* The password for your Apple signing certificate.
-  - In this example, the secret is named `P12_PASSWORD`.
+* A senha para seu certificado de assinatura da Apple.
+  - Neste exemplo, o segredo é chamado `P12_PASSWORD`.
 
-* Your Apple provisioning profile.
+* O seu perfil de provisionamento da Apple.
 
-  - For more information on exporting your provisioning profile from Xcode, see the [Xcode documentation](https://help.apple.com/xcode/mac/current/#/deva899b4fe5).
+  - Para obter mais informações sobre como exportar seu perfil de provisionamento do Xcode, confira a [documentação do Xcode](https://help.apple.com/xcode/mac/current/#/deva899b4fe5).
 
-  - You should convert your provisioning profile to Base64 when saving it as a secret. In this example, the secret is named `BUILD_PROVISION_PROFILE_BASE64`.
+  - Você deve converter o seu perfil de provisionamento para Base64 ao salvá-lo como segredo. Neste exemplo, o segredo é chamado `BUILD_PROVISION_PROFILE_BASE64`.
 
-  - Use the following command to convert your provisioning profile to Base64 and copy it to your clipboard:
+  - Use o comando a seguir para converter o seu perfil de provisionamento para Base64 e copiá-lo para a sua área de transferência:
   
     ```shell
     base64 <em>provisioning_profile.mobileprovision</em> | pbcopy
     ```
 
-* A keychain password.
+* Uma senha da keychain.
 
-  - A new keychain will be created on the runner, so the password for the new keychain can be any new random string. In this example, the secret is named `KEYCHAIN_PASSWORD`.
+  - Uma nova keychain será criada no executo. Portanto, a senha para a nova keychain pode ser qualquer nova string aleatória. Neste exemplo, o segredo é chamado `KEYCHAIN_PASSWORD`.
 
-## Add a step to your workflow
+## Adicionar uma etapa ao seu fluxo de trabalho
 
-This example workflow includes a step that imports the Apple certificate and provisioning profile from the {% data variables.product.prodname_dotcom %} secrets, and installs them on the runner.
+Este fluxo de trabalho de exemplo inclui uma etapa que importa o certificado da Apple e o perfil de provisionamento dos segredos de {% data variables.product.prodname_dotcom %} e os instala no executor.
 
-{% raw %}
 ```yaml{:copy}
 name: App build
 on: push
@@ -85,13 +88,13 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: {% data reusables.actions.action-checkout %}
       - name: Install the Apple certificate and provisioning profile
         env:
-          BUILD_CERTIFICATE_BASE64: ${{ secrets.BUILD_CERTIFICATE_BASE64 }}
-          P12_PASSWORD: ${{ secrets.P12_PASSWORD }}
-          BUILD_PROVISION_PROFILE_BASE64: ${{ secrets.BUILD_PROVISION_PROFILE_BASE64 }}
-          KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
+          BUILD_CERTIFICATE_BASE64: {% raw %}${{ secrets.BUILD_CERTIFICATE_BASE64 }}{% endraw %}
+          P12_PASSWORD: {% raw %}${{ secrets.P12_PASSWORD }}{% endraw %}
+          BUILD_PROVISION_PROFILE_BASE64: {% raw %}${{ secrets.BUILD_PROVISION_PROFILE_BASE64 }}{% endraw %}
+          KEYCHAIN_PASSWORD: {% raw %}${{ secrets.KEYCHAIN_PASSWORD }}{% endraw %}
         run: |
           # create variables
           CERTIFICATE_PATH=$RUNNER_TEMP/build_certificate.p12
@@ -117,15 +120,14 @@ jobs:
       - name: Build app
         ...
 ```
-{% endraw %}
 
-## Required clean-up on self-hosted runners
+## Limpeza necessária nos executores auto-hospedados
 
-{% data variables.product.prodname_dotcom %}-hosted runners are isolated virtual machines that are automatically destroyed at the end of the job execution. This means that the certificates and provisioning profile used on the runner during the job will be destroyed with the runner when the job is completed.
+Executores hosperados em {% data variables.product.prodname_dotcom %} são máquinas virtuais isoladas destruídas automaticamente no final da execução do trabalho. Isso significa que os certificados e o perfil de provisionamento usados no executor durante o trabalho serão destruídos com o executor quando o trabalho for concluído.
 
-On self-hosted runners, the `$RUNNER_TEMP` directory is cleaned up at the end of the job execution, but the keychain and provisioning profile might still exist on the runner.
+Em executores auto-hospedados, o diretório `$RUNNER_TEMP` é limpo no final da execução do trabalho, mas o conjunto de chaves e o perfil de provisionamento ainda podem existir no executor.
 
-If you use self-hosted runners, you should add a final step to your workflow to help ensure that these sensitive files are deleted at the end of the job. The workflow step shown below is an example of how to do this.
+Se você usa executores auto-hospedados, você deve adicionar uma última etapa ao seu fluxo de trabalho para ajudar a garantir que esses arquivos sensíveis sejam excluídos no final do trabalho. A etapa do fluxo de trabalho abaixo é um exemplo de como fazer isso.
 
 {% raw %}
 ```yaml

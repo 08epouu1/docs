@@ -1,6 +1,6 @@
 ---
-title: Migrating from GitLab CI/CD to GitHub Actions
-intro: '{% data variables.product.prodname_actions %} and GitLab CI/CD share several configuration similarities, which makes migrating to {% data variables.product.prodname_actions %} relatively straightforward.'
+title: GitLab CI/CD から GitHub Actions への移行
+intro: '{% data variables.product.prodname_actions %} と GitLab CI/CDはいくつかの点で設定が似ているため、{% data variables.product.prodname_actions %} への移行は比較的簡単です。'
 redirect_from:
   - /actions/learn-github-actions/migrating-from-gitlab-cicd-to-github-actions
 versions:
@@ -15,33 +15,37 @@ topics:
   - CI
   - CD
 shortTitle: Migrate from GitLab CI/CD
+ms.openlocfilehash: d0d5f2cae928f95b1a614826f270342f376db0de
+ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
+ms.translationtype: HT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 09/05/2022
+ms.locfileid: '146178984'
 ---
+{% data reusables.actions.enterprise-beta %} {% data reusables.actions.enterprise-github-hosted-runners %}
 
-{% data reusables.actions.enterprise-beta %}
-{% data reusables.actions.enterprise-github-hosted-runners %}
+## はじめに
 
-## Introduction
+GitLab CI/CD と {% data variables.product.prodname_actions %} は、どちらも自動的にコードのビルド、テスト、公開、リリース、デプロイを行うワークフローを作成できます。 GitLab CI/CD と {% data variables.product.prodname_actions %} は、ワークフローの設定において似ているところがあります。
 
-GitLab CI/CD and {% data variables.product.prodname_actions %} both allow you to create workflows that automatically build, test, publish, release, and deploy code. GitLab CI/CD and {% data variables.product.prodname_actions %} share some similarities in workflow configuration:
+- ワークフローの設定ファイルはYAMLで書かれ、コードのリポジトリに保存されます。
+- ワークフローには1つ以上のジョブが含まれます。
+- ジョブには1つ以上のステップもしくは個別のコマンドが含まれます。
+- ジョブは、マネージドマシンまたはセルフホストマシンのいずれかで実行できます。
 
-- Workflow configuration files are written in YAML and are stored in the code's repository.
-- Workflows include one or more jobs.
-- Jobs include one or more steps or individual commands.
-- Jobs can run on either managed or self-hosted machines.
+いくつかの違いがありますので、このガイドでは、ワークフローを {% data variables.product.prodname_actions %} に移行できるようにする際の重要な違いを説明します。
 
-There are a few differences, and this guide will show you the important differences so that you can migrate your workflow to {% data variables.product.prodname_actions %}.
+## ジョブ
 
-## Jobs
+GitLab CI/CD のジョブは、{% data variables.product.prodname_actions %} のジョブと非常によく似ています。 どちらのシステムでも、ジョブは以下の特徴を持ちます。
 
-Jobs in GitLab CI/CD are very similar to jobs in {% data variables.product.prodname_actions %}. In both systems, jobs have the following characteristics:
+* ジョブには、順番に実行される一連のステップまたはスクリプトが含まれています。
+* ジョブは、個別のマシンまたは個別のコンテナで実行できます。
+* ジョブは、デフォルトでは並列に実行されますが、順次実行するように設定することもできます。
 
-* Jobs contain a series of steps or scripts that run sequentially.
-* Jobs can run on separate machines or in separate containers.
-* Jobs run in parallel by default, but can be configured to run sequentially.
+ジョブ内でスクリプトまたはシェルコマンドを実行できます。 GitLab CI/CD では、`script` キーを使ってスクリプトのステップを指定します。 {% data variables.product.prodname_actions %} では、`run` キーを使ってすべてのスクリプトを指定します。
 
-You can run a script or a shell command in a job. In GitLab CI/CD, script steps are specified using the `script` key. In {% data variables.product.prodname_actions %}, all scripts are specified using the `run` key.
-
-Below is an example of the syntax for each system:
+以下が、それぞれのシステムの構文の例です。
 
 <table class="d-block">
 <tr>
@@ -65,24 +69,24 @@ job1:
 {% endraw %}
 </td>
 <td class="d-table-cell v-align-top">
-{% raw %}
+
 ```yaml
 jobs:
   job1:
     steps:
-      - uses: actions/checkout@v2
+      - uses: {% data reusables.actions.action-checkout %}
       - run: echo "Run your script here"
 ```
-{% endraw %}
+
 </td>
 </tr>
 </table>
 
-## Runners
+## ランナー
 
-Runners are machines on which the jobs run. Both GitLab CI/CD and {% data variables.product.prodname_actions %} offer managed and self-hosted variants of runners. In GitLab CI/CD, `tags` are used to run jobs on different platforms, while in {% data variables.product.prodname_actions %} it is done with the `runs-on` key.
+ランナーは、ジョブが実行されるマシンです。 GitLab CI/CD と {% data variables.product.prodname_actions %} はどちらも、マネージドおよびセルフホストのランナーのバリエーションを提供しています。 GitLab CI/CD では、異なるプラットフォームでジョブを実行するために `tags` を使いますが、{% data variables.product.prodname_actions %} では `runs-on` を使います。
 
-Below is an example of the syntax for each system:
+以下が、それぞれのシステムの構文の例です。
 
 <table>
 <tr>
@@ -103,10 +107,8 @@ windows_job:
   script:
     - echo Hello, %USERNAME%!
 
-linux_job:
-  tags:
-    - linux
-  script:
+linux_job: tags:
+    - linux script:
     - echo "Hello, $USER!"
 ```
 {% endraw %}
@@ -129,13 +131,13 @@ linux_job:
 </tr>
 </table>
 
-For more information, see "[Workflow syntax for {% data variables.product.prodname_actions %}](/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on)."
+詳細については、[{% data variables.product.prodname_actions %} のワークフロー構文](/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on)に関するページを参照してください。
 
-## Docker images
+## Docker イメージ
 
-Both GitLab CI/CD and {% data variables.product.prodname_actions %} support running jobs in a Docker image. In GitLab CI/CD, Docker images are defined with an `image` key, while in {% data variables.product.prodname_actions %} it is done with the `container` key.
+GitLab CI/CD と {% data variables.product.prodname_actions %} はどちらも、Docker イメージ内でのジョブの実行をサポートしています。 GitLab CI/CD では、`image` キーを使って Docker イメージを定義しますが、{% data variables.product.prodname_actions %} では `container` キーで行います。
 
-Below is an example of the syntax for each system:
+以下が、それぞれのシステムの構文の例です。
 
 <table class="d-block">
 <tr>
@@ -167,13 +169,13 @@ jobs:
 </tr>
 </table>
 
-For more information, see "[Workflow syntax for {% data variables.product.prodname_actions %}](/actions/reference/workflow-syntax-for-github-actions#jobsjob_idcontainer)."
+詳細については、[{% data variables.product.prodname_actions %} のワークフロー構文](/actions/reference/workflow-syntax-for-github-actions#jobsjob_idcontainer)に関するページを参照してください。
 
-## Condition and expression syntax
+## 条件と式の構文
 
-GitLab CI/CD uses `rules` to determine if a job will run for a specific condition. {% data variables.product.prodname_actions %} uses the `if` keyword to prevent a job from running unless a condition is met.
+GitLab CI/CD では、特定の条件でジョブを実行するかどうかを決定するために `rules` を使います。 {% data variables.product.prodname_actions %} では、条件が満たされない場合にジョブが実行されないようにするには、`if` キーワードを使います。
 
-Below is an example of the syntax for each system:
+以下が、それぞれのシステムの構文の例です。
 
 <table class="d-block">
 <tr>
@@ -212,13 +214,13 @@ jobs:
 </tr>
 </table>
 
-For more information, see "[Expressions](/actions/learn-github-actions/expressions)."
+詳細については、「[式](/actions/learn-github-actions/expressions)」を参照してください。
 
-## Dependencies between Jobs
+## ジョブ間の依存関係
 
-Both GitLab CI/CD and {% data variables.product.prodname_actions %} allow you to set dependencies for a job. In both systems, jobs run in parallel by default, but job dependencies in {% data variables.product.prodname_actions %} can be specified explicitly with the `needs` key. GitLab CI/CD also has a concept of `stages`, where jobs in a stage run concurrently, but the next stage will start when all the jobs in the previous stage have completed. You can recreate this scenario in {% data variables.product.prodname_actions %} with the `needs` key.
+GitLab CI/CD と {% data variables.product.prodname_actions %} の両方で、ジョブの依存関係を設定できます。 どちらのシステムでも、ジョブは既定で並列に実行されますが、{% data variables.product.prodname_actions %} のジョブの依存関係は `needs` キーで明示的に指定できます。 GitLab CI/CD には、`stages` の概念もあります。ステージ内のジョブは同時に実行されますが、次のステージは、前のステージのすべてのジョブが完了した時点で開始されます。 {% data variables.product.prodname_actions %} では、`needs` キーを使ってこのシナリオを作り直すことができます。
 
-Below is an example of the syntax for each system. The workflows start with two jobs named `build_a` and `build_b` running in parallel, and when those jobs complete, another job called `test_ab` will run. Finally, when `test_ab` completes, the `deploy_ab` job will run.
+以下は、それぞれのシステムにおける構文の例です。 ワークフローは並列に実行される `build_a` と `build_b` という名前の 2 つのジョブで開始し、それらのジョブが完了すると、`test_ab` という別のジョブが実行されます。 最後に、`test_ab` が完了すると、`deploy_ab` ジョブが実行されます。
 
 <table class="d-block">
 <tr>
@@ -238,24 +240,16 @@ stages:
   - test
   - deploy
 
-build_a:
-  stage: build
-  script:
+build_a: stage: build script:
     - echo "This job will run first."
 
-build_b:
-  stage: build
-  script:
+build_b: stage: build script:
     - echo "This job will run first, in parallel with build_a."
 
-test_ab:
-  stage: test
-  script:
+test_ab: stage: test script:
     - echo "This job will run after build_a and build_b have finished."
 
-deploy_ab:
-  stage: deploy
-  script:
+deploy_ab: stage: deploy script:
     - echo "This job will run after test_ab is complete"
 ```
 {% endraw %}
@@ -291,25 +285,27 @@ jobs:
 </tr>
 </table>
 
-For more information, see "[Workflow syntax for {% data variables.product.prodname_actions %}](/actions/reference/workflow-syntax-for-github-actions#jobsjob_idneeds)."
+詳細については、[{% data variables.product.prodname_actions %} のワークフロー構文](/actions/reference/workflow-syntax-for-github-actions#jobsjob_idneeds)に関するページを参照してください。
 
-## Scheduling workflows
+## ワークフローのスケジューリング
 
-Both GitLab CI/CD and {% data variables.product.prodname_actions %} allow you to run workflows at a specific interval. In GitLab CI/CD, pipeline schedules are configured with the UI, while in {% data variables.product.prodname_actions %} you can trigger a workflow on a scheduled interval with the "on" key.
+GitLab CI/CD と {% data variables.product.prodname_actions %} の両方を使用すると、特定の間隔でワークフローを実行できます。 GitLab CI/CD では、パイプラインスケジュールは UI で設定されますが、{% data variables.product.prodname_actions %} では、「on」キーを使用してスケジュールされた間隔でワークフローをトリガーできます。
 
-For more information, see "[Events that trigger workflows](/actions/reference/events-that-trigger-workflows#scheduled-events)."
+詳細については、「[ワークフローをトリガーするイベント](/actions/reference/events-that-trigger-workflows#scheduled-events)」を参照してください。
 
-## Variables and secrets
+## 変数とシークレット
 
-GitLab CI/CD and {% data variables.product.prodname_actions %} support setting environment variables in the pipeline or workflow configuration file, and creating secrets using the GitLab or {% data variables.product.product_name %} UI.
+GitLab CI/CD および {% data variables.product.prodname_actions %} は、パイプラインまたはワークフロー設定ファイルでの環境変数の設定、および GitLab または {% data variables.product.product_name %} UI を使用したシークレットの作成をサポートしています。
 
-For more information, see "[Environment variables](/actions/reference/environment-variables)" and "[Encrypted secrets](/actions/reference/encrypted-secrets)."
+詳しくは、「[環境変数](/actions/reference/environment-variables)」と「[暗号化されたシークレット](/actions/reference/encrypted-secrets)」をご覧ください。
 
-## Caching
+## キャッシュ
 
-GitLab CI/CD and {% data variables.product.prodname_actions %} provide a method in the configuration file to manually cache workflow files.
+GitLab CI/CD と {% data variables.product.prodname_actions %} では、設定ファイルにワークフローファイルを手動でキャッシュするためのメソッドがあります。
 
-Below is an example of the syntax for each system:
+{% ifversion actions-caching %}
+
+以下が、それぞれのシステムの構文の例です。
 
 <table class="d-block">
 <tr>
@@ -326,46 +322,47 @@ GitLab CI/CD
 ```yaml
 image: node:latest
 
-cache:
-  key: $CI_COMMIT_REF_SLUG
-  paths:
+cache: key: $CI_COMMIT_REF_SLUG paths:
     - .npm/
 
 before_script:
   - npm ci --cache .npm --prefer-offline
 
-test_async:
-  script:
+test_async: script:
     - node ./specs/start.js ./specs/async.spec.js
 ```
 {% endraw %}
 </td>
 <td class="d-table-cell v-align-top">
-{% raw %}
+
 ```yaml
 jobs:
   test_async:
     runs-on: ubuntu-latest
     steps:
     - name: Cache node modules
-      uses: actions/cache@v2
+      uses: {% data reusables.actions.action-cache %}
       with:
         path: ~/.npm
-        key: v1-npm-deps-${{ hashFiles('**/package-lock.json') }}
+        key: {% raw %}v1-npm-deps-${{ hashFiles('**/package-lock.json') }}{% endraw %}
         restore-keys: v1-npm-deps-
 ```
-{% endraw %}
+
 </td>
 </tr>
 </table>
 
-{% data variables.product.prodname_actions %} caching is only applicable for repositories hosted on {% data variables.product.prodname_dotcom_the_website %}. For more information, see "<a href="/actions/guides/caching-dependencies-to-speed-up-workflows" class="dotcom-only">Caching dependencies to speed up workflows</a>."
+{% else %}
+
+{% data reusables.actions.caching-availability %}
+
+{% endif %}
 
 ## Artifacts
 
-Both GitLab CI/CD and {% data variables.product.prodname_actions %} can upload files and directories created by a job as artifacts. In {% data variables.product.prodname_actions %}, artifacts can be used to persist data across multiple jobs.
+GitLab CI/CD と {% data variables.product.prodname_actions %} はどちらも、ジョブによって作成されたファイルとディレクトリを成果物としてアップロードできます。 {% data variables.product.prodname_actions %} では、成果物を使用して、複数のジョブ間でデータを永続化できます。
 
-Below is an example of the syntax for each system:
+以下が、それぞれのシステムの構文の例です。
 
 <table>
 <tr>
@@ -388,28 +385,28 @@ artifacts:
 {% endraw %}
 </td>
 <td class="d-table-cell v-align-top">
-{% raw %}
+
 ```yaml
 - name: Upload math result for job 1
-  uses: actions/upload-artifact@v2
+  uses: {% data reusables.actions.action-upload-artifact %}
   with:
     name: homework
     path: math-homework.txt
 ```
-{% endraw %}
+
 </td>
 </tr>
 </table>
 
-For more information, see "[Storing workflow data as artifacts](/actions/guides/storing-workflow-data-as-artifacts)."
+詳しくは、「[ワークフロー データを成果物として保存する](/actions/guides/storing-workflow-data-as-artifacts)」をご覧ください。
 
-## Databases and service containers
+## データベースとサービスコンテナ
 
-Both systems enable you to include additional containers for databases, caching, or other dependencies.
+どちらのシステムでも、データベース、キャッシング、あるいはその他の依存関係のための追加コンテナを含めることができます。
 
-In GitLab CI/CD, a container for the job is specified with the `image` key, while {% data variables.product.prodname_actions %} uses the `container` key. In both systems, additional service containers are specified with the `services` key.
+GitLab CI/CD ではジョブのコンテナーを `image` キーで指定しますが、{% data variables.product.prodname_actions %} では `container` キーを使います。 どちらのシステムでも、追加のサービス コンテナーは `services` キーで指定します。
 
-Below is an example of the syntax for each system:
+以下が、それぞれのシステムの構文の例です。
 
 <table class="d-block">
 <tr>
@@ -448,7 +445,7 @@ container-job:
 {% endraw %}
 </td>
 <td class="d-table-cell v-align-top">
-{% raw %}
+
 ```yaml
 jobs:
   container-job:
@@ -463,7 +460,7 @@ jobs:
 
     steps:
       - name: Check out repository code
-        uses: actions/checkout@v2
+        uses: {% data reusables.actions.action-checkout %}
 
       # Performs a clean installation of all dependencies
       # in the `package.json` file
@@ -481,9 +478,9 @@ jobs:
           # The default PostgreSQL port
           POSTGRES_PORT: 5432
 ```
-{% endraw %}
+
 </td>
 </tr>
 </table>
 
-For more information, see "[About service containers](/actions/guides/about-service-containers)."
+詳細については、「[サービス コンテナーについて](/actions/guides/about-service-containers)」を参照してください。

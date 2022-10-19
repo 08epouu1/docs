@@ -1,6 +1,6 @@
 ---
-title: Troubleshooting SSH
-intro: 'When using SSH to connect and authenticate to {% data variables.product.product_name %}, you may need to troubleshoot unexpected issues that may arise.'
+title: SSH 故障排除
+intro: '使用 SSH 连接到 {% data variables.product.product_name %} 并进行身份验证时，您可能需要对可能引起的意外问题进行故障排除。'
 redirect_from:
   - /articles/troubleshooting-ssh
   - /github/authenticating-to-github/troubleshooting-ssh
@@ -25,5 +25,11 @@ children:
   - /error-ssl-certificate-problem-verify-that-the-ca-cert-is-ok
   - /error-unknown-key-type
   - /error-were-doing-an-ssh-key-audit
+ms.openlocfilehash: aaf218a14122d77f251f52c9253c67726e943d56
+ms.sourcegitcommit: fb047f9450b41b24afc43d9512a5db2a2b750a2a
+ms.translationtype: HT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 09/11/2022
+ms.locfileid: '145084560'
 ---
 

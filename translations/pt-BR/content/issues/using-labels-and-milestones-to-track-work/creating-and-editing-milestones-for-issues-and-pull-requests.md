@@ -1,6 +1,6 @@
 ---
-title: Creating and editing milestones for issues and pull requests
-intro: You can create a milestone to track progress on groups of issues or pull requests in a repository.
+title: Criar e editar marcos para problemas e pull requests
+intro: Você pode criar um marco para rastrear o progresso em grupos de problemas ou pull requests em um repositório.
 redirect_from:
   - /github/managing-your-work-on-github/tracking-the-progress-of-your-work-with-milestones/creating-and-editing-milestones-for-issues-and-pull-requests
   - /articles/creating-milestones-for-issues-and-pull-requests
@@ -17,30 +17,32 @@ topics:
   - Project management
 shortTitle: Create & edit milestones
 type: how_to
+ms.openlocfilehash: c0e812b9f91f91d88d7512974f1df52efbf8c65b
+ms.sourcegitcommit: 5b1461b419dbef60ae9dbdf8e905a4df30fc91b7
+ms.translationtype: HT
+ms.contentlocale: pt-BR
+ms.lasthandoff: 09/10/2022
+ms.locfileid: '147875594'
 ---
-{% data reusables.repositories.navigate-to-repo %}
-{% data reusables.repositories.sidebar-issue-pr %}
-{% data reusables.project-management.milestones %}
-4. Choose one of these options:
-    - To create a new milestone, click **New Milestone**.
-  ![New milestone button](/assets/images/help/repository/new-milestone.png)
-    - To edit a milestone, next to the milestone you want to edit, click **Edit**.
-  ![Edit milestone option](/assets/images/help/repository/edit-milestone.png)
-5. Type the milestone's title, description, or other changes, and click **Create milestone** or **Save changes**. Milestones will render Markdown syntax. For more information about Markdown syntax, see "[Basic writing and formatting syntax](/github/writing-on-github/basic-writing-and-formatting-syntax)."
+{% data reusables.repositories.navigate-to-repo %} {% data reusables.repositories.sidebar-issue-pr %} {% data reusables.project-management.milestones %}
+4. Escolha uma destas opções:
+    - Para criar um marco, clique em **Novo Marco**.
+  ![Botão Novo marco](/assets/images/help/repository/new-milestone.png)
+    - Para editar um marco, ao lado do marco que deseja editar, clique em **Editar**.
+  ![Opção Editar marco](/assets/images/help/repository/edit-milestone.png)
+5. Digite o título, a descrição ou outras alterações do marco e clique em **Criar marco** ou **salvar alterações**. Os marcos irão renderizar a sintaxe do Markdown. Para obter mais informações sobre a sintaxe Markdown, confira "[Sintaxe básica de escrita e formatação](/github/writing-on-github/basic-writing-and-formatting-syntax)".
 
-## Deleting milestones
+## Excluir marcos
 
-When you delete milestones, issues and pull requests are not affected.
+Quando você exclui marcos, os problemas e as pull requests não são afetados.
 
-{% data reusables.repositories.navigate-to-repo %}
-{% data reusables.repositories.sidebar-issue-pr %}
-{% data reusables.project-management.milestones %}
-4. Next to the milestone you want to delete, click **Delete**.
-![Delete milestone option](/assets/images/help/repository/delete-milestone.png)
+{% data reusables.repositories.navigate-to-repo %} {% data reusables.repositories.sidebar-issue-pr %} {% data reusables.project-management.milestones %}
+4. Ao lado do marco que deseja excluir, clique em **Excluir**.
+![Opção Excluir marco](/assets/images/help/repository/delete-milestone.png)
 
-## Further reading
+## Leitura adicional
 
-- "[About milestones](/articles/about-milestones)"
-- "[Associating milestones with issues and pull requests](/articles/associating-milestones-with-issues-and-pull-requests)"
-- "[Viewing your milestone's progress](/articles/viewing-your-milestone-s-progress)"
-- "[Filtering issues and pull requests by milestone](/articles/filtering-issues-and-pull-requests-by-milestone)"
+- "[Sobre os marcos](/articles/about-milestones)"
+- "[Como associar marcos a problemas e solicitações de pull](/articles/associating-milestones-with-issues-and-pull-requests)"
+- "[Como ver o andamento do marco](/articles/viewing-your-milestone-s-progress)"
+- "[Como filtrar problemas e solicitações de pull por marco](/articles/filtering-issues-and-pull-requests-by-milestone)"

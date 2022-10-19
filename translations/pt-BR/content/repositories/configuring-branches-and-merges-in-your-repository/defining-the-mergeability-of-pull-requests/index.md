@@ -1,6 +1,6 @@
 ---
-title: Defining the mergeability of pull requests
-intro: 'You can require pull requests to pass a set of checks before they can be merged. For example, you can block pull requests that don''t pass status checks or require that pull requests have a specific number of approving reviews before they can be merged.'
+title: Definir a capacidade de merge de pull requests
+intro: 'É possível exigir que as pull requests passem por uma série de verificações antes do merge. Por exemplo, você pode bloquear pull requests que não são aprovadas nas verificações de status ou exigir que essas pull requests tenham um número específico de revisões de aprovação antes de passarem por merge.'
 redirect_from:
   - /articles/defining-the-mergeability-of-a-pull-request
   - /articles/defining-the-mergeability-of-pull-requests
@@ -19,5 +19,11 @@ children:
   - /managing-a-branch-protection-rule
   - /troubleshooting-required-status-checks
 shortTitle: Mergeability of PRs
+ms.openlocfilehash: 4f3f4de6c136710ba2689b22e6def8c7d8de859c
+ms.sourcegitcommit: 5f9527483381cfb1e41f2322f67c80554750a47d
+ms.translationtype: HT
+ms.contentlocale: pt-BR
+ms.lasthandoff: 09/11/2022
+ms.locfileid: '147882422'
 ---
 

@@ -1,6 +1,6 @@
 ---
-title: Canceling a GitHub Marketplace app
-intro: 'You can cancel and remove a {% data variables.product.prodname_marketplace %} app from your account at any time.'
+title: GitHub Marketplace アプリケーションのキャンセル
+intro: '{% data variables.product.prodname_marketplace %}のアプリケーションは、いつでもアカウントからキャンセルおよび削除できます。'
 redirect_from:
   - /github/setting-up-and-managing-billing-and-payments-on-github/canceling-a-github-marketplace-app
   - /articles/canceling-an-app-for-your-personal-account
@@ -18,45 +18,37 @@ topics:
   - Trials
   - User account
 shortTitle: Cancel a Marketplace app
+ms.openlocfilehash: 9295f8ab1c5d9f4f3bef027dd6def79fcaa51df4
+ms.sourcegitcommit: fcf3546b7cc208155fb8acdf68b81be28afc3d2d
+ms.translationtype: HT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 09/10/2022
+ms.locfileid: '145088038'
 ---
-When you cancel an app, your subscription remains active until the end of your current billing cycle. The cancellation takes effect on your next billing date. For more information, see "[About billing for {% data variables.product.prodname_marketplace %}](/articles/about-billing-for-github-marketplace)."
+アプリケーションをキャンセルすると、そのプランは現在の支払いサイクルが終わるまで有効のままとなり、 次の支払いサイクルで無効となります。 詳細については、「[{% data variables.product.prodname_marketplace %} の請求について](/articles/about-billing-for-github-marketplace)」を参照してください。
 
-When you cancel a free trial on a paid plan, your subscription is immediately canceled and you will lose access to the app. If you don't cancel your free trial within the trial period, the payment method on file for your account will be charged for the plan you chose at the end of the trial period. For more information, see "[About billing for {% data variables.product.prodname_marketplace %}](/articles/about-billing-for-github-marketplace)."
+有料プランの無料トライアルをキャンセルすると、そのプランはすぐにキャンセルされ、キャンセルしたアプリケーションにアクセスできなくなります。 無料トライアル期間中にキャンセルしない場合、アカウントで設定された支払い方法で、トライアル期間の終了時にプランに対して課金されます。 詳細については、「[{% data variables.product.prodname_marketplace %} の請求について](/articles/about-billing-for-github-marketplace)」を参照してください。
 
 {% data reusables.marketplace.downgrade-marketplace-only %}
 
-## Canceling an app for your personal account
+## 個人アカウントのアプリケーションをキャンセルする
 
-{% data reusables.user_settings.access_settings %}
-{% data reusables.user_settings.billing_plans %}
-{% data reusables.marketplace.cancel-app-billing-settings %}
-{% data reusables.marketplace.cancel-app %}
+{% data reusables.user-settings.access_settings %} {% data reusables.user-settings.billing_plans %} {% data reusables.marketplace.cancel-app-billing-settings %} {% data reusables.marketplace.cancel-app %}
 
-## Canceling a free trial for an app for your personal account
+## 個人アカウントのアプリケーション無料トライアルをキャンセルする
 
-{% data reusables.user_settings.access_settings %}
-{% data reusables.user_settings.billing_plans %}
-{% data reusables.marketplace.cancel-free-trial-billing-settings %}
-{% data reusables.marketplace.cancel-app %}
+{% data reusables.user-settings.access_settings %} {% data reusables.user-settings.billing_plans %} {% data reusables.marketplace.cancel-free-trial-billing-settings %} {% data reusables.marketplace.cancel-app %}
 
-## Canceling an app for your organization
+## Organization の無料トライアルをキャンセルする
 
 {% data reusables.marketplace.marketplace-org-perms %}
 
 
-{% data reusables.profile.access_org %}
-{% data reusables.profile.org_settings %}
-{% data reusables.organizations.billing_plans %}
-{% data reusables.marketplace.cancel-app-billing-settings %}
-{% data reusables.marketplace.cancel-app %}
+{% data reusables.profile.access_org %} {% data reusables.profile.org_settings %} {% data reusables.organizations.billing_plans %} {% data reusables.marketplace.cancel-app-billing-settings %} {% data reusables.marketplace.cancel-app %}
 
-## Canceling a free trial for an app for your organization
+## Organization のアプリケーション無料トライアルをキャンセルする
 
 {% data reusables.marketplace.marketplace-org-perms %}
 
 
-{% data reusables.profile.access_org %}
-{% data reusables.profile.org_settings %}
-{% data reusables.organizations.billing_plans %}
-{% data reusables.marketplace.cancel-free-trial-billing-settings %}
-{% data reusables.marketplace.cancel-app %}
+{% data reusables.profile.access_org %} {% data reusables.profile.org_settings %} {% data reusables.organizations.billing_plans %} {% data reusables.marketplace.cancel-free-trial-billing-settings %} {% data reusables.marketplace.cancel-app %}
